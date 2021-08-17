@@ -1,0 +1,34 @@
+name: vhelp_test
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.12.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  syncfusion_flutter_calendar: ^19.2.55
+  cupertino_icons: ^1.0.2
+  splashscreen: any
+  form_field_validator: ^1.1.0
+  firebase_core: ^1.4.0
+  firebase_auth: ^3.0.1
+  fluttertoast: ^8.0.8
+  cloud_firestore: ^2.4.0
+  device_calendar: ^3.1.0
+  # database storage
+  sqflite: ^2.0.0+3
+  # format date time
+  intl: ^0.17.0
+   # display todos in grid
+  flutter_staggered_grid_view: ^0.4.0-nullsafety.3
+  flutter_emoji: ^2.2.1+1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  
+flutter:
+  uses-material-design: true
+  assets:
+  - assets/images/

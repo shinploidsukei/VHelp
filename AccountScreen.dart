@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vhelp_test/screens/register.dart';
+import 'screens/register.dart';
 import 'Login.dart';
 import 'Start.dart';
 

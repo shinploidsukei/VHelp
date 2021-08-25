@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:vhelp_test/DiaryLog.dart';
-import '/db/notes_database.dart';
-import '/model/note.dart';
-import '/page/edit_note_page.dart';
-import '/page/note_detail_page.dart';
-import '/widget/note_card_widget.dart';
+import '../DiaryLog.dart';
+import '../db/notes_database.dart';
+import '../model/note.dart';
+import '../page/edit_note_page.dart';
+import '../page/note_detail_page.dart';
+import '../widget/note_card_widget.dart';
 
 class NotesPage extends StatefulWidget {
   @override

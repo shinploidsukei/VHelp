@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:intl/intl.dart';
-import 'package:vhelp_test/Login.dart';
-import 'package:vhelp_test/model/userInfo.dart';
+import '../Login.dart';
+import '../model/userInfo.dart';
 
 class profileForm extends StatefulWidget {
   const profileForm({Key? key}) : super(key: key);

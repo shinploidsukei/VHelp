@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 //import 'package:flutter_emoji/flutter_emoji.dart';
-import 'package:vhelp_test/DiaryCard.dart';
-import 'package:vhelp_test/YearPixels.dart';
-import 'package:vhelp_test/page/notes_page.dart';
+import 'DiaryCard.dart';
+import 'YearPixels.dart';
+import 'page/notes_page.dart';
 import 'content.dart';
 
 class DiaryLogPage extends StatefulWidget {

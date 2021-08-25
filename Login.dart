@@ -3,8 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:vhelp_test/Content.dart';
-import 'package:vhelp_test/model/profile.dart';
+import 'Content.dart';
+import 'model/profile.dart';
 
 class LoginDemo extends StatefulWidget {
   @override

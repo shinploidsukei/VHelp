@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:vhelp_test/PopupDialog.dart';
+import 'PopupDialog.dart';
 
 // This class is myDetailsContainer()
 class DiaryDetail extends StatefulWidget {

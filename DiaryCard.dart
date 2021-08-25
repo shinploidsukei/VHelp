@@ -1,4 +1,4 @@
-import 'package:vhelp_test/DiarytDetail.dart';
+import 'DiarytDetail.dart';
 import 'package:flutter/material.dart';
 
 // This class is in buildPages()  -->  //1, //2, //3, ...

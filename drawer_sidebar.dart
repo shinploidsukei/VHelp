@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:vhelp_test/Art.dart';
-import 'package:vhelp_test/Calendar.dart';
-import 'package:vhelp_test/DiaryLog.dart';
-import 'package:vhelp_test/DocNoti.dart';
-import 'package:vhelp_test/Music.dart';
-import 'package:vhelp_test/Podcast.dart';
-import 'package:vhelp_test/Timestamp.dart';
-import '/Login.dart';
-import '/MedNoti.dart';
-import '/UserProfile.dart';
+import 'Art.dart';
+import 'Calendar.dart';
+import 'DiaryLog.dart';
+import 'DocNoti.dart';
+import 'Music.dart';
+import 'Podcast.dart';
+import 'Timestamp.dart';
+import 'MedNoti.dart';
+import 'UserProfile.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
   final padding = EdgeInsets.symmetric(horizontal: 20);

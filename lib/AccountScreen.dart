@@ -41,7 +41,7 @@ class _MyStatelessWidget extends State<MyApp> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Image.asset(
-                        'assets/images/art.png',
+                        'assets/images/iceberg.png',
                         height: 350,
                         width: 350,
                       ),

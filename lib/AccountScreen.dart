@@ -29,7 +29,12 @@ class _MyStatelessWidget extends State<MyApp> {
       builder: (context, model, child) {
         if (model.isOnline != null) {
           return model.isOnline
-              ? Center(
+              ? Container(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(colors: [
+                    Colors.blue.shade200,
+                    Colors.blueGrey.shade100
+                  ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,

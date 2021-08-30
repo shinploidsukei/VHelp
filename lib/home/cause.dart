@@ -1,40 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:vhelp_test/Content.dart';
 import 'package:url_launcher/url_launcher.dart';
-//import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 
-class Hotline extends StatelessWidget {
-
+class Cause extends StatelessWidget {
+  //static final String title = 'Date (Range) & Time';
 
   @override
   Widget build(BuildContext context) => MaterialApp(
     debugShowCheckedModeBanner: false,
+    //title: title,
     theme: ThemeData(
       primaryColor: Colors.black,
     ),
-    home: HotlinePage(),
+    home: CausePage(),
   );
 }
 
-class HotlinePage extends StatefulWidget {
+class CausePage extends StatefulWidget {
   @override
-  HotlinePageState createState() => HotlinePageState();
+  CausePageState createState() => CausePageState();
 }
 
-class HotlinePageState extends State<HotlinePage> {
+class CausePageState extends State<CausePage> {
   int index = 0;
-  final number = '1323';
-  final command = '1323';
-  Future<void> _makePhoneCall(command)async{
-    if(await canLaunch(command)){
-      await launch(command);
-    }else{
-      print('Could not launch $command');
-    }
-  }
+
   _launchURL() async {
     const url =
-        'https://www.dmh.go.th/main.asp';
+        'https://www.psychguides.com/depression/';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -47,15 +39,17 @@ class HotlinePageState extends State<HotlinePage> {
     body: buildPages(),
   );
 
-
   Widget buildPages() {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Hotline"),
+        title: Text("Causes and Effects of Depression"),
         backgroundColor: Colors.blueGrey,
         elevation: 4.0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios,color: Colors.white,),
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.white,
+          ),
           alignment: Alignment.center,
           hoverColor: Colors.white,
           onPressed: () {
@@ -78,13 +72,6 @@ class HotlinePageState extends State<HotlinePage> {
             //crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 10,
-              ),
-              Text(
-                'Department of Mental Health',
-                style: TextStyle(fontSize: 18 ,color: Colors.black54,fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
                 height: 30,
               ),
               Container(
@@ -93,46 +80,34 @@ class HotlinePageState extends State<HotlinePage> {
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                     image: DecorationImage(
-                        image: AssetImage('assets/images/hotline.jpg'),
+                        image: AssetImage('assets/images/cause.jpg'),
                         fit: BoxFit.cover)),
               ),
               SizedBox(
                 height: 30,
               ),
               Text(
-                '           Department of Mental Health Hotline 1323 will provide people with fast and effective mental health counseling. In the future, Thai people will be in good mental health and happy. The number of lines on the Mental Health Hotline 1323 will be increased to accommodate the growing demand.',
-                style: TextStyle(fontSize: 15 ,color: Colors.black54),
+                '           Many potential causes for depression exist. It can be genetic, meaning the patient has a family history of depression. Personal trauma and sources of stress, such as a failed relationship or a lost job, can also cause depression. Social isolation as the result of conflict with family and friends can be a contributory factor, and certain medications, such as high blood pressure medication, have depression listed as a possible side effect.',
+                style: TextStyle(fontSize: 15, color: Colors.black54),
               ),
               SizedBox(
                 height: 30,
-              ),
-              SizedBox(
-                height: 16,
               ),
               Container(
                 child: TextButton(
                   onPressed: _launchURL,
                   child: Text(
-                    'Go to Website',
+                    'More..',
                     style: TextStyle(color: Colors.white, fontSize: 25),
                   ),
                 ),
               ),
+              SizedBox(
+                height: 16,
+              ),
             ],
           ),
         ),
-        floatingActionButton: Container(
-          height: 70,
-          width: 70,
-          child: FloatingActionButton(
-            child: Icon(Icons.call),
-            onPressed: () => setState((){
-              launch(('tel://$command'));
-            }),
-          ),
-        )
     );
   }
 }
-
-

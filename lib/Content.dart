@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:vhelp_test/home/cause.dart';
 import 'package:vhelp_test/home/hotline.dart';
+import 'package:vhelp_test/home/symptoms.dart';
 import 'drawer_sidebar.dart';
 import 'package:vhelp_test/home/depression.dart';
+import 'package:vhelp_test/home/deal.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -91,9 +94,10 @@ class _HomePageState extends State<HomePage> {
               new GestureDetector(
                 onTap: () {
                   Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Hotline(),
-                  ));
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Hotline(),
+                      ));
                 },
                 child: new Container(
                   //2
@@ -106,89 +110,143 @@ class _HomePageState extends State<HomePage> {
                           fit: BoxFit.cover)),
                 ),
               ),
-              Container(
-                //3
-                width: double.infinity,
-                height: 250,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    image: DecorationImage(
-                        image: AssetImage('assets/images/cause.jpg'),
-                        fit: BoxFit.cover)),
-              ),
-              Container(
-                constraints: BoxConstraints.expand(
-                  height:
-                      Theme.of(context).textTheme.headline4!.fontSize! * 1.1 +
-                          200.0,
+              new GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Cause(),
+                      ));
+                },
+                child: new Container(
+                  //3
+                  width: double.infinity,
+                  height: 250,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      image: DecorationImage(
+                          image: AssetImage('assets/images/cause.jpg'),
+                          fit: BoxFit.cover)),
                 ),
-                padding: const EdgeInsets.all(30.0),
-                color: Colors.lightGreen[100],
-                alignment: Alignment.center,
-                child: Text(
-                  'Causes and Effects of Depression',
-                  style: TextStyle(
-                    fontSize: 20,
-                    foreground: Paint()..color = Colors.black54,
+              ),
+              new GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Cause(),
+                      ));
+                },
+                child: new Container(
+                  constraints: BoxConstraints.expand(
+                    height:
+                        Theme.of(context).textTheme.headline4!.fontSize! * 1.1 +
+                            200.0,
                   ),
-                ),
-                transform: Matrix4.rotationZ(0.1),
-              ),
-              Container(
-                constraints: BoxConstraints.expand(
-                  height:
-                      Theme.of(context).textTheme.headline4!.fontSize! * 1.1 +
-                          200.0,
-                ),
-                padding: const EdgeInsets.all(30.0),
-                color: Colors.lightBlue[100],
-                alignment: Alignment.centerRight,
-                child: Text(
-                  'Depression\'s Symptoms',
-                  style: TextStyle(
-                    fontSize: 20,
-                    foreground: Paint()..color = Colors.black54,
+                  padding: const EdgeInsets.all(30.0),
+                  color: Colors.lightGreen[100],
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Causes and Effects of Depression',
+                    style: TextStyle(
+                      fontSize: 20,
+                      foreground: Paint()..color = Colors.black54,
+                    ),
                   ),
+                  transform: Matrix4.rotationZ(0.1),
                 ),
-                transform: Matrix4.rotationZ(-0.1),
               ),
-              Container(
-                //4
-                width: double.infinity,
-                height: 250,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    image: DecorationImage(
-                        image: AssetImage('assets/images/symptom.jpg'),
-                        fit: BoxFit.cover)),
-              ),
-              Container(
-                //5
-                width: double.infinity,
-                height: 250,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    image: DecorationImage(
-                        image: AssetImage('assets/images/what.jpg'),
-                        fit: BoxFit.cover)),
-              ),
-              Container(
-                constraints: BoxConstraints.expand(
-                  height:
-                      Theme.of(context).textTheme.headline4!.fontSize! * 1.1 +
-                          200.0,
-                ),
-                padding: const EdgeInsets.all(8.0),
-                color: Colors.purple[100],
-                alignment: Alignment.center,
-                child: Text(
-                  'How to deal with depression when you feel blue',
-                  style: TextStyle(
-                    fontSize: 20,
-                    foreground: Paint()..color = Colors.black54,
+              new GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Symptoms(),
+                      ));
+                },
+                child: new Container(
+                  constraints: BoxConstraints.expand(
+                    height:
+                        Theme.of(context).textTheme.headline4!.fontSize! * 1.1 +
+                            200.0,
                   ),
+                  padding: const EdgeInsets.all(30.0),
+                  color: Colors.lightBlue[100],
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    'Depression Symptoms and Warning Signs',
+                    style: TextStyle(
+                      fontSize: 20,
+                      foreground: Paint()..color = Colors.black54,
+                    ),
+                  ),
+                  transform: Matrix4.rotationZ(-0.1),
                 ),
-                transform: Matrix4.rotationZ(0.1),
+              ),
+              new GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Symptoms(),
+                      ));
+                },
+                child: new Container(
+                  //4
+                  width: double.infinity,
+                  height: 250,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      image: DecorationImage(
+                          image: AssetImage('assets/images/symptom.jpg'),
+                          fit: BoxFit.cover)),
+                ),
+              ),
+              new GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Deal(),
+                      ));
+                },
+                child: new Container(
+                  //5
+                  width: double.infinity,
+                  height: 250,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      image: DecorationImage(
+                          image: AssetImage('assets/images/what.jpg'),
+                          fit: BoxFit.cover)),
+                ),
+              ),
+              new GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Deal(),
+                      ));
+                },
+                child: new Container(
+                  constraints: BoxConstraints.expand(
+                    height:
+                        Theme.of(context).textTheme.headline4!.fontSize! * 1.1 +
+                            200.0,
+                  ),
+                  padding: const EdgeInsets.all(8.0),
+                  color: Colors.purple[100],
+                  alignment: Alignment.center,
+                  child: Text(
+                    'How to deal with depression when you feel blue',
+                    style: TextStyle(
+                      fontSize: 20,
+                      foreground: Paint()..color = Colors.black54,
+                    ),
+                  ),
+                  transform: Matrix4.rotationZ(0.1),
+                ),
               ),
             ],
           ),

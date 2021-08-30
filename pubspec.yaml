@@ -39,6 +39,8 @@ dependencies:
   flutter_riverpod: ^0.14.0+3
   flutter_svg: ^0.22.0
   flutter_swiper: ^1.1.6
+  table_calendar: ^2.2.1
+  shared_preferences: ^2.0.7
 
 dev_dependencies:
   flutter_test:

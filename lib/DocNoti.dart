@@ -33,13 +33,8 @@ class DocNotiPage extends StatelessWidget {
       title: Text('Doctor Notification'),
       centerTitle: true,
     ),
-    body: CalendarWidget(),
-    floatingActionButton: FloatingActionButton(
-      child: Icon(Icons.add,color: Colors.white),
-      backgroundColor: Colors.blue.shade200,
-      onPressed: ()=> Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => EventEditingPage()),
+    body: Scaffold(
       ),
-    ),
+    
   );
 }

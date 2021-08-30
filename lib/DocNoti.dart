@@ -1,18 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:vhelp_test/page/event_editing_page.dart';
+import 'package:vhelp_test/provider/event_provider.dart';
 import 'package:vhelp_test/widget/calendar_widget.dart';
+import 'package:provider/provider.dart';
 
-class DocNoti extends StatefulWidget {
+
+class DocNoti extends StatelessWidget {
+  static final String title = 'Calendar Events App';
+
   @override
-  _DocNotiPage createState() => _DocNotiPage();
+  Widget build(BuildContext context) => ChangeNotifierProvider(
+        create: (context) => EventProvider(),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: title,
+          themeMode: ThemeMode.light,
+          darkTheme: ThemeData.dark().copyWith(
+            scaffoldBackgroundColor: Colors.black,
+            accentColor: Colors.white,
+            primaryColor: Colors.blueGrey,
+          ),
+          home: DocNotiPage(),
+        ),
+      );
 }
 
-
-class _DocNotiPage extends State<DocNoti> {
-@override 
-
-Widget build(BuildContext context) => Scaffold(
+class DocNotiPage extends StatelessWidget {
+  Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           title: Text('Doctor Notification'),
           centerTitle: true,
@@ -20,7 +34,7 @@ Widget build(BuildContext context) => Scaffold(
         body: CalendarWidget(),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add, color: Colors.white),
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.blue,
           onPressed: () => Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => EventEditingPage()),
           ),

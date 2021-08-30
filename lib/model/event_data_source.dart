@@ -1,33 +1,26 @@
-import 'package:flutter/cupertino.dart';
+import '/model/event.dart';
+import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
-import 'package:vhelp_test/event.dart';
 
-class EventDataSource extends CalendarDataSource{
-  EventDataSource(List<Event> appointments){
+class EventDataSource extends CalendarDataSource {
+  EventDataSource(List<Event> appointments) {
     this.appointments = appointments;
   }
-  Event getEvent( int index) => appointments![index]as Event;
+
+  Event getEvent(int index) => appointments![index] as Event;
+
   @override
- DateTime getStartTime(int index) {
-   return appointments![index].from;
- }
+  DateTime getStartTime(int index) => getEvent(index).from;
 
- @override
- DateTime getEndTime(int index) {
-   return appointments![index].to;
- }
+  @override
+  DateTime getEndTime(int index) => getEvent(index).to;
 
- @override
- String getSubject(int index) {
-   return appointments![index].title;
- }
+  @override
+  String getSubject(int index) => getEvent(index).title;
 
- @override
- Color getColor(int index) => getEvent(index).backgroundcolor;
+  @override
+  Color getColor(int index) => getEvent(index).backgroundColor;
 
- @override
- bool isAllDay(int index) {
-   return appointments![index].isAllDay;
- }
-
+  @override
+  bool isAllDay(int index) => getEvent(index).isAllDay;
 }

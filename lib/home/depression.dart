@@ -69,7 +69,7 @@ class DepressionPageState extends State<DepressionPage> {
                 end: Alignment.bottomCenter)),
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            //mainAxisAlignment: MainAxisAlignment.start,
             //crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
@@ -82,14 +82,20 @@ class DepressionPageState extends State<DepressionPage> {
                     borderRadius: BorderRadius.circular(20),
                     image: DecorationImage(
                         image: AssetImage('assets/images/what.jpg'),
+                        alignment: Alignment.center,
                         fit: BoxFit.cover)),
               ),
               SizedBox(
                 height: 30,
               ),
               Text(
+                'What is depression?',
+                style: TextStyle(fontSize: 20, color: Colors.black54),
+              ),
+              Text(
                 '         Depression (major depressive disorder) is a common and serious medical illness that negatively affects how you feel, the way you think and how you act. Fortunately, it is also treatable. Depression causes feelings of sadness and/or a loss of interest in activities you once enjoyed. It can lead to a variety of emotional and physical problems and can decrease your ability to function at work and at home.',
                 style: TextStyle(fontSize: 15, color: Colors.black54),
+                textAlign: TextAlign.left,
               ),
               SizedBox(
                 height: 10,
@@ -97,6 +103,7 @@ class DepressionPageState extends State<DepressionPage> {
               Text(
                 '           Depression symptoms can vary from mild to severe and can include:',
                 style: TextStyle(fontSize: 15, color: Colors.black54),
+                textAlign: TextAlign.left,
               ),
               SizedBox(
                 height: 10,
@@ -104,6 +111,7 @@ class DepressionPageState extends State<DepressionPage> {
               Text(
                 '           • Feeling sad or having a depressed mood\n           • Loss of interest or pleasure in activities once enjoyed\n           • Changes in appetite — weight loss or gain unrelated to dieting\n           • Trouble sleeping or sleeping too much\n           • Loss of energy or increased fatigue\n           • Increase in purposeless physical activity (e.g., inability to sit still, pacing, handwringing) or slowed movements or speech (these actions must be severe enough to be observable by others)\n           • Feeling worthless or guilty\n           • Difficulty thinking, concentrating or making decisions\n           • Thoughts of death or suicide',
                 style: TextStyle(fontSize: 16, color: Colors.black54),
+                textAlign: TextAlign.left,
               ),
               SizedBox(
                 height: 20,
@@ -114,6 +122,7 @@ class DepressionPageState extends State<DepressionPage> {
                   child: Text(
                     'More..',
                     style: TextStyle(color: Colors.white, fontSize: 25),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),

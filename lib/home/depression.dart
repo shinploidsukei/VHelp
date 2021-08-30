@@ -42,8 +42,8 @@ class DepressionPageState extends State<DepressionPage> {
   Widget buildPages() {
     return Scaffold(
       appBar: AppBar(
-        title: Text("What is depression?"),
-        backgroundColor: Colors.blueGrey,
+        //title: Text("What is depression?"),
+        backgroundColor: Colors.blue.shade100,
         elevation: 4.0,
         leading: IconButton(
           icon: Icon(

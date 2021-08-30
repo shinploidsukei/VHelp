@@ -1,10 +1,8 @@
 import 'package:provider/provider.dart';
 import 'package:vhelp_test/date_picker_widget.dart';
-import 'package:vhelp_test/page/event_editing_page.dart';
 import 'package:vhelp_test/provider/event_provider.dart';
 import 'package:vhelp_test/time_picker_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:vhelp_test/widget/calendar_widget.dart';
 import 'content.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/timezone.dart' as tz;

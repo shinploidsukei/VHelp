@@ -34,7 +34,7 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          // backgroundColor: Colors.blue[200],
+         // backgroundColor: Colors.blue[200],
           elevation: 0,
           actions: [buildButton()],
         ),

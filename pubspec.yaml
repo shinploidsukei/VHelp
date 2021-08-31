@@ -7,6 +7,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
   syncfusion_flutter_calendar: ^19.2.55
   cupertino_icons: ^1.0.2
   splashscreen: any
@@ -14,8 +16,7 @@ dependencies:
   firebase_core: ^1.4.0
   firebase_auth: ^3.0.1
   fluttertoast: ^8.0.8
-  cloud_firestore: ^2.4.0
-  device_calendar: ^3.1.0
+ # device_calendar: ^3.1.0
   # database storage
   sqflite: ^2.0.0+3
   # format date time
@@ -26,6 +27,13 @@ dependencies:
   flutter_emoji: ^2.2.1+1
   connectivity: ^3.0.6
   provider: ^6.0.0
+  url_launcher: ^6.0.9
+  flutter_phone_direct_caller: ^2.0.0
+  cloud_firestore: ^2.5.1
+  shared_preferences: ^2.0.7
+  rxdart: ^0.27.1
+  flutter_native_timezone: ^2.0.0
+
 
 dev_dependencies:
   flutter_test:

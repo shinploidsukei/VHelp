@@ -25,6 +25,8 @@ class _DiaryDetailState extends State<DiaryDetail> {
     Colors.green[400],
   ];
 
+  var colorSaved;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -75,6 +77,7 @@ class _DiaryDetailState extends State<DiaryDetail> {
           );
           setState(() {
             selectedIndex = index;
+            colorSaved = emojiColors[index];
           });
         },
       ),

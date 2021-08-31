@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vhelp_test/model/colorLog.dart';
 //import 'package:flutter_emoji/flutter_emoji.dart';
 import 'DiaryCard.dart';
 import 'YearPixels.dart';
@@ -13,6 +14,8 @@ class DiaryLogPage extends StatefulWidget {
 }
 
 class _DiaryLogPageState extends State<DiaryLogPage> {
+  colorLog colorSaved = colorLog(colorSaved: null);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,10 +46,11 @@ class _DiaryLogPageState extends State<DiaryLogPage> {
             child: ListView.builder(
               itemCount: 7,
               itemBuilder: (context, index) {
-                return DiaryCard(day: index);
+                return DiaryCard(day: colorSaved.colorSaved = index);
               },
             ),
           ),
+          // bottom bar
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -97,5 +101,26 @@ class _DiaryLogPageState extends State<DiaryLogPage> {
         ],
       )),
     );
+  }
+
+  double getColorIndex(int index) {
+    switch (index % 7) {
+      case 0:
+        return 100;
+      case 1:
+        return 150;
+      case 2:
+        return 150;
+      case 3:
+        return 100;
+      case 4:
+        return 100;
+      case 5:
+        return 100;
+      case 6:
+        return 100;
+      default:
+        return 100;
+    }
   }
 }

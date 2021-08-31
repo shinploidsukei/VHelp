@@ -1,4 +1,148 @@
+import 'package:flutter/material.dart';
+import 'package:vhelp_test/MedConfirmSuccess.dart';
+import '/notification_api.dart';
+import 'package:vhelp_test/notification_api.dart';
+
+
+class MedNoti extends StatelessWidget {
+  static final String title = 'Local Notifications';
+
+  @override
+  Widget build(BuildContext context) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: title,
+        theme: ThemeData(primarySwatch: Colors.deepOrange),
+        home: MainPage(),
+      );
+}
+
+class MainPage extends StatefulWidget {
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    NotificationApi.init(initScheduled: true);
+    listenNotifications();
+
+    /// Optionally schedule notification on app start
+    // NotificationApi.showScheduledNotification(
+    //   title: 'Dinner',
+    //   body: 'Today at 6 PM',
+    //   payload: 'dinner_6pm',
+    //   scheduledDate: DateTime.now().add(Duration(seconds: 12)),
+    // );
+  }
+
+  void listenNotifications() =>
+      NotificationApi.onNotifications.stream.listen(onClickedNotification);
+
+  void onClickedNotification(String? payload) =>
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => MedConfirmSuccess(payload: payload),
+      ));
+
+  /// Alternativaly showDialog instead of navigation
+  /* showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text('Payload'),
+          content: Text(payload ?? ''),
+          actions: <Widget>[
+            OutlinedButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('OK'),
+            )
+          ],
+        ),
+      ); */
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        backgroundColor: Colors.amber.shade300,
+        body: Container(
+          padding: EdgeInsets.all(32),
+          child: Column(
+            children: [
+              Spacer(),
+              FlutterLogo(size: 160),
+              const SizedBox(height: 24),
+              Text(
+                'Local Notifications',
+                style: TextStyle(
+                  fontSize: 48,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+           
+              const SizedBox(height: 24),
+              buildButton(
+                title: 'Scheduled Notification',
+                icon: Icons.notifications_active,
+                onClicked: () {
+                  NotificationApi.showScheduledNotification(
+                    title: 'Dinner',
+                    body: 'Today at 6 PM',
+                    payload: 'dinner_6pm',
+                    scheduledDate: DateTime.now().add(Duration(seconds: 12)),
+                  );
+
+                  final snackBar = SnackBar(
+                    content: Text(
+                      'Scheduled in 12 Seconds!',
+                      style: TextStyle(fontSize: 24),
+                    ),
+                    backgroundColor: Colors.green,
+                  );
+                  ScaffoldMessenger.of(context)
+                    ..removeCurrentSnackBar()
+                    ..showSnackBar(snackBar);
+                },
+              ),
+              const SizedBox(height: 24),
+              buildButton(
+                title: 'Remove Notifications',
+                icon: Icons.delete_forever,
+                onClicked: () {},
+              ),
+              Spacer(),
+            ],
+          ),
+        ),
+      );
+
+  Widget buildButton({
+    required String title,
+    required IconData icon,
+    required VoidCallback onClicked,
+  }) =>
+      ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          minimumSize: Size.fromHeight(56),
+          primary: Colors.white,
+          onPrimary: Colors.black,
+          textStyle: TextStyle(fontSize: 20),
+        ),
+        child: Row(
+          children: [
+            Icon(icon, size: 28),
+            const SizedBox(width: 16),
+            Text(title),
+          ],
+        ),
+        onPressed: onClicked,
+      );
+}
+
+/*
+
 import 'package:intl/intl.dart';
+import 'package:vhelp_test/MedConfirmSuccess.dart';
+import 'package:vhelp_test/notification_api.dart';
 import '../model/userDate.dart';
 import 'drawer_sidebar.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +182,22 @@ class MedNotiPage extends StatefulWidget {
 }
 
 class _MedNotiPageState extends State<MedNotiPage> {
+  @override
+  void initState() {
+    super.initState();
+
+    NotificationApi.init();
+    listenNotifications();
+  }
+
+  void listenNotifications() =>
+      NotificationApi.onNotifications.stream.listen(onClickedNotification);
+
+  void onClickedNotification(String? payload) =>
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => MedConfirmSuccess(payload: payload),
+      ));
+
   int index = 0;
   late Object arguments;
   TextEditingController controller = TextEditingController();
@@ -45,15 +205,6 @@ class _MedNotiPageState extends State<MedNotiPage> {
   DateTime? medNotiDate;
   TimeOfDay? medNotiTime;
   userDate iDate = userDate(medDate: '', medTime: '', notiWord: '');
-
-  Future<void> _showNotification() async {
-    const AndroidNotificationDetails androidNotificationDetails =
-        AndroidNotificationDetails('nextflow_noti_001', 'Medicine Notification',
-            'Take medicine please',
-            importance: Importance.max,
-            priority: Priority.high,
-            ticker: 'ticker');
-  }
 
   String getTextDate() {
     // ignore: unnecessary_null_comparison
@@ -98,29 +249,25 @@ class _MedNotiPageState extends State<MedNotiPage> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [Colors.blue.shade300, Colors.blueGrey.shade700])),
-
-
       child: Scaffold(
-       appBar: AppBar(
-        title: Text("Medicine Notification"),
-        backgroundColor: Colors.transparent,
-        elevation: 4.0,
-        actions: [
-          IconButton(
-            icon: Icon(
-              Icons.calendar_today,
-              color: Colors.white,
-            ),
-            hoverColor: Colors.white,
-            onPressed: () {},
-          )
-        ],
-        leading: Icon(Icons.arrow_back_ios),
-      ),
-      body: 
-        Container(
+        appBar: AppBar(
+          title: Text("Medicine Notification"),
+          backgroundColor: Colors.transparent,
+          elevation: 4.0,
+          actions: [
+            IconButton(
+              icon: Icon(
+                Icons.calendar_today,
+                color: Colors.white,
+              ),
+              hoverColor: Colors.white,
+              onPressed: () {},
+            )
+          ],
+          leading: Icon(Icons.arrow_back_ios),
+        ),
+        body: Container(
           padding: const EdgeInsets.all(30.0),
-          
           child: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -130,7 +277,7 @@ class _MedNotiPageState extends State<MedNotiPage> {
                 Text('Date',
                     style:
                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                        const SizedBox(height: 15),
+                const SizedBox(height: 15),
                 SizedBox(
                   width: double.infinity,
                   height: 50,
@@ -149,17 +296,15 @@ class _MedNotiPageState extends State<MedNotiPage> {
                 ),
                 const SizedBox(height: 24),
                 const SizedBox(height: 24),
-                
                 Text('Time',
-
                     style:
                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-               const SizedBox(height: 15),
+                const SizedBox(height: 15),
                 SizedBox(
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                     style: ButtonStyle(
+                    style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Colors.black12),
                         //padding: MaterialStateProperty.all(EdgeInsets.all(50)),
@@ -171,7 +316,6 @@ class _MedNotiPageState extends State<MedNotiPage> {
                     },
                   ),
                 ),
-                
                 const SizedBox(height: 24),
                 Text('Notification Word',
                     style:
@@ -224,13 +368,27 @@ class _MedNotiPageState extends State<MedNotiPage> {
                                     child: const Text('Cancel'),
                                   ),
                                   TextButton(
-                                    onPressed: () {
-                                      _showNotification();
-                                    },
+                                    onPressed: () =>NotificationApi.showScheduledNotification(
+                    title: 'VHelp',
+                    body: 'Test1',
+                    payload: 'Test2',
+                    scheduledDate: DateTime.now().add(Duration(seconds: 5)),
+                  ),
                                     child: const Text('OK'),
                                   ),
                                 ],
                               ));
+                      final snackBar = SnackBar(
+                        content: Text(
+                          'Scheduled in 5 seconds!',
+                          style: TextStyle(fontSize: 24),
+                        ),
+                        backgroundColor: Colors.green,
+                      );
+                      ScaffoldMessenger.of(context)
+                       // ..removeCurrentSnackBar()
+                        ..showSnackBar(snackBar);
+                        
                     },
                   ),
                 ),
@@ -291,7 +449,8 @@ class _MedNotiPageState extends State<MedNotiPage> {
       'ไปซื้อชานมไข่มุก',
       'สั่งเซเว่น',
       'โทรหาแม่ด้วย',
-      'อย่าลืมซักผ้า'
+      'อย่าลืมซักผ้า',
+      'กินชาบู'
     ];
     final random = new Random();
     String item = list[random.nextInt(list.length)];
@@ -322,3 +481,4 @@ class _MedNotiPageState extends State<MedNotiPage> {
     setState(() => medNotiTime = newTime);
   }
 }
+*/

@@ -31,6 +31,8 @@ dependencies:
   flutter_phone_direct_caller: ^2.0.0
   cloud_firestore: ^2.5.1
   shared_preferences: ^2.0.7
+  rxdart: ^0.27.1
+  flutter_native_timezone: ^2.0.0
 
 
 dev_dependencies:

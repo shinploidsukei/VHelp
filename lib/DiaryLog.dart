@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vhelp_test/model/colorLog.dart';
-//import 'package:flutter_emoji/flutter_emoji.dart';
 import 'DiaryCard.dart';
 import 'YearPixels.dart';
 import 'page/notes_page.dart';
@@ -14,6 +13,7 @@ class DiaryLogPage extends StatefulWidget {
 }
 
 class _DiaryLogPageState extends State<DiaryLogPage> {
+  //test database on this
   colorLog colorSaved = colorLog(colorSaved: null);
 
   @override
@@ -46,6 +46,7 @@ class _DiaryLogPageState extends State<DiaryLogPage> {
             child: ListView.builder(
               itemCount: 7,
               itemBuilder: (context, index) {
+                // try on this
                 return DiaryCard(day: colorSaved.colorSaved = index);
               },
             ),

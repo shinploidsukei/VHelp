@@ -4,7 +4,6 @@ import 'package:vhelp_test/provider/event_provider.dart';
 import 'package:vhelp_test/widget/calendar_widget.dart';
 import 'package:provider/provider.dart';
 
-
 class DocNoti extends StatelessWidget {
   static final String title = 'Calendar Events App';
 
@@ -17,7 +16,6 @@ class DocNoti extends StatelessWidget {
           themeMode: ThemeMode.light,
           darkTheme: ThemeData.dark().copyWith(
             scaffoldBackgroundColor: Colors.black,
-            accentColor: Colors.white,
             primaryColor: Colors.blueGrey,
           ),
           home: DocNotiPage(),

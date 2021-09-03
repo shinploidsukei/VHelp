@@ -6,6 +6,7 @@ import 'package:vhelp_test/home/symptoms.dart';
 import 'drawer_sidebar.dart';
 import 'package:vhelp_test/home/depression.dart';
 import 'package:vhelp_test/home/deal.dart';
+//import 'package:scroll_to_example/utils.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -13,6 +14,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final controller = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,6 +25,10 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text("VHelp"),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.arrow_downward),
+        onPressed: scrollDown,
       ),
       body: Container(
         child: Container(
@@ -253,5 +260,18 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+  void scrollUp() {
+    final double start = 0;
+
+    controller.jumpTo(start);
+    //controller.animateTo(start, duration: Duration(seconds: 1), curve: Curves.easeIn);
+  }
+
+  void scrollDown() {
+    final double end = controller.position.maxScrollExtent;
+
+    controller.jumpTo(end);
+    //controller.animateTo(end, duration: Duration(seconds: 1), curve: Curves.easeIn);
   }
 }

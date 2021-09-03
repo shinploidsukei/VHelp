@@ -20,7 +20,7 @@ class _TasksWidgetState extends State<TasksWidget> {
     if (selectedEvents.isEmpty) {
       return Center(
         child: Text(
-          'No Events found!',
+          'No Doctor Appointment for Today!',
           style: TextStyle(color: Colors.black, fontSize: 24),
         ),
       );

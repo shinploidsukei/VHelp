@@ -90,7 +90,7 @@ class _EventEditingPageState extends State<EventEditingPage> {
         style: TextStyle(fontSize: 24),
         decoration: InputDecoration(
           border: UnderlineInputBorder(),
-          hintText: 'Add Title',
+          hintText: 'Add Appointment',
         ),
         onFieldSubmitted: (_) => saveForm(),
         validator: (title) =>
@@ -101,7 +101,7 @@ class _EventEditingPageState extends State<EventEditingPage> {
   Widget buildDescription() => TextFormField(
         decoration: InputDecoration(
           border: OutlineInputBorder(),
-          hintText: 'Add Details',
+          hintText: 'Description',
         ),
         textInputAction: TextInputAction.newline,
         maxLines: 5,

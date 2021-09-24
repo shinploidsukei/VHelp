@@ -1,4 +1,7 @@
 import 'dart:math';
+import 'package:provider/provider.dart';
+import 'package:vhelp_test/no_internet.dart';
+
 import '/dateTime_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -8,17 +11,48 @@ import 'package:vhelp_test/model/userDate.dart';
 import '/notification_api.dart';
 import 'package:vhelp_test/notification_api.dart';
 
-class MedNoti extends StatelessWidget {
+import 'connectivity_provider.dart';
+
+class MedNoti extends StatefulWidget{
+  @override 
+  _MedNoti createState() => _MedNoti();
+}
+
+class _MedNoti extends State<MedNoti> {
   static final String title = 'Local Notifications';
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
+  }
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
+  Widget build(BuildContext context) {
+    return pageUI();
+  }
+  Widget pageUI(){
+     return Consumer<ConnectivityProvider>(
+      builder: (context, model, child) {
+        if (model.isOnline != null) {
+          return model.isOnline
+              ? MaterialApp(
         debugShowCheckedModeBanner: false,
         title: title,
         theme: ThemeData(primarySwatch: Colors.blueGrey),
         home: MedNotiPage(),
-      );
+              ): NoInternet();
+  }
+ return Container(
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
+    );
+  } 
 }
+
+
 
 class MedNotiPage extends StatefulWidget {
   @override

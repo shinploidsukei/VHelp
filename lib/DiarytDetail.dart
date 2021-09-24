@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:vhelp_test/connectivity_provider.dart';
+import 'package:vhelp_test/no_internet.dart';
 import 'PopupDialog.dart';
 
 // This class is myDetailsContainer()
@@ -28,8 +31,22 @@ class _DiaryDetailState extends State<DiaryDetail> {
   var colorSaved;
 
   @override
+  void initState() {
+    super.initState();
+    Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Column(
+    return pageUI();
+  }
+
+  Widget pageUI(){
+     return Consumer<ConnectivityProvider>(
+      builder: (context, model, child) {
+        if (model.isOnline != null) {
+          return model.isOnline
+              ? Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
@@ -58,10 +75,17 @@ class _DiaryDetailState extends State<DiaryDetail> {
         ),
         SizedBox(height: 10),
       ],
+    ):NoInternet();
+        }
+    return Container(
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
     );
   }
-
-  Widget _buildEmoji(int index) {
+   Widget _buildEmoji(int index) {
     return Container(
       child: IconButton(
         icon: Icon(Icons.emoji_emotions),
@@ -84,3 +108,4 @@ class _DiaryDetailState extends State<DiaryDetail> {
     );
   }
 }
+

@@ -3,6 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:provider/provider.dart';
+import 'package:vhelp_test/connectivity_provider.dart';
+import 'package:vhelp_test/no_internet.dart';
 import 'Content.dart';
 import 'model/profile.dart';
 
@@ -17,8 +20,22 @@ class _LoginDemoState extends State<LoginDemo> {
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
 
   @override
+  void initState() {
+    super.initState();
+    Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
+    return pageUI();
+  }
+
+  Widget pageUI(){
+    return Consumer<ConnectivityProvider>(
+      builder: (context, model, child) {
+        if (model.isOnline != null) {
+          return model.isOnline
+              ? FutureBuilder(
         future: firebase,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -123,6 +140,16 @@ class _LoginDemoState extends State<LoginDemo> {
               child: CircularProgressIndicator(),
             ),
           );
-        });
+        }): NoInternet();
+
   }
+  return Container(
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
+    );
+  } 
 }
+

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vhelp_test/model/colorLog.dart';
+import 'package:vhelp_test/no_internet.dart';
 import 'DiaryCard.dart';
 import 'YearPixels.dart';
+import 'connectivity_provider.dart';
 import 'page/notes_page.dart';
 import 'content.dart';
 
@@ -15,10 +18,22 @@ class DiaryLogPage extends StatefulWidget {
 class _DiaryLogPageState extends State<DiaryLogPage> {
   //test database on this
   colorLog colorSaved = colorLog(colorSaved: null);
+ @override
+  void initState() {
+    super.initState();
+    Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return pageUI();
+  }
+  Widget pageUI(){
+     return Consumer<ConnectivityProvider>(
+      builder: (context, model, child) {
+        if (model.isOnline != null) {
+          return model.isOnline
+              ?  Scaffold(
       backgroundColor: Colors.blue.shade100,
       appBar: AppBar(
         title: Text("Diary Log"),
@@ -101,8 +116,17 @@ class _DiaryLogPageState extends State<DiaryLogPage> {
           )
         ],
       )),
-    );
+    ): NoInternet();
   }
+  return Container(
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
+     );
+  }
+
 
   double getColorIndex(int index) {
     switch (index % 7) {

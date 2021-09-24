@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:vhelp_test/no_internet.dart';
+import 'connectivity_provider.dart';
 import 'termservice.dart';
 import 'Content.dart';
 
@@ -13,9 +16,20 @@ class _StartState extends State<Start> {
   bool checkBoxValue = false;
   bool _enabled = false;
   bool nextvalue = false;
+  
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
+  }
+
 
   Widget build(BuildContext context) {
-    var _onPressed;
+   
+    return pageUI();
+  }
+  Widget pageUI(){
+     var _onPressed;
     if (_enabled) {
       _onPressed = () {
         Navigator.push(
@@ -24,7 +38,11 @@ class _StartState extends State<Start> {
         );
       };
     }
-    return Scaffold(
+    return Consumer<ConnectivityProvider>(
+      builder: (context, model, child) {
+        if (model.isOnline != null) {
+          return model.isOnline
+              ?  Scaffold(
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -78,6 +96,14 @@ class _StartState extends State<Start> {
           ],
         ),
       ),
+    ): NoInternet();
+  }
+  return Container(
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
     );
   }
 }

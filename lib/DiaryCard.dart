@@ -38,7 +38,9 @@ class _DiaryCardState extends State<DiaryCard> {
                   ),
                   Container(
                     child: Container(
-                      child: DiaryDetail(day: widget.day),
+                      child: DiaryDetail(
+                        day: widget.day,
+                      ),
                     ),
                   ),
                   Container(

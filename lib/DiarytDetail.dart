@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:vhelp_test/model/colorLog.dart';
 import 'PopupDialog.dart';
+import '../db/logs_database.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // This class is myDetailsContainer()
 class DiaryDetail extends StatefulWidget {
@@ -16,6 +19,7 @@ class DiaryDetail extends StatefulWidget {
 
 class _DiaryDetailState extends State<DiaryDetail> {
   int? selectedIndex;
+  late int thisColor;
 
   var emojiColors = [
     Colors.red[200],
@@ -24,8 +28,6 @@ class _DiaryDetailState extends State<DiaryDetail> {
     Colors.green[200],
     Colors.green[400],
   ];
-
-  var colorSaved;
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +69,7 @@ class _DiaryDetailState extends State<DiaryDetail> {
         icon: Icon(Icons.emoji_emotions),
         color: selectedIndex == index ? Colors.black : emojiColors[index],
         iconSize: 40.0,
-        onPressed: () {
+        onPressed: () async {
           showDialog(
             context: context,
             builder: (BuildContext context) => PopupDialog(
@@ -77,10 +79,27 @@ class _DiaryDetailState extends State<DiaryDetail> {
           );
           setState(() {
             selectedIndex = index;
-            colorSaved = emojiColors[index];
+            thisColor = index;
+            print(index);
+            addLogsToDB();
           });
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          final value = prefs.getInt('index');
+          print('value $value');
         },
       ),
     );
+  }
+
+  void addLogsToDB() async {
+    await addColor();
+  }
+
+  Future addColor() async {
+    final color = colorLog(
+      colorSaved: thisColor,
+      createTime: DateTime.now(),
+    );
+    await LogsDatabase.instance.create(color);
   }
 }

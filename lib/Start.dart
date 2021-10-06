@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'termservice.dart';
@@ -13,6 +14,8 @@ class _StartState extends State<Start> {
   bool checkBoxValue = false;
   bool _enabled = false;
   bool nextvalue = false;
+
+  final Future<FirebaseApp> firebase = Firebase.initializeApp();
 
   Widget build(BuildContext context) {
     var _onPressed;

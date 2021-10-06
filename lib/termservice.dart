@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:vhelp_test/no_internet.dart';
+import 'connectivity_provider.dart';
 import 'termservice.dart';
 
 class TermService extends StatefulWidget {
@@ -8,9 +11,19 @@ class TermService extends StatefulWidget {
 }
 
 class _TermServiceState extends State<TermService> {
+   @override
+  void initState() {
+    super.initState();
+    Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return  Consumer<ConnectivityProvider>(
+      builder: (context, model, child) {
+        if (model.isOnline != null) {
+          return model.isOnline
+              ? Container(
       decoration: BoxDecoration(
           image: DecorationImage(
               scale: 5,
@@ -42,6 +55,15 @@ class _TermServiceState extends State<TermService> {
           ),
         ),
       ),
+    ): NoInternet();
+  }
+    return Container(
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
     );
   }
 }
+

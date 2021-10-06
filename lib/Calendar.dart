@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
+import 'package:vhelp_test/connectivity_provider.dart';
+import 'package:vhelp_test/no_internet.dart';
 
 class Calendar extends StatefulWidget {
   @override
@@ -8,16 +11,38 @@ class Calendar extends StatefulWidget {
 
 class _CalendarState extends State<Calendar> {
   @override
+  void initState() {
+    super.initState();
+    Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return pageUI();
+  }
+
+  Widget pageUI(){
+     return Consumer<ConnectivityProvider>(
+      builder: (context, model, child) {
+        if (model.isOnline != null) {
+          return model.isOnline
+              ?  Scaffold(
         appBar: AppBar(
           title: Text("Calendar"),
         ),
         body: SfCalendar(
           view: CalendarView.week,
           dataSource: MeetingDataSource(getAppointments()),
-        ));
+        )): NoInternet();
   }
+     return Container(
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
+    );
+  } 
 }
 
 List<Appointment> getAppointments() {

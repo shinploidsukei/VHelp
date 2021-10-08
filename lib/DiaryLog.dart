@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:vhelp_test/model/colorLog.dart';
 import 'package:vhelp_test/no_internet.dart';
 import 'DiaryCard.dart';
-import 'YearPixels.dart';
+import 'MoodCollections.dart';
 import 'connectivity_provider.dart';
 import 'page/notes_page.dart';
 import 'content.dart';
@@ -62,7 +62,7 @@ class _DiaryLogPageState extends State<DiaryLogPage> {
                     children: [
                       Expanded(
                         child: ListView.builder(
-                          itemCount: 7,
+                          itemCount: 1,
                           itemBuilder: (context, index) {
                             return DiaryCard(
                               day: index,
@@ -115,7 +115,7 @@ class _DiaryLogPageState extends State<DiaryLogPage> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => YearPixels()),
+                                            builder: (context) => MoodCollectionsPage()),
                                       );
                                     })),
                           ),
@@ -135,24 +135,6 @@ class _DiaryLogPageState extends State<DiaryLogPage> {
     );
   }
 
-  double getColorIndex(int index) {
-    switch (index % 7) {
-      case 0:
-        return 100;
-      case 1:
-        return 150;
-      case 2:
-        return 150;
-      case 3:
-        return 100;
-      case 4:
-        return 100;
-      case 5:
-        return 100;
-      case 6:
-        return 100;
-      default:
-        return 100;
-    }
+
   }
-}
+

@@ -52,7 +52,7 @@ class _DiaryCardState extends State<DiaryCard> {
                           children: <Widget>[
                             Container(
                               width: 80,
-                              height: 80,
+                              height: 200,
                               child: ClipRRect(
                                 borderRadius: new BorderRadius.circular(18.0),
                               ),

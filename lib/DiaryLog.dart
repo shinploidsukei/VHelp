@@ -16,9 +16,11 @@ class DiaryLogPage extends StatefulWidget {
 }
 
 class _DiaryLogPageState extends State<DiaryLogPage> {
+
   //test database on this
 
   @override
+
   void initState() {
     super.initState();
     Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();

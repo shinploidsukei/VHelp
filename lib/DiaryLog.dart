@@ -16,8 +16,7 @@ class DiaryLogPage extends StatefulWidget {
 }
 
 class _DiaryLogPageState extends State<DiaryLogPage> {
-  //test database on this
-  colorLog colorSaved = colorLog(colorSaved: null);
+  
  @override
   void initState() {
     super.initState();

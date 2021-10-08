@@ -38,6 +38,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.blueGrey,
           actions: [editButton(), deleteButton()],
         ),
         body: isLoading
@@ -50,7 +51,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                     Text(
                       note.title,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: Colors.blueGrey,
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
@@ -58,12 +59,12 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                     SizedBox(height: 8),
                     Text(
                       DateFormat.yMMMd().format(note.createdTime),
-                      style: TextStyle(color: Colors.white38),
+                      style: TextStyle(color: Colors.blueGrey),
                     ),
                     SizedBox(height: 8),
                     Text(
                       note.description,
-                      style: TextStyle(color: Colors.white70, fontSize: 18),
+                      style: TextStyle(color: Colors.blueGrey, fontSize: 18),
                     )
                   ],
                 ),

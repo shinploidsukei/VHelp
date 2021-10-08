@@ -14,13 +14,9 @@ class MyRootApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => ConnectivityProvider(),
-          child: SplashScreen()
-        )
+            create: (context) => ConnectivityProvider(), child: SplashScreen())
       ],
-      child: MaterialApp(title: 'Flutter Demo',
-      home: SplashScreen()),
+      child: MaterialApp(title: 'Flutter Demo', home: SplashScreen()),
     );
-  
   }
 }

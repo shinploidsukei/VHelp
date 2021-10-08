@@ -1,3 +1,7 @@
+import 'package:provider/provider.dart';
+import 'package:vhelp_test/connectivity_provider.dart';
+import 'package:vhelp_test/no_internet.dart';
+
 import 'DiarytDetail.dart';
 import 'package:flutter/material.dart';
 
@@ -16,8 +20,22 @@ class DiaryCard extends StatefulWidget {
 
 class _DiaryCardState extends State<DiaryCard> {
   @override
+  void initState() {
+    super.initState();
+    Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Padding(
+    return pageUI();
+  }
+
+  Widget pageUI(){
+      return Consumer<ConnectivityProvider>(
+      builder: (context, model, child) {
+        if (model.isOnline != null) {
+          return model.isOnline
+              ?  Padding(
       padding: const EdgeInsets.all(16.0),
       child: Container(
         child: new FittedBox(
@@ -38,7 +56,9 @@ class _DiaryCardState extends State<DiaryCard> {
                   ),
                   Container(
                     child: Container(
-                      child: DiaryDetail(day: widget.day),
+                      child: DiaryDetail(
+                        day: widget.day,
+                      ),
                     ),
                   ),
                   Container(
@@ -52,6 +72,14 @@ class _DiaryCardState extends State<DiaryCard> {
               )),
         ),
       ),
+    ):NoInternet();
+        }
+    return Container(
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      }
     );
   }
 }

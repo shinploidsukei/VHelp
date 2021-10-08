@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vhelp_test/home/cause.dart';
 import 'package:vhelp_test/home/hotline.dart';
 import 'package:vhelp_test/home/symptoms.dart';
+import 'package:vhelp_test/no_internet.dart';
+import 'connectivity_provider.dart';
 import 'drawer_sidebar.dart';
 import 'package:vhelp_test/home/depression.dart';
 import 'package:vhelp_test/home/deal.dart';
@@ -17,8 +20,23 @@ class _HomePageState extends State<HomePage> {
   final controller = ScrollController();
 
   @override
+  
+    @override
+  void initState() {
+    super.initState();
+    Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return pageUI();
+  }
+  Widget pageUI(){
+    return  Consumer<ConnectivityProvider>(
+      builder: (context, model, child) {
+        if (model.isOnline != null) {
+          return model.isOnline
+              ? Scaffold(
       backgroundColor: Colors.blue[200],
       drawer: NavigationDrawerWidget(),
       appBar: AppBar(
@@ -259,6 +277,14 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
+    ): NoInternet();
+  }
+   return Container(
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
     );
   }
   void scrollUp() {

@@ -53,6 +53,7 @@ class _EventEditingPageState extends State<EventEditingPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.blueGrey,
           leading: CloseButton(),
           actions: buildEditingActions(),
         ),

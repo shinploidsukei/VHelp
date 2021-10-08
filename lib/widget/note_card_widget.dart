@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../model/note.dart';
 
-
 final _lightColors = [
   Colors.blueGrey[100],
   Colors.blueGrey[100],
@@ -45,7 +44,7 @@ class NoteCardWidget extends StatelessWidget {
             Text(
               note.title,
               style: TextStyle(
-                color: Colors.black,
+                color: Colors.grey.shade900,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),

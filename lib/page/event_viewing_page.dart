@@ -16,6 +16,7 @@ class EventViewingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.blueGrey,
           leading: CloseButton(),
           actions: buildViewingActions(context, event),
         ),
@@ -31,7 +32,7 @@ class EventViewingPage extends StatelessWidget {
             const SizedBox(height: 24),
             Text(
               event.description,
-              style: TextStyle(color: Colors.black, fontSize: 18),
+              style: TextStyle(color: Colors.white24, fontSize: 18),
             ),
           ],
         ),

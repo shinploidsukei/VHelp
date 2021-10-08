@@ -65,7 +65,7 @@ class _NotesPageState extends State<NotesPage> {
               : notes.isEmpty
                   ? Text(
                       'Add some stories..',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                      style: TextStyle(color: Colors.blueGrey, fontSize: 20),
                     )
                   : buildNotes(),
         ),

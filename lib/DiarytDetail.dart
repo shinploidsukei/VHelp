@@ -1,8 +1,12 @@
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:vhelp_test/model/colorLog.dart';
 import 'package:provider/provider.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
 import 'package:vhelp_test/no_internet.dart';
+import 'DiaryPreferences.dart';
 import 'PopupDialog.dart';
 import '../db/logs_database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -23,6 +27,7 @@ class DiaryDetail extends StatefulWidget {
 class _DiaryDetailState extends State<DiaryDetail> {
   int? selectedIndex;
   late int thisColor;
+  String now = DateFormat("dd-MM-yyyy").format(DateTime.now());
 
   var emojiColors = [
     Colors.red[200],
@@ -35,6 +40,7 @@ class _DiaryDetailState extends State<DiaryDetail> {
   @override
   void initState() {
     super.initState();
+    selectedIndex = (DiaryPreferences.getIndex() ?? '') as int?;
     Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
   }
 
@@ -44,42 +50,42 @@ class _DiaryDetailState extends State<DiaryDetail> {
   }
 
   Widget pageUI(){
-     return Consumer<ConnectivityProvider>(
+    return Consumer<ConnectivityProvider>(
       builder: (context, model, child) {
         if (model.isOnline != null) {
           return model.isOnline
               ? Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        SizedBox(height: 20),
-        Container(
-          //padding: const EdgeInsets.only(left: 1.0),
-          child: Container(
-              child: Text(
-            "Day ${widget.day + 1}",
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold),
-          )),
-        ),
-        SizedBox(height: 10),
-        Container(
-          child: Container(
-              child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              ...List.generate(5, (index) => _buildEmoji(index)),
+              SizedBox(height: 20),
+              Container(
+                //padding: const EdgeInsets.only(left: 1.0),
+                child: Container(
+                    child: Text(
+                      "Day ${widget.day + 1}: ${now}",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold),
+                    )),
+              ),
+              SizedBox(height: 10),
+              Container(
+                child: Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        ...List.generate(5, (index) => _buildEmoji(index)),
+                      ],
+                    )),
+              ),
+              SizedBox(height: 10),
             ],
-          )),
-        ),
-        SizedBox(height: 10),
-      ],
-    ):NoInternet();
+          ):NoInternet();
         }
-    return Container(
+        return Container(
           child: Center(
             child: CircularProgressIndicator(),
           ),
@@ -87,7 +93,7 @@ class _DiaryDetailState extends State<DiaryDetail> {
       },
     );
   }
-   Widget _buildEmoji(int index) {
+  Widget _buildEmoji(int index) {
     return Container(
       child: IconButton(
         icon: Icon(Icons.emoji_emotions),
@@ -107,6 +113,7 @@ class _DiaryDetailState extends State<DiaryDetail> {
             print(index);
             addLogsToDB();
           });
+          await DiaryPreferences.setIndex(index);
           SharedPreferences prefs = await SharedPreferences.getInstance();
           final value = prefs.getInt('index');
           print('value $value');

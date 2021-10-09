@@ -16,11 +16,9 @@ class DiaryLogPage extends StatefulWidget {
 }
 
 class _DiaryLogPageState extends State<DiaryLogPage> {
-
   //test database on this
 
   @override
-
   void initState() {
     super.initState();
     Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
@@ -115,7 +113,8 @@ class _DiaryLogPageState extends State<DiaryLogPage> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => MoodCollectionsPage()),
+                                            builder: (context) =>
+                                                MoodCollectionsPage()),
                                       );
                                     })),
                           ),
@@ -134,7 +133,4 @@ class _DiaryLogPageState extends State<DiaryLogPage> {
       },
     );
   }
-
-
-  }
-
+}

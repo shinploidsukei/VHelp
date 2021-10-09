@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:vhelp_test/Content.dart';
+import '../DiaryLog.dart';
 import '../MoodCollections.dart';
 import '../db/notes_database.dart';
 import '../model/note.dart';
@@ -17,7 +18,7 @@ class DiaryPage extends StatefulWidget {
 class _DiaryPageState extends State<DiaryPage> {
   late List<Note> notes;
   bool isLoading = false;
-
+  late int index = 0;
   @override
   void initState() {
     super.initState();
@@ -120,18 +121,19 @@ class _DiaryPageState extends State<DiaryPage> {
             ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.blueGrey,
           child: Icon(Icons.add),
           onPressed: () async {
             await Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => AddEditMoodPage()),
+              MaterialPageRoute(builder: (context) => DiaryLogPage()),
             );
 
             refreshNotes();
           },
         ),
       );
+
 
   Widget buildNotes() => StaggeredGridView.countBuilder(
         padding: EdgeInsets.all(8),

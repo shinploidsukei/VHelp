@@ -6,7 +6,6 @@ import '../widget/note_form_widget.dart';
 
 class AddEditMoodPage extends StatefulWidget {
   final Note? note;
-
   final colorLog? color;
 
   const AddEditMoodPage({
@@ -35,6 +34,7 @@ class _AddEditNotePageState extends State<AddEditMoodPage> {
     number = widget.note?.number ?? 0;
     title = widget.note?.title ?? '';
     description = widget.note?.description ?? '';
+    colorIndex = widget.color?.colorSaved ?? 0;
   }
 
   @override
@@ -61,6 +61,7 @@ class _AddEditNotePageState extends State<AddEditMoodPage> {
                 onChangedTitle: (title) => setState(() => this.title = title),
                 onChangedDescription: (description) =>
                     setState(() => this.description = description),
+
               ),
             ),
           ),
@@ -87,7 +88,7 @@ class _AddEditNotePageState extends State<AddEditMoodPage> {
     final isValid = _formKey.currentState!.validate();
 
     if (isValid) {
-      final isUpdating = widget.note != null;
+      final isUpdating = widget.color != null;
 
       if (isUpdating) {
         await updateColor();

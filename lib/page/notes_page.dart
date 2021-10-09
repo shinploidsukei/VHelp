@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import '../DiaryLog.dart';
 import '../db/notes_database.dart';
 import '../model/note.dart';
 import '../page/edit_note_page.dart';

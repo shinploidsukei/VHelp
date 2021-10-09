@@ -61,7 +61,6 @@ class _DiaryCardState extends State<DiaryCard> {
                               child: Container(
                                 child: DiaryDetail(
                                   day: widget.day,
-
                                 ),
                               ),
                             ),

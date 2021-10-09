@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vhelp_test/model/colorLog.dart';
 import 'package:vhelp_test/no_internet.dart';
-import 'DiaryCard.dart';
-import 'YearPixels.dart';
 import 'connectivity_provider.dart';
-import 'page/notes_page.dart';
 import 'DiaryLog.dart';
+import 'DiarytDetail.dart';
 
 class MoodCollectionsPage extends StatefulWidget {
   const MoodCollectionsPage({Key? key}) : super(key: key);
@@ -62,4 +59,10 @@ class _MoodCollectionsPageState extends State<MoodCollectionsPage> {
       },
     );
   }
+  Widget _showingSelected(int index){
+  return Container(
+
+  );
+  }
 }
+

@@ -1,77 +1,125 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:vhelp_test/db/logs_database.dart';
+import 'package:vhelp_test/model/colorLog.dart';
 
-class DiaryFormWidget extends StatelessWidget {
-  final bool isImportant;
-  final int number;
-  final String title;
-  final String description;
-  final ValueChanged<bool> onChangedImportant;
-  final ValueChanged<int> onChangedNumber;
-  final ValueChanged<String> onChangedTitle;
-  final ValueChanged<String> onChangedDescription;
+import '../DiaryPreferences.dart';
+import '../PopupDialog.dart';
+import '../connectivity_provider.dart';
+import '../no_internet.dart';
 
-  final int colorIndex;
-
-  const DiaryFormWidget({
-    Key? key,
-    this.isImportant = false,
-    this.number = 0,
-    this.title = '',
-    this.description = '',
-    required this.onChangedImportant,
-    required this.onChangedNumber,
-    required this.onChangedTitle,
-    required this.onChangedDescription,
-
-    this.colorIndex = 0
-  }) : super(key: key);
+class DiaryFormWidget extends StatefulWidget {
+  const DiaryFormWidget(
+      {Key? key,
+      required int colorIndex,
+      required void Function(int) onChangedColorIndex})
+      : super(key: key);
 
   @override
-  Widget build(BuildContext context) => SingleChildScrollView(
-    child: Padding(
-      padding: EdgeInsets.all(16),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          buildTitle(),
-          SizedBox(height: 8),
-          buildDescription(),
-          SizedBox(height: 16),
-        ],
+  _DiaryFormWidgetState createState() => _DiaryFormWidgetState();
+}
+
+class colorIndex {}
+
+class _DiaryFormWidgetState extends State<DiaryFormWidget> {
+  int? selectedIndex;
+  late int thisColor;
+  String now = DateFormat("dd-MM-yyyy").format(DateTime.now());
+
+  var emojiColors = [
+    Colors.red[200],
+    Colors.orange[200],
+    Colors.yellow[200],
+    Colors.green[200],
+    Colors.green[400],
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    selectedIndex = (DiaryPreferences.getIndex() ?? '') as int?;
+    Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return pageUI();
+  }
+
+  Widget pageUI() {
+    return Consumer<ConnectivityProvider>(
+      builder: (context, model, child) {
+        if (model.isOnline) {
+          return model.isOnline
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(height: 20),
+                    Container(
+                      //padding: const EdgeInsets.only(left: 1.0),
+                      child: Container(
+                          child: Text(
+                        //${widget.day + 1}
+                        "Today: $now",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold),
+                      )),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      child: Container(
+                          child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          ...List.generate(5, (index) => _buildEmoji(index)),
+                        ],
+                      )),
+                    ),
+                    SizedBox(height: 10),
+                  ],
+                )
+              : NoInternet();
+        }
+        return Container(
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildEmoji(int index) {
+    return Container(
+      child: IconButton(
+        icon: Icon(Icons.emoji_emotions),
+        color: selectedIndex == index ? Colors.black : emojiColors[index],
+        iconSize: 40.0,
+        onPressed: () async {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => PopupDialog(
+              selectedIndex: index,
+              emojiColor: emojiColors[index]!,
+            ),
+          );
+          setState(() {
+            selectedIndex = index;
+            thisColor = index;
+            print(index);
+            //addLogsToDB();
+          });
+          await DiaryPreferences.setIndex(index);
+          //SharedPreferences prefs = await SharedPreferences.getInstance();
+          //final value = prefs.getInt('index');
+          //print('value $value');
+        },
       ),
-    ),
-  );
-
-  Widget buildTitle() => TextFormField(
-    maxLines: 1,
-    initialValue: title,
-    style: TextStyle(
-      color: Colors.blueGrey,
-      fontWeight: FontWeight.bold,
-      fontSize: 24,
-    ),
-    decoration: InputDecoration(
-      border: InputBorder.none,
-      hintText: 'Title',
-      hintStyle: TextStyle(color: Colors.blueGrey.shade200),
-    ),
-    validator: (title) =>
-    title != null && title.isEmpty ? 'The title cannot be empty' : null,
-    onChanged: onChangedTitle,
-  );
-
-  Widget buildDescription() => TextFormField(
-    maxLines: 5,
-    initialValue: description,
-    style: TextStyle(color: Colors.blueGrey, fontSize: 18),
-    decoration: InputDecoration(
-      border: InputBorder.none,
-      hintText: 'Type something...',
-      hintStyle: TextStyle(color: Colors.blueGrey.shade200),
-    ),
-    validator: (title) => title != null && title.isEmpty
-        ? 'The description cannot be empty'
-        : null,
-    onChanged: onChangedDescription,
-  );
+    );
+  }
 }

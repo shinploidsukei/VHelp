@@ -8,7 +8,6 @@ import 'DiaryPreferences.dart';
 import 'PopupDialog.dart';
 import '../db/logs_database.dart';
 
-
 // This class is myDetailsContainer()
 class DiaryDetail extends StatefulWidget {
   const DiaryDetail({
@@ -62,7 +61,7 @@ class _DiaryDetailState extends State<DiaryDetail> {
                       child: Container(
                           child: Text(
                         //${widget.day + 1}
-                        "Today: ${now}",
+                        "Today: $now",
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 18.0,

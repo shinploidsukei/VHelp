@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:vhelp_test/db/logs_database.dart';
 import 'package:vhelp_test/model/colorLog.dart';
-import '../model/note.dart';
-import '../widget/note_form_widget.dart';
+import 'package:vhelp_test/widget/diary_form_widget.dart';
 
 class AddEditMoodPage extends StatefulWidget {
-  final Note? note;
   final colorLog? color;
 
   const AddEditMoodPage({
     Key? key,
     this.color,
-    this.note,
   }) : super(key: key);
   @override
   _AddEditNotePageState createState() => _AddEditNotePageState();
@@ -20,9 +17,6 @@ class AddEditMoodPage extends StatefulWidget {
 class _AddEditNotePageState extends State<AddEditMoodPage> {
   final _formKey = GlobalKey<FormState>();
   late bool isImportant;
-  late int number;
-  late String title;
-  late String description;
 
   late int colorIndex;
 
@@ -30,10 +24,7 @@ class _AddEditNotePageState extends State<AddEditMoodPage> {
   void initState() {
     super.initState();
 
-    isImportant = widget.note?.isImportant ?? false;
-    number = widget.note?.number ?? 0;
-    title = widget.note?.title ?? '';
-    description = widget.note?.description ?? '';
+    // --Ask later--
     colorIndex = widget.color?.colorSaved ?? 0;
   }
 
@@ -49,19 +40,10 @@ class _AddEditNotePageState extends State<AddEditMoodPage> {
             padding: const EdgeInsets.all(12.0),
             child: Form(
               key: _formKey,
-              child: NoteFormWidget(
-                isImportant: isImportant,
-                number: number,
-                title: title,
-                description: description,
-                onChangedImportant: (isImportant) =>
-                    setState(() => this.isImportant = isImportant),
-                onChangedNumber: (number) =>
-                    setState(() => this.number = number),
-                onChangedTitle: (title) => setState(() => this.title = title),
-                onChangedDescription: (description) =>
-                    setState(() => this.description = description),
-
+              child: DiaryFormWidget(
+                colorIndex: colorIndex,
+                onChangedColorIndex: (colorIndex) =>
+                    setState(() => this.colorIndex = colorIndex),
               ),
             ),
           ),
@@ -69,7 +51,7 @@ class _AddEditNotePageState extends State<AddEditMoodPage> {
       );
 
   Widget buildButton() {
-    final isFormValid = title.isNotEmpty && description.isNotEmpty;
+    final isFormValid = colorIndex.isNegative;
 
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),

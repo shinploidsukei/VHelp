@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:vhelp_test/Content.dart';
+import 'package:vhelp_test/db/logs_database.dart';
+import 'package:vhelp_test/model/colorLog.dart';
+import 'package:vhelp_test/widget/diary_card_widget.dart';
 import '../DiaryLog.dart';
 import '../MoodCollections.dart';
 import '../db/notes_database.dart';
@@ -16,9 +19,11 @@ class DiaryPage extends StatefulWidget {
 }
 
 class _DiaryPageState extends State<DiaryPage> {
-  late List<Note> notes;
   bool isLoading = false;
   late int index = 0;
+
+  late List<colorLog> colors;
+
   @override
   void initState() {
     super.initState();
@@ -27,17 +32,14 @@ class _DiaryPageState extends State<DiaryPage> {
 
   @override
   void dispose() {
-    NotesDatabase.instance.close();
-
+    LogsDatabase.instance.close();
     super.dispose();
   }
 
   Future refreshNotes() async {
     setState(() => isLoading = true);
 
-    this.notes = await NotesDatabase.instance.readAllNotes();
-
-    setState(() => isLoading = false);
+    this.colors = await LogsDatabase.instance.readAllNotes();
   }
 
   @override
@@ -61,14 +63,14 @@ class _DiaryPageState extends State<DiaryPage> {
             },
           ),
         ),
-        body: Container(
+        body: Center(
             child: Column(children: [
           Expanded(
             child: isLoading
                 ? CircularProgressIndicator()
-                : notes.isEmpty
+                : colors.isEmpty
                     ? Text(
-                        'Add some stories..',
+                        'Add some mood..',
                         style: TextStyle(color: Colors.blueGrey, fontSize: 20),
                       )
                     : buildNotes(),
@@ -120,12 +122,12 @@ class _DiaryPageState extends State<DiaryPage> {
             ),
           ],
         ),
-      floatingActionButton: FloatingActionButton(
+        floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.blueGrey,
           child: Icon(Icons.add),
           onPressed: () async {
             await Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => DiaryLogPage()),
+              MaterialPageRoute(builder: (context) => AddEditMoodPage()),
             );
 
             refreshNotes();
@@ -133,26 +135,25 @@ class _DiaryPageState extends State<DiaryPage> {
         ),
       );
 
-
   Widget buildNotes() => StaggeredGridView.countBuilder(
         padding: EdgeInsets.all(8),
-        itemCount: notes.length,
+        itemCount: colors.length,
         staggeredTileBuilder: (index) => StaggeredTile.fit(2),
         crossAxisCount: 4,
         mainAxisSpacing: 4,
         crossAxisSpacing: 4,
         itemBuilder: (context, index) {
-          final note = notes[index];
+          final color = colors[index];
 
           return GestureDetector(
             onTap: () async {
               await Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => NoteDetailPage(noteId: note.id!),
+                builder: (context) => NoteDetailPage(noteId: color.id!),
               ));
 
               refreshNotes();
             },
-            child: NoteCardWidget(note: note, index: index),
+            child: DiaryCardWidget(colorCard: color, index: index),
           );
         },
       );

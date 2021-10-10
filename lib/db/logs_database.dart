@@ -71,6 +71,18 @@ class LogsDatabase {
     return result.map((json) => colorLog.fromJson(json)).toList();
   }
 
+  Future<List<colorLog>> readAllNotes() async {
+    final db = await instance.database;
+
+    final orderBy = '${colorFields.createTime} ASC';
+    // final result =
+    //     await db.rawQuery('SELECT * FROM $tableNotes ORDER BY $orderBy');
+
+    final result = await db.query(tableLogs, orderBy: orderBy);
+
+    return result.map((json) => colorLog.fromJson(json)).toList();
+  }
+
   Future<int> update(colorLog color) async {
     final db = await instance.database;
 

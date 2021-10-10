@@ -11,10 +11,10 @@ class AddEditMoodPage extends StatefulWidget {
     this.color,
   }) : super(key: key);
   @override
-  _AddEditNotePageState createState() => _AddEditNotePageState();
+  _AddEditMoodPageState createState() => _AddEditMoodPageState();
 }
 
-class _AddEditNotePageState extends State<AddEditMoodPage> {
+class _AddEditMoodPageState extends State<AddEditMoodPage> {
   final _formKey = GlobalKey<FormState>();
   late bool isImportant;
 

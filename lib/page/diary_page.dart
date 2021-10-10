@@ -10,6 +10,7 @@ import '../db/notes_database.dart';
 import '../model/note.dart';
 import '../page/note_detail_page.dart';
 import '../widget/note_card_widget.dart';
+import 'diary_detail_page.dart';
 import 'edit_diary_page.dart';
 import 'notes_page.dart';
 
@@ -39,7 +40,7 @@ class _DiaryPageState extends State<DiaryPage> {
   Future refreshNotes() async {
     setState(() => isLoading = true);
 
-    this.colors = await LogsDatabase.instance.readAllNotes();
+    this.colors = await LogsDatabase.instance.readAll();
   }
 
   @override
@@ -148,7 +149,9 @@ class _DiaryPageState extends State<DiaryPage> {
           return GestureDetector(
             onTap: () async {
               await Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => NoteDetailPage(noteId: color.id!),
+                builder: (context) => DiaryDetailPage(
+                  colorID: color.colorSaved,
+                ),
               ));
 
               refreshNotes();

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vhelp_test/page/diary_page.dart';
 import 'Art.dart';
 import 'Calendar.dart';
 import 'DiaryLog.dart';
@@ -29,8 +30,8 @@ class NavigationDrawerWidget extends StatelessWidget {
               email: email,
               onClicked: () => Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => UserPage(
-                  name: "Levi Ackerman",
-                  urlImage: urlImage,
+                  name: '',
+                  urlImage: '',
                 ),
               )),
             ),
@@ -164,7 +165,8 @@ class NavigationDrawerWidget extends StatelessWidget {
         break;
       case 3:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => DiaryLogPage(),
+          //builder: (context) => DiaryLogPage(),
+          builder: (context) => DiaryPage(),
         ));
         break;
       case 4:

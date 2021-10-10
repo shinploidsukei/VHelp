@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:vhelp_test/model/colorLog.dart';
 import 'package:provider/provider.dart';
-import 'package:vhelp_test/connectivity_provider.dart';
-import 'package:vhelp_test/no_internet.dart';
-import 'DiaryPreferences.dart';
-import 'PopupDialog.dart';
-import '../db/logs_database.dart';
+import 'package:vhelp_test/db/logs_database.dart';
+import 'package:vhelp_test/model/colorLog.dart';
 
-// This class is myDetailsContainer()
-class DiaryDetail extends StatefulWidget {
-  const DiaryDetail({
-    Key? key,
-    required this.day,
-  }) : super(key: key);
+import '../DiaryPreferences.dart';
+import '../PopupDialog.dart';
+import '../connectivity_provider.dart';
+import '../no_internet.dart';
 
-  final int day;
+class DiaryFormWidget extends StatefulWidget {
+  const DiaryFormWidget(
+      {Key? key,
+      required int colorIndex,
+      required void Function(int) onChangedColorIndex})
+      : super(key: key);
 
   @override
-  _DiaryDetailState createState() => _DiaryDetailState();
+  _DiaryFormWidgetState createState() => _DiaryFormWidgetState();
 }
 
-class _DiaryDetailState extends State<DiaryDetail> {
+class colorIndex {}
+
+class _DiaryFormWidgetState extends State<DiaryFormWidget> {
   int? selectedIndex;
   late int thisColor;
   String now = DateFormat("dd-MM-yyyy").format(DateTime.now());
@@ -49,7 +50,7 @@ class _DiaryDetailState extends State<DiaryDetail> {
   Widget pageUI() {
     return Consumer<ConnectivityProvider>(
       builder: (context, model, child) {
-        if (model.isOnline != null) {
+        if (model.isOnline) {
           return model.isOnline
               ? Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -111,6 +112,7 @@ class _DiaryDetailState extends State<DiaryDetail> {
             selectedIndex = index;
             thisColor = index;
             print(index);
+            //addLogsToDB();
           });
           await DiaryPreferences.setIndex(index);
           //SharedPreferences prefs = await SharedPreferences.getInstance();

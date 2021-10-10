@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,8 @@ class _StartState extends State<Start> {
     Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
   }
 
+
+  final Future<FirebaseApp> firebase = Firebase.initializeApp();
 
   Widget build(BuildContext context) {
    

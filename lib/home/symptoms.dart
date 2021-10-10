@@ -3,12 +3,11 @@ import 'package:vhelp_test/Content.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class Symptoms extends StatelessWidget {
-  //static final String title = 'Date (Range) & Time';
+
 
   @override
   Widget build(BuildContext context) => MaterialApp(
     debugShowCheckedModeBanner: false,
-    //title: title,
     theme: ThemeData(
       primaryColor: Colors.black,
     ),
@@ -39,75 +38,85 @@ class SymptomsPageState extends State<SymptomsPage> {
     body: buildPages(),
   );
 
+
   Widget buildPages() {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Depression Symptoms and Warning Signs"),
-        backgroundColor: Colors.blueGrey,
-        elevation: 4.0,
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios,
-            color: Colors.white,
-          ),
-          alignment: Alignment.center,
-          hoverColor: Colors.white,
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => HomePage()),
-            );
-          },
-        ),
-      ),
       body: Container(
         padding: const EdgeInsets.all(30.0),
         decoration: BoxDecoration(
             gradient: LinearGradient(
-                colors: [Colors.blue.shade100, Colors.blue.shade100],
+                colors: [Colors.white, Colors.blue.shade100],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter)),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            //crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 30,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 40,
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.black87,
               ),
-              Container(
-                width: double.infinity,
-                height: 300,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    image: DecorationImage(
-                        image: AssetImage('assets/images/symptom.jpg'),
-                        fit: BoxFit.cover)),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Text(
-                '           Depression varies from person to person, but there are some common signs and symptoms. It’s important to remember that these symptoms can be part of life’s normal lows. But the more symptoms you have, the stronger they are, and the longer they’ve lasted—the more likely it is that you’re dealing with depression.',
-                style: TextStyle(fontSize: 15, color: Colors.black54),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                child: TextButton(
-                  onPressed: _launchURL,
-                  child: Text(
-                    'More..',
-                    style: TextStyle(color: Colors.white, fontSize: 25),
-                  ),
+              alignment: Alignment.topLeft,
+              hoverColor: Colors.white,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomePage()),
+                );
+              },
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              width: double.infinity,
+              height: 250,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(40),
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/symptom.jpg'),
+                      fit: BoxFit.cover)),
+            ),
+            SizedBox(
+              height: 40,
+            ),
+            Text(
+              'Depression Symptoms and Warning Signs',
+              style: TextStyle(fontSize: 27, color: Colors.black87,fontWeight: FontWeight.bold),
+            ),
+            const Divider(
+              thickness: 3,
+            ),
+            SizedBox(
+              height: 40,
+            ),
+            Text(
+              '           Depression varies from person to person, but there are some common signs and symptoms. It’s important to remember that these symptoms can be part of life’s normal lows. But the more symptoms you have, the stronger they are, and the longer they’ve lasted—the more likely it is that you’re dealing with depression.',
+              style: TextStyle(fontSize: 18, color: Colors.black87),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: TextButton(
+                onPressed: _launchURL,
+                child: Text(
+                  'More..',
+                  style: TextStyle(color: Colors.black87, fontSize: 20,fontFamily: 'RobotoMono'),
+                  //textAlign: TextAlign.right,
                 ),
               ),
-              SizedBox(
-                height: 16,
-              ),
-            ],
-          ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+          ],
         ),
+      ),
     );
   }
 }

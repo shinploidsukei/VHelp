@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import '../DiaryLog.dart';
 import '../db/notes_database.dart';
 import '../model/note.dart';
 import '../page/edit_note_page.dart';
 import '../page/note_detail_page.dart';
 import '../widget/note_card_widget.dart';
+import 'diary_page.dart';
 
 class NotesPage extends StatefulWidget {
   @override
@@ -54,7 +54,8 @@ class _NotesPageState extends State<NotesPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => DiaryLogPage()),
+                //MaterialPageRoute(builder: (context) => DiaryLogPage()),
+                MaterialPageRoute(builder: (context) => DiaryPage()),
               );
             },
           ),

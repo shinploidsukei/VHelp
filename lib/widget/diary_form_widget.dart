@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:vhelp_test/db/logs_database.dart';
-import 'package:vhelp_test/model/colorLog.dart';
-
 import '../DiaryPreferences.dart';
 import '../PopupDialog.dart';
 import '../connectivity_provider.dart';
@@ -19,8 +16,6 @@ class DiaryFormWidget extends StatefulWidget {
   @override
   _DiaryFormWidgetState createState() => _DiaryFormWidgetState();
 }
-
-class colorIndex {}
 
 class _DiaryFormWidgetState extends State<DiaryFormWidget> {
   int? selectedIndex;

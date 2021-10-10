@@ -24,7 +24,7 @@ class _CalendarState extends State<Calendar> {
   Widget pageUI(){
      return Consumer<ConnectivityProvider>(
       builder: (context, model, child) {
-        if (model.isOnline != null) {
+        if (model.isOnline) {
           return model.isOnline
               ?  Scaffold(
         appBar: AppBar(
@@ -48,8 +48,10 @@ class _CalendarState extends State<Calendar> {
 List<Appointment> getAppointments() {
   List<Appointment> meetings = <Appointment>[];
   final DateTime today = DateTime.now();
+  // ignore: non_constant_identifier_names
   final DateTime StartTime = DateTime(today.year, today.month, today.day,
       today.hour, today.minute, today.second);
+  // ignore: unused_local_variable
   final DateTime endTime = StartTime.add(const Duration(hours: 1));
 
   /*meetings.add(Appointment(

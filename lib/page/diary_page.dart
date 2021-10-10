@@ -4,12 +4,6 @@ import 'package:vhelp_test/Content.dart';
 import 'package:vhelp_test/db/logs_database.dart';
 import 'package:vhelp_test/model/colorLog.dart';
 import 'package:vhelp_test/widget/diary_card_widget.dart';
-import '../DiaryLog.dart';
-import '../MoodCollections.dart';
-import '../db/notes_database.dart';
-import '../model/note.dart';
-import '../page/note_detail_page.dart';
-import '../widget/note_card_widget.dart';
 import 'diary_detail_page.dart';
 import 'edit_diary_page.dart';
 import 'notes_page.dart';
@@ -118,8 +112,7 @@ class _DiaryPageState extends State<DiaryPage> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => MoodCollectionsPage()),
+                          MaterialPageRoute(builder: (context) => HomePage()),
                         );
                       })),
             ),

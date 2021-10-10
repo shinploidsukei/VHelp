@@ -1,8 +1,6 @@
 import 'dart:math';
 import 'package:provider/provider.dart';
 import 'package:vhelp_test/no_internet.dart';
-
-import '/dateTime_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:vhelp_test/Content.dart';
@@ -13,8 +11,8 @@ import 'package:vhelp_test/notification_api.dart';
 
 import 'connectivity_provider.dart';
 
-class MedNoti extends StatefulWidget{
-  @override 
+class MedNoti extends StatefulWidget {
+  @override
   _MedNoti createState() => _MedNoti();
 }
 
@@ -30,29 +28,29 @@ class _MedNoti extends State<MedNoti> {
   Widget build(BuildContext context) {
     return pageUI();
   }
-  Widget pageUI(){
-     return Consumer<ConnectivityProvider>(
+
+  Widget pageUI() {
+    return Consumer<ConnectivityProvider>(
       builder: (context, model, child) {
-        if (model.isOnline != null) {
+        if (model.isOnline) {
           return model.isOnline
               ? MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: title,
-        theme: ThemeData(primarySwatch: Colors.blueGrey),
-        home: MedNotiPage(),
-              ): NoInternet();
-  }
- return Container(
+                  debugShowCheckedModeBanner: false,
+                  title: title,
+                  theme: ThemeData(primarySwatch: Colors.blueGrey),
+                  home: MedNotiPage(),
+                )
+              : NoInternet();
+        }
+        return Container(
           child: Center(
             child: CircularProgressIndicator(),
           ),
         );
       },
     );
-  } 
+  }
 }
-
-
 
 class MedNotiPage extends StatefulWidget {
   @override
@@ -137,7 +135,7 @@ class _MedNotiPageState extends State<MedNotiPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    resizeToAvoidBottomInset: false,
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text("Medicine Notification"),
           centerTitle: true,
@@ -170,14 +168,16 @@ class _MedNotiPageState extends State<MedNotiPage> {
                   colors: [Colors.white, Colors.blue.shade200])),
           alignment: Alignment.center,
           padding: EdgeInsets.all(32),
-         
           child: Column(
-           mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 24),
-              Align(alignment: Alignment.topLeft,
+              Align(
+                alignment: Alignment.topLeft,
                 child: Text('Date',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),),
+                    style:
+                        TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+              ),
               const SizedBox(height: 24),
               SizedBox(
                 width: double.infinity,
@@ -196,9 +196,12 @@ class _MedNotiPageState extends State<MedNotiPage> {
                 ),
               ),
               const SizedBox(height: 24),
-              
-             Align(alignment: Alignment.topLeft,child: Text('Time',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Text('Time',
+                    style:
+                        TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+              ),
               const SizedBox(height: 15),
               SizedBox(
                 width: double.infinity,
@@ -217,8 +220,12 @@ class _MedNotiPageState extends State<MedNotiPage> {
                 ),
               ),
               const SizedBox(height: 24),
-              Align(alignment: Alignment.topLeft,child:Text('Notification Word',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Text('Notification Word',
+                    style:
+                        TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+              ),
               SizedBox(
                 height: 20,
               ),
@@ -271,8 +278,8 @@ class _MedNotiPageState extends State<MedNotiPage> {
               Spacer(),
             ],
           ),
-            ),
-  );
+        ),
+      );
 
   Widget buildButton({
     required String title,
@@ -332,16 +339,18 @@ class _MedNotiPageState extends State<MedNotiPage> {
   }
 
   Widget buildRandomButton() {
+    // ignore: unused_local_variable
     final backgroundColor = MaterialStateColor.resolveWith((states) =>
-        states.contains(MaterialState.pressed)
-            ? Colors.white
-            : Colors.black);
+        states.contains(MaterialState.pressed) ? Colors.white : Colors.black);
 
     return Align(
         alignment: Alignment.bottomLeft,
         child: TextButton.icon(
           //style: ButtonStyle(backgroundColor: backgroundColor),
-          label: Text('Random Words',style: TextStyle(color: Colors.black),),
+          label: Text(
+            'Random Words',
+            style: TextStyle(color: Colors.black),
+          ),
           icon: Icon(Icons.autorenew, color: Colors.black),
           onPressed: () {
             final rWords = getRandomItem();

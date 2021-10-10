@@ -23,36 +23,38 @@ class _YearPixels extends State<YearPixels> {
   Widget pageUI() {
     return Consumer<ConnectivityProvider>(
       builder: (context, model, child) {
-        if (model.isOnline != null) {
+        if (model.isOnline) {
           return model.isOnline
               ? Scaffold(
                   body: Container(
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: [Colors.blue.shade200, Colors.blueGrey],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter)),
-                  child: Center(child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Image.asset(
-                          'assets/images/iceberg.png',
-                          height: 350,
-                          width: 350,
-                        ),
-                        SizedBox(
-                          height: 100,
-                        ),
-                        Text(
-                          'Under Construction',
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        )
-                      ]),
-                )))
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              colors: [Colors.blue.shade200, Colors.blueGrey],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter)),
+                      child: Center(
+                        child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Image.asset(
+                                'assets/images/iceberg.png',
+                                height: 350,
+                                width: 350,
+                              ),
+                              SizedBox(
+                                height: 100,
+                              ),
+                              Text(
+                                'Under Construction',
+                                textAlign: TextAlign.center,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ]),
+                      )))
               : NoInternet();
         }
         return Container(

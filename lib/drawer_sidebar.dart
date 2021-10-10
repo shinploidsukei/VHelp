@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:vhelp_test/page/diary_page.dart';
 import 'Art.dart';
 import 'Calendar.dart';
-import 'DiaryLog.dart';
 import 'DocNoti.dart';
 import 'Music.dart';
 import 'Podcast.dart';

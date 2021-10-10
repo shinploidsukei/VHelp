@@ -27,7 +27,7 @@ class _MyStatelessWidget extends State<MyApp> {
   Widget pageUI() {
     return Consumer<ConnectivityProvider>(
       builder: (context, model, child) {
-        if (model.isOnline != null) {
+        if (model.isOnline) {
           return model.isOnline
               ? Container(
                   decoration: BoxDecoration(

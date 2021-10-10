@@ -5,6 +5,7 @@ import 'package:vhelp_test/no_internet.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '/TimeStampLog.dart';
 
+// ignore: camel_case_types
 class timestamp extends StatefulWidget {
   @override
   _Timestamp createState() => _Timestamp();
@@ -34,7 +35,7 @@ class _Timestamp extends State<timestamp> {
 
     return Consumer<ConnectivityProvider>(
       builder: (context, model, child) {
-        if (model.isOnline != null) {
+        if (model.isOnline) {
           return model.isOnline
               ? Scaffold(
                   body: Container(

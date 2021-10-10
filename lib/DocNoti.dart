@@ -6,8 +6,8 @@ import 'package:vhelp_test/provider/event_provider.dart';
 import 'package:vhelp_test/widget/calendar_widget.dart';
 import 'package:provider/provider.dart';
 
-class DocNoti extends StatefulWidget{
-  @override 
+class DocNoti extends StatefulWidget {
+  @override
   _DocNoti createState() => _DocNoti();
 }
 
@@ -18,31 +18,33 @@ class _DocNoti extends State<DocNoti> {
     super.initState();
     Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
   }
-  
+
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
     return pageUI();
   }
-  Widget pageUI(){
-     return Consumer<ConnectivityProvider>(
+
+  Widget pageUI() {
+    return Consumer<ConnectivityProvider>(
       builder: (context, model, child) {
-        if (model.isOnline != null) {
+        if (model.isOnline) {
           return model.isOnline
               ? ChangeNotifierProvider(
-        create: (context) => EventProvider(),
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: title,
-          themeMode: ThemeMode.light,
-          darkTheme: ThemeData.dark().copyWith(
-            scaffoldBackgroundColor: Colors.black,
-            primaryColor: Colors.blueGrey,
-          ),
-          home: DocNotiPage(),
-        ),
-      ): NoInternet();
-  }
-   return Container(
+                  create: (context) => EventProvider(),
+                  child: MaterialApp(
+                    debugShowCheckedModeBanner: false,
+                    title: title,
+                    themeMode: ThemeMode.light,
+                    darkTheme: ThemeData.dark().copyWith(
+                      scaffoldBackgroundColor: Colors.black,
+                      primaryColor: Colors.blueGrey,
+                    ),
+                    home: DocNotiPage(),
+                  ),
+                )
+              : NoInternet();
+        }
+        return Container(
           child: Center(
             child: CircularProgressIndicator(),
           ),
@@ -51,7 +53,6 @@ class _DocNoti extends State<DocNoti> {
     );
   }
 }
-
 
 class DocNotiPage extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
@@ -69,5 +70,3 @@ class DocNotiPage extends StatelessWidget {
         ),
       );
 }
-
-

@@ -1,8 +1,6 @@
 import 'dart:math';
 import 'package:provider/provider.dart';
 import 'package:vhelp_test/no_internet.dart';
-
-import '/dateTime_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:vhelp_test/Content.dart';
@@ -34,7 +32,7 @@ class _TimeStampLog extends State<TimeStampLog> {
   Widget pageUI() {
     return Consumer<ConnectivityProvider>(
       builder: (context, model, child) {
-        if (model.isOnline != null) {
+        if (model.isOnline) {
           return model.isOnline
               ? MaterialApp(
                   debugShowCheckedModeBanner: false,
@@ -341,6 +339,7 @@ class _MedNotiPageState extends State<MedNotiPage> {
   }
 
   Widget buildRandomButton() {
+    // ignore: unused_local_variable
     final backgroundColor = MaterialStateColor.resolveWith((states) =>
         states.contains(MaterialState.pressed) ? Colors.white : Colors.black);
 

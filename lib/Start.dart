@@ -13,26 +13,24 @@ class Start extends StatefulWidget {
 }
 
 class _StartState extends State<Start> {
-  @override
   bool checkBoxValue = false;
   bool _enabled = false;
   bool nextvalue = false;
-  
+
   @override
   void initState() {
     super.initState();
     Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
   }
 
-
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
 
   Widget build(BuildContext context) {
-   
     return pageUI();
   }
-  Widget pageUI(){
-     var _onPressed;
+
+  Widget pageUI() {
+    var _onPressed;
     if (_enabled) {
       _onPressed = () {
         Navigator.push(
@@ -43,65 +41,71 @@ class _StartState extends State<Start> {
     }
     return Consumer<ConnectivityProvider>(
       builder: (context, model, child) {
-        if (model.isOnline != null) {
+        if (model.isOnline) {
           return model.isOnline
-              ?  Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [Colors.blue.shade200, Colors.blueGrey.shade100],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter)),
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 60.0),
-              child: Center(
-                child: Container(
-                    width: 450,
-                    height: 450,
-                    child: Image.asset('assets/images/iceberg.png')),
-              ),
-            ),
-            RaisedButton(
-              //shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-              onPressed: _onPressed,
-              padding: EdgeInsets.symmetric(vertical: 8, horizontal: 30),
-              color: Colors.red,
-              textColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(30))),
-
-              // padding: const EdgeInsets.all(20),
-              child:
-                  const Text('Let Me Help You', style: TextStyle(fontSize: 20)),
-            ),
-            FlatButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => TermService()));
-                },
-                child: Row(
-                  children: [
-                    new Checkbox(
-                      value: _enabled,
-                      onChanged: (nextvalue) {
-                        setState(() {
-                          _enabled = nextvalue!;
-                        });
-                      },
-                      activeColor: Colors.green,
+              ? Scaffold(
+                  body: Container(
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            colors: [
+                          Colors.blue.shade200,
+                          Colors.blueGrey.shade100
+                        ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter)),
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(top: 60.0),
+                          child: Center(
+                            child: Container(
+                                width: 450,
+                                height: 450,
+                                child:
+                                    Image.asset('assets/images/iceberg.png')),
+                          ),
+                        ),
+                        ElevatedButton(
+                            child: const Text('Let Me Help You',
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.white)),
+                            onPressed: _onPressed,
+                            style: ElevatedButton.styleFrom(
+                                primary: Colors.red,
+                                shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(30))),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 8, horizontal: 30))),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => TermService()));
+                            },
+                            child: Row(
+                              children: [
+                                new Checkbox(
+                                  value: _enabled,
+                                  onChanged: (nextvalue) {
+                                    setState(() {
+                                      _enabled = nextvalue!;
+                                    });
+                                  },
+                                  activeColor: Colors.green,
+                                ),
+                                Text('Terms and Conditions'),
+                              ],
+                              mainAxisAlignment: MainAxisAlignment.center,
+                            )),
+                      ],
                     ),
-                    Text('Terms and Conditions'),
-                  ],
-                  mainAxisAlignment: MainAxisAlignment.center,
-                )),
-          ],
-        ),
-      ),
-    ): NoInternet();
-  }
-  return Container(
+                  ),
+                )
+              : NoInternet();
+        }
+        return Container(
           child: Center(
             child: CircularProgressIndicator(),
           ),

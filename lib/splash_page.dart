@@ -1,9 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:vhelp_test/connectivity_provider.dart';
-import 'package:vhelp_test/no_internet.dart';
 import 'AccountScreen.dart';
-
 
 class SplashScreen extends StatefulWidget {
   //final Color backgroundColor = Colors.lightBlueAccent;
@@ -91,8 +88,7 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
           ],
         ),
-      ),);
+      ),
+    );
   }
-
-  
 }

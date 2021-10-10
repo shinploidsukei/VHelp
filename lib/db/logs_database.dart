@@ -47,7 +47,8 @@ class LogsDatabase {
   Future<colorLog> read(int id) async {
     final db = await instance.database;
 
-    final maps = await db.query(tableLogs,
+    final maps = await db.query(
+        tableLogs,
         columns: colorFields.values,
         where: '${colorFields.id} = ?',
         whereArgs: [id]);

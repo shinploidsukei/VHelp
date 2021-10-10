@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
 import 'package:vhelp_test/no_internet.dart';
-import 'DiaryPreferences.dart';
+//import 'DiaryPreferences.dart';
 import 'PopupDialog.dart';
 
 // This class is myDetailsContainer()
@@ -35,7 +35,7 @@ class _DiaryDetailState extends State<DiaryDetail> {
   @override
   void initState() {
     super.initState();
-    selectedIndex = (DiaryPreferences.getIndex() ?? '') as int?;
+    //selectedIndex = (DiaryPreferences.getIndex() ?? '') as int?;
     Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
   }
 
@@ -110,7 +110,7 @@ class _DiaryDetailState extends State<DiaryDetail> {
             thisColor = index;
             print(index);
           });
-          await DiaryPreferences.setIndex(index);
+          //await DiaryPreferences.setIndex(index);
           //SharedPreferences prefs = await SharedPreferences.getInstance();
           //final value = prefs.getInt('index');
           //print('value $value');

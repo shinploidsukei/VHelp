@@ -41,43 +41,44 @@ class _DiaryDetailState extends State<DiaryDetail> {
     return pageUI();
   }
 
-  Widget pageUI(){
-     return Consumer<ConnectivityProvider>(
+  Widget pageUI() {
+    return Consumer<ConnectivityProvider>(
       builder: (context, model, child) {
         if (model.isOnline != null) {
           return model.isOnline
               ? Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        SizedBox(height: 20),
-        Container(
-          //padding: const EdgeInsets.only(left: 1.0),
-          child: Container(
-              child: Text(
-            "Day ${widget.day + 1}",
-            style: TextStyle(
-                color: Colors.black,
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold),
-          )),
-        ),
-        SizedBox(height: 10),
-        Container(
-          child: Container(
-              child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              ...List.generate(5, (index) => _buildEmoji(index)),
-            ],
-          )),
-        ),
-        SizedBox(height: 10),
-      ],
-    ):NoInternet();
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(height: 20),
+                    Container(
+                      //padding: const EdgeInsets.only(left: 1.0),
+                      child: Container(
+                          child: Text(
+                        "Day ${widget.day + 1}",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold),
+                      )),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      child: Container(
+                          child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          ...List.generate(5, (index) => _buildEmoji(index)),
+                        ],
+                      )),
+                    ),
+                    SizedBox(height: 10),
+                  ],
+                )
+              : NoInternet();
         }
-    return Container(
+        return Container(
           child: Center(
             child: CircularProgressIndicator(),
           ),
@@ -85,7 +86,8 @@ class _DiaryDetailState extends State<DiaryDetail> {
       },
     );
   }
-   Widget _buildEmoji(int index) {
+
+  Widget _buildEmoji(int index) {
     return Container(
       child: IconButton(
         icon: Icon(Icons.emoji_emotions),
@@ -108,4 +110,3 @@ class _DiaryDetailState extends State<DiaryDetail> {
     );
   }
 }
-

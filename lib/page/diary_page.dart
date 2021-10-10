@@ -41,6 +41,8 @@ class _DiaryPageState extends State<DiaryPage> {
     setState(() => isLoading = true);
 
     this.colors = await LogsDatabase.instance.readAll();
+
+    setState(() => isLoading = false);
   }
 
   @override

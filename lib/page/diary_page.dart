@@ -22,7 +22,6 @@ class _DiaryPageState extends State<DiaryPage> {
   @override
   void initState() {
     super.initState();
-
     refreshNotes();
   }
 

@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:vhelp_test/model/note.dart';
-import 'package:vhelp_test/TimeStampDetails.dart';
+import 'package:vhelp_test/model/TimeStampDetails.dart';
 
 class TimeStampLog {
   static final TimeStampLog instance = TimeStampLog._init();
@@ -46,7 +45,7 @@ class TimeStampLog {
     return TimeStampDetails.copy(id: id);
   }
 
-  Future<TimeStampDetails> readLog(int id) async {
+  /*Future<TimeStampDetails> readLog(int id) async {
     final db = await instance.database;
     final maps = await db.query(
       tableLog,
@@ -59,19 +58,19 @@ class TimeStampLog {
     } else {
       throw Exception('ID $id not found');
     }
-  }
+  }*/
 
-  Future<List<Note>> readAllLog() async {
+  Future<List<TimeStampDetails>> readAllLog() async {
     final db = await instance.database;
     final orderBy = '${TimeStampFields.datetime} ASC';
     /*final result =
         await db.rawQuery('SELECT * FROM $tableLog ORDER BY $orderBy');*/
-    final result = await db.query(tableNotes, orderBy: orderBy);
+    final result = await db.query(tableLog, orderBy: orderBy);
 
-    return result.map((json) => Note.fromJson(json)).toList();
+    return result.map((json) => TimeStampDetails.fromJson(json)).toList();
   }
 
-  Future<int> update(TimeStampDetails TimeStampDetails) async {
+  /*Future<int> update(TimeStampDetails TimeStampDetails) async {
     final db = await instance.database;
     return db.update(
       tableLog,
@@ -79,7 +78,7 @@ class TimeStampLog {
       where: '${TimeStampFields.id}=?',
       whereArgs: [TimeStampDetails.id],
     );
-  }
+  }*/
 
   Future close() async {
     final db = await instance.database;

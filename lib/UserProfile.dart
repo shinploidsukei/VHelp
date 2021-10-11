@@ -1,9 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:vhelp_test/model/userInfo.dart';
-import 'package:vhelp_test/widget/appbar_widget.dart';
-import 'package:vhelp_test/widget/button_widget.dart';
-import 'package:vhelp_test/widget/profile_widget.dart';
+
 /*
 class UserPage extends StatefulWidget {
   const UserPage({Key? key}) : super(key: key);
@@ -77,8 +73,6 @@ class _UserPageState extends State<UserPage> {
       );
 }
 */
-
-
 
 class UserPage extends StatelessWidget {
   final String name;

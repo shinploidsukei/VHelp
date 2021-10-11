@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
   Widget pageUI() {
     return Consumer<ConnectivityProvider>(
       builder: (context, model, child) {
-        if (model.isOnline != null) {
+        if (model.isOnline) {
           return model.isOnline
               ? Scaffold(
                   backgroundColor: Colors.blue[200],

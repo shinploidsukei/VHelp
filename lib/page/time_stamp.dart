@@ -17,14 +17,13 @@ class _timeStampState extends State<timeStamp> {
   }
 
   Widget build(BuildContext context) {
-      return pageUI();
-      
-    
+    return pageUI();
   }
-   Widget pageUI() {
+
+  Widget pageUI() {
     return Consumer<ConnectivityProvider>(
       builder: (context, model, child) {
-        if (model.isOnline != null) {
+        if (model.isOnline) {
           return model.isOnline
               ? Scaffold(
                   body: Container(

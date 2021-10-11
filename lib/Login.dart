@@ -30,126 +30,137 @@ class _LoginDemoState extends State<LoginDemo> {
     return pageUI();
   }
 
-  Widget pageUI(){
+  Widget pageUI() {
     return Consumer<ConnectivityProvider>(
       builder: (context, model, child) {
-        if (model.isOnline != null) {
+        if (model.isOnline) {
           return model.isOnline
               ? FutureBuilder(
-        future: firebase,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            return Scaffold(
-              appBar: AppBar(
-                title: Text('Error'),
-              ),
-              body: Center(
-                child: Text('${snapshot.error}'),
-              ),
-            );
-          }
-          if (snapshot.connectionState == ConnectionState.done) {
-            return Scaffold(
-                appBar: AppBar(
-                  title:
-                      Text("Login Page", style: TextStyle(color: Colors.white)),
-                  backgroundColor: Colors.blue.shade200,
-                ),
-                body: Container(
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: [Colors.blue.shade200, Colors.blueGrey],
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Form(
-                        key: formkey,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Email',
-                              style: TextStyle(fontSize: 20.0),
-                            ),
-                            TextFormField(
-                              validator: MultiValidator([
-                                RequiredValidator(
-                                    errorText: 'Please enter your email'),
-                                EmailValidator(
-                                    errorText:
-                                        'Please enter the correct form of email')
-                              ]),
-                              keyboardType: TextInputType.emailAddress,
-                              onSaved: (String? email) {
-                                profile.email = email!;
-                              },
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            Text(
-                              'Password',
-                              style: TextStyle(fontSize: 20.0),
-                            ),
-                            TextFormField(
-                                validator: RequiredValidator(
-                                    errorText: 'Please enter your password'),
-                                obscureText: true,
-                                onSaved: (String? password) {
-                                  profile.password = password!;
-                                }),
-                            SizedBox(
-                              width: double.infinity,
-                              child: ElevatedButton(
-                                  onPressed: () async {
-                                    if (formkey.currentState!.validate()) {
-                                      formkey.currentState!.save();
-                                      try {
-                                        await FirebaseAuth.instance
-                                            .signInWithEmailAndPassword(
-                                                email: profile.email,
-                                                password: profile.password)
-                                            .then((value) {
-                                          formkey.currentState!.reset();
-                                          Navigator.pushReplacement(context,
-                                              MaterialPageRoute(
-                                                  builder: (context) {
-                                            return HomePage();
-                                          }));
-                                        });
-                                      } on FirebaseAuthException catch (e) {
-                                        Fluttertoast.showToast(
-                                            msg: e.message!,
-                                            gravity: ToastGravity.CENTER);
-                                      }
-                                    }
-                                  },
-                                  child: Text(
-                                    'Login',
-                                    style: TextStyle(fontSize: 20.0),
+                  future: firebase,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError) {
+                      return Scaffold(
+                        appBar: AppBar(
+                          title: Text('Error'),
+                        ),
+                        body: Center(
+                          child: Text('${snapshot.error}'),
+                        ),
+                      );
+                    }
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      return Scaffold(
+                          appBar: AppBar(
+                            title: Text("Login Page",
+                                style: TextStyle(color: Colors.white)),
+                            backgroundColor: Colors.blue.shade200,
+                          ),
+                          body: Container(
+                            decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    colors: [
+                                  Colors.blue.shade200,
+                                  Colors.blueGrey
+                                ],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: Form(
+                                  key: formkey,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'Email',
+                                        style: TextStyle(fontSize: 20.0),
+                                      ),
+                                      TextFormField(
+                                        validator: MultiValidator([
+                                          RequiredValidator(
+                                              errorText:
+                                                  'Please enter your email'),
+                                          EmailValidator(
+                                              errorText:
+                                                  'Please enter the correct form of email')
+                                        ]),
+                                        keyboardType:
+                                            TextInputType.emailAddress,
+                                        onSaved: (String? email) {
+                                          profile.email = email!;
+                                        },
+                                      ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Text(
+                                        'Password',
+                                        style: TextStyle(fontSize: 20.0),
+                                      ),
+                                      TextFormField(
+                                          validator: RequiredValidator(
+                                              errorText:
+                                                  'Please enter your password'),
+                                          obscureText: true,
+                                          onSaved: (String? password) {
+                                            profile.password = password!;
+                                          }),
+                                      SizedBox(
+                                        width: double.infinity,
+                                        child: ElevatedButton(
+                                            onPressed: () async {
+                                              if (formkey.currentState!
+                                                  .validate()) {
+                                                formkey.currentState!.save();
+                                                try {
+                                                  await FirebaseAuth.instance
+                                                      .signInWithEmailAndPassword(
+                                                          email: profile.email,
+                                                          password:
+                                                              profile.password)
+                                                      .then((value) {
+                                                    formkey.currentState!
+                                                        .reset();
+                                                    Navigator.pushReplacement(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) {
+                                                      return HomePage();
+                                                    }));
+                                                  });
+                                                } on FirebaseAuthException catch (e) {
+                                                  Fluttertoast.showToast(
+                                                      msg: e.message!,
+                                                      gravity:
+                                                          ToastGravity.CENTER);
+                                                }
+                                              }
+                                            },
+                                            child: Text(
+                                              'Login',
+                                              style: TextStyle(fontSize: 20.0),
+                                            )),
+                                      )
+                                    ],
                                   )),
-                            )
-                          ],
-                        )),
-                  ),
-                ));
-          }
-          return Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        }): NoInternet();
-
-  }
-  return Container(
+                            ),
+                          ));
+                    }
+                    return Scaffold(
+                      body: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  })
+              : NoInternet();
+        }
+        return Container(
           child: Center(
             child: CircularProgressIndicator(),
           ),
         );
       },
     );
-  } 
+  }
 }
-

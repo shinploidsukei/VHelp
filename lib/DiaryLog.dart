@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vhelp_test/Content.dart';
 import 'package:vhelp_test/model/colorLog.dart';
 import 'package:vhelp_test/no_internet.dart';
 import 'package:vhelp_test/page/diary_page.dart';
 import 'DiaryCard.dart';
-import 'MoodCollections.dart';
 import 'connectivity_provider.dart';
 import 'page/notes_page.dart';
 
@@ -126,7 +126,7 @@ class _DiaryLogPageState extends State<DiaryLogPage> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              MoodCollectionsPage()),
+                                              HomePage()),
                                     );
                                   })),
                         ),

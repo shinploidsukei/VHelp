@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import '../Login.dart';
 import '../model/userInfo.dart';
 
+// ignore: camel_case_types
 class profileForm extends StatefulWidget {
   const profileForm({Key? key}) : super(key: key);
 
@@ -14,6 +15,7 @@ class profileForm extends StatefulWidget {
   _profileFormState createState() => _profileFormState();
 }
 
+// ignore: camel_case_types
 class _profileFormState extends State<profileForm> {
   final formkey = GlobalKey<FormState>();
   userInfo myInfo = userInfo(

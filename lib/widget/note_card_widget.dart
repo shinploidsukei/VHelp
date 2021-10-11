@@ -26,7 +26,6 @@ class NoteCardWidget extends StatelessWidget {
     /// Pick colors from the accent colors based on index
     final color = _lightColors[index % _lightColors.length];
     final time = DateFormat.yMMMd().format(note.createdTime);
-    final minHeight = getMinHeight(index);
 
     return Card(
       color: color,

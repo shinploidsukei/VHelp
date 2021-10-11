@@ -3,7 +3,6 @@ import 'package:vhelp_test/page/diary_page.dart';
 import '/page/time_stamp.dart';
 import 'Art.dart';
 import 'Calendar.dart';
-import 'DiaryLog.dart';
 import 'DocNoti.dart';
 import 'Music.dart';
 import 'Podcast.dart';

@@ -22,6 +22,7 @@ class HotlinePageState extends State<HotlinePage> {
   int index = 0;
   final number = '1323';
   final command = '1323';
+  // ignore: unused_element
   Future<void> _makePhoneCall(command) async {
     if (await canLaunch(command)) {
       await launch(command);

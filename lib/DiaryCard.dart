@@ -1,4 +1,3 @@
-
 import 'package:provider/provider.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
 import 'package:vhelp_test/no_internet.dart';
@@ -7,6 +6,7 @@ import 'DiarytDetail.dart';
 import 'package:flutter/material.dart';
 
 // This class is in buildPages()  -->  //1, //2, //3, ...
+// ignore: must_be_immutable
 class DiaryCard extends StatefulWidget {
   DiaryCard({
     Key? key,
@@ -15,14 +15,11 @@ class DiaryCard extends StatefulWidget {
 
   int day;
 
-
   @override
   _DiaryCardState createState() => _DiaryCardState();
 }
 
 class _DiaryCardState extends State<DiaryCard> {
-
-
   @override
   void initState() {
     super.initState();
@@ -36,7 +33,7 @@ class _DiaryCardState extends State<DiaryCard> {
 
   Widget pageUI() {
     return Consumer<ConnectivityProvider>(builder: (context, model, child) {
-      if (model.isOnline != null) {
+      if (model.isOnline) {
         return model.isOnline
             ? Padding(
                 padding: const EdgeInsets.all(16.0),

@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vhelp_test/Content.dart';
-import '/page/time_stamp.dart';
 
 class MedConfirmSuccess extends StatelessWidget {
   final String? payload;

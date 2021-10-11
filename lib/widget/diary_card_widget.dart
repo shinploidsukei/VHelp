@@ -42,7 +42,7 @@ class DiaryCardWidget extends StatelessWidget {
           children: [
             Text(
               time,
-              style: TextStyle(color: Colors.white),
+              style: TextStyle(color: Colors.grey.shade700),
             ),
             SizedBox(height: 4),
             IconTheme(

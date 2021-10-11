@@ -33,7 +33,7 @@ class _DiaryFormWidgetState extends State<DiaryFormWidget> {
   @override
   void initState() {
     super.initState();
-    selectedIndex = (DiaryPreferences.getIndex() ?? '') as int?;
+    // selectedIndex = (DiaryPreferences.getIndex() ?? '') as int?;
     Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
   }
 

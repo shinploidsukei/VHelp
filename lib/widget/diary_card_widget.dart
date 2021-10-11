@@ -45,7 +45,9 @@ class DiaryCardWidget extends StatelessWidget {
               style: TextStyle(color: Colors.white),
             ),
             SizedBox(height: 4),
-            Icon(Icons.emoji_emotions),
+            IconTheme(
+                data: IconThemeData(color: emojiColors[colorCard.colorSaved]),
+                child: Icon(Icons.emoji_emotions)),
             /*Text(
               colorCard.colorSaved as String,
               style: TextStyle(

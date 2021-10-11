@@ -5,7 +5,7 @@ class NoteFields {
     /// Add all fields
     id, isImportant, number, title, description, time
   ];
-
+  //comment
   static final String id = '_id';
   static final String isImportant = 'isImportant';
   static final String number = 'number';

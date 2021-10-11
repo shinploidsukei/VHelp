@@ -1,37 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
 import 'package:vhelp_test/no_internet.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '/TimeStampLog.dart';
 
-class timestamp extends StatefulWidget {
+class timeStamp extends StatefulWidget {
   @override
-  _Timestamp createState() => _Timestamp();
+  _timeStampState createState() => _timeStampState();
 }
 
-class _Timestamp extends State<timestamp> {
+class _timeStampState extends State<timeStamp> {
   @override
   void initState() {
     super.initState();
     Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
   }
 
-  @override
   Widget build(BuildContext context) {
-    return pageUI();
+      return pageUI();
+      
+    
   }
-
-  Widget pageUI() {
-    _launchURL() async {
-      const url = 'https://vhelp.itch.io/vhelpminigame';
-      if (await canLaunch(url)) {
-        await launch(url);
-      } else {
-        throw 'Could not launch $url';
-      }
-    }
-
+   Widget pageUI() {
     return Consumer<ConnectivityProvider>(
       builder: (context, model, child) {
         if (model.isOnline != null) {
@@ -55,34 +45,11 @@ class _Timestamp extends State<timestamp> {
                                 width: 450,
                               ),
                               SizedBox(
-                                height: 50,
+                                height: 100,
                               ),
                               ElevatedButton(
+                                onPressed: TakeMedicine,
                                 child: Text('Take Medicine'),
-                                style: ElevatedButton.styleFrom(
-                                  fixedSize: const Size(300, 50),
-                                  primary: Colors.blue[700],
-                                  onPrimary: Colors.white,
-                                ),
-                                onPressed: _launchURL,
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              ElevatedButton(
-                                child: Text('Your Timestamp'),
-                                style: ElevatedButton.styleFrom(
-                                  fixedSize: const Size(300, 50),
-                                  primary: Colors.blue[700],
-                                  onPrimary: Colors.white,
-                                ),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => TimeStampLog()),
-                                  );
-                                },
                               )
                             ]),
                       )))
@@ -95,5 +62,16 @@ class _Timestamp extends State<timestamp> {
         );
       },
     );
+  }
+
+  void TakeMedicine() {
+    _launchURL() async {
+      const url = 'https://vhelp.itch.io/vhelpminigame';
+      if (await canLaunch(url)) {
+        await launch(url);
+      } else {
+        throw 'Could not launch $url';
+      }
+    }
   }
 }

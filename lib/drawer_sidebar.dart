@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:vhelp_test/page/diary_page.dart';
+import '/page/time_stamp.dart';
 import 'Art.dart';
 import 'Calendar.dart';
 import 'DiaryLog.dart';
 import 'DocNoti.dart';
 import 'Music.dart';
 import 'Podcast.dart';
-import 'Timestamp.dart';
 import 'MedNoti.dart';
 import 'UserProfile.dart';
 
@@ -150,7 +150,7 @@ class NavigationDrawerWidget extends StatelessWidget {
     switch (index) {
       case 0:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => timestamp(),
+          builder: (context) => timeStamp(),
         ));
         break;
       case 1:

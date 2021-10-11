@@ -30,6 +30,7 @@ dependencies:
   url_launcher: ^6.0.9
   cloud_firestore: ^2.5.1
   shared_preferences: ^2.0.7
+  logger: ^1.1.0
 
   rxdart: ^0.27.1
   flutter_native_timezone: ^2.0.0

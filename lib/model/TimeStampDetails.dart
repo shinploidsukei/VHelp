@@ -1,4 +1,4 @@
-final String tableNotes = 'TimeStampLog';
+final String tableLog = 'TimeStampLog';
 
 class TimeStampFields {
   static final List<String> values = [

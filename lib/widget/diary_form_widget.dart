@@ -109,7 +109,7 @@ class _DiaryFormWidgetState extends State<DiaryFormWidget> {
             print(index);
             //addLogsToDB();
           });
-          await DiaryPreferences.setIndex(index);
+          //await DiaryPreferences.setIndex(index);
           //SharedPreferences prefs = await SharedPreferences.getInstance();
           //final value = prefs.getInt('index');
           //print('value $value');

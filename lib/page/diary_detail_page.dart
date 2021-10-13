@@ -16,6 +16,14 @@ class _DiaryDetailPageState extends State<DiaryDetailPage> {
   late colorLog color;
   bool isLoading = false;
 
+  var emojiColors = [
+    Colors.red[200],
+    Colors.orange[200],
+    Colors.yellow[200],
+    Colors.green[200],
+    Colors.green[400],
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -46,7 +54,9 @@ class _DiaryDetailPageState extends State<DiaryDetailPage> {
                 padding: EdgeInsets.symmetric(vertical: 8),
                 children: [
                   SizedBox(height: 4),
-                  Icon(Icons.emoji_emotions),
+                  IconTheme(
+                      data: IconThemeData(color: emojiColors[color.colorSaved]),
+                      child: Icon(Icons.emoji_emotions)),
                 ],
               ),
             ),

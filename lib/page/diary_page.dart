@@ -149,7 +149,7 @@ class _DiaryPageState extends State<DiaryPage> {
             onTap: () async {
               await Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => DiaryDetailPage(
-                  colorID: color.colorSaved,
+                  colorID: color.id!,
                 ),
               ));
 

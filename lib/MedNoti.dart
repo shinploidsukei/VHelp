@@ -265,7 +265,7 @@ class _MedNotiPageState extends State<MedNotiPage> {
 
                   final snackBar = SnackBar(
                     content: Text(
-                      'Scheduled in ${(medNotiDate!.difference(DateTime.now()).inDays)} day, ${((medNotiDate!.difference(DateTime.now()).inHours) - 24 * medNotiDate!.difference(DateTime.now()).inDays)} hours, ${(medNotiDate!.difference(DateTime.now()).inMinutes).abs() - 60 * (DateTime.now().difference(medNotiDate!).inHours)} minutes',
+                      'Successfully Set Notification!',
                       style: TextStyle(fontSize: 24),
                     ),
                     backgroundColor: Colors.green,

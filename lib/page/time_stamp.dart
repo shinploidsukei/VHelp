@@ -1,8 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
+import 'package:vhelp_test/db/TimeStamp_database.dart';
+import 'package:vhelp_test/model/TimeStampLog.dart';
 import 'package:vhelp_test/no_internet.dart';
+import 'package:vhelp_test/page/time_stamp_page.dart';
+import 'package:vhelp_test/widget/timestamp_card_widget.dart';
 
 class timeStamp extends StatefulWidget {
   @override
@@ -21,6 +27,8 @@ class _timeStampState extends State<timeStamp> {
   }
 
   Widget pageUI() {
+    late List<TimeStampLog> time1;
+
     return Consumer<ConnectivityProvider>(
       builder: (context, model, child) {
         if (model.isOnline) {
@@ -44,11 +52,27 @@ class _timeStampState extends State<timeStamp> {
                                 width: 450,
                               ),
                               SizedBox(
-                                height: 100,
+                                height: 50,
                               ),
                               ElevatedButton(
-                                onPressed: TakeMedicine,
+                                onPressed: () async {
+                                  final url =
+                                      'https://vhelp.itch.io/vhelpminigame';
+                                  TakeMedicine(url: url, inApp: true);
+                                },
                                 child: Text('Take Medicine'),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              ElevatedButton(
+                                onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (_) => TimestampPage()));
+                                },
+                                child: Text('Timestamp Log'),
                               )
                             ]),
                       )))
@@ -63,14 +87,19 @@ class _timeStampState extends State<timeStamp> {
     );
   }
 
-  void TakeMedicine() {
-    _launchURL() async {
-      const url = 'https://vhelp.itch.io/vhelpminigame';
-      if (await canLaunch(url)) {
-        await launch(url);
-      } else {
-        throw 'Could not launch $url';
-      }
+  Future TakeMedicine({
+    required String url,
+    bool inApp = false,
+  }) async {
+    if (await canLaunch(url)) {
+      await launch(url,
+          forceSafariVC: false, forceWebView: true, enableJavaScript: true);
     }
+
+    final timetakemed = TimeStampDetails(
+      datetime: DateTime.now(),
+    );
+
+    await TimeStampLog.instance.create(timetakemed);
   }
 }

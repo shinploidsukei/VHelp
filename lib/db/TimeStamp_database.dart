@@ -1,7 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:vhelp_test/model/TimeStampDetails.dart';
+import 'package:vhelp_test/model/TimeStampLog.dart';
 
 class TimeStampLog {
   static final TimeStampLog instance = TimeStampLog._init();
@@ -15,6 +14,8 @@ class TimeStampLog {
     return _database!;
   }
 
+  get datetime => null;
+
   Future<Database> _initDB(String filePath) async {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
@@ -23,26 +24,24 @@ class TimeStampLog {
 
   Future _createDB(Database db, int version) async {
     final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
-    final boolType = 'BOOLEAN NOT NULL';
     final textType = 'TEXT NOT NULL';
 
     await db.execute('''CREATE TABLE $tableLog(
       ${TimeStampFields.id} $idType,
-      ${TimeStampFields.isImportant} $boolType, 
       ${TimeStampFields.datetime} $textType,
     )
     ''');
   }
 
-  Future<TimeStampDetails> create(TimeStampDetails TimeStampDetails) async {
+  Future<TimeStampDetails> create(TimeStampDetails timeStamp) async {
     final db = await instance.database;
     /* final json = TimeStampDetails.toJson();
     final columns = '${TimeStampFields.datetime}';
     final values = '${json[TimeStampFields.datetime]}';
     final id = await db
         .rawInsert('INSERT INTO table_name ($columns) VALUES ($values)');*/
-    final id = await db.insert(tableLog, TimeStampDetails.toJson());
-    return TimeStampDetails.copy(id: id);
+    final id = await db.insert(tableLog, timeStamp.toJson());
+    return timeStamp.copy(id: id);
   }
 
   /*Future<TimeStampDetails> readLog(int id) async {

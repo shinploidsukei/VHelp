@@ -61,18 +61,22 @@ class _DiaryPageState extends State<DiaryPage> {
           ),
         ),
         body: Center(
-            child: Column(children: [
-          Expanded(
-            child: isLoading
-                ? CircularProgressIndicator()
-                : colors.isEmpty
-                    ? Text(
-                        'Add some mood..',
-                        style: TextStyle(color: Colors.blueGrey, fontSize: 20),
-                      )
-                    : buildNotes(),
-          ),
-        ])),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+              Expanded(
+                child: isLoading
+                    ? CircularProgressIndicator()
+                    : colors.isEmpty
+                        ? Text(
+                            'Add some mood..',
+                            style:
+                                TextStyle(color: Colors.blueGrey, fontSize: 20),
+                          )
+                        : buildNotes(),
+              ),
+            ])),
         bottomNavigationBar: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

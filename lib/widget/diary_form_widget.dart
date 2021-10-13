@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:vhelp_test/db/logs_database.dart';
+import 'package:vhelp_test/model/colorLog.dart';
 import '../DiaryPreferences.dart';
 import '../PopupDialog.dart';
 import '../connectivity_provider.dart';
 import '../no_internet.dart';
 
 class DiaryFormWidget extends StatefulWidget {
+  final colorLog? color;
+
   const DiaryFormWidget(
       {Key? key,
       required int colorIndex,
+      this.color,
       required void Function(int) onChangedColorIndex})
       : super(key: key);
 
@@ -107,6 +112,7 @@ class _DiaryFormWidgetState extends State<DiaryFormWidget> {
             selectedIndex = index;
             thisColor = index;
             print(index);
+            addOrUpdateColor(index);
             //addLogsToDB();
           });
           //await DiaryPreferences.setIndex(index);
@@ -116,5 +122,34 @@ class _DiaryFormWidgetState extends State<DiaryFormWidget> {
         },
       ),
     );
+  }
+
+  void addOrUpdateColor(int index) async {
+    final isUpdating = widget.color != null;
+
+    if (isUpdating) {
+      await updateColor();
+    } else {
+      await addColor();
+    }
+
+    Navigator.of(context).pop();
+  }
+
+  Future updateColor() async {
+    final color = widget.color!.copy(
+      colorSaved: thisColor,
+    );
+
+    await LogsDatabase.instance.update(color);
+  }
+
+  Future addColor() async {
+    final color = colorLog(
+      colorSaved: thisColor,
+      createTime: DateTime.now(),
+    );
+
+    await LogsDatabase.instance.create(color);
   }
 }

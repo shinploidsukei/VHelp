@@ -33,7 +33,7 @@ class _AddEditMoodPageState extends State<AddEditMoodPage> {
         appBar: AppBar(
           backgroundColor: Colors.blueGrey,
           elevation: 0,
-          actions: [buildButton()],
+          //actions: [buildButton()],
         ),
         body: Container(
           child: Padding(

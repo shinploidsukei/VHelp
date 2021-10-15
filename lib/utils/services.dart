@@ -7,7 +7,7 @@ import 'package:vhelp_test/model/videos_list.dart';
 import 'package:vhelp_test/utils/constant.dart';
 
 class Services {
-  static const CHANNEL_ID = 'UC3f2SY4F9zcxY1oxt9AF9WA';
+  static const CHANNEL_ID = 'UCSJ4gkVC6NrvII8umztf0Ow';
   static const _baseUrl = 'youtube.googleapis.com';
 
   static Future<ChannelInfo> getChannelInfo() async {
@@ -21,7 +21,7 @@ class Services {
     };
     Uri uri = Uri.https(_baseUrl, 'youtube/v3/channels', parameters);
     Response response = await http.get(uri, headers: headers);
-   // print(response.body);
+    // print(response.body);
     ChannelInfo channelInfo = channelInfoFromJson(response.body);
     return channelInfo;
   }
@@ -40,7 +40,7 @@ class Services {
     };
     Uri uri = Uri.https(_baseUrl, 'youtube/v3/playlistItems', parameters);
     Response response = await http.get(uri, headers: headers);
-   // print(response.body);
+    // print(response.body);
     VideoList videosList = videoListFromJson(response.body);
     return videosList;
   }

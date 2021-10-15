@@ -1,17 +1,8 @@
-import 'dart:async';
-import 'dart:typed_data';
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/services.dart';
-import 'package:meta/meta.dart';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
-import 'package:vhelp_test/model/channel_info.dart';
-import 'package:vhelp_test/model/videos_list.dart';
 import 'package:vhelp_test/no_internet.dart';
-import 'package:vhelp_test/screens/video_player_podcast.dart';
-import 'package:vhelp_test/utils/services.dart';
 
 // ignore: camel_case_types
 class podcast extends StatefulWidget {
@@ -20,48 +11,19 @@ class podcast extends StatefulWidget {
 }
 
 class _Podcast extends State<podcast> {
-  late ChannelInfo _channelInfo;
-  late VideoList _videoList;
-  late Item _item;
-  late bool _loading;
-  late String _playListId;
-  late String _nextPageToken;
-  late ScrollController _scrollController;
-
   @override
   void initState() {
     super.initState();
     Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
-    _loading = true;
-    _nextPageToken = '';
-    _scrollController = ScrollController();
-    _videoList = VideoList(
-        etag: '', kind: '', nextPageToken: '', pageInfo: null, videos: []);
-    //_videoList.videos = List();
-    _getChannelInfo();
   }
 
-  _getChannelInfo() async {
-    _channelInfo = await Services.getChannelInfo();
-    _item = _channelInfo.items[0];
-    _playListId = _item.contentDetails.relatedPlaylists.uploads;
-    print('_playListId $_playListId');
-    await _loadVideos();
-    setState(() {
-      _loading = false;
-    });
-  }
-
-  _loadVideos() async {
-    VideoList tempVideosList = await Services.getVideosList(
-      playListId: _playListId,
-      pageToken: _nextPageToken,
-    );
-    _nextPageToken = tempVideosList.nextPageToken!;
-    _videoList.videos.addAll(tempVideosList.videos);
-    print('videos: ${_videoList.videos.length}');
-    print('_nextPageToken $_nextPageToken');
-    setState(() {});
+  _launchURL() async {
+    const url = 'https://www.youtube.com/channel/UC3f2SY4F9zcxY1oxt9AF9WA';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
   @override
@@ -75,65 +37,110 @@ class _Podcast extends State<podcast> {
         if (model.isOnline) {
           return model.isOnline
               ? Scaffold(
-                  appBar: AppBar(
-                    title: Text(_loading ? 'Loading...' : 'Podcast'),
-                  ),
                   body: Container(
-                    color: Colors.blueGrey[100],
-                    child: Column(
-                      children: [
-                        _buildInfoView(),
-                        Expanded(
-                          child: NotificationListener<ScrollEndNotification>(
-                            onNotification: (ScrollNotification notification) {
-                              if (_videoList.videos.length >=
-                                  int.parse(_item.statistics.videoCount)) {
-                                return true;
-                              }
-                              if (notification.metrics.pixels ==
-                                  notification.metrics.maxScrollExtent) {
-                                _loadVideos();
-                              }
-                              return true;
-                            },
-                            child: ListView.builder(
-                                controller: _scrollController,
-                                itemCount: _videoList.videos.length,
-                                itemBuilder: (context, index) {
-                                  VideoItem videoItem =
-                                      _videoList.videos[index];
-                                  return InkWell(
-                                    onTap: () async {
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) {
-                                        return VideoPlayerScreen(
-                                            videoItem: videoItem);
-                                      }));
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.all(20.0),
-                                      child: Row(
-                                        children: [
-                                          CachedNetworkImage(
-                                            imageUrl: videoItem.video.thumbnails
-                                                .thumbnailsDefault.url,
-                                          ),
-                                          SizedBox(width: 20),
-                                          Flexible(
-                                              child:
-                                                  Text(videoItem.video.title)),
-                                          SizedBox(width: 20),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                }),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                )
+                      decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                              colors: [Colors.blue.shade200, Colors.blueGrey],
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter)),
+                      child: Center(
+                          child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                            SizedBox(
+                              height: 50,
+                            ),
+                            ElevatedButton(
+                              onPressed: () async {
+                                final url =
+                                    'https://www.youtube.com/channel/UC3f2SY4F9zcxY1oxt9AF9WA';
+                                StandardPodcast(url: url, inApp: true);
+                              },
+                              child: Text('The Standard Podcast'),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            ElevatedButton(
+                              onPressed: () async {
+                                final url =
+                                    'https://www.youtube.com/c/KNDStudio';
+                                StandardPodcast(url: url, inApp: true);
+                              },
+                              child: Text('KND Studio'),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            ElevatedButton(
+                              onPressed: () async {
+                                final url =
+                                    'https://www.youtube.com/c/MissiontotheMoonMedia';
+                                StandardPodcast(url: url, inApp: true);
+                              },
+                              child: Text('Mission to the Moon'),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            ElevatedButton(
+                              onPressed: () async {
+                                final url =
+                                    'https://www.youtube.com/c/SalmonPodcast';
+                                StandardPodcast(url: url, inApp: true);
+                              },
+                              child: Text('Salmon Podcast'),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            ElevatedButton(
+                              onPressed: () async {
+                                final url =
+                                    'https://www.youtube.com/channel/UC-Ta59DOm6pmkTJ_zCxjkkA';
+                                StandardPodcast(url: url, inApp: true);
+                              },
+                              child: Text('GetTalks Pocast'),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            ElevatedButton(
+                              onPressed: () async {
+                                final url =
+                                    'https://www.youtube.com/results?search_query=ghost+radio';
+                                StandardPodcast(url: url, inApp: true);
+                              },
+                              child: Text('The Ghost Radio'),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            ElevatedButton(
+                              onPressed: () async {
+                                final url =
+                                    'https://www.youtube.com/c/%E0%B9%84%E0%B8%9B%E0%B8%9B%E0%B9%8C%E0%B9%80%E0%B8%A5%E0%B9%88%E0%B8%B2%E0%B9%80%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%9C%E0%B8%B5';
+                                StandardPodcast(url: url, inApp: true);
+                              },
+                              child: Text('ไปป์เล่าเรื่องผี'),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            ElevatedButton(
+                              onPressed: () async {
+                                final url =
+                                    'https://www.youtube.com/channel/UCZo5ZB2p-UMqc5e1llZ1RLg';
+                                StandardPodcast(url: url, inApp: true);
+                              },
+                              child: Text('อาจารย์ยอด'),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                          ]))))
               : NoInternet();
         }
         return Container(
@@ -145,37 +152,13 @@ class _Podcast extends State<podcast> {
     );
   }
 
-  _buildInfoView() {
-    return _loading
-        ? CircularProgressIndicator()
-        : Container(
-            padding: EdgeInsets.all(20.0),
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  children: [
-                    CircleAvatar(
-                      backgroundImage: CachedNetworkImageProvider(
-                        _item.snippet.thumbnails.medium.url,
-                      ),
-                    ),
-                    SizedBox(width: 20),
-                    Expanded(
-                      child: Text(
-                        _item.snippet.title,
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                    Text(_item.statistics.videoCount),
-                    SizedBox(width: 20),
-                  ],
-                ),
-              ),
-            ),
-          );
+  Future StandardPodcast({
+    required String url,
+    bool inApp = false,
+  }) async {
+    if (await canLaunch(url)) {
+      await launch(url,
+          forceSafariVC: false, forceWebView: true, enableJavaScript: true);
+    }
   }
 }

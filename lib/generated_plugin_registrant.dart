@@ -13,3 +13,4 @@ void registerPlugins(Registrar registrar) {
   FluttertoastWebPlugin.registerWith(registrar);
   registrar.registerMessageHandler();
 }
+

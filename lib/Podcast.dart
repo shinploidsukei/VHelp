@@ -17,15 +17,6 @@ class _Podcast extends State<podcast> {
     Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
   }
 
-  _launchURL() async {
-    const url = 'https://www.youtube.com/channel/UC3f2SY4F9zcxY1oxt9AF9WA';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return pageUI();

@@ -55,11 +55,31 @@ class _timeStampState extends State<timeStamp> {
                                 height: 50,
                               ),
                               ElevatedButton(
-                                onPressed: () async {
-                                  final url =
-                                      'https://vhelp.itch.io/vhelpminigame';
-                                  TakeMedicine(url: url, inApp: true);
-                                },
+                                onPressed: () => showDialog<String>(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: const Text('Warning!'),
+                                    content: const Text(
+                                        'Please take the medicines by following the prescription seriously. Overdose means lethal action!'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, 'Cancel'),
+                                        child: const Text('Cancel'),
+                                      ),
+                                      TextButton(
+                                        child: const Text('OK'),
+                                        onPressed: () async {
+                                          final url =
+                                              'https://vhelp.itch.io/vhelpminigame';
+                                          TakeMedicine(url: url, inApp: true);
+                                         // addtoLog();
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
                                 child: Text('Take Medicine'),
                               ),
                               SizedBox(
@@ -87,6 +107,15 @@ class _timeStampState extends State<timeStamp> {
     );
   }
 
+ /* Future addtoLog() async {
+    final log = TimeStampDetails(
+      datetime: DateTime.now(),
+    );
+
+    await TimeStampLog.instance.create(log);
+    print(log.toString());
+  }
+*/
   Future TakeMedicine({
     required String url,
     bool inApp = false,

@@ -1,17 +1,15 @@
 import 'dart:io';
-
-import 'package:file_picker/file_picker.dart';
+import 'package:flutter/rendering.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:path/path.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:vhelp_test/api/firebase_api.dart';
-import 'package:vhelp_test/widget/art_widget.dart';
 
 class ArtTherapy extends StatelessWidget {
   static final String title = 'Art Therapy';
+
   Future artSync() async {
     WidgetsFlutterBinding.ensureInitialized();
     await SystemChrome.setPreferredOrientations([
@@ -38,11 +36,11 @@ class ArtTherapyPage extends StatefulWidget {
 
 class _ArtTherapyPageState extends State<ArtTherapyPage> {
   UploadTask? task;
-  File? file;
 
+  File? fileImage;
   @override
   Widget build(BuildContext context) {
-    final fileName = file != null ? basename(file!.path) : 'No File Selected';
+    // final fileName = file != null ? basename(file!.path) : 'No File Selected';
 
     return Scaffold(
       appBar: AppBar(
@@ -50,49 +48,78 @@ class _ArtTherapyPageState extends State<ArtTherapyPage> {
         centerTitle: true,
       ),
       body: Container(
-        padding: EdgeInsets.all(32),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ButtonWidget(
-                text: 'Select File',
-                icon: Icons.attach_file,
-                onClicked: selectFile,
+        padding: EdgeInsets.all(30.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            /*Container(
+              width: 250.0,
+              child: fileImage != null
+                  ? Image.file(
+                      fileImage!,
+                      width: 160,
+                      height: 160,
+                      fit: BoxFit.cover,
+                    )
+                  : Text('No image selected'),
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.add_a_photo,
+                size: 36.0,
               ),
-              SizedBox(height: 8),
-              Text(
-                fileName,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+              onPressed: () => chooseImageCam(),
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.add_photo_alternate,
+                size: 36.0,
               ),
-              SizedBox(height: 48),
-              ButtonWidget(
-                text: 'Upload File',
-                icon: Icons.cloud_upload_outlined,
-                onClicked: uploadFile,
-              ),
-              SizedBox(height: 20),
-              task != null ? buildUploadStatus(task!) : Container(),
-              SizedBox(height: 20),
-              ElevatedButton(
-                  onPressed: () async {
-                    final url =
-                        'https://artsandculture.google.com/project/exhibits';
-                    VisitExhibition(url: url, inApp: true);
-                  },
-                  child: Text("Visit Art and Culture Exhibition")),
-              SizedBox(height: 20),
-              ElevatedButton(
-                  onPressed: () async {
-                    final url = 'https://nmwa.org/whats-on/exhibitions/online/';
-                    VisitExhibition(url: url, inApp: true);
-                  },
-                  child: Text("Visit National Museum of Women in the Arts")),
-            ],
-          ),
+              onPressed: () => chooseImageGal(),
+            ),*/
+            SizedBox(height: 20),
+            ElevatedButton(
+                onPressed: () async {
+                  final url =
+                      'https://artsandculture.google.com/project/exhibits';
+                  VisitExhibition(url: url, inApp: true);
+                },
+                child: Text("Visit Art and Culture Exhibition")),
+            SizedBox(height: 20),
+            ElevatedButton(
+                onPressed: () async {
+                  final url = 'https://nmwa.org/whats-on/exhibitions/online/';
+                  VisitExhibition(url: url, inApp: true);
+                },
+                child: Text("Visit National Museum of Women in the Arts")),
+          ],
         ),
       ),
     );
+  }
+
+  Future chooseImageCam() async {
+    try {
+      final fileImage =
+          await ImagePicker().pickImage(source: ImageSource.camera);
+      if (fileImage == null) return;
+      final imageTemp = File(fileImage.path);
+      setState(() => this.fileImage = imageTemp);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
+  Future chooseImageGal() async {
+    try {
+      final fileImage =
+          await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (fileImage == null) return;
+      final imageTemp = File(fileImage.path);
+      setState(() => this.fileImage = imageTemp);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
   }
 
   Future VisitExhibition({
@@ -105,16 +132,16 @@ class _ArtTherapyPageState extends State<ArtTherapyPage> {
     }
   }
 
-  Future selectFile() async {
+  /* Future selectFile() async {
     final result = await FilePicker.platform.pickFiles(allowMultiple: false);
 
     if (result == null) return;
     final path = result.files.single.path!;
 
     setState(() => file = File(path));
-  }
+  }*/
 
-  Future uploadFile() async {
+  /*Future uploadFile() async {
     if (file == null) return;
 
     final fileName = basename(file!.path);
@@ -130,8 +157,8 @@ class _ArtTherapyPageState extends State<ArtTherapyPage> {
 
     print('Download-Link: $urlDownload');
   }
-
-  Widget buildUploadStatus(UploadTask task) => StreamBuilder<TaskSnapshot>(
+*/
+  /* Widget buildUploadStatus(UploadTask task) => StreamBuilder<TaskSnapshot>(
         stream: task.snapshotEvents,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -147,5 +174,5 @@ class _ArtTherapyPageState extends State<ArtTherapyPage> {
             return Container();
           }
         },
-      );
+      );*/
 }

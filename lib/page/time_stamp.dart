@@ -1,6 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
@@ -8,13 +6,14 @@ import 'package:vhelp_test/db/TimeStamp_database.dart';
 import 'package:vhelp_test/model/TimeStampLog.dart';
 import 'package:vhelp_test/no_internet.dart';
 import 'package:vhelp_test/page/time_stamp_page.dart';
-import 'package:vhelp_test/widget/timestamp_card_widget.dart';
 
+// ignore: camel_case_types
 class timeStamp extends StatefulWidget {
   @override
   _timeStampState createState() => _timeStampState();
 }
 
+// ignore: camel_case_types
 class _timeStampState extends State<timeStamp> {
   @override
   void initState() {
@@ -27,8 +26,6 @@ class _timeStampState extends State<timeStamp> {
   }
 
   Widget pageUI() {
-    late List<TimeStampLog> time1;
-
     return Consumer<ConnectivityProvider>(
       builder: (context, model, child) {
         if (model.isOnline) {
@@ -74,7 +71,7 @@ class _timeStampState extends State<timeStamp> {
                                           final url =
                                               'https://vhelp.itch.io/vhelpminigame';
                                           TakeMedicine(url: url, inApp: true);
-                                         // addtoLog();
+                                          // addtoLog();
                                         },
                                       ),
                                     ],
@@ -107,7 +104,7 @@ class _timeStampState extends State<timeStamp> {
     );
   }
 
- /* Future addtoLog() async {
+  /* Future addtoLog() async {
     final log = TimeStampDetails(
       datetime: DateTime.now(),
     );
@@ -116,6 +113,7 @@ class _timeStampState extends State<timeStamp> {
     print(log.toString());
   }
 */
+  // ignore: non_constant_identifier_names
   Future TakeMedicine({
     required String url,
     bool inApp = false,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:vhelp_test/db/TimeStamp_database.dart';
 import 'package:vhelp_test/model/TimeStampLog.dart';
 
+// ignore: camel_case_types
 class timeStampWidget extends StatelessWidget {
   timeStampWidget({Key? key, required this.timestamp}) : super(key: key);
 

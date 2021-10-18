@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:vhelp_test/db/logs_database.dart';
 import 'package:vhelp_test/model/colorLog.dart';
-import '../DiaryPreferences.dart';
 import '../PopupDialog.dart';
 import '../connectivity_provider.dart';
 import '../no_internet.dart';

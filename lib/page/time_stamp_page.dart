@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:intl/intl.dart';
 import 'package:vhelp_test/Content.dart';
-import 'package:vhelp_test/db/TimeStamp_database.dart';
 import 'package:vhelp_test/db/logs_database.dart';
 import 'package:vhelp_test/model/TimeStampLog.dart';
 import 'package:vhelp_test/widget/timestamp_card_widget.dart';
@@ -16,6 +13,7 @@ class _TimestampPageState extends State<TimestampPage> {
   bool isLoading = false;
   //late int index = 0;
 
+  //ตรงนี้แหละ
   TimeStampDetails time = new TimeStampDetails(datetime: DateTime.now());
 
   @override

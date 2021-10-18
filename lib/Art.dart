@@ -122,6 +122,7 @@ class _ArtTherapyPageState extends State<ArtTherapyPage> {
     }
   }
 
+  // ignore: non_constant_identifier_names
   Future VisitExhibition({
     required String url,
     bool inApp = false,

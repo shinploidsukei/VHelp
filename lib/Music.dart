@@ -72,12 +72,43 @@ class _Music extends State<music> {
           return model.isOnline
               ? Scaffold(
                   appBar: AppBar(
-                    title: Text(_loading ? 'Loading...' : 'Music Therapy'),
+                    iconTheme: IconThemeData(color: Colors.black54),
+                    backgroundColor: Colors.blue.shade100,
+                    elevation: 0,
+                    title: Text(_loading ? 'Loading...' : 'Music Therapy',
+                        style: TextStyle(color: Colors.black54, fontSize: 22)),
                   ),
                   body: Container(
-                    color: Colors.blueGrey[100],
+                    padding: const EdgeInsets.all(30.0),
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            colors: [
+                          Colors.blue.shade100,
+                          Colors.blue.shade100
+                        ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter)),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      //mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        /*Padding(
+                          padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
+                          child: Text(_loading ? 'Loading...' : 'Music Therapy',
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 30)),
+                        ),*/
+
+                        /*Expanded(
+                    child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(70),
+                    ),
+
+                  ),
+                  ),
+                   */
                         _buildInfoView(),
                         Expanded(
                           child: NotificationListener<ScrollEndNotification>(
@@ -161,12 +192,18 @@ class _Music extends State<music> {
                       child: Text(
                         _item.snippet.title,
                         style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400,
-                        ),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.black87),
                       ),
                     ),
-                    Text(_item.statistics.videoCount),
+                    Text(
+                      _item.statistics.videoCount,
+                      style: TextStyle(
+                          fontSize: 10,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black54),
+                    ),
                     SizedBox(width: 20),
                   ],
                 ),

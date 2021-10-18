@@ -1,24 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vhelp_test/Content.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
 import 'package:vhelp_test/no_internet.dart';
 
-// ignore: camel_case_types
-class podcast extends StatefulWidget {
+class Podcast extends StatelessWidget {
+
   @override
-  _Podcast createState() => _Podcast();
+  Widget build(BuildContext context) => MaterialApp(
+    debugShowCheckedModeBanner: false,
+    theme: ThemeData(
+      primaryColor: Colors.black,
+    ),
+    home: PodcastPage(),
+  );
 }
 
-class _Podcast extends State<podcast> {
-  @override
-  void initState() {
-    super.initState();
-    Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
-  }
+class PodcastPage extends StatefulWidget {
 
-  _launchURL() async {
-    const url = 'https://www.youtube.com/channel/UC3f2SY4F9zcxY1oxt9AF9WA';
+  @override
+  PodcastPageState createState() => PodcastPageState();
+}
+
+class PodcastPageState extends State<PodcastPage> {
+
+  standPod() async {
+    const url =
+        'https://www.youtube.com/channel/UC3f2SY4F9zcxY1oxt9AF9WA';
     if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -26,121 +35,356 @@ class _Podcast extends State<podcast> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return pageUI();
+  knd() async {
+    const url =
+        'https://www.youtube.com/c/KNDStudio';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 
-  Widget pageUI() {
+  toTheMoon() async {
+    const url =
+        'https://www.youtube.com/c/MissiontotheMoonMedia';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  salmon() async {
+    const url =
+        'https://www.youtube.com/c/SalmonPodcast';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  getTalks() async {
+    const url =
+        'https://www.youtube.com/channel/UC-Ta59DOm6pmkTJ_zCxjkkA';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  ghost() async {
+    const url =
+        'https://www.youtube.com/results?search_query=ghost+radio';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  pipe() async {
+    const url =
+        'https://www.youtube.com/c/%E0%B9%84%E0%B8%9B%E0%B8%9B%E0%B9%8C%E0%B9%80%E0%B8%A5%E0%B9%88%E0%B8%B2%E0%B9%80%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%9C%E0%B8%B5';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
+  ajarn() async {
+    const url =
+        'https://www.youtube.com/channel/UCZo5ZB2p-UMqc5e1llZ1RLg';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
+  }
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+    body: buildPages(),
+  );
+
+
+  Widget buildPages() {
     return Consumer<ConnectivityProvider>(
       builder: (context, model, child) {
         if (model.isOnline) {
           return model.isOnline
               ? Scaffold(
-                  body: Container(
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              colors: [Colors.blue.shade200, Colors.blueGrey],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter)),
-                      child: Center(
+            backgroundColor: Colors.blue[100],
+            appBar: AppBar(
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => HomePage()),
+                  );
+                },
+                icon: Icon(Icons.arrow_back_ios),
+              ),
+              iconTheme: IconThemeData(color: Colors.black54),
+              backgroundColor: Colors.blue.shade100,
+              elevation: 0,
+              title: Text('Podcast',
+                  style: TextStyle(color: Colors.black54, fontSize: 22)),
+            ),
+            body: Container(
+              child: Container(
+                padding: EdgeInsets.all(20.0),
+                child: GridView.count(
+                  crossAxisCount: 1,
+                  crossAxisSpacing: 15,
+                  mainAxisSpacing: 15,
+                  children: [
+                    new GestureDetector(
+                    onTap: () {
+                standPod();
+              },
+                child: Card(
+                  elevation: 4.0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      children: <Widget>[
+                        Container(
+                          width: MediaQuery.of(context).size.width*0.7,
+                          height: MediaQuery.of(context).size.width*0.65,
+                          child: Image.asset(
+                            'assets/images/standpod.jpeg',
+                            height: 60.0,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        SizedBox(height: 20,),
+                        Text(
+                          "The Standard Podcast",
+                          style: TextStyle(color: Colors.pinkAccent,fontSize: 22,fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                    ),
+                new GestureDetector(
+                  onTap: () {
+                    knd();
+                  },
+                    child: new Card(
+                      elevation: 4.0,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Column(
+                          children: <Widget>[
+                            new Container(
+                              width: MediaQuery.of(context).size.width*0.7,
+                              height: MediaQuery.of(context).size.width*0.65,
+                              child: new Image.asset(
+                                'assets/images/knd.png',
+                                height: 60.0,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            SizedBox(height: 20,),
+                            Text(
+                              "KND Studio",
+                              style: TextStyle(color: Colors.pinkAccent,fontSize: 22,fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                ),
+                    new GestureDetector(
+                      onTap: () {
+                        toTheMoon();
+                      },
+                      child: new Card(
+                        elevation: 4.0,
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
                           child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                            SizedBox(
-                              height: 50,
-                            ),
-                            ElevatedButton(
-                              onPressed: () async {
-                                final url =
-                                    'https://www.youtube.com/channel/UC3f2SY4F9zcxY1oxt9AF9WA';
-                                StandardPodcast(url: url, inApp: true);
-                              },
-                              child: Text('The Standard Podcast'),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            ElevatedButton(
-                              onPressed: () async {
-                                final url =
-                                    'https://www.youtube.com/c/KNDStudio';
-                                StandardPodcast(url: url, inApp: true);
-                              },
-                              child: Text('KND Studio'),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            ElevatedButton(
-                              onPressed: () async {
-                                final url =
-                                    'https://www.youtube.com/c/MissiontotheMoonMedia';
-                                StandardPodcast(url: url, inApp: true);
-                              },
-                              child: Text('Mission to the Moon'),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            ElevatedButton(
-                              onPressed: () async {
-                                final url =
-                                    'https://www.youtube.com/c/SalmonPodcast';
-                                StandardPodcast(url: url, inApp: true);
-                              },
-                              child: Text('Salmon Podcast'),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            ElevatedButton(
-                              onPressed: () async {
-                                final url =
-                                    'https://www.youtube.com/channel/UC-Ta59DOm6pmkTJ_zCxjkkA';
-                                StandardPodcast(url: url, inApp: true);
-                              },
-                              child: Text('GetTalks Pocast'),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            ElevatedButton(
-                              onPressed: () async {
-                                final url =
-                                    'https://www.youtube.com/results?search_query=ghost+radio';
-                                StandardPodcast(url: url, inApp: true);
-                              },
-                              child: Text('The Ghost Radio'),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            ElevatedButton(
-                              onPressed: () async {
-                                final url =
-                                    'https://www.youtube.com/c/%E0%B9%84%E0%B8%9B%E0%B8%9B%E0%B9%8C%E0%B9%80%E0%B8%A5%E0%B9%88%E0%B8%B2%E0%B9%80%E0%B8%A3%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%87%E0%B8%9C%E0%B8%B5';
-                                StandardPodcast(url: url, inApp: true);
-                              },
-                              child: Text('ไปป์เล่าเรื่องผี'),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            ElevatedButton(
-                              onPressed: () async {
-                                final url =
-                                    'https://www.youtube.com/channel/UCZo5ZB2p-UMqc5e1llZ1RLg';
-                                StandardPodcast(url: url, inApp: true);
-                              },
-                              child: Text('อาจารย์ยอด'),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                          ]))))
+                            children: <Widget>[
+                              new Container(
+                                width: MediaQuery.of(context).size.width*0.7,
+                                height: MediaQuery.of(context).size.width*0.65,
+                                child: new Image.asset(
+                                  'assets/images/mission.jpeg',
+                                  height: 60.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              SizedBox(height: 20,),
+                              Text(
+                                "Mission to the moon",
+                                style: TextStyle(color: Colors.pinkAccent,fontSize: 22,fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    new GestureDetector(
+                      onTap: () {
+                        salmon();
+                      },
+                      child: new Card(
+                        elevation: 4.0,
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                            children: <Widget>[
+                              new Container(
+                                width: MediaQuery.of(context).size.width*0.7,
+                                height: MediaQuery.of(context).size.width*0.65,
+                                child: new Image.asset(
+                                  'assets/images/salmon.jpeg',
+                                  height: 60.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              SizedBox(height: 20,),
+                              Text(
+                                "Salmon Podcast",
+                                style: TextStyle(color: Colors.pinkAccent,fontSize: 22,fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    new GestureDetector(
+                      onTap: () {
+                        getTalks();
+                      },
+                      child: new Card(
+                        elevation: 4.0,
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                            children: <Widget>[
+                              new Container(
+                                width: MediaQuery.of(context).size.width*0.7,
+                                height: MediaQuery.of(context).size.width*0.65,
+                                child: new Image.asset(
+                                  'assets/images/gettalk.jpeg',
+                                  height: 60.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              SizedBox(height: 20,),
+                              Text(
+                                "GetTalks Podcast",
+                                style: TextStyle(color: Colors.pinkAccent,fontSize: 22,fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    new GestureDetector(
+                      onTap: () {
+                        ghost();
+                      },
+                      child: new Card(
+                        elevation: 4.0,
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                            children: <Widget>[
+                              new Container(
+                                width: MediaQuery.of(context).size.width*0.7,
+                                height: MediaQuery.of(context).size.width*0.65,
+                                child: new Image.asset(
+                                  'assets/images/ghostradio.jpeg',
+                                  height: 60.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              SizedBox(height: 20,),
+                              Text(
+                                "The Ghost Radio",
+                                style: TextStyle(color: Colors.pinkAccent,fontSize: 22,fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    new GestureDetector(
+                      onTap: () {
+                        pipe();
+                      },
+                      child: new Card(
+                        elevation: 4.0,
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                            children: <Widget>[
+                              new Container(
+                                width: MediaQuery.of(context).size.width*0.7,
+                                height: MediaQuery.of(context).size.width*0.65,
+                                child: new Image.asset(
+                                  'assets/images/pipe.jpeg',
+                                  height: 60.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              SizedBox(height: 20,),
+                              Text(
+                                "ไปป์เล่าเรื่องผี",
+                                style: TextStyle(color: Colors.pinkAccent,fontSize: 22,fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    new GestureDetector(
+                      onTap: () {
+                        ajarn();
+                      },
+                      child: new Card(
+                        elevation: 4.0,
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                            children: <Widget>[
+                              new Container(
+                                width: MediaQuery.of(context).size.width*0.7,
+                                height: MediaQuery.of(context).size.width*0.65,
+                                child: new Image.asset(
+                                  'assets/images/ajarn.jpeg',
+                                  height: 60.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              SizedBox(height: 20,),
+                              Text(
+                                "อาจารย์ยอด",
+                                style: TextStyle(color: Colors.pinkAccent,fontSize: 22,fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          )
               : NoInternet();
         }
         return Container(
@@ -151,14 +395,7 @@ class _Podcast extends State<podcast> {
       },
     );
   }
-
-  Future StandardPodcast({
-    required String url,
-    bool inApp = false,
-  }) async {
-    if (await canLaunch(url)) {
-      await launch(url,
-          forceSafariVC: false, forceWebView: true, enableJavaScript: true);
-    }
-  }
 }
+
+
+

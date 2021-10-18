@@ -40,9 +40,11 @@ class _HomePageState extends State<HomePage> {
                   backgroundColor: Colors.blue[200],
                   drawer: NavigationDrawerWidget(),
                   appBar: AppBar(
+                    iconTheme: IconThemeData(color: Colors.white),
                     backgroundColor: Colors.transparent,
                     elevation: 0,
-                    title: Text("VHelp"),
+                    title: Text("VHelp",
+                        style: TextStyle(color: Colors.white, fontSize: 22)),
                   ),
                   floatingActionButton: FloatingActionButton(
                     child: Icon(Icons.arrow_downward),

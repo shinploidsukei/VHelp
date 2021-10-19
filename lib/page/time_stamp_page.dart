@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:vhelp_test/Content.dart';
 import 'package:vhelp_test/db/TimeStamp_database.dart';
 import 'package:vhelp_test/model/TimeStampLog.dart';
+import 'package:vhelp_test/page/time_stamp.dart';
 import 'package:vhelp_test/widget/timestamp_card_widget.dart';
 
 class TimestampPage extends StatefulWidget {
@@ -50,7 +50,7 @@ class _TimestampPageState extends State<TimestampPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => HomePage()),
+                MaterialPageRoute(builder: (context) => timeStamp()),
               );
             },
           ),
@@ -60,7 +60,7 @@ class _TimestampPageState extends State<TimestampPage> {
               ? CircularProgressIndicator()
               : times.isEmpty
                   ? Text(
-                      'Add some stories..',
+                      'Add your Timestamp by clicking take medicine..',
                       style: TextStyle(color: Colors.blueGrey, fontSize: 20),
                     )
                   : buildNotes(),

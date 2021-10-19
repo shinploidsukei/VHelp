@@ -21,7 +21,6 @@ class _timeStampState extends State<timeStamp> {
   @override
   void initState() {
     super.initState();
-    //Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
   }
 
   Widget build(BuildContext context) {
@@ -93,10 +92,6 @@ class _timeStampState extends State<timeStamp> {
                                           final url =
                                               'https://vhelp.itch.io/vhelpminigame';
                                           TakeMedicine(url: url, inApp: true);
-                                          print(
-                                              "Test Okay !!!!!!!!!!!!!!!!!!!");
-                                          print(DateTime.now());
-                                          // addtoLog();
                                         },
                                       ),
                                     ],
@@ -129,15 +124,6 @@ class _timeStampState extends State<timeStamp> {
     );
   }
 
-  /* Future addtoLog() async {
-    final log = TimeStampDetails(
-      datetime: DateTime.now(),
-    );
-
-    await TimeStampLog.instance.create(log);
-    print(log.toString());
-  }
-*/
   // ignore: non_constant_identifier_names
   Future TakeMedicine({
     required String url,

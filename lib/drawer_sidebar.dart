@@ -20,7 +20,7 @@ class NavigationDrawerWidget extends StatelessWidget {
 
     return Drawer(
       child: Material(
-        color: Colors.cyan.shade200,
+        color: Colors.deepPurple.shade100,
         child: ListView(
           children: <Widget>[
             buildHeader(
@@ -113,12 +113,12 @@ class NavigationDrawerWidget extends StatelessWidget {
                 children: [
                   Text(
                     name,
-                    style: TextStyle(fontSize: 20, color: Colors.white),
+                    style: TextStyle(fontSize: 20, color: Colors.black54),
                   ),
                   const SizedBox(height: 4),
                   Text(
                     email,
-                    style: TextStyle(fontSize: 14, color: Colors.white),
+                    style: TextStyle(fontSize: 14, color: Colors.black54),
                   ),
                 ],
               ),
@@ -132,8 +132,8 @@ class NavigationDrawerWidget extends StatelessWidget {
     required IconData icon,
     required VoidCallback onClicked,
   }) {
-    final color = Colors.white;
-    final hoverColor = Colors.white70;
+    final color = Colors.black54;
+    final hoverColor = Colors.black54;
 
     return ListTile(
       leading: Icon(icon, color: color),

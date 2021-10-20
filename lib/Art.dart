@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vhelp_test/Content.dart';
 
 class ArtTherapy extends StatelessWidget {
   static final String title = 'Art Therapy';
@@ -43,9 +44,23 @@ class _ArtTherapyPageState extends State<ArtTherapyPage> {
     // final fileName = file != null ? basename(file!.path) : 'No File Selected';
 
     return Scaffold(
+      backgroundColor: Colors.blue.shade100,
       appBar: AppBar(
-        title: Text(ArtTherapy.title),
-        centerTitle: true,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => HomePage()),
+            );
+          },
+          icon: Icon(Icons.arrow_back_ios),
+        ),
+        iconTheme: IconThemeData(color: Colors.black54),
+        backgroundColor: Colors.blue.shade100,
+        elevation: 0,
+        title: Text(ArtTherapy.title,
+            style: TextStyle(color: Colors.black54, fontSize: 22)),
       ),
       body: Container(
         padding: EdgeInsets.all(30.0),

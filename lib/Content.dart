@@ -37,19 +37,20 @@ class _HomePageState extends State<HomePage> {
         if (model.isOnline) {
           return model.isOnline
               ? Scaffold(
-                  backgroundColor: Colors.blue[200],
+                  backgroundColor: Colors.deepPurple.shade100,
                   drawer: NavigationDrawerWidget(),
                   appBar: AppBar(
-                    iconTheme: IconThemeData(color: Colors.white),
-                    backgroundColor: Colors.transparent,
+                    iconTheme: IconThemeData(color: Colors.black54),
+                    backgroundColor: Colors.deepPurple.shade100,
                     elevation: 0,
                     title: Text("VHelp",
-                        style: TextStyle(color: Colors.white, fontSize: 22)),
+                        style: TextStyle(color: Colors.black54, fontSize: 22)),
                   ),
-                  floatingActionButton: FloatingActionButton(
+                  /*floatingActionButton: FloatingActionButton(
                     child: Icon(Icons.arrow_downward),
                     onPressed: scrollDown,
                   ),
+                   */
                   body: Container(
                     child: Container(
                       padding: EdgeInsets.all(20.0),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../db/notes_database.dart';
 import '../model/note.dart';
 import '../widget/note_form_widget.dart';
+import 'notes_page.dart';
 
 class AddEditNotePage extends StatefulWidget {
   final Note? note;
@@ -33,11 +34,23 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blueGrey,
-          elevation: 0,
-          actions: [buildButton()],
-        ),
+    backgroundColor: Colors.blue.shade100,
+    appBar: AppBar(
+      leading: IconButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => NotesPage()),
+          );
+        },
+        icon: Icon(Icons.arrow_back_ios),
+      ),
+      iconTheme: IconThemeData(color: Colors.black54),
+      backgroundColor: Colors.blue.shade100,
+      actions: [buildButton()],
+      elevation: 0,
+    ),
         body: Container(
           child: Padding(
             padding: const EdgeInsets.all(12.0),

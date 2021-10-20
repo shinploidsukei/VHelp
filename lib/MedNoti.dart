@@ -136,36 +136,31 @@ class _MedNotiPageState extends State<MedNotiPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(
-          title: Text("Medicine Notification"),
-          centerTitle: true,
-          backgroundColor: Colors.blueGrey,
-          elevation: 4.0,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-            ),
-            alignment: Alignment.center,
-            hoverColor: Colors.white,
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
-            },
-          ),
-        ),
+    backgroundColor: Colors.blue[100],
+    appBar: AppBar(
+      leading: IconButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => HomePage()),
+          );
+        },
+        icon: Icon(Icons.arrow_back_ios),
+      ),
+      iconTheme: IconThemeData(color: Colors.black54),
+      backgroundColor: Colors.blue.shade100,
+      elevation: 0,
+      title: Text('Medicine Notification',
+          style: TextStyle(color: Colors.black54, fontSize: 22)),
+    ),
         body: Container(
           decoration: BoxDecoration(
               image: DecorationImage(
                   scale: 5,
                   image: AssetImage('assets/images/cut.png'),
                   alignment: Alignment.bottomCenter),
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Colors.white, Colors.blue.shade200])),
+              ),
           alignment: Alignment.center,
           padding: EdgeInsets.all(32),
           child: Column(

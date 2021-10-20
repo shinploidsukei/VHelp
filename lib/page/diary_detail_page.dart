@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:vhelp_test/db/logs_database.dart';
 import 'package:vhelp_test/model/colorLog.dart';
+import 'package:vhelp_test/page/diary_page.dart';
 import 'package:vhelp_test/page/edit_diary_page.dart';
+import 'package:vhelp_test/Content.dart';
 
 class DiaryDetailPage extends StatefulWidget {
   final int colorID;
@@ -42,10 +44,23 @@ class _DiaryDetailPageState extends State<DiaryDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DiaryPage()),
+            );
+          },
+          icon: Icon(Icons.arrow_back_ios),
+        ),
+        iconTheme: IconThemeData(color: Colors.black54),
+        backgroundColor: Colors.blue.shade100,
         actions: [editButton(), deleteButton()],
-      ),
+        elevation: 0,
+        ),
       body: isLoading
           ? Center(child: CircularProgressIndicator())
           : Padding(

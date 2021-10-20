@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../model/note.dart';
 
-final _lightColors = [
+/*final _lightColors = [
   Colors.blueGrey[100],
   Colors.blueGrey[100],
   Colors.blueGrey[100],
   Colors.blueGrey[100],
   Colors.blueGrey[100],
   Colors.blueGrey[100]
-];
+];*/
 
 class NoteCardWidget extends StatelessWidget {
   NoteCardWidget({
@@ -24,7 +24,7 @@ class NoteCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     /// Pick colors from the accent colors based on index
-    final color = _lightColors[index % _lightColors.length];
+    final color = Colors.black12;
     final time = DateFormat.yMMMd().format(note.createdTime);
 
     return Card(
@@ -37,13 +37,13 @@ class NoteCardWidget extends StatelessWidget {
           children: [
             Text(
               time,
-              style: TextStyle(color: Colors.grey.shade700),
+              style: TextStyle(color: Colors.white),
             ),
             SizedBox(height: 4),
             Text(
               note.title,
               style: TextStyle(
-                color: Colors.grey.shade900,
+                color: Colors.white,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),

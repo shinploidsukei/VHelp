@@ -5,6 +5,7 @@ import 'package:vhelp_test/page/event_editing_page.dart';
 import 'package:vhelp_test/provider/event_provider.dart';
 import 'package:vhelp_test/widget/calendar_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:vhelp_test/Content.dart';
 
 class DocNoti extends StatefulWidget {
   @override
@@ -56,14 +57,28 @@ class _DocNoti extends State<DocNoti> {
 
 class DocNotiPage extends StatelessWidget {
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text('Doctor Notification'),
-          centerTitle: true,
-        ),
+    backgroundColor: Colors.blue[100],
+    appBar: AppBar(
+      leading: IconButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => HomePage()),
+          );
+        },
+        icon: Icon(Icons.arrow_back_ios),
+      ),
+      iconTheme: IconThemeData(color: Colors.black54),
+      backgroundColor: Colors.blue.shade200,
+      elevation: 0,
+      title: Text('Doctor Notification',
+          style: TextStyle(color: Colors.black54, fontSize: 22)),
+    ),
         body: CalendarWidget(),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add, color: Colors.white),
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.blue.shade400,
           onPressed: () => Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => EventEditingPage()),
           ),

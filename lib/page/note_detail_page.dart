@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:vhelp_test/page/notes_page.dart';
 import '../db/notes_database.dart';
 import '../model/note.dart';
 import '../page/edit_note_page.dart';
@@ -37,10 +38,23 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blueGrey,
-          actions: [editButton(), deleteButton()],
-        ),
+    backgroundColor: Colors.blue.shade100,
+    appBar: AppBar(
+      leading: IconButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => NotesPage()),
+          );
+        },
+        icon: Icon(Icons.arrow_back_ios),
+      ),
+      iconTheme: IconThemeData(color: Colors.black54),
+      backgroundColor: Colors.blue.shade100,
+      actions: [editButton(), deleteButton()],
+      elevation: 0,
+    ),
         body: isLoading
             ? Center(child: CircularProgressIndicator())
             : Padding(

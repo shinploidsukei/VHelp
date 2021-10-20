@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:vhelp_test/model/TimeStampLog.dart';
 
 final _lightColors = [
-  Colors.blueGrey[100],
+  Colors.black12,
 ];
 
 // ignore: camel_case_types

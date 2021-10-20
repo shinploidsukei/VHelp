@@ -33,31 +33,25 @@ class _timeStampState extends State<timeStamp> {
         if (model.isOnline) {
           return model.isOnline
               ? Scaffold(
-                  appBar: AppBar(
-                    title: Text("My Time Stamp"),
-                    backgroundColor: Colors.blueGrey,
-                    elevation: 4.0,
-                    leading: IconButton(
-                      icon: Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.white,
-                      ),
-                      alignment: Alignment.center,
-                      hoverColor: Colors.white,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomePage()),
-                        );
-                      },
-                    ),
-                  ),
+              backgroundColor: Colors.blue[100],
+              appBar: AppBar(
+                leading: IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => HomePage()),
+                    );
+                  },
+                  icon: Icon(Icons.arrow_back_ios),
+                ),
+                iconTheme: IconThemeData(color: Colors.black54),
+                backgroundColor: Colors.blue.shade100,
+                elevation: 0,
+                title: Text('My Timestamp',
+                    style: TextStyle(color: Colors.black54, fontSize: 22)),
+              ),
                   body: Container(
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              colors: [Colors.blue.shade200, Colors.blueGrey],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter)),
                       child: Center(
                         child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -110,7 +104,15 @@ class _timeStampState extends State<timeStamp> {
                                           builder: (_) => TimestampPage()));
                                 },
                                 child: Text('Timestamp Log'),
-                              )
+                              ),
+                              /*ElevatedButton.icon(
+                                onPressed: () {},
+                                icon: Icon(Icons.email),
+                                label: Text("Timestamp Log"),
+                                style: ElevatedButton.styleFrom(
+                                  textStyle: TextStyle(fontSize: 15),
+                                ),
+                              ),*/
                             ]),
                       )))
               : NoInternet();

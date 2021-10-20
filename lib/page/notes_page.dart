@@ -40,26 +40,24 @@ class _NotesPageState extends State<NotesPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text("My Diary"),
-          backgroundColor: Colors.blueGrey,
-          elevation: 4.0,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-            ),
-            alignment: Alignment.center,
-            hoverColor: Colors.white,
-            onPressed: () {
-              Navigator.push(
-                context,
-                //MaterialPageRoute(builder: (context) => DiaryLogPage()),
-                MaterialPageRoute(builder: (context) => DiaryPage()),
-              );
-            },
-          ),
-        ),
+    backgroundColor: Colors.blue.shade100,
+    appBar: AppBar(
+      leading: IconButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DiaryPage()),
+          );
+        },
+        icon: Icon(Icons.arrow_back_ios),
+      ),
+      iconTheme: IconThemeData(color: Colors.black54),
+      backgroundColor: Colors.blue.shade100,
+      elevation: 0,
+      title: Text('My Diary',
+          style: TextStyle(color: Colors.black54, fontSize: 22)),
+    ),
         body: Center(
           child: isLoading
               ? CircularProgressIndicator()

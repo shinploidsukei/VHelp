@@ -50,7 +50,7 @@ class NoteFormWidget extends StatelessWidget {
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: 'Title',
-          hintStyle: TextStyle(color: Colors.blueGrey.shade200),
+          hintStyle: TextStyle(color: Colors.blueGrey.shade400),
         ),
         validator: (title) =>
             title != null && title.isEmpty ? 'The title cannot be empty' : null,
@@ -64,7 +64,7 @@ class NoteFormWidget extends StatelessWidget {
         decoration: InputDecoration(
           border: InputBorder.none,
           hintText: 'Type something...',
-          hintStyle: TextStyle(color: Colors.blueGrey.shade200),
+          hintStyle: TextStyle(color: Colors.blueGrey.shade400),
         ),
         validator: (title) => title != null && title.isEmpty
             ? 'The description cannot be empty'

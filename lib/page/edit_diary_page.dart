@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vhelp_test/db/logs_database.dart';
 import 'package:vhelp_test/model/colorLog.dart';
+import 'package:vhelp_test/page/diary_page.dart';
 import 'package:vhelp_test/widget/diary_form_widget.dart';
 
 class AddEditMoodPage extends StatefulWidget {
@@ -30,11 +31,22 @@ class _AddEditMoodPageState extends State<AddEditMoodPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blueGrey,
-          elevation: 0,
-          //actions: [buildButton()],
-        ),
+    backgroundColor: Colors.blue[100],
+    appBar: AppBar(
+      leading: IconButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DiaryPage()),
+          );
+        },
+        icon: Icon(Icons.arrow_back_ios),
+      ),
+      iconTheme: IconThemeData(color: Colors.black54),
+      backgroundColor: Colors.blue.shade100,
+      elevation: 0,
+    ),
         body: Container(
           child: Padding(
             padding: const EdgeInsets.all(12.0),

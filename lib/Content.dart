@@ -37,11 +37,11 @@ class _HomePageState extends State<HomePage> {
         if (model.isOnline) {
           return model.isOnline
               ? Scaffold(
-                  backgroundColor: Colors.deepPurple.shade100,
+                  backgroundColor: Colors.white,
                   drawer: NavigationDrawerWidget(),
                   appBar: AppBar(
                     iconTheme: IconThemeData(color: Colors.black54),
-                    backgroundColor: Colors.deepPurple.shade100,
+                    backgroundColor: Colors.white,
                     elevation: 0,
                     title: Text("VHelp",
                         style: TextStyle(color: Colors.black54, fontSize: 22)),

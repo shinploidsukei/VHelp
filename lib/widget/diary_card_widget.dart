@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:vhelp_test/model/colorLog.dart';
 
-final _lightColors = [
+/*final _lightColors = [
   Colors.blueGrey[100],
   Colors.blueGrey[100],
   Colors.blueGrey[100],
   Colors.blueGrey[100],
   Colors.blueGrey[100],
   Colors.blueGrey[100]
-];
+];*/
 
 var emojiColors = [
   Colors.red[200],
@@ -29,11 +29,11 @@ class DiaryCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     /// Pick colors from the accent colors based on index
-    final color = _lightColors[index % _lightColors.length];
+    //final color = _lightColors[index % _lightColors.length];
     final time = DateFormat.yMMMd().format(colorCard.createTime);
 
     return Card(
-      color: color,
+      color: Colors.black12,
       child: Container(
         padding: EdgeInsets.all(8),
         child: Column(
@@ -42,7 +42,7 @@ class DiaryCardWidget extends StatelessWidget {
           children: [
             Text(
               time,
-              style: TextStyle(color: Colors.grey.shade700),
+              style: TextStyle(color: Colors.white),
             ),
             SizedBox(height: 4),
             IconTheme(

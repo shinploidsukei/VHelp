@@ -36,25 +36,24 @@ class _TimestampPageState extends State<TimestampPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text("My Timestamp Log"),
-          backgroundColor: Colors.blueGrey,
-          elevation: 4.0,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-            ),
-            alignment: Alignment.center,
-            hoverColor: Colors.white,
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => timeStamp()),
-              );
-            },
-          ),
-        ),
+    backgroundColor: Colors.blue[100],
+    appBar: AppBar(
+      leading: IconButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => timeStamp()),
+          );
+        },
+        icon: Icon(Icons.arrow_back_ios),
+      ),
+      iconTheme: IconThemeData(color: Colors.black54),
+      backgroundColor: Colors.blue.shade100,
+      elevation: 0,
+      title: Text('My Timestamp Log',
+          style: TextStyle(color: Colors.black54, fontSize: 22)),
+    ),
         body: Center(
           child: isLoading
               ? CircularProgressIndicator()

@@ -7,9 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vhelp_test/Content.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class ArtTherapy extends StatelessWidget {
   static final String title = 'Art Therapy';
+
 
   Future artSync() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -39,12 +41,17 @@ class _ArtTherapyPageState extends State<ArtTherapyPage> {
   UploadTask? task;
 
   File? fileImage;
+  final List<String> imgShow = [
+    'assets/images/artCulture.png',
+    'assets/images/knd.png'
+  ];
   @override
   Widget build(BuildContext context) {
     // final fileName = file != null ? basename(file!.path) : 'No File Selected';
+    final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: Colors.blue.shade100,
+      backgroundColor: Colors.green.shade100,
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
@@ -57,11 +64,28 @@ class _ArtTherapyPageState extends State<ArtTherapyPage> {
           icon: Icon(Icons.arrow_back_ios),
         ),
         iconTheme: IconThemeData(color: Colors.black54),
-        backgroundColor: Colors.blue.shade100,
+        backgroundColor: Colors.green.shade100,
         elevation: 0,
         title: Text(ArtTherapy.title,
             style: TextStyle(color: Colors.black54, fontSize: 22)),
       ),
+      /*body: CarouselSlider(
+        options: CarouselOptions(
+          height: height,
+          autoPlay: true,
+        ),
+        items: imgShow
+            .map(
+              (item) => Center(
+            child: Image.asset(
+              item,
+              fit: BoxFit.cover,
+            ),
+          ),
+        )
+            .toList(),
+      ),
+    );*/
       body: Container(
         padding: EdgeInsets.all(30.0),
         child: Column(
@@ -93,20 +117,40 @@ class _ArtTherapyPageState extends State<ArtTherapyPage> {
               onPressed: () => chooseImageGal(),
             ),*/
             SizedBox(height: 20),
-            ElevatedButton(
-                onPressed: () async {
-                  final url =
-                      'https://artsandculture.google.com/project/exhibits';
-                  VisitExhibition(url: url, inApp: true);
-                },
-                child: Text("Visit Art and Culture Exhibition")),
-            SizedBox(height: 20),
-            ElevatedButton(
-                onPressed: () async {
-                  final url = 'https://nmwa.org/whats-on/exhibitions/online/';
-                  VisitExhibition(url: url, inApp: true);
-                },
-                child: Text("Visit National Museum of Women in the Arts")),
+            Stack(
+              alignment: Alignment.bottomCenter,
+              children: <Widget>[
+                Image.asset(
+                  'assets/images/artCulture.png',
+                  fit: BoxFit.fitWidth,
+                ),
+                FloatingActionButton(
+                  child: Icon(Icons.arrow_upward_rounded),
+                  onPressed: () async {
+                    final url =
+                        'https://artsandculture.google.com/project/exhibits';
+                    VisitExhibition(url: url, inApp: true);
+                  },
+                )
+              ],
+            ),
+            SizedBox(height: 50),
+            Stack(
+              alignment: Alignment.bottomCenter,
+              children: <Widget>[
+                Image.asset(
+                  'assets/images/NMWA.png',
+                  fit: BoxFit.fitWidth,
+                ),
+                FloatingActionButton(
+                  child: Icon(Icons.arrow_upward_rounded),
+                  onPressed: () async {
+                    final url = 'https://nmwa.org/whats-on/exhibitions/online/';
+                    VisitExhibition(url: url, inApp: true);
+                  },
+                )
+              ],
+            ),
           ],
         ),
       ),

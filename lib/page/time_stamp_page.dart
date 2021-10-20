@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:vhelp_test/Content.dart';
-import 'package:vhelp_test/db/logs_database.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:vhelp_test/db/TimeStamp_database.dart';
 import 'package:vhelp_test/model/TimeStampLog.dart';
+import 'package:vhelp_test/page/time_stamp.dart';
 import 'package:vhelp_test/widget/timestamp_card_widget.dart';
 
 class TimestampPage extends StatefulWidget {
@@ -11,28 +12,27 @@ class TimestampPage extends StatefulWidget {
 
 class _TimestampPageState extends State<TimestampPage> {
   bool isLoading = false;
-  //late int index = 0;
-
-  //ตรงนี้แหละ
-  TimeStampDetails time = new TimeStampDetails(datetime: DateTime.now());
+  late List<TimeStampDetails> times;
 
   @override
   void initState() {
     super.initState();
-    //this.time = await TimeStampLog.instance.readAllLog();
-    // refreshNotes();
+    refreshNotes();
   }
 
   @override
   void dispose() {
-    LogsDatabase.instance.close();
+    TimeStampLog.instance.close();
     super.dispose();
   }
 
-  /* Future refreshNotes() async {
-    this.time = await TimeStampLog.instance.readAllLog();
-    //this.time = await TimeStampDetails.instance.readAllLog();
-  }*/
+  Future refreshNotes() async {
+    setState(() => isLoading = true);
+
+    this.times = await TimeStampLog.instance.readAllLog();
+
+    setState(() => isLoading = false);
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -50,20 +50,34 @@ class _TimestampPageState extends State<TimestampPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => HomePage()),
+                MaterialPageRoute(builder: (context) => timeStamp()),
               );
             },
           ),
         ),
         body: Center(
-            child: Column(children: [
-          Expanded(
-            child: buildNotes(),
-          ),
-        ])),
+          child: isLoading
+              ? CircularProgressIndicator()
+              : times.isEmpty
+                  ? Text(
+                      'Add your Timestamp by clicking take medicine..',
+                      style: TextStyle(color: Colors.blueGrey, fontSize: 20),
+                    )
+                  : buildNotes(),
+        ),
       );
 
-  Widget buildNotes() {
-    return timeStampWidget(timestamp: time); //timeStampWidget(timestamp: time),
-  }
+  Widget buildNotes() => StaggeredGridView.countBuilder(
+        padding: EdgeInsets.all(8),
+        itemCount: times.length,
+        staggeredTileBuilder: (index) => StaggeredTile.fit(4),
+        crossAxisCount: 4,
+        mainAxisSpacing: 4,
+        crossAxisSpacing: 4,
+        itemBuilder: (context, index) {
+          final time = times[index];
+
+          return timeStampWidget(timestamp: time);
+        },
+      );
 }

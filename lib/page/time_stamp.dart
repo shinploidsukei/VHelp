@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vhelp_test/Content.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
 import 'package:vhelp_test/db/TimeStamp_database.dart';
 import 'package:vhelp_test/model/TimeStampLog.dart';
@@ -15,10 +16,11 @@ class timeStamp extends StatefulWidget {
 
 // ignore: camel_case_types
 class _timeStampState extends State<timeStamp> {
+  late bool isEnterTrue;
+
   @override
   void initState() {
     super.initState();
-    Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
   }
 
   Widget build(BuildContext context) {
@@ -31,6 +33,25 @@ class _timeStampState extends State<timeStamp> {
         if (model.isOnline) {
           return model.isOnline
               ? Scaffold(
+                  appBar: AppBar(
+                    title: Text("My Time Stamp"),
+                    backgroundColor: Colors.blueGrey,
+                    elevation: 4.0,
+                    leading: IconButton(
+                      icon: Icon(
+                        Icons.arrow_back_ios,
+                        color: Colors.white,
+                      ),
+                      alignment: Alignment.center,
+                      hoverColor: Colors.white,
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomePage()),
+                        );
+                      },
+                    ),
+                  ),
                   body: Container(
                       decoration: BoxDecoration(
                           gradient: LinearGradient(
@@ -45,8 +66,8 @@ class _timeStampState extends State<timeStamp> {
                             children: <Widget>[
                               Image.asset(
                                 'assets/images/map.png',
-                                height: 450,
-                                width: 450,
+                                height: 400,
+                                width: 400,
                               ),
                               SizedBox(
                                 height: 50,
@@ -71,7 +92,6 @@ class _timeStampState extends State<timeStamp> {
                                           final url =
                                               'https://vhelp.itch.io/vhelpminigame';
                                           TakeMedicine(url: url, inApp: true);
-                                          // addtoLog();
                                         },
                                       ),
                                     ],
@@ -104,15 +124,6 @@ class _timeStampState extends State<timeStamp> {
     );
   }
 
-  /* Future addtoLog() async {
-    final log = TimeStampDetails(
-      datetime: DateTime.now(),
-    );
-
-    await TimeStampLog.instance.create(log);
-    print(log.toString());
-  }
-*/
   // ignore: non_constant_identifier_names
   Future TakeMedicine({
     required String url,

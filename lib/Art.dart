@@ -7,11 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vhelp_test/Content.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 
 class ArtTherapy extends StatelessWidget {
   static final String title = 'Art Therapy';
-
 
   Future artSync() async {
     WidgetsFlutterBinding.ensureInitialized();
@@ -48,7 +46,6 @@ class _ArtTherapyPageState extends State<ArtTherapyPage> {
   @override
   Widget build(BuildContext context) {
     // final fileName = file != null ? basename(file!.path) : 'No File Selected';
-    final height = MediaQuery.of(context).size.height;
 
     return Scaffold(
       backgroundColor: Colors.green.shade100,
@@ -57,8 +54,7 @@ class _ArtTherapyPageState extends State<ArtTherapyPage> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) => HomePage()),
+              MaterialPageRoute(builder: (context) => HomePage()),
             );
           },
           icon: Icon(Icons.arrow_back_ios),

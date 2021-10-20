@@ -41,41 +41,33 @@ class _DiaryPageState extends State<DiaryPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    backgroundColor: Colors.blue[100],
-    appBar: AppBar(
-      leading: IconButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => HomePage()),
-          );
-        },
-        icon: Icon(Icons.arrow_back_ios),
-      ),
-      iconTheme: IconThemeData(color: Colors.black54),
-      backgroundColor: Colors.blue.shade100,
-      elevation: 0,
-      title: Text('My Mood Diary',
-          style: TextStyle(color: Colors.black54, fontSize: 22)),
-    ),
+        backgroundColor: Colors.blue[100],
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              );
+            },
+            icon: Icon(Icons.arrow_back_ios),
+          ),
+          iconTheme: IconThemeData(color: Colors.black54),
+          backgroundColor: Colors.blue.shade100,
+          elevation: 0,
+          title: Text('My Mood Diary',
+              style: TextStyle(color: Colors.black54, fontSize: 22)),
+        ),
         body: Center(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-              Expanded(
-                child: isLoading
-                    ? CircularProgressIndicator()
-                    : colors.isEmpty
-                        ? Text(
-                            'Add some mood..',
-                            style:
-                                TextStyle(color: Colors.blueGrey, fontSize: 20),
-                          )
-                        : buildNotes(),
-              ),
-            ])),
+          child: isLoading
+              ? CircularProgressIndicator()
+              : colors.isEmpty
+                  ? Text(
+                      'Add some mood..',
+                      style: TextStyle(color: Colors.blueGrey, fontSize: 20),
+                    )
+                  : buildNotes(),
+        ),
         bottomNavigationBar: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -84,8 +76,6 @@ class _DiaryPageState extends State<DiaryPage> {
               child: SizedBox(
                   height: 60,
                   child: IconButton(
-                      //style: ButtonStyle(backgroundColor: Colors.blueGrey),
-                      //label: Text('New Page'),
                       icon: Icon(Icons.create, color: Colors.blueGrey),
                       onPressed: () {
                         Navigator.push(
@@ -99,8 +89,6 @@ class _DiaryPageState extends State<DiaryPage> {
               child: SizedBox(
                   height: 60,
                   child: IconButton(
-                      //style: ButtonStyle(backgroundColor: Colors.blueGrey),
-                      //label: Text('New Page'),
                       icon: Icon(Icons.table_rows, color: Colors.blueGrey),
                       onPressed: () {})),
             ),
@@ -109,8 +97,6 @@ class _DiaryPageState extends State<DiaryPage> {
               child: SizedBox(
                   height: 60,
                   child: IconButton(
-                      //style: ButtonStyle(backgroundColor: Colors.blueGrey),
-                      //label: Text('New Page'),
                       icon: Icon(Icons.pending_actions, color: Colors.blueGrey),
                       onPressed: () {
                         Navigator.push(
@@ -137,7 +123,7 @@ class _DiaryPageState extends State<DiaryPage> {
   Widget buildNotes() => StaggeredGridView.countBuilder(
         padding: EdgeInsets.all(8),
         itemCount: colors.length,
-        staggeredTileBuilder: (index) => StaggeredTile.fit(2),
+        staggeredTileBuilder: (index) => StaggeredTile.fit(1),
         crossAxisCount: 4,
         mainAxisSpacing: 4,
         crossAxisSpacing: 4,

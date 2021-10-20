@@ -37,7 +37,6 @@ class _DiaryFormWidgetState extends State<DiaryFormWidget> {
   @override
   void initState() {
     super.initState();
-    // selectedIndex = (DiaryPreferences.getIndex() ?? '') as int?;
     Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
   }
 
@@ -57,10 +56,8 @@ class _DiaryFormWidgetState extends State<DiaryFormWidget> {
                   children: <Widget>[
                     SizedBox(height: 20),
                     Container(
-                      //padding: const EdgeInsets.only(left: 1.0),
                       child: Container(
                           child: Text(
-                        //${widget.day + 1}
                         "Today: $now",
                         style: TextStyle(
                             color: Colors.black,
@@ -112,12 +109,7 @@ class _DiaryFormWidgetState extends State<DiaryFormWidget> {
             thisColor = index;
             print(index);
             addOrUpdateColor(index);
-            //addLogsToDB();
           });
-          //await DiaryPreferences.setIndex(index);
-          //SharedPreferences prefs = await SharedPreferences.getInstance();
-          //final value = prefs.getInt('index');
-          //print('value $value');
         },
       ),
     );

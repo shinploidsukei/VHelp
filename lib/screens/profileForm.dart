@@ -25,7 +25,7 @@ class _profileFormState extends State<profileForm> {
   String getText() {
     // ignore: unnecessary_null_comparison
     if (myDate == null) {
-      return 'Select Date';
+      return 'Date of Birth';
     } else {
       return DateFormat('dd/MM/yyyy').format(myDate!);
     }
@@ -43,8 +43,12 @@ class _profileFormState extends State<profileForm> {
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Scaffold(
+              backgroundColor: Colors.blue.shade100,
               appBar: AppBar(
                 title: Text('Error'),
+                iconTheme: IconThemeData(color: Colors.black54),
+                backgroundColor: Colors.blue.shade100,
+                elevation: 0,
               ),
               body: Center(
                 child: Text('${snapshot.error}'),
@@ -53,10 +57,13 @@ class _profileFormState extends State<profileForm> {
           }
           if (snapshot.connectionState == ConnectionState.done) {
             return Scaffold(
+              backgroundColor: Colors.blue.shade100,
               appBar: AppBar(
                 title:
-                    Text("Account Form", style: TextStyle(color: Colors.white)),
-                backgroundColor: Colors.blue.shade200,
+                    Text("Account Form", style: TextStyle(color: Colors.black54,fontWeight: FontWeight.bold)),
+                iconTheme: IconThemeData(color: Colors.black54),
+                backgroundColor: Colors.blue.shade100,
+                elevation: 0,
               ),
               body: Container(
                 padding: EdgeInsets.all(20),
@@ -66,95 +73,230 @@ class _profileFormState extends State<profileForm> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Username',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        TextFormField(
-                          validator: RequiredValidator(
-                              errorText: 'Please enter your username'),
-                          onSaved: (String? username) {
-                            myInfo.username = username!;
-                          },
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          'Firstname',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        TextFormField(
-                          validator: RequiredValidator(
-                              errorText: 'Please enter your firstname'),
-                          onSaved: (String? fname) {
-                            myInfo.fname = fname!;
-                          },
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          'Lastname',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        TextFormField(
-                          validator: RequiredValidator(
-                              errorText: 'Please enter your lastname'),
-                          onSaved: (String? lname) {
-                            myInfo.lname = lname!;
-                          },
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          'Nickname',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        TextFormField(
-                          validator: RequiredValidator(
-                              errorText: 'Please enter your nickname'),
-                          onSaved: (String? nickname) {
-                            myInfo.nickname = nickname!;
-                          },
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          'Date of Birth',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        SizedBox(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            child: Text(myInfo.dob = (getText())),
-                            onPressed: () {
-                              pickDate(context);
-                            },
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 10),
+                          padding: const EdgeInsets.only(left: 10),
+                          decoration: const BoxDecoration(
+                            color: Color(0xffffffff),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const Icon(Icons.person_outline),
+                              Expanded(
+                                child: Container(
+                                  margin: const EdgeInsets.only(left: 10),
+                                  child: TextFormField(
+                                    validator: RequiredValidator(
+                                        errorText: 'Please enter your username'),
+                                    maxLines: 1,
+                                    decoration: const InputDecoration(
+                                      label: Text(" Username"),
+                                      border: InputBorder.none,
+                                    ),
+                                    onSaved: (String? username) {
+                                      myInfo.username = username!;
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         SizedBox(
                           height: 15,
                         ),
-                        Text(
-                          'Phone Number',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        TextFormField(
-                          validator: RequiredValidator(
-                              errorText: 'Please enter your phone number'),
-                          onSaved: (String? phone) {
-                            myInfo.phone = phone!;
-                          },
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 10),
+                          padding: const EdgeInsets.only(left: 10),
+                          decoration: const BoxDecoration(
+                            color: Color(0xffffffff),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const Icon(Icons.person_outline),
+                              Expanded(
+                                child: Container(
+                                  margin: const EdgeInsets.only(left: 10),
+                                  child: TextFormField(
+                                    validator: RequiredValidator(
+                                        errorText: 'Please enter your firstname'),
+                                    maxLines: 1,
+                                    decoration: const InputDecoration(
+                                      label: Text(" Firstname"),
+                                      border: InputBorder.none,
+                                    ),
+                                    onSaved: (String? fname) {
+                                      myInfo.fname = fname!;
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                         SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 10),
+                          padding: const EdgeInsets.only(left: 10),
+                          decoration: const BoxDecoration(
+                            color: Color(0xffffffff),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const Icon(Icons.person_outline),
+                              Expanded(
+                                child: Container(
+                                  margin: const EdgeInsets.only(left: 10),
+                                  child: TextFormField(
+                                    validator: RequiredValidator(
+                                        errorText: 'Please enter your lastname'),
+                                    maxLines: 1,
+                                    decoration: const InputDecoration(
+                                      label: Text(" Lastname"),
+                                      border: InputBorder.none,
+                                    ),
+                                    onSaved: (String? lname) {
+                                      myInfo.lname = lname!;
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 10),
+                          padding: const EdgeInsets.only(left: 10),
+                          decoration: const BoxDecoration(
+                            color: Color(0xffffffff),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const Icon(Icons.person_outline),
+                              Expanded(
+                                child: Container(
+                                  margin: const EdgeInsets.only(left: 10),
+                                  child: TextFormField(
+                                    validator: RequiredValidator(
+                                        errorText: 'Please enter your nickname'),
+                                    maxLines: 1,
+                                    decoration: const InputDecoration(
+                                      label: Text(" Nickname"),
+                                      border: InputBorder.none,
+                                    ),
+                                    onSaved: (String? nickname) {
+                                      myInfo.nickname = nickname!;
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 20),
+                          padding: const EdgeInsets.only(left: 10),
+                          decoration: const BoxDecoration(
+                            color: Color(0xffffffff),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const Icon(Icons.calendar_today),
+                              Expanded(
+                                child: TextButton(
+                                  child: Text(myInfo.dob = (getText()),style: TextStyle(fontSize: 20.0, color: Colors.black54),),
+                                  onPressed: () {
+                                    pickDate(context);
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        /*Container(
                           width: double.infinity,
-                          child: ElevatedButton(
+                          child: TextButton(
+                            style: ElevatedButton.styleFrom(
+                              primary: Color(0xFF2C72CE),
+                              padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                            ),
+                            child: Text(myInfo.dob = (getText()),style: TextStyle(fontSize: 20.0, color: Colors.white),),
+                            onPressed: () {
+                              pickDate(context);
+                            },
+                          ),
+                        ),*/
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 10),
+                          padding: const EdgeInsets.only(left: 10),
+                          decoration: const BoxDecoration(
+                            color: Color(0xffffffff),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              const Icon(Icons.call),
+                              Expanded(
+                                child: Container(
+                                  margin: const EdgeInsets.only(left: 10),
+                                  child: TextFormField(
+                                      validator: RequiredValidator(
+                                          errorText: 'Please enter your phone number'),
+                                      maxLines: 1,
+                                      decoration: const InputDecoration(
+                                        label: Text(" Phone Number"),
+                                        border: InputBorder.none,
+                                      ),
+                                    onSaved: (String? phone) {
+                                      myInfo.phone = phone!;
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          height: 100,
+                        ),
+                        Container(
+                          alignment: Alignment.center,
+                          child: TextButton(
                             child: Text(
                               'Submit',
-                              style: TextStyle(fontSize: 18),
+                              style: TextStyle(fontSize: 18, color: Colors.white),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              primary: Color(0xFF2C72CE),
+                              padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                             ),
                             onPressed: () {
                               if (formkey.currentState!.validate()) {

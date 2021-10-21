@@ -25,7 +25,7 @@ class _profileFormState extends State<profileForm> {
   String getText() {
     // ignore: unnecessary_null_comparison
     if (myDate == null) {
-      return 'Date of Birth';
+      return '  Date of Birth';
     } else {
       return DateFormat('dd/MM/yyyy').format(myDate!);
     }
@@ -119,7 +119,7 @@ class _profileFormState extends State<profileForm> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              const Icon(Icons.person_outline),
+                              const Icon(Icons.person_pin_outlined),
                               Expanded(
                                 child: Container(
                                   margin: const EdgeInsets.only(left: 10),
@@ -154,7 +154,7 @@ class _profileFormState extends State<profileForm> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              const Icon(Icons.person_outline),
+                              const Icon(Icons.person_pin_outlined),
                               Expanded(
                                 child: Container(
                                   margin: const EdgeInsets.only(left: 10),
@@ -189,7 +189,7 @@ class _profileFormState extends State<profileForm> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              const Icon(Icons.person_outline),
+                              const Icon(Icons.person_pin_outlined),
                               Expanded(
                                 child: Container(
                                   margin: const EdgeInsets.only(left: 10),
@@ -215,8 +215,9 @@ class _profileFormState extends State<profileForm> {
                         ),
                         Container(
                           margin: const EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 20),
+                              horizontal: 30, vertical: 10),
                           padding: const EdgeInsets.only(left: 10),
+                          height: 60,
                           decoration: const BoxDecoration(
                             color: Color(0xffffffff),
                             borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -227,7 +228,9 @@ class _profileFormState extends State<profileForm> {
                               const Icon(Icons.calendar_today),
                               Expanded(
                                 child: TextButton(
-                                  child: Text(myInfo.dob = (getText()),style: TextStyle(fontSize: 20.0, color: Colors.black54),),
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                  child: Text(myInfo.dob = (getText()),textAlign: TextAlign.left,style: TextStyle(fontSize: 16.0, color: Colors.black54),),),
                                   onPressed: () {
                                     pickDate(context);
                                   },

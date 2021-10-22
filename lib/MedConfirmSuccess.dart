@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vhelp_test/Content.dart';
@@ -11,26 +13,6 @@ class MedConfirmSuccess extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          title: Text("Activity"),
-          centerTitle: true,
-          backgroundColor: Colors.blueGrey,
-          elevation: 4.0,
-          leading: IconButton(
-            icon: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-            ),
-            alignment: Alignment.center,
-            hoverColor: Colors.white,
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
-            },
-          ),
-        ),
         body: Container(
           decoration: BoxDecoration(
               image: DecorationImage(
@@ -46,6 +28,7 @@ class MedConfirmSuccess extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              Text('Activity'),
               const SizedBox(height: 100),
               const SizedBox(height: 24),
               Text(
@@ -59,6 +42,9 @@ class MedConfirmSuccess extends StatelessWidget {
                 style: TextStyle(fontSize: 35),
                 textAlign: TextAlign.center,
               ),
+              SizedBox(height: 20.0),
+              ElevatedButton(
+                  onPressed: () => exit(0), child: Text('Exit Notification'))
             ],
           ),
         ),

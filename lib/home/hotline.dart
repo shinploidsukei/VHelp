@@ -51,9 +51,8 @@ class HotlinePageState extends State<HotlinePage> {
         padding: const EdgeInsets.all(30.0),
         decoration: BoxDecoration(
             gradient: LinearGradient(
-                colors: [Colors.white, Colors.blue.shade100],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter)),
+                colors: [Colors.white, Colors.white],
+            )),
     child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,7 +63,7 @@ class HotlinePageState extends State<HotlinePage> {
             IconButton(
               icon: Icon(
                 Icons.arrow_back_ios,
-                color: Colors.black87,
+                color: Colors.blue.shade700,
               ),
               alignment: Alignment.topLeft,
               hoverColor: Colors.white,
@@ -92,20 +91,14 @@ class HotlinePageState extends State<HotlinePage> {
             ),
             Text(
               'Hotline',
-              style: TextStyle(
-                  fontSize: 27,
-                  color: Colors.black87,
-                  fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 25, color: Colors.blue.shade700,fontWeight: FontWeight.bold),
             ),
             SizedBox(
               height: 10,
             ),
             Text(
               'Department of Mental Health',
-              style: TextStyle(
-                  color: Colors.black87,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 20, color: Colors.blue.shade700,fontWeight: FontWeight.bold),
             ),
             const Divider(
               thickness: 3,
@@ -115,7 +108,7 @@ class HotlinePageState extends State<HotlinePage> {
             ),
             Text(
               '           Department of Mental Health Hotline 1323 will provide people with fast and effective mental health counseling. In the future, Thai people will be in good mental health and happy. The number of lines on the Mental Health Hotline 1323 will be increased to accommodate the growing demand.',
-              style: TextStyle(fontSize: 18, color: Colors.black87),
+              style: TextStyle(fontSize: 16, color: Colors.black87),
             ),
             SizedBox(
               height: 20,
@@ -141,7 +134,7 @@ class HotlinePageState extends State<HotlinePage> {
                     },
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.green,
+                    primary: Colors.green.shade600,
                     shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(40.0),
                     ),
@@ -169,7 +162,7 @@ class HotlinePageState extends State<HotlinePage> {
                   ),
                   onPressed: _launchURL,
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.blueAccent.shade200,
+                    primary: Colors.blue.shade700,
                     shape: new RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(40.0),
                     ),

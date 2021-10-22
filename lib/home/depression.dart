@@ -45,9 +45,8 @@ class DepressionPageState extends State<DepressionPage> {
         padding: const EdgeInsets.all(30.0),
         decoration: BoxDecoration(
             gradient: LinearGradient(
-                colors: [Colors.white, Colors.blue.shade100],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomRight)),
+                colors: [Colors.white, Colors.white],
+            )),
         child: SingleChildScrollView(
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +57,7 @@ class DepressionPageState extends State<DepressionPage> {
                 IconButton(
                   icon: Icon(
                     Icons.arrow_back_ios,
-                    color: Colors.black87,
+                    color: Colors.blue.shade700,
                   ),
                   alignment: Alignment.topLeft,
                   hoverColor: Colors.white,
@@ -87,7 +86,7 @@ class DepressionPageState extends State<DepressionPage> {
               ),
               Text(
                 'What is depression?',
-                style: TextStyle(fontSize: 27, color: Colors.black87,fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 25, color: Colors.blue.shade700,fontWeight: FontWeight.bold),
               ),
               const Divider(
                 thickness: 3,
@@ -97,14 +96,14 @@ class DepressionPageState extends State<DepressionPage> {
               ),
               Text(
                 '         Depression (major depressive disorder) is a common and serious medical illness that negatively affects how you feel, the way you think and how you act. Fortunately, it is also treatable. Depression causes feelings of sadness and/or a loss of interest in activities you once enjoyed. It can lead to a variety of emotional and physical problems and can decrease your ability to function at work and at home.',
-                style: TextStyle(fontSize: 18, color: Colors.black87),
+                style: TextStyle(fontSize: 16, color: Colors.black87),
               ),
               SizedBox(
                 height: 20,
               ),
               Text(
                 'Depression Symptoms',
-                style: TextStyle(fontSize: 27, color: Colors.black87,fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 25, color: Colors.blue.shade700,fontWeight: FontWeight.bold),
               ),
               const Divider(
                 thickness: 3,
@@ -114,18 +113,22 @@ class DepressionPageState extends State<DepressionPage> {
               ),
               Text(
                 '           • Feeling sad or having a depressed mood\n           • Loss of interest or pleasure in activities once enjoyed\n           • Changes in appetite — weight loss or gain unrelated to dieting\n           • Trouble sleeping or sleeping too much\n           • Loss of energy or increased fatigue\n           • Increase in purposeless physical activity (e.g., inability to sit still, pacing, handwringing) or slowed movements or speech (these actions must be severe enough to be observable by others)\n           • Feeling worthless or guilty\n           • Difficulty thinking, concentrating or making decisions\n           • Thoughts of death or suicide',
-                style: TextStyle(fontSize: 18, color: Colors.black87),
+                style: TextStyle(fontSize: 16, color: Colors.black87),
               ),
               SizedBox(
-                height: 20,
+                height: 40,
               ),
               Align(
                 alignment: Alignment.bottomRight,
                 child: TextButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF2C72CE),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  ),
                   onPressed: _launchURL,
                   child: Text(
-                    'More..',
-                    style: TextStyle(color: Colors.black87, fontSize: 20,fontFamily: 'RobotoMono'),
+                    'Read More',
+                    style: TextStyle(color: Colors.white, fontSize: 16,fontFamily: 'RobotoMono'),
                     //textAlign: TextAlign.right,
                   ),
                 ),

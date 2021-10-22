@@ -49,14 +49,14 @@ class _MyStatelessWidget extends State<MyApp> {
                         height: 100,
                       ),
                       Container(
-                        height: 40,
-                        width: 200,
+                        height: 45,
+                        width: 180,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.black12, // background
-                            onPrimary: Colors.black, // foreground
+                            primary: Color(0xFF2C72CE),
+                            onPrimary: Color(0xFF2C72CE),
                             shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(20.0)),
+                                borderRadius: new BorderRadius.circular(10.0)),
                           ),
                           onPressed: () {
                             Navigator.push(
@@ -72,17 +72,17 @@ class _MyStatelessWidget extends State<MyApp> {
                         ),
                       ),
                       SizedBox(
-                        height: 15,
+                        height: 20,
                       ),
                       Container(
-                        height: 40,
-                        width: 200,
+                        height: 45,
+                        width: 180,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.black12, // background
-                            onPrimary: Colors.black, // foreground
+                            primary: Color(0xFF2C72CE),
+                            onPrimary: Color(0xFF2C72CE),
                             shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(20.0)),
+                                borderRadius: new BorderRadius.circular(10.0)),
                           ),
                           onPressed: () {
                             Navigator.push(
@@ -98,17 +98,17 @@ class _MyStatelessWidget extends State<MyApp> {
                         ),
                       ),
                       SizedBox(
-                        height: 15,
+                        height: 20,
                       ),
                       Container(
-                        height: 40,
-                        width: 200,
+                        height: 45,
+                        width: 180,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.black12, // background
-                            onPrimary: Colors.black, // foreground
+                            primary: Color(0xFF2C72CE),
+                            onPrimary: Color(0xFF2C72CE),
                             shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(20.0)),
+                                borderRadius: new BorderRadius.circular(10.0)),
                           ),
                           onPressed: () {
                             Navigator.push(

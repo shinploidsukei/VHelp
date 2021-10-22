@@ -114,7 +114,6 @@ class _DiaryPageState extends State<DiaryPage> {
             await Navigator.of(context).push(
               MaterialPageRoute(builder: (context) => AddEditMoodPage()),
             );
-
             refreshNotes();
           },
         ),

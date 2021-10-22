@@ -107,7 +107,6 @@ class _DiaryFormWidgetState extends State<DiaryFormWidget> {
           setState(() {
             selectedIndex = index;
             thisColor = index;
-            print(index);
             addOrUpdateColor(index);
           });
         },
@@ -116,15 +115,14 @@ class _DiaryFormWidgetState extends State<DiaryFormWidget> {
   }
 
   void addOrUpdateColor(int index) async {
-    final isUpdating = widget.color != null;
+    final itHas = widget.color?.createTime != null;
 
-    if (isUpdating) {
+    if (itHas) {
       await updateColor();
     } else {
       await addColor();
+      print(itHas);
     }
-
-    Navigator.of(context).pop();
   }
 
   Future updateColor() async {
@@ -142,5 +140,6 @@ class _DiaryFormWidgetState extends State<DiaryFormWidget> {
     );
 
     await LogsDatabase.instance.create(color);
+    print(color.createTime);
   }
 }

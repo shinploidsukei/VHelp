@@ -41,8 +41,12 @@ class _LoginDemoState extends State<LoginDemo> {
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
                       return Scaffold(
+                        backgroundColor: Colors.blue.shade100,
                         appBar: AppBar(
                           title: Text('Error'),
+                          iconTheme: IconThemeData(color: Colors.black54),
+                          backgroundColor: Colors.blue.shade100,
+                          elevation: 0,
                         ),
                         body: Center(
                           child: Text('${snapshot.error}'),
@@ -51,20 +55,21 @@ class _LoginDemoState extends State<LoginDemo> {
                     }
                     if (snapshot.connectionState == ConnectionState.done) {
                       return Scaffold(
+                          backgroundColor: Colors.blue.shade100,
                           appBar: AppBar(
                             title: Text("Login Page",
-                                style: TextStyle(color: Colors.white)),
-                            backgroundColor: Colors.blue.shade200,
+                                style: TextStyle(color: Colors.black54, fontWeight: FontWeight.bold)),
+                            iconTheme: IconThemeData(color: Colors.black54),
+                            backgroundColor: Colors.blue.shade100,
+                            elevation: 0,
                           ),
                           body: Container(
                             decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                    colors: [
-                                  Colors.blue.shade200,
-                                  Colors.blueGrey
-                                ],
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter)),
+                              image: DecorationImage(
+                                  scale: 5,
+                                  image: AssetImage('assets/images/cut.png'),
+                                  alignment: Alignment.bottomCenter),
+                            ),
                             child: Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: Form(
@@ -73,43 +78,94 @@ class _LoginDemoState extends State<LoginDemo> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        'Email',
-                                        style: TextStyle(fontSize: 20.0),
+                                      SizedBox(
+                                        height: 20,
                                       ),
-                                      TextFormField(
-                                        validator: MultiValidator([
-                                          RequiredValidator(
-                                              errorText:
-                                                  'Please enter your email'),
-                                          EmailValidator(
-                                              errorText:
-                                                  'Please enter the correct form of email')
-                                        ]),
-                                        keyboardType:
-                                            TextInputType.emailAddress,
-                                        onSaved: (String? email) {
-                                          profile.email = email!;
-                                        },
+                                      Container(
+                                        margin: const EdgeInsets.symmetric(
+                                            horizontal: 30, vertical: 10),
+                                        padding: const EdgeInsets.only(left: 10),
+                                        decoration: const BoxDecoration(
+                                          color: Color(0xffffffff),
+                                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            const Icon(Icons.person_outline),
+                                            Expanded(
+                                              child: Container(
+                                                margin: const EdgeInsets.only(left: 10),
+                                                child: TextFormField(
+                                                  validator: MultiValidator([
+                                                    RequiredValidator(
+                                                        errorText: 'Please enter your email'),
+                                                    EmailValidator(
+                                                        errorText:
+                                                        'Please enter the correct form of email')
+                                                  ]),
+                                                  maxLines: 1,
+                                                  decoration: const InputDecoration(
+                                                    label: Text(" Email"),
+                                                    border: InputBorder.none,
+                                                  ),
+                                                  keyboardType:
+                                                  TextInputType.emailAddress,
+                                                  onSaved: (String? email) {
+                                                    profile.email = email!;
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                       SizedBox(
                                         height: 10,
                                       ),
-                                      Text(
-                                        'Password',
-                                        style: TextStyle(fontSize: 20.0),
+                                      Container(
+                                        margin: const EdgeInsets.symmetric(
+                                            horizontal: 30, vertical: 10),
+                                        padding: const EdgeInsets.only(left: 10),
+                                        decoration: const BoxDecoration(
+                                          color: Color(0xffffffff),
+                                          borderRadius: BorderRadius.all(Radius.circular(12)),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            const Icon(Icons.lock_outline),
+                                            Expanded(
+                                              child: Container(
+                                                margin: const EdgeInsets.only(left: 10),
+                                                child: TextFormField(
+                                                    validator: RequiredValidator(
+                                                        errorText: 'Please enter your password'),
+                                                    maxLines: 1,
+                                                    decoration: const InputDecoration(
+                                                      label: Text(" Password"),
+                                                      border: InputBorder.none,
+                                                    ),
+                                                    obscureText: true,
+                                                    onSaved: (String? password) {
+                                                      profile.password = password!;
+                                                    }
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                      TextFormField(
-                                          validator: RequiredValidator(
-                                              errorText:
-                                                  'Please enter your password'),
-                                          obscureText: true,
-                                          onSaved: (String? password) {
-                                            profile.password = password!;
-                                          }),
                                       SizedBox(
-                                        width: double.infinity,
-                                        child: ElevatedButton(
+                                        height: 30,
+                                      ),
+                                      Container(
+                                        alignment: Alignment.center,
+                                        child: TextButton(
+                                            style: ElevatedButton.styleFrom(
+                                              primary: Color(0xFF2C72CE),
+                                              padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+                                            ),
                                             onPressed: () async {
                                               SharedPreferences prefs =
                                                   await SharedPreferences
@@ -144,7 +200,7 @@ class _LoginDemoState extends State<LoginDemo> {
                                             },
                                             child: Text(
                                               'Login',
-                                              style: TextStyle(fontSize: 20.0),
+                                              style: TextStyle(fontSize: 20.0, color: Colors.white),
                                             )),
                                       )
                                     ],

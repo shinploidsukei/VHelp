@@ -48,6 +48,7 @@ class SymptomsPageState extends State<SymptomsPage> {
                 colors: [Colors.white, Colors.blue.shade100],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter)),
+    child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -116,6 +117,7 @@ class SymptomsPageState extends State<SymptomsPage> {
             ),
           ],
         ),
+      ),
       ),
     );
   }

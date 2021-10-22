@@ -49,8 +49,7 @@ class _DiaryDetailPageState extends State<DiaryDetailPage> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(
-                  builder: (context) => DiaryPage()),
+              MaterialPageRoute(builder: (context) => DiaryPage()),
             );
           },
           icon: Icon(Icons.arrow_back_ios),
@@ -59,21 +58,19 @@ class _DiaryDetailPageState extends State<DiaryDetailPage> {
         backgroundColor: Colors.blue.shade100,
         actions: [editButton(), deleteButton()],
         elevation: 0,
-        ),
-      body: isLoading
-          ? Center(child: CircularProgressIndicator())
-          : Padding(
-              padding: EdgeInsets.all(12),
-              child: ListView(
-                padding: EdgeInsets.symmetric(vertical: 8),
-                children: [
-                  SizedBox(height: 4),
-                  IconTheme(
-                      data: IconThemeData(color: emojiColors[color.colorSaved]),
-                      child: Icon(Icons.emoji_emotions)),
-                ],
+        title: Text('My Mood Right Now',
+            style: TextStyle(color: Colors.black54, fontSize: 22)),
+      ),
+      body: Center(
+        child: isLoading
+            ? Center(child: CircularProgressIndicator())
+            : Center(
+                child: IconTheme(
+                    data: IconThemeData(
+                        color: emojiColors[color.colorSaved], size: 100),
+                    child: Icon(Icons.emoji_emotions)),
               ),
-            ),
+      ),
     );
   }
 
@@ -90,13 +87,11 @@ class _DiaryDetailPageState extends State<DiaryDetailPage> {
       icon: Icon(Icons.edit_outlined),
       onPressed: () async {
         if (isLoading) return;
-
         await Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => AddEditMoodPage(
             color: color,
           ),
         ));
-
         refreshNote();
       });
 }

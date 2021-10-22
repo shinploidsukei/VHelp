@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vhelp_test/db/logs_database.dart';
 import 'package:vhelp_test/model/colorLog.dart';
 import 'package:vhelp_test/page/diary_page.dart';
 import 'package:vhelp_test/widget/diary_form_widget.dart';
@@ -24,90 +23,39 @@ class _AddEditMoodPageState extends State<AddEditMoodPage> {
   @override
   void initState() {
     super.initState();
-
-    // --Ask later--
     colorIndex = widget.color?.colorSaved ?? 0;
   }
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    backgroundColor: Colors.blue[100],
-    appBar: AppBar(
-      leading: IconButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => DiaryPage()),
-          );
-        },
-        icon: Icon(Icons.arrow_back_ios),
-      ),
-      iconTheme: IconThemeData(color: Colors.black54),
-      backgroundColor: Colors.blue.shade100,
-      elevation: 0,
-    ),
+        backgroundColor: Colors.blue[100],
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DiaryPage()),
+              );
+            },
+            icon: Icon(Icons.arrow_back_ios),
+          ),
+          iconTheme: IconThemeData(color: Colors.black54),
+          backgroundColor: Colors.blue.shade100,
+          elevation: 0,
+        ),
         body: Container(
           child: Padding(
             padding: const EdgeInsets.all(12.0),
-            child: Form(
-              key: _formKey,
-              child: DiaryFormWidget(
-                colorIndex: colorIndex,
-                onChangedColorIndex: (colorIndex) =>
-                    setState(() => this.colorIndex = colorIndex),
-              ),
-            ),
+            child: Form(key: _formKey, child: checkIf()),
           ),
         ),
       );
-
-  Widget buildButton() {
-    final isFormValid = colorIndex.isNegative;
-
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          onPrimary: Colors.white,
-          primary: isFormValid ? Colors.blueGrey : Colors.blueGrey[200],
-        ),
-        onPressed: addOrUpdateColor,
-        child: Text('Save'),
-      ),
+  Widget checkIf() {
+    return DiaryFormWidget(
+      color: widget.color,
+      colorIndex: colorIndex,
+      onChangedColorIndex: (colorIndex) =>
+          setState(() => this.colorIndex = colorIndex),
     );
-  }
-
-  void addOrUpdateColor() async {
-    final isValid = _formKey.currentState!.validate();
-
-    if (isValid) {
-      final isUpdating = widget.color != null;
-
-      if (isUpdating) {
-        await updateColor();
-      } else {
-        await addColor();
-      }
-
-      Navigator.of(context).pop();
-    }
-  }
-
-  Future updateColor() async {
-    final color = widget.color!.copy(
-      colorSaved: colorIndex,
-    );
-
-    await LogsDatabase.instance.update(color);
-  }
-
-  Future addColor() async {
-    final color = colorLog(
-      colorSaved: colorIndex,
-      createTime: DateTime.now(),
-    );
-
-    await LogsDatabase.instance.create(color);
   }
 }

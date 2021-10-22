@@ -14,4 +14,13 @@ class userInfo {
       required this.nickname,
       required this.dob,
       required this.phone});
+
+  Map<String, dynamic> toJson() => {
+      'username': username,
+      'fname': fname,
+      'lname': lname,
+      'nickname': nickname,
+      'dob': dob,
+      'phone': phone
+      };
 }

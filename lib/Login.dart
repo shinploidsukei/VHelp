@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
 import 'package:vhelp_test/no_internet.dart';
 import 'Content.dart';
@@ -110,6 +111,10 @@ class _LoginDemoState extends State<LoginDemo> {
                                         width: double.infinity,
                                         child: ElevatedButton(
                                             onPressed: () async {
+                                              SharedPreferences prefs =
+                                                  await SharedPreferences
+                                                      .getInstance();
+                                              prefs.setBool("isLoggedIn", true);
                                               if (formkey.currentState!
                                                   .validate()) {
                                                 formkey.currentState!.save();

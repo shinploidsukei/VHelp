@@ -42,7 +42,10 @@ dependencies:
   image: ^3.0.8
   firebase_storage: ^10.0.5
   carousel_slider: ^4.0.0
-
+  firebase_database: ^8.0.0
+  awesome_notifications: ^0.0.6+11
+  font_awesome_flutter: ^9.2.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

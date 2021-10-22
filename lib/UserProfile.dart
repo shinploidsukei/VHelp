@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vhelp_test/AccountScreen.dart';
 
 /*
 class UserPage extends StatefulWidget {
@@ -85,19 +87,39 @@ class UserPage extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) {
+    return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blue,
-          title: Text(name),
+          //  title: Text(name),
           centerTitle: true,
         ),
-        /*
-        body: Image.network(
-          urlImage,
-          width: double.infinity,
-          height: double.infinity,
-          fit: BoxFit.cover,
-        ),
-        */
-      );
+        body: Container(
+            padding: EdgeInsets.all(30.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                
+                /* Image.network(
+                urlImage,
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.cover,
+              ),*/
+                ElevatedButton(
+                    onPressed: () async {
+                      SharedPreferences sharedPreferences =
+                          await SharedPreferences.getInstance();
+                      sharedPreferences.clear();
+                      // ignore: deprecated_member_use
+                      sharedPreferences.commit();
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => MyApp()),
+                          (Route<dynamic> route) => false);
+                    },
+                    child: Text('Logout'))
+              ],
+            )));
+  }
 }

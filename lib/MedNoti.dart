@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'dart:math';
 import 'package:provider/provider.dart';
 import 'package:vhelp_test/no_internet.dart';
@@ -99,7 +101,7 @@ class _MedNotiPageState extends State<MedNotiPage> {
 
   int index = 0;
   late Object arguments;
-  TextEditingController controller = TextEditingController();
+  TextEditingController controller = TextEditingController(text: 'จ่ายค่าไฟ');
 
   DateTime? medNotiDate;
   TimeOfDay? medNotiTime;
@@ -136,31 +138,30 @@ class _MedNotiPageState extends State<MedNotiPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         resizeToAvoidBottomInset: false,
-    backgroundColor: Colors.blue[100],
-    appBar: AppBar(
-      leading: IconButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => HomePage()),
-          );
-        },
-        icon: Icon(Icons.arrow_back_ios),
-      ),
-      iconTheme: IconThemeData(color: Colors.black54),
-      backgroundColor: Colors.blue.shade100,
-      elevation: 0,
-      title: Text('Medicine Notification',
-          style: TextStyle(color: Colors.black54, fontSize: 22)),
-    ),
+        backgroundColor: Colors.blue[100],
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              );
+            },
+            icon: Icon(Icons.arrow_back_ios),
+          ),
+          iconTheme: IconThemeData(color: Colors.black54),
+          backgroundColor: Colors.blue.shade100,
+          elevation: 0,
+          title: Text('Medicine Notification',
+              style: TextStyle(color: Colors.black54, fontSize: 22)),
+        ),
         body: Container(
           decoration: BoxDecoration(
-              image: DecorationImage(
-                  scale: 5,
-                  image: AssetImage('assets/images/cut.png'),
-                  alignment: Alignment.bottomCenter),
-              ),
+            image: DecorationImage(
+                scale: 5,
+                image: AssetImage('assets/images/cut.png'),
+                alignment: Alignment.bottomCenter),
+          ),
           alignment: Alignment.center,
           padding: EdgeInsets.all(32),
           child: Column(
@@ -242,34 +243,49 @@ class _MedNotiPageState extends State<MedNotiPage> {
                 height: 20,
               ),
               buildButton(
-                title: 'Confirm',
-                icon: Icons.notifications_active,
-                onClicked: () {
-                  print(medNotiDate.toString() + medNotiTime.toString());
-                  // print(medNotiDate!.setTimeOfDay(time));
-                  NotificationApi.showScheduledNotification(
-                    title: 'VHelp',
-                    body: '${iDate.notiWord}',
-                    payload:
-                        'Date: ${iDate.medDate} \nTime: ${iDate.medTime} \nNotification Word: \n ${iDate.notiWord}',
-                    scheduledDate: DateTime.now().add(Duration(
-                        days: medNotiDate!.day - DateTime.now().day,
-                        hours: medNotiTime!.hour - DateTime.now().hour,
-                        minutes: medNotiTime!.minute - DateTime.now().minute)),
-                  );
+                  title: 'Confirm',
+                  icon: Icons.notifications_active,
+                  onClicked: () {
+                    print(medNotiDate.toString() + medNotiTime.toString());
+                    // print(medNotiDate!.setTimeOfDay(time));
+                    if (iDate.medDate.isEmpty ||
+                        iDate.medTime.isEmpty ||
+                        iDate.notiWord.isEmpty) {
+                      final snackBar = SnackBar(
+                        content: Text(
+                          'Warning! \nPlease put in every single field.',
+                          style: TextStyle(fontSize: 24),
+                        ),
+                        backgroundColor: Colors.red,
+                      );
+                      ScaffoldMessenger.of(context)
+                        ..removeCurrentSnackBar()
+                        ..showSnackBar(snackBar);
+                    } else {
+                      NotificationApi.showScheduledNotification(
+                        title: 'VHelp',
+                        body: '${iDate.notiWord}',
+                        payload:
+                            'Date: ${iDate.medDate} \nTime: ${iDate.medTime} \nNotification Word: \n ${iDate.notiWord}',
+                        scheduledDate: DateTime.now().add(Duration(
+                            days: medNotiDate!.day - DateTime.now().day,
+                            hours: medNotiTime!.hour - DateTime.now().hour,
+                            minutes:
+                                medNotiTime!.minute - DateTime.now().minute)),
+                      );
 
-                  final snackBar = SnackBar(
-                    content: Text(
-                      'Successfully Set Notification!',
-                      style: TextStyle(fontSize: 24),
-                    ),
-                    backgroundColor: Colors.green,
-                  );
-                  ScaffoldMessenger.of(context)
-                    ..removeCurrentSnackBar()
-                    ..showSnackBar(snackBar);
-                },
-              ),
+                      final snackBar = SnackBar(
+                        content: Text(
+                          'Successfully Set Notification!',
+                          style: TextStyle(fontSize: 24),
+                        ),
+                        backgroundColor: Colors.green,
+                      );
+                      ScaffoldMessenger.of(context)
+                        ..removeCurrentSnackBar()
+                        ..showSnackBar(snackBar);
+                    }
+                  }),
               Spacer(),
             ],
           ),

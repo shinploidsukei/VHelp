@@ -16,7 +16,7 @@ dependencies:
   firebase_core: ^1.4.0
   firebase_auth: ^3.0.1
   fluttertoast: ^8.0.8
- # device_calendar: ^3.1.0
+  # device_calendar: ^3.1.0
   # database storage
   sqflite: ^2.0.0+3
   # format date time
@@ -45,6 +45,7 @@ dependencies:
   firebase_database: ^8.0.0
   awesome_notifications: ^0.0.6+11
   font_awesome_flutter: ^9.2.0
+  flutter_speed_dial: ^4.6.0
   
 dev_dependencies:
   flutter_test:

@@ -46,11 +46,13 @@ class _AddEditMoodPageState extends State<AddEditMoodPage> {
         body: Container(
           child: Padding(
             padding: const EdgeInsets.all(12.0),
-            child: Form(key: _formKey, child: checkIf()),
+            child:
+                Form(key: _formKey, child: checkIf(widget.color?.createTime)),
           ),
         ),
       );
-  Widget checkIf() {
+
+  Widget checkIf(DateTime? today) {
     return DiaryFormWidget(
       color: widget.color,
       colorIndex: colorIndex,

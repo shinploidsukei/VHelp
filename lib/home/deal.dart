@@ -45,9 +45,8 @@ class DealPageState extends State<DealPage> {
         padding: const EdgeInsets.all(30.0),
         decoration: BoxDecoration(
             gradient: LinearGradient(
-                colors: [Colors.white, Colors.blue.shade100],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter)),
+              colors: [Colors.white, Colors.white],
+            )),
     child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +57,7 @@ class DealPageState extends State<DealPage> {
             IconButton(
               icon: Icon(
                 Icons.arrow_back_ios,
-                color: Colors.black87,
+                color: Colors.blue.shade700,
               ),
               alignment: Alignment.topLeft,
               hoverColor: Colors.white,
@@ -86,7 +85,7 @@ class DealPageState extends State<DealPage> {
             ),
             Text(
               'How to deal with depression when you feel blue',
-              style: TextStyle(fontSize: 27, color: Colors.black87,fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 25, color: Colors.blue.shade700,fontWeight: FontWeight.bold),
             ),
             const Divider(
               thickness: 3,
@@ -96,7 +95,7 @@ class DealPageState extends State<DealPage> {
             ),
             Text(
               '           There are a range of ways to deal with depression, and often they are best used in conjunction with each other. The primary medical options are Cognitive Behavioural Therapy (CBT), antidepressant medication, and in some severe cases, Electroconvulsive Therapy (ECT). Education and coping strategies are also important when learning to manage your depression.',
-              style: TextStyle(fontSize: 18, color: Colors.black87),
+              style: TextStyle(fontSize: 16, color: Colors.black87),
             ),
             SizedBox(
               height: 30,
@@ -104,10 +103,14 @@ class DealPageState extends State<DealPage> {
             Align(
               alignment: Alignment.bottomRight,
               child: TextButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Color(0xFF2C72CE),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                ),
                 onPressed: _launchURL,
                 child: Text(
-                  'More..',
-                  style: TextStyle(color: Colors.black87, fontSize: 20,fontFamily: 'RobotoMono'),
+                  'Read More',
+                  style: TextStyle(color: Colors.white, fontSize: 16,fontFamily: 'RobotoMono'),
                   //textAlign: TextAlign.right,
                 ),
               ),

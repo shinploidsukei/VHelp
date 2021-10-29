@@ -45,9 +45,8 @@ class CausePageState extends State<CausePage> {
           padding: const EdgeInsets.all(30.0),
           decoration: BoxDecoration(
               gradient: LinearGradient(
-                  colors: [Colors.white, Colors.blue.shade100],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter)),
+                  colors: [Colors.white, Colors.white],
+              )),
     child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +57,7 @@ class CausePageState extends State<CausePage> {
               IconButton(
                 icon: Icon(
                   Icons.arrow_back_ios,
-                  color: Colors.black87,
+                  color: Colors.blue.shade700,
                 ),
                 alignment: Alignment.topLeft,
                 hoverColor: Colors.white,
@@ -86,7 +85,7 @@ class CausePageState extends State<CausePage> {
               ),
               Text(
                 'Causes and Effects of Depression',
-                style: TextStyle(fontSize: 27, color: Colors.black87,fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 25, color: Colors.blue.shade700,fontWeight: FontWeight.bold),
               ),
               const Divider(
                 thickness: 3,
@@ -96,18 +95,22 @@ class CausePageState extends State<CausePage> {
               ),
               Text(
                 '           Many potential causes for depression exist. It can be genetic, meaning the patient has a family history of depression. Personal trauma and sources of stress, such as a failed relationship or a lost job, can also cause depression. Social isolation as the result of conflict with family and friends can be a contributory factor, and certain medications, such as high blood pressure medication, have depression listed as a possible side effect.',
-                style: TextStyle(fontSize: 18, color: Colors.black87),
+                style: TextStyle(fontSize: 16, color: Colors.black87),
               ),
               SizedBox(
-                height: 30,
+                height: 40,
               ),
               Align(
                 alignment: Alignment.bottomRight,
                 child: TextButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Color(0xFF2C72CE),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  ),
                   onPressed: _launchURL,
                   child: Text(
-                    'More..',
-                    style: TextStyle(color: Colors.black87, fontSize: 20,fontFamily: 'RobotoMono'),
+                    'Read More',
+                    style: TextStyle(color: Colors.white, fontSize: 16,fontFamily: 'RobotoMono'),
                     //textAlign: TextAlign.right,
                   ),
                 ),

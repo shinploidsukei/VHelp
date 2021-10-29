@@ -30,6 +30,8 @@ class timeStampWidget extends StatelessWidget {
                   style: TextStyle(color: Colors.black),
                 ),
               ],
-            )));
+            ))
+            
+            );
   }
 }

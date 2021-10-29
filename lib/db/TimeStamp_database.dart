@@ -52,4 +52,14 @@ class TimeStampLog {
     final db = await instance.database;
     db.close();
   }
+
+  Future<int?> countID() async {
+    final db = await instance.database;
+    // var dbConnection = db;
+    final count =
+        Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $tableLog'));
+    // assert(count == 2);
+    print('Test: $count');
+    return count;
+  }
 }

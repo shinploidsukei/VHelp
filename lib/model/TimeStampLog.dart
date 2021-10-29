@@ -1,3 +1,5 @@
+import 'package:sqflite/sqflite.dart';
+
 final String tableLog = 'TimeStampLog';
 
 class TimeStampFields {
@@ -8,6 +10,9 @@ class TimeStampFields {
 
   static final String id = '_id';
   static final String datetime = 'datetime';
+
+  
+  
 }
 
 class TimeStampDetails {
@@ -38,4 +43,7 @@ class TimeStampDetails {
         TimeStampFields.id: id,
         TimeStampFields.datetime: datetime.toIso8601String(),
       };
+
+
+ 
 }

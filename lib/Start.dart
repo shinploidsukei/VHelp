@@ -107,7 +107,7 @@ class _StartState extends State<Start> {
         }
         return Container(
           child: Center(
-            child: CircularProgressIndicator(),
+            child: NoInternet(),
           ),
         );
       },

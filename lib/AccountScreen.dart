@@ -129,7 +129,7 @@ class _MyStatelessWidget extends State<MyApp> {
         }
         return Container(
           child: Center(
-            child: CircularProgressIndicator(),
+            child: NoInternet(),
           ),
         );
       },

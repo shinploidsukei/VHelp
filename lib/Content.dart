@@ -300,12 +300,12 @@ class _HomePageState extends State<HomePage> {
                 )
               : NoInternet();
         }
-        return Container(
+       return Container(
           child: Center(
-            child: CircularProgressIndicator(),
+            child: NoInternet(),
           ),
         );
-      },
+      }
     );
   }
 

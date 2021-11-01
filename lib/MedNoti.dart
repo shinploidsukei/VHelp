@@ -46,7 +46,7 @@ class _MedNoti extends State<MedNoti> {
         }
         return Container(
           child: Center(
-            child: CircularProgressIndicator(),
+            child: NoInternet(),
           ),
         );
       },

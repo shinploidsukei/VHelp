@@ -47,7 +47,7 @@ class _DocNoti extends State<DocNoti> {
         }
         return Container(
           child: Center(
-            child: CircularProgressIndicator(),
+            child: NoInternet(),
           ),
         );
       },

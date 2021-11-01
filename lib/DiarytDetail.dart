@@ -84,7 +84,7 @@ class _DiaryDetailState extends State<DiaryDetail> {
         }
         return Container(
           child: Center(
-            child: CircularProgressIndicator(),
+             child: NoInternet(),
           ),
         );
       },

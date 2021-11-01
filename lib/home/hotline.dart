@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vhelp_test/Content.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vhelp_test/connectivity_provider.dart';
+import 'package:vhelp_test/no_internet.dart';
 
 class Hotline extends StatelessWidget {
   @override
@@ -46,134 +49,160 @@ class HotlinePageState extends State<HotlinePage> {
       );
 
   Widget buildPages() {
-    return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.all(30.0),
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [Colors.white, Colors.white],
-            )),
-    child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              height: 40,
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.blue.shade700,
-              ),
-              alignment: Alignment.topLeft,
-              hoverColor: Colors.white,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomePage()),
-                );
-              },
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              width: double.infinity,
-              height: 250,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(40),
-                  image: DecorationImage(
-                      image: AssetImage('assets/images/hotline.jpg'),
-                      fit: BoxFit.cover)),
-            ),
-            SizedBox(
-              height: 40,
-            ),
-            Text(
-              'Hotline',
-                style: TextStyle(fontSize: 25, color: Colors.blue.shade700,fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              'Department of Mental Health',
-              style: TextStyle(fontSize: 20, color: Colors.blue.shade700,fontWeight: FontWeight.bold),
-            ),
-            const Divider(
-              thickness: 3,
-            ),
-            SizedBox(
-              height: 40,
-            ),
-            Text(
-              '           Department of Mental Health Hotline 1323 will provide people with fast and effective mental health counseling. In the future, Thai people will be in good mental health and happy. The number of lines on the Mental Health Hotline 1323 will be increased to accommodate the growing demand.',
-              style: TextStyle(fontSize: 16, color: Colors.black87),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: SizedBox(
-                height: 50, //height of button
-                width: 150, //width of button
-                child: ElevatedButton.icon(
-                  icon: Icon(
-                    Icons.call,
-                    color: Colors.white,
-                    size: 30.0,
-                  ),
-                  label: Text(
-                    'Call',
-                    style: TextStyle(fontSize: 20, color: Colors.white),
-                  ),
-                  onPressed: () => setState(
-                    () {
-                      launch(('tel://$command'));
-                    },
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.green.shade600,
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(40.0),
+    return Consumer<ConnectivityProvider>(
+      builder: (context, model, child) {
+        if (model.isOnline) {
+          return model.isOnline
+              ? Scaffold(
+                  body: Container(
+                    padding: const EdgeInsets.all(30.0),
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                      colors: [Colors.white, Colors.white],
+                    )),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 40,
+                          ),
+                          IconButton(
+                            icon: Icon(
+                              Icons.arrow_back_ios,
+                              color: Colors.blue.shade700,
+                            ),
+                            alignment: Alignment.topLeft,
+                            hoverColor: Colors.white,
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomePage()),
+                              );
+                            },
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            width: double.infinity,
+                            height: 250,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(40),
+                                image: DecorationImage(
+                                    image:
+                                        AssetImage('assets/images/hotline.jpg'),
+                                    fit: BoxFit.cover)),
+                          ),
+                          SizedBox(
+                            height: 40,
+                          ),
+                          Text(
+                            'Hotline',
+                            style: TextStyle(
+                                fontSize: 25,
+                                color: Colors.blue.shade700,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Department of Mental Health',
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.blue.shade700,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          const Divider(
+                            thickness: 3,
+                          ),
+                          SizedBox(
+                            height: 40,
+                          ),
+                          Text(
+                            '           Department of Mental Health Hotline 1323 will provide people with fast and effective mental health counseling. In the future, Thai people will be in good mental health and happy. The number of lines on the Mental Health Hotline 1323 will be increased to accommodate the growing demand.',
+                            style:
+                                TextStyle(fontSize: 16, color: Colors.black87),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: SizedBox(
+                              height: 50, //height of button
+                              width: 150, //width of button
+                              child: ElevatedButton.icon(
+                                icon: Icon(
+                                  Icons.call,
+                                  color: Colors.white,
+                                  size: 30.0,
+                                ),
+                                label: Text(
+                                  'Call',
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.white),
+                                ),
+                                onPressed: () => setState(
+                                  () {
+                                    launch(('tel://$command'));
+                                  },
+                                ),
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.green.shade600,
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(40.0),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: SizedBox(
+                              height: 50, //height of button
+                              width: 150, //width of button
+                              child: ElevatedButton.icon(
+                                icon: Icon(
+                                  Icons.web,
+                                  color: Colors.white,
+                                  size: 30.0,
+                                ),
+                                label: Text(
+                                  'Website',
+                                  style: TextStyle(
+                                      fontSize: 20, color: Colors.white),
+                                ),
+                                onPressed: _launchURL,
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.blue.shade700,
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(40.0),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: SizedBox(
-                height: 50, //height of button
-                width: 150, //width of button
-                child: ElevatedButton.icon(
-                  icon: Icon(
-                    Icons.web,
-                    color: Colors.white,
-                    size: 30.0,
-                  ),
-                  label: Text(
-                    'Website',
-                    style: TextStyle(fontSize: 20, color: Colors.white),
-                  ),
-                  onPressed: _launchURL,
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.blue.shade700,
-                    shape: new RoundedRectangleBorder(
-                      borderRadius: new BorderRadius.circular(40.0),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      ),
+                )
+              : NoInternet();
+        }
+        return Container(
+          child: Center(
+            child: NoInternet(),
+          ),
+        );
+      },
     );
   }
 }

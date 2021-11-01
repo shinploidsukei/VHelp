@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vhelp_test/Content.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vhelp_test/connectivity_provider.dart';
+import 'package:vhelp_test/no_internet.dart';
 
 class Depression extends StatelessWidget {
   //static final String title = 'Date (Range) & Time';
@@ -40,7 +43,12 @@ class DepressionPageState extends State<DepressionPage> {
       );
 
   Widget buildPages() {
-    return Scaffold(
+    return  Consumer<ConnectivityProvider>(
+      builder: (context, model, child) {
+        if (model.isOnline) {
+          return model.isOnline
+              ?
+    Scaffold(
       body: Container(
         padding: const EdgeInsets.all(30.0),
         decoration: BoxDecoration(
@@ -140,6 +148,14 @@ class DepressionPageState extends State<DepressionPage> {
           ),
         ),
       ),
+    )       : NoInternet();
+        }
+        return Container(
+          child: Center(
+            child: NoInternet(),
+          ),
+        );
+      },
     );
   }
 }

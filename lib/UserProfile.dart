@@ -1,6 +1,61 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vhelp_test/AccountScreen.dart';
+import 'package:vhelp_test/model/userInfo.dart';
+import 'package:vhelp_test/model/user_model.dart';
+
+class UserPage extends StatefulWidget {
+  final String name;
+  final String urlImage;
+
+  const UserPage({
+    Key? key,
+    required this.name,
+    required this.urlImage,
+  }) : super(key: key);
+
+  @override
+  _UserPageState createState() => _UserPageState();
+}
+
+class _UserPageState extends State<UserPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: StreamBuilder(
+          stream: FirebaseFirestore.instance.collection("Accounts").snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              print("PloidTest: $snapshot");
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return ListView(
+              children: snapshot.data!.docs.map((document) {
+                return Container(
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      radius: 30,
+                      child: FittedBox(
+                        child: Text(document["username"]),
+                      ),
+                    ),
+                    title: Text(document["fname"] + document["lname"]),
+                    subtitle: Text(document["nickname"]),
+                  ),
+                );
+              }).toList(),
+            );
+          }),
+    );
+  }
+}
+
+
 
 /*
 class UserPage extends StatefulWidget {
@@ -76,7 +131,7 @@ class _UserPageState extends State<UserPage> {
 }
 */
 
-class UserPage extends StatelessWidget {
+/*class UserPage extends StatelessWidget {
   final String name;
   final String urlImage;
 
@@ -122,4 +177,5 @@ class UserPage extends StatelessWidget {
               ],
             )));
   }
-}
+}*/
+

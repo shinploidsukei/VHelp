@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:vhelp_test/connectivity_provider.dart';
+import 'package:vhelp_test/no_internet.dart';
 import '../Login.dart';
 import '../model/userInfo.dart';
 
@@ -38,7 +41,11 @@ class _profileFormState extends State<profileForm> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
+    return Consumer<ConnectivityProvider>(
+      builder: (context, model, child) {
+        if (model.isOnline) {
+          return model.isOnline
+              ? FutureBuilder(
         future: firebase,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
@@ -336,8 +343,17 @@ class _profileFormState extends State<profileForm> {
               child: CircularProgressIndicator(),
             ),
           );
-        });
+        }):NoInternet();
+        }
+           return Container(
+          child: Center(
+             child: NoInternet(),
+          ),
+        );
+      },
+    );
   }
+
 
   Future pickDate(BuildContext context) async {
     final newDate = await showDatePicker(

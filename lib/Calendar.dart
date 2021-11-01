@@ -37,7 +37,7 @@ class _CalendarState extends State<Calendar> {
   }
      return Container(
           child: Center(
-            child: CircularProgressIndicator(),
+            child: NoInternet(),
           ),
         );
       },

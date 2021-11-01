@@ -218,7 +218,7 @@ class _LoginDemoState extends State<LoginDemo> {
         }
         return Container(
           child: Center(
-            child: CircularProgressIndicator(),
+            child: NoInternet(),
           ),
         );
       },

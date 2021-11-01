@@ -119,7 +119,7 @@ class _timeStampState extends State<timeStamp> {
         }
         return Container(
           child: Center(
-            child: CircularProgressIndicator(),
+            child: NoInternet(),
           ),
         );
       },

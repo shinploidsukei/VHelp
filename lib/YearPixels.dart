@@ -59,7 +59,7 @@ class _YearPixels extends State<YearPixels> {
         }
         return Container(
           child: Center(
-            child: CircularProgressIndicator(),
+             child: NoInternet(),
           ),
         );
       },

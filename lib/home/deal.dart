@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:vhelp_test/Content.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vhelp_test/connectivity_provider.dart';
+import 'package:vhelp_test/no_internet.dart';
 
 class Deal extends StatelessWidget {
 
@@ -40,7 +43,12 @@ class DealPageState extends State<DealPage> {
 
 
   Widget buildPages() {
-    return Scaffold(
+    return  Consumer<ConnectivityProvider>(
+      builder: (context, model, child) {
+        if (model.isOnline) {
+          return model.isOnline
+              ?
+    Scaffold(
       body: Container(
         padding: const EdgeInsets.all(30.0),
         decoration: BoxDecoration(
@@ -122,6 +130,15 @@ class DealPageState extends State<DealPage> {
         ),
       ),
       ),
+    )
+            : NoInternet();
+        }
+        return Container(
+          child: Center(
+            child: NoInternet(),
+          ),
+        );
+      },
     );
   }
 }

@@ -165,7 +165,7 @@ class _Music extends State<music> {
         }
         return Container(
           child: Center(
-            child: CircularProgressIndicator(),
+            child: NoInternet(),
           ),
         );
       },

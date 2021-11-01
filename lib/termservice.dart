@@ -63,7 +63,7 @@ class _TermServiceState extends State<TermService> {
         }
         return Container(
           child: Center(
-            child: CircularProgressIndicator(),
+           child: NoInternet(),
           ),
         );
       },

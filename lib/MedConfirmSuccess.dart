@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:vhelp_test/Content.dart';
 
 class MedConfirmSuccess extends StatelessWidget {
   final String? payload;

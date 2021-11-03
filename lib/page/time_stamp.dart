@@ -80,8 +80,7 @@ class _timeStampState extends State<timeStamp> {
                                   ),
                                   TextButton(
                                     child: const Text('OK'),
-                                    onPressed:
-                                      TakeMedicine,
+                                    onPressed: TakeMedicine,
                                   ),
                                 ],
                               ),
@@ -93,10 +92,13 @@ class _timeStampState extends State<timeStamp> {
                           ),
                           ElevatedButton(
                             onPressed: () {
-                              Navigator.push(
+                              /* Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (_) => TimestampPage()));
+                                      builder: (_) => TimestampPage()));*/
+                              countID();
+                              //checkEvent();
+                              // CheckCount();
                             },
                             child: Text('Timestamp Log'),
                           ),
@@ -129,12 +131,112 @@ class _timeStampState extends State<timeStamp> {
     } else {
       throw 'Could not launch $url';
     }
-    
+
     final timetakemed = TimeStampDetails(
       datetime: DateTime.now(),
     );
 
     await TimeStampLog.instance.create(timetakemed);
-  
+  }
+
+  var countID1;
+  Future<String?> countID() async {
+    int? count = await TimeStampLog.instance.countID();
+    setState(() => countID1 = count!);
+
+    countID1 = count;
+    print("Check Count: $count");
+    if (countID1 == 7) {
+      return showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Challenge Mission'),
+          content: const Text('Listen to the relaxing song!'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Cancel'),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+                child: const Text('Done'),
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => TimestampPage(),
+                    ))),
+          ],
+        ),
+      );
+    } else if (countID1 == 14) {
+      return showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Challenge Mission'),
+          content: const Text('Draw some pictures!'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Cancel'),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+                child: const Text('Done'),
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => TimestampPage(),
+                    ))),
+          ],
+        ),
+      );
+    } else if (countID1 == 21) {
+      return showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Challenge Mission'),
+          content: const Text('Watch relaxing movie!'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Cancel'),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+                child: const Text('Done'),
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => TimestampPage(),
+                    ))),
+          ],
+        ),
+      );
+    } else if (countID1 == 30) {
+      return showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Challenge Mission'),
+          content: const Text('Go for a Walk!'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Cancel'),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+                child: const Text('Done'),
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => TimestampPage(),
+                    ))),
+          ],
+        ),
+      );
+    } else {
+      return showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Good Jobs'),
+          content: const Text('Keep Going!'),
+          actions: <Widget>[
+            TextButton(
+                child: const Text('OK'),
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => TimestampPage(),
+                    ))),
+          ],
+        ),
+      );
+    }
   }
 }

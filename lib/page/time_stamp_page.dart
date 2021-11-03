@@ -33,7 +33,7 @@ class _TimestampPageState extends State<TimestampPage> {
 
   @override
   void dispose() {
-    TimeStampLog.instance.close();
+    //TimeStampLog.instance.close();
     super.dispose();
   }
 
@@ -83,8 +83,7 @@ class _TimestampPageState extends State<TimestampPage> {
         ]),
       );
 
-  /*Widget checkEvent() {
-   // final isChecked = countID1 == 7 || countID1 == 14 || countID1 == 30; 
+  Widget checkEvent() {
     if (countID1 == 7) {
       return AlertDialog(
         title: const Text('Challenge Mission'),
@@ -139,7 +138,7 @@ class _TimestampPageState extends State<TimestampPage> {
       );
     
   }
-  */
+  
 
   Widget buildNotes() => StaggeredGridView.countBuilder(
         padding: EdgeInsets.all(8),

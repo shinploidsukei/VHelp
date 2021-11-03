@@ -7,7 +7,7 @@ import 'package:vhelp_test/model/videos_list.dart';
 import 'package:vhelp_test/utils/constant.dart';
 
 class Services {
-  static const CHANNEL_ID = 'UCSJ4gkVC6NrvII8umztf0Ow';
+  static const CHANNEL_ID = 'UCTRRWfIZlKFKC3v3GPrz4cw';
   static const _baseUrl = 'youtube.googleapis.com';
 
   static Future<ChannelInfo> getChannelInfo() async {

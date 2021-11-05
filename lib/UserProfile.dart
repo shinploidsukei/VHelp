@@ -1,11 +1,11 @@
+//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vhelp_test/AccountScreen.dart';
 import 'package:vhelp_test/model/userInfo.dart';
-import 'package:vhelp_test/model/user_model.dart';
 
 class UserPage extends StatefulWidget {
   final String name;
@@ -54,7 +54,6 @@ class _UserPageState extends State<UserPage> {
     );
   }
 }
-
 
 
 /*
@@ -131,51 +130,135 @@ class _UserPageState extends State<UserPage> {
 }
 */
 
-/*class UserPage extends StatelessWidget {
+/*class UserPage extends StatefulWidget {
   final String name;
   final String urlImage;
-
+  
   const UserPage({
     Key? key,
     required this.name,
     required this.urlImage,
   }) : super(key: key);
 
+  //UserPage(this.name, this.urlImage);
   @override
+  _UserPageState createState() => _UserPageState();
+}
+
+class _UserPageState extends State<UserPage> {
+  @override
+  
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.blue,
-          //  title: Text(name),
-          centerTitle: true,
+    CollectionReference users =
+        FirebaseFirestore.instance.collection('Accounts');
+    UserInfo user = UserInfo();
+
+    return  FutureBuilder(
+      future: Provider.of(context).auth.getCurrentUser(),
+      builder:(context,snapshot){
+      if (snapshot.connectionState == ConnectionState.done) {
+                  return displayUserInformation(context, snapshot);
+                } else {
+                  return CircularProgressIndicator();
+                }
+    );
+  }
+}
+ Widget displayUserInformation(context, snapshot) {
+    final authData = snapshot.data;
+
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            "Name: ${authData.displayName ?? 'Anonymous'}",
+            style: TextStyle(fontSize: 20),
+          ),
         ),
-        body: Container(
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            "Email: ${authData.email ?? 'Anonymous'}",
+            style: TextStyle(fontSize: 20),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            "Created: ${DateFormat('MM/dd/yyyy').format(authData.metadata.creationTime)}",
+            style: TextStyle(fontSize: 20),
+          ),
+        ),
+        FutureBuilder(
+          future: _getProfileData(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              _userCountryController.text = user.homeCountry;
+            }
+            return Container(
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Home Country: ${_userCountryController.text}",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  adminFeature(),
+                ],
+              ),
+            );
+          }
+        ),
+        showSignOut(context, authData.isAnonymous),
+        RaisedButton(
+          child: Text("Edit User"),
+          onPressed: () {
+            _userEditBottomSheet(context);
+          },
+        )
+      ],
+    );
+  }
+
+  _getProfileData() async {
+    final uid = await Provider.of(context).auth.getCurrentUID();
+    await Provider.of(context)
+        .db
+        .collection('userData')
+        .document(uid)
+        .get().then((result) {
+          user.homeCountry = result.data['homeCountry'];
+          user.admin = result.data['admin'];
+    });
+  }*/
+/*
+        Container(
             padding: EdgeInsets.all(30.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                
-                /* Image.network(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                 Image.network(
                 urlImage,
                 width: double.infinity,
                 height: double.infinity,
                 fit: BoxFit.cover,
-              ),*/
-                ElevatedButton(
-                    onPressed: () async {
-                      SharedPreferences sharedPreferences =
-                          await SharedPreferences.getInstance();
-                      sharedPreferences.clear();
-                      // ignore: deprecated_member_use
-                      sharedPreferences.commit();
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => MyApp()),
-                          (Route<dynamic> route) => false);
-                    },
-                    child: Text('Logout'))
-              ],
-            )));
+              ),
+                  ElevatedButton(
+                      onPressed: () async {
+                        SharedPreferences sharedPreferences =
+                            await SharedPreferences.getInstance();
+                        sharedPreferences.clear();
+                        // ignore: deprecated_member_use
+                        sharedPreferences.commit();
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (BuildContext context) => MyApp()),
+                            (Route<dynamic> route) => false);
+                      },
+                      child: Text('Logout'))
+                ]));
   }
 }*/
-

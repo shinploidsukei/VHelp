@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:vhelp_test/db/TimeStamp_database.dart';
@@ -16,7 +16,7 @@ class TimestampPage extends StatefulWidget {
 class _TimestampPageState extends State<TimestampPage> {
   bool isLoading = false;
   late List<TimeStampDetails> times;
-  int countID1 = -1;
+  int countID1 = 7;
   //late TimeStampDetails getCount;
 
   void countID() async {
@@ -26,14 +26,17 @@ class _TimestampPageState extends State<TimestampPage> {
 
   @override
   void initState() {
+    print('Before: $countID1');
     super.initState();
     countID();
+    print(countID1);
+    //checkEvent();
     refreshNotes();
   }
 
   @override
   void dispose() {
-    TimeStampLog.instance.close();
+    //TimeStampLog.instance.close();
     super.dispose();
   }
 
@@ -83,63 +86,6 @@ class _TimestampPageState extends State<TimestampPage> {
         ]),
       );
 
-  /*Widget checkEvent() {
-   // final isChecked = countID1 == 7 || countID1 == 14 || countID1 == 30; 
-    if (countID1 == 7) {
-      return AlertDialog(
-        title: const Text('Challenge Mission'),
-        content: const Text('Listen to the relaxing song!'),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.pop(context, 'Cancel'),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
-              child: const Text('Done'),
-              onPressed: () => Navigator.pop(context, 'OK')),
-        ],
-      );
-    } else if (countID1 == 14) {
-      return AlertDialog(
-        title: const Text('Challenge Mission'),
-        content: const Text('Draw some pictures!'),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.pop(context, 'Cancel'),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
-              child: const Text('Done'),
-              onPressed: () => Navigator.pop(context, 'OK')),
-        ],
-      );
-    } else if (countID1 == 30) {
-      return AlertDialog(
-        title: const Text('Challenge Mission'),
-        content: const Text('Watch relaxing movie!'),
-        actions: <Widget>[
-          TextButton(
-            onPressed: () => Navigator.pop(context, 'Cancel'),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
-              child: const Text('Done'),
-              onPressed: () => Navigator.pop(context, 'OK')),
-        ],
-      );
-    } else 
-     return AlertDialog(
-        title: const Text('Good Jobs'),
-        content: const Text('Keep Going'),
-        actions: <Widget>[
-          TextButton(
-              child: const Text('OK'),
-              onPressed: () => Navigator.pop(context, 'OK')),
-        ],
-      );
-    
-  }
-  */
 
   Widget buildNotes() => StaggeredGridView.countBuilder(
         padding: EdgeInsets.all(8),

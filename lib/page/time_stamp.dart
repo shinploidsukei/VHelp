@@ -33,79 +33,76 @@ class _timeStampState extends State<timeStamp> {
         if (model.isOnline) {
           return model.isOnline
               ? Scaffold(
-              backgroundColor: Colors.blue[100],
-              appBar: AppBar(
-                leading: IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => HomePage()),
-                    );
-                  },
-                  icon: Icon(Icons.arrow_back_ios),
-                ),
-                iconTheme: IconThemeData(color: Colors.black54),
-                backgroundColor: Colors.blue.shade100,
-                elevation: 0,
-                title: Text('My Timestamp',
-                    style: TextStyle(color: Colors.black54, fontSize: 22)),
-              ),
+                  backgroundColor: Colors.blue[100],
+                  appBar: AppBar(
+                    leading: IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomePage()),
+                        );
+                      },
+                      icon: Icon(Icons.arrow_back_ios),
+                    ),
+                    iconTheme: IconThemeData(color: Colors.black54),
+                    backgroundColor: Colors.blue.shade100,
+                    elevation: 0,
+                    title: Text('My Timestamp',
+                        style: TextStyle(color: Colors.black54, fontSize: 22)),
+                  ),
                   body: Container(
                       child: Center(
-                        child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Image.asset(
-                                'assets/images/map.png',
-                                height: 400,
-                                width: 400,
-                              ),
-                              SizedBox(
-                                height: 50,
-                              ),
-                              ElevatedButton(
-                                onPressed: () => showDialog<String>(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                    title: const Text('Warning!'),
-                                    content: const Text(
-                                        'Please take the medicines by following the prescription seriously. Overdose means lethal action!'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context, 'Cancel'),
-                                        child: const Text('Cancel'),
-                                      ),
-                                      TextButton(
-                                        child: const Text('OK'),
-                                        onPressed: () async {
-                                          final url =
-                                              'https://vhelp.itch.io/vhelpminigame';
-                                          TakeMedicine(url: url, inApp: true);
-                                        },
-                                      ),
-                                    ],
+                    child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Image.asset(
+                            'assets/images/map.png',
+                            height: 400,
+                            width: 400,
+                          ),
+                          SizedBox(
+                            height: 50,
+                          ),
+                          ElevatedButton(
+                            onPressed: () => showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text('Warning!'),
+                                content: const Text(
+                                    'Please take the medicines by following the prescription seriously. Overdose means lethal action!'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'Cancel'),
+                                    child: const Text('Cancel'),
                                   ),
-                                ),
-                                child: Text('Take Medicine'),
+                                  TextButton(
+                                    child: const Text('OK'),
+                                    onPressed: TakeMedicine,
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => TimestampPage()));
-                                },
-                                child: Text('Timestamp Log'),
-                              ),
-                              /*ElevatedButton.icon(
+                            ),
+                            child: Text('Take Medicine'),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              /* Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => TimestampPage()));*/
+                              countID();
+                              //checkEvent();
+                              // CheckCount();
+                            },
+                            child: Text('Timestamp Log'),
+                          ),
+                          /*ElevatedButton.icon(
                                 onPressed: () {},
                                 icon: Icon(Icons.email),
                                 label: Text("Timestamp Log"),
@@ -113,8 +110,8 @@ class _timeStampState extends State<timeStamp> {
                                   textStyle: TextStyle(fontSize: 15),
                                 ),
                               ),*/
-                            ]),
-                      )))
+                        ]),
+                  )))
               : NoInternet();
         }
         return Container(
@@ -127,13 +124,12 @@ class _timeStampState extends State<timeStamp> {
   }
 
   // ignore: non_constant_identifier_names
-  Future TakeMedicine({
-    required String url,
-    bool inApp = false,
-  }) async {
+  TakeMedicine() async {
+    const url = 'https://vhelp.itch.io/vhelpminigame';
     if (await canLaunch(url)) {
-      await launch(url,
-          forceSafariVC: false, forceWebView: true, enableJavaScript: true);
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
     }
 
     final timetakemed = TimeStampDetails(
@@ -141,5 +137,106 @@ class _timeStampState extends State<timeStamp> {
     );
 
     await TimeStampLog.instance.create(timetakemed);
+  }
+
+  var countID1;
+  Future<String?> countID() async {
+    int? count = await TimeStampLog.instance.countID();
+    setState(() => countID1 = count!);
+
+    countID1 = count;
+    print("Check Count: $count");
+    if (countID1 == 7) {
+      return showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Challenge Mission'),
+          content: const Text('Listen to the relaxing song!'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Cancel'),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+                child: const Text('Done'),
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => TimestampPage(),
+                    ))),
+          ],
+        ),
+      );
+    } else if (countID1 == 14) {
+      return showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Challenge Mission'),
+          content: const Text('Draw some pictures!'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Cancel'),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+                child: const Text('Done'),
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => TimestampPage(),
+                    ))),
+          ],
+        ),
+      );
+    } else if (countID1 == 21) {
+      return showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Challenge Mission'),
+          content: const Text('Watch relaxing movie!'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Cancel'),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+                child: const Text('Done'),
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => TimestampPage(),
+                    ))),
+          ],
+        ),
+      );
+    } else if (countID1 == 30) {
+      return showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Challenge Mission'),
+          content: const Text('Go for a Walk!'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pop(context, 'Cancel'),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+                child: const Text('Done'),
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => TimestampPage(),
+                    ))),
+          ],
+        ),
+      );
+    } else {
+      return showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Good Jobs'),
+          content: const Text('Keep Going!'),
+          actions: <Widget>[
+            TextButton(
+                child: const Text('OK'),
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => TimestampPage(),
+                    ))),
+          ],
+        ),
+      );
+    }
   }
 }

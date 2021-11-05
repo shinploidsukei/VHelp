@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vhelp_test/page/diary_page.dart';
 import '/page/time_stamp.dart';
@@ -11,9 +13,11 @@ import 'UserProfile.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
   final padding = EdgeInsets.symmetric(horizontal: 20);
+  
+  
   @override
   Widget build(BuildContext context) {
-    final name = 'Levi Ackerman';
+    final name = "Levi Ackerman";
     final email = 'levi_ackerman@aot.com';
     final urlImage =
         'https://a-static.besthdwallpaper.com/attack-on-titan-levi-ackerman-for-the-kill-wallpaper-2736x1824-36483_41.jpg';

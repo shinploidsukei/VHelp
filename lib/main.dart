@@ -5,6 +5,10 @@ import 'package:provider/provider.dart';
 import 'package:vhelp_test/DiaryPreferences.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
 import 'package:vhelp_test/splash_page.dart';
+import 'package:vhelp_test/l10n/l10n.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:vhelp_test/provider/locale_provider.dart';
 
 //void main() => runApp(MyRootApp());
 
@@ -30,9 +34,38 @@ class MyRootApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-            create: (context) => ConnectivityProvider(), child: SplashScreen())
+            create: (context) => ConnectivityProvider(),
+            //child: SplashScreen(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => LocaleProvider(),
+            builder: (context, child) {
+              final provider = Provider.of<LocaleProvider>(context);
+              return MaterialApp(
+                  //title: 'Flutter Demo',
+                  locale: provider.locale,
+                  localizationsDelegates: const[
+                    S.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                  ],
+                  supportedLocales: S.supportedLocales,
+                  home: SplashScreen()
+              );
+            },
+        ),
       ],
-      child: MaterialApp(title: 'Flutter Demo', home: SplashScreen()),
+      /*child: MaterialApp(title: 'Flutter Demo',
+          locale: provider.locale,
+          supportedLocales: L10n.all,
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+          home: SplashScreen()),*/
     );
   }
 }

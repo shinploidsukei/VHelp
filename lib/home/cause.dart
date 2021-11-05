@@ -4,17 +4,9 @@ import 'package:vhelp_test/Content.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
 import 'package:vhelp_test/no_internet.dart';
+import 'package:vhelp_test/widget/language_picker_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class Cause extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primaryColor: Colors.black,
-        ),
-        home: CausePage(),
-      );
-}
 
 class CausePage extends StatefulWidget {
   @override
@@ -44,6 +36,26 @@ class CausePageState extends State<CausePage> {
         if (model.isOnline) {
           return model.isOnline
               ? Scaffold(
+                  backgroundColor: Colors.white,
+                  appBar: AppBar(
+                    leading: IconButton(
+                      icon: Icon(Icons.arrow_back_ios, color: Colors.blue.shade700),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomePage()),
+                        );
+                      },
+                    ),
+                    //iconTheme: IconThemeData(color: Colors.blue.shade700),
+                    backgroundColor: Colors.white,
+                    elevation: 0,
+                    actions: [
+                      LanguagePickerWidget(),
+                      //const SizedBox(width: 12),
+                    ],
+                  ),
                   body: Container(
                     padding: const EdgeInsets.all(30.0),
                     decoration: BoxDecoration(
@@ -55,9 +67,9 @@ class CausePageState extends State<CausePage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            height: 40,
+                            height: 20,
                           ),
-                          IconButton(
+                          /*IconButton(
                             icon: Icon(
                               Icons.arrow_back_ios,
                               color: Colors.blue.shade700,
@@ -71,10 +83,7 @@ class CausePageState extends State<CausePage> {
                                     builder: (context) => HomePage()),
                               );
                             },
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
+                          ),*/
                           Container(
                             width: double.infinity,
                             height: 250,
@@ -89,7 +98,7 @@ class CausePageState extends State<CausePage> {
                             height: 40,
                           ),
                           Text(
-                            'Causes and Effects of Depression',
+                            S.of(context)!.topic3,
                             style: TextStyle(
                                 fontSize: 25,
                                 color: Colors.blue.shade700,
@@ -102,7 +111,7 @@ class CausePageState extends State<CausePage> {
                             height: 40,
                           ),
                           Text(
-                            '           Many potential causes for depression exist. It can be genetic, meaning the patient has a family history of depression. Personal trauma and sources of stress, such as a failed relationship or a lost job, can also cause depression. Social isolation as the result of conflict with family and friends can be a contributory factor, and certain medications, such as high blood pressure medication, have depression listed as a possible side effect.',
+                            S.of(context)!.content3,
                             style:
                                 TextStyle(fontSize: 16, color: Colors.black87),
                           ),
@@ -119,7 +128,7 @@ class CausePageState extends State<CausePage> {
                               ),
                               onPressed: _launchURL,
                               child: Text(
-                                'Read More',
+                                S.of(context)!.readbutton,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,

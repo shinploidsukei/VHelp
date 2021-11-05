@@ -9,6 +9,8 @@ import 'connectivity_provider.dart';
 import 'drawer_sidebar.dart';
 import 'package:vhelp_test/home/depression.dart';
 import 'package:vhelp_test/home/deal.dart';
+import 'package:vhelp_test/widget/language_picker_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 //import 'package:scroll_to_example/utils.dart';
 
 class HomePage extends StatefulWidget {
@@ -42,9 +44,14 @@ class _HomePageState extends State<HomePage> {
                   appBar: AppBar(
                     iconTheme: IconThemeData(color: Colors.black54),
                     backgroundColor: Colors.white,
-                    elevation: 0,
-                    title: Text("VHelp",
+                    //elevation: 0,
+                    title: Text(
+                        S.of(context)!.title,
                         style: TextStyle(color: Colors.black54, fontSize: 22)),
+                    actions: [
+                      LanguagePickerWidget(),
+                      //const SizedBox(width: 12),
+                    ],
                   ),
                   /*floatingActionButton: FloatingActionButton(
                     child: Icon(Icons.arrow_downward),
@@ -64,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Depression()),
+                                    builder: (context) => DepressionPage()),
                               );
                             },
                             child: new Container(
@@ -84,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Depression()),
+                                    builder: (context) => DepressionPage()),
                               );
                             },
                             child: new Container(
@@ -92,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.amber[100],
                               alignment: Alignment.center,
                               child: Text(
-                                'What is depression?',
+                                S.of(context)!.topic1,
                                 style: TextStyle(
                                   fontSize: 20,
                                   foreground: Paint()..color = Colors.black54,
@@ -106,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => Hotline()),
+                                    builder: (context) => HotlinePage()),
                               );
                             },
                             child: new Container(
@@ -114,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.pink[50],
                               alignment: Alignment.center,
                               child: Text(
-                                'Hotline',
+                                S.of(context)!.topic2,
                                 style: TextStyle(
                                   fontSize: 20,
                                   foreground: Paint()..color = Colors.black54,
@@ -128,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Hotline(),
+                                    builder: (context) => HotlinePage(),
                                   ));
                             },
                             child: new Container(
@@ -148,7 +155,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Cause(),
+                                    builder: (context) => CausePage(),
                                   ));
                             },
                             child: new Container(
@@ -168,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Cause(),
+                                    builder: (context) => CausePage(),
                                   ));
                             },
                             child: new Container(
@@ -184,7 +191,7 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.lightGreen[100],
                               alignment: Alignment.center,
                               child: Text(
-                                'Causes and Effects of Depression',
+                                S.of(context)!.topic3,
                                 style: TextStyle(
                                   fontSize: 20,
                                   foreground: Paint()..color = Colors.black54,
@@ -198,7 +205,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Symptoms(),
+                                    builder: (context) => SymptomsPage(),
                                   ));
                             },
                             child: new Container(
@@ -214,7 +221,7 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.lightBlue[100],
                               alignment: Alignment.centerRight,
                               child: Text(
-                                'Depression Symptoms and Warning Signs',
+                                S.of(context)!.topic4,
                                 style: TextStyle(
                                   fontSize: 20,
                                   foreground: Paint()..color = Colors.black54,
@@ -228,7 +235,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Symptoms(),
+                                    builder: (context) => SymptomsPage(),
                                   ));
                             },
                             child: new Container(
@@ -248,7 +255,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Deal(),
+                                    builder: (context) => DealPage(),
                                   ));
                             },
                             child: new Container(
@@ -268,7 +275,7 @@ class _HomePageState extends State<HomePage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Deal(),
+                                    builder: (context) => DealPage(),
                                   ));
                             },
                             child: new Container(
@@ -284,7 +291,7 @@ class _HomePageState extends State<HomePage> {
                               color: Colors.purple[100],
                               alignment: Alignment.center,
                               child: Text(
-                                'How to deal with depression when you feel blue',
+                                S.of(context)!.topic5,
                                 style: TextStyle(
                                   fontSize: 20,
                                   foreground: Paint()..color = Colors.black54,

@@ -4,20 +4,9 @@ import 'package:vhelp_test/Content.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
 import 'package:vhelp_test/no_internet.dart';
+import 'package:vhelp_test/widget/language_picker_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class Depression extends StatelessWidget {
-  //static final String title = 'Date (Range) & Time';
-
-  @override
-  Widget build(BuildContext context) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        //title: title,
-        theme: ThemeData(
-          primaryColor: Colors.black,
-        ),
-        home: DepressionPage(),
-      );
-}
 
 class DepressionPage extends StatefulWidget {
   @override
@@ -49,6 +38,26 @@ class DepressionPageState extends State<DepressionPage> {
           return model.isOnline
               ?
     Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios, color: Colors.blue.shade700),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => HomePage()),
+            );
+          },
+        ),
+        //iconTheme: IconThemeData(color: Colors.blue.shade700),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        actions: [
+          LanguagePickerWidget(),
+          //const SizedBox(width: 12),
+        ],
+      ),
       body: Container(
         padding: const EdgeInsets.all(30.0),
         decoration: BoxDecoration(
@@ -59,23 +68,6 @@ class DepressionPageState extends State<DepressionPage> {
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                height: 40,
-              ),
-                IconButton(
-                  icon: Icon(
-                    Icons.arrow_back_ios,
-                    color: Colors.blue.shade700,
-                  ),
-                  alignment: Alignment.topLeft,
-                  hoverColor: Colors.white,
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
-                    );
-                  },
-                ),
               SizedBox(
                 height: 20,
               ),
@@ -93,7 +85,7 @@ class DepressionPageState extends State<DepressionPage> {
                 height: 40,
               ),
               Text(
-                'What is depression?',
+                S.of(context)!.topic1,
                 style: TextStyle(fontSize: 25, color: Colors.blue.shade700,fontWeight: FontWeight.bold),
               ),
               const Divider(
@@ -103,14 +95,14 @@ class DepressionPageState extends State<DepressionPage> {
                 height: 40,
               ),
               Text(
-                '         Depression (major depressive disorder) is a common and serious medical illness that negatively affects how you feel, the way you think and how you act. Fortunately, it is also treatable. Depression causes feelings of sadness and/or a loss of interest in activities you once enjoyed. It can lead to a variety of emotional and physical problems and can decrease your ability to function at work and at home.',
+                S.of(context)!.content1,
                 style: TextStyle(fontSize: 16, color: Colors.black87),
               ),
               SizedBox(
                 height: 20,
               ),
               Text(
-                'Depression Symptoms',
+                S.of(context)!.topic1_1,
                 style: TextStyle(fontSize: 25, color: Colors.blue.shade700,fontWeight: FontWeight.bold),
               ),
               const Divider(
@@ -120,7 +112,7 @@ class DepressionPageState extends State<DepressionPage> {
                 height: 40,
               ),
               Text(
-                '           • Feeling sad or having a depressed mood\n           • Loss of interest or pleasure in activities once enjoyed\n           • Changes in appetite — weight loss or gain unrelated to dieting\n           • Trouble sleeping or sleeping too much\n           • Loss of energy or increased fatigue\n           • Increase in purposeless physical activity (e.g., inability to sit still, pacing, handwringing) or slowed movements or speech (these actions must be severe enough to be observable by others)\n           • Feeling worthless or guilty\n           • Difficulty thinking, concentrating or making decisions\n           • Thoughts of death or suicide',
+                S.of(context)!.content1_1,
                 style: TextStyle(fontSize: 16, color: Colors.black87),
               ),
               SizedBox(
@@ -135,7 +127,7 @@ class DepressionPageState extends State<DepressionPage> {
                   ),
                   onPressed: _launchURL,
                   child: Text(
-                    'Read More',
+                    S.of(context)!.readbutton,
                     style: TextStyle(color: Colors.white, fontSize: 16,fontFamily: 'RobotoMono'),
                     //textAlign: TextAlign.right,
                   ),

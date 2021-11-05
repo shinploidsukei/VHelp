@@ -4,17 +4,8 @@ import 'package:vhelp_test/Content.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
 import 'package:vhelp_test/no_internet.dart';
-
-class Symptoms extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primaryColor: Colors.black,
-        ),
-        home: SymptomsPage(),
-      );
-}
+import 'package:vhelp_test/widget/language_picker_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SymptomsPage extends StatefulWidget {
   @override
@@ -45,6 +36,26 @@ class SymptomsPageState extends State<SymptomsPage> {
         if (model.isOnline) {
           return model.isOnline
               ? Scaffold(
+                  backgroundColor: Colors.white,
+                  appBar: AppBar(
+                    leading: IconButton(
+                      icon: Icon(Icons.arrow_back_ios,
+                          color: Colors.blue.shade700),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomePage()),
+                        );
+                      },
+                    ),
+                    //iconTheme: IconThemeData(color: Colors.blue.shade700),
+                    backgroundColor: Colors.white,
+                    elevation: 0,
+                    actions: [
+                      LanguagePickerWidget(),
+                      //const SizedBox(width: 12),
+                    ],
+                  ),
                   body: Container(
                     padding: const EdgeInsets.all(30.0),
                     decoration: BoxDecoration(
@@ -55,24 +66,6 @@ class SymptomsPageState extends State<SymptomsPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(
-                            height: 40,
-                          ),
-                          IconButton(
-                            icon: Icon(
-                              Icons.arrow_back_ios,
-                              color: Colors.blue.shade700,
-                            ),
-                            alignment: Alignment.topLeft,
-                            hoverColor: Colors.white,
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HomePage()),
-                              );
-                            },
-                          ),
                           SizedBox(
                             height: 20,
                           ),
@@ -90,7 +83,7 @@ class SymptomsPageState extends State<SymptomsPage> {
                             height: 40,
                           ),
                           Text(
-                            'Depression Symptoms and Warning Signs',
+                            S.of(context)!.topic4,
                             style: TextStyle(
                                 fontSize: 25,
                                 color: Colors.blue.shade700,
@@ -103,7 +96,7 @@ class SymptomsPageState extends State<SymptomsPage> {
                             height: 40,
                           ),
                           Text(
-                            '           Depression varies from person to person, but there are some common signs and symptoms. It’s important to remember that these symptoms can be part of life’s normal lows. But the more symptoms you have, the stronger they are, and the longer they’ve lasted—the more likely it is that you’re dealing with depression.',
+                            S.of(context)!.content4,
                             style:
                                 TextStyle(fontSize: 16, color: Colors.black87),
                           ),
@@ -120,7 +113,7 @@ class SymptomsPageState extends State<SymptomsPage> {
                               ),
                               onPressed: _launchURL,
                               child: Text(
-                                'Read More',
+                                S.of(context)!.readbutton,
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 16,

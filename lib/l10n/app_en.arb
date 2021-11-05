@@ -1,0 +1,74 @@
+{
+    "language": "English",
+    "@language":{
+      "description": "The current Language"
+    },
+    "title": "VHelp",
+    "@title": {
+      "description": "Title name"
+    },
+    "topic1": "What is depression?",
+    "@topic1": {
+      "description": "Content No.1"
+    },
+    "topic2": "Hotline",
+    "@topic2": {
+      "description": "Content No.2"
+    },
+    "topic3": "Causes and Effects of Depression",
+    "@topic3": {
+      "description": "Content No.3"
+    },
+    "topic4": "Depression Symptoms and Warning Signs",
+    "@topic4": {
+      "description": "Content No.4"
+    },
+    "topic5": "How to deal with depression when you feel blue",
+    "@topic5": {
+      "description": "Content No.5"
+    },
+    "content1": "         Depression (major depressive disorder) is a common and serious medical illness that negatively affects how you feel, the way you think and how you act. Fortunately, it is also treatable. Depression causes feelings of sadness and/or a loss of interest in activities you once enjoyed. It can lead to a variety of emotional and physical problems and can decrease your ability to function at work and at home.",
+    "@content1": {
+      "description": "content1"
+    },
+    "topic1_1": "Depression Symptoms",
+    "@topic1_1": {
+      "description": "Topic 1.1"
+    },
+    "content1_1": "           • Feeling sad or having a depressed mood\n           • Loss of interest or pleasure in activities once enjoyed\n           • Changes in appetite — weight loss or gain unrelated to dieting\n           • Trouble sleeping or sleeping too much\n           • Loss of energy or increased fatigue\n           • Increase in purposeless physical activity (e.g., inability to sit still, pacing, handwringing) or slowed movements or speech (these actions must be severe enough to be observable by others)\n           • Feeling worthless or guilty\n           • Difficulty thinking, concentrating or making decisions\n           • Thoughts of death or suicide",
+    "@content1_1": {
+      "description": "Content 1.1"
+    },
+    "readbutton": "Read More",
+    "@readbutton": {
+      "description": "read button"
+    },
+    "content2": "         Department of Mental Health Hotline 1323 will provide people with fast and effective mental health counseling. In the future, Thai people will be in good mental health and happy. The number of lines on the Mental Health Hotline 1323 will be increased to accommodate the growing demand.",
+    "@content2": {
+      "description": "content2"
+    },
+    "callbutton": "Call",
+    "@callbutton": {
+      "description": "call button"
+    },
+    "websitebutton": "Website",
+    "@websitebutton": {
+      "description": "website button"
+    },
+    "topic2_1": "Department of Mental Health",
+    "@topic2_1": {
+      "description": "Topic 2.1"
+    },
+    "content3": "         Many potential causes for depression exist. It can be genetic, meaning the patient has a family history of depression. Personal trauma and sources of stress, such as a failed relationship or a lost job, can also cause depression. Social isolation as the result of conflict with family and friends can be a contributory factor, and certain medications, such as high blood pressure medication, have depression listed as a possible side effect.",
+    "@content3": {
+      "description": "content3"
+    },
+    "content4": "         Depression varies from person to person, but there are some common signs and symptoms. It’s important to remember that these symptoms can be part of life’s normal lows. But the more symptoms you have, the stronger they are, and the longer they’ve lasted—the more likely it is that you’re dealing with depression.",
+    "@content4": {
+      "description": "content4"
+    },
+    "content5": "         There are a range of ways to deal with depression, and often they are best used in conjunction with each other. The primary medical options are Cognitive Behavioural Therapy (CBT), antidepressant medication, and in some severe cases, Electroconvulsive Therapy (ECT). Education and coping strategies are also important when learning to manage your depression.",
+    "@content5": {
+      "description": "content5"
+    }
+}

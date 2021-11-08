@@ -162,5 +162,17 @@
     "goodjobs": "Good Jobs",
     "@goodjobs": {
       "description": "mission 2"
+    },
+    "timestamp_log_topic": "My Timestamp Log",
+    "@timestamp_log_topic": {
+      "description": "timestamp log topic"
+    },
+    "timestamp_log_message": "Add your Timestamp by clicking take medicine..",
+    "@timestamp_log_message": {
+      "description": "timestamp log message"
+    },
+    "total_logs": "Total Logs:",
+    "@total_logs": {
+      "description": "total timestamp logs"
     }
 }

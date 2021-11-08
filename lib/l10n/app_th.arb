@@ -27,7 +27,7 @@
     "sidebar8": "พอตแคสต์",
     "sidebar1_topic": "ตารางทานยาของฉัน",
     "timestamp_button1": "รับประทานยา",
-    "timestamp_button2": "ประวัติการทานยา",
+    "timestamp_button2": "บันทึกการทานยา",
     "warning": "คำเตือน!",
     "warning_message": "โปรดใช้ยาตามใบสั่งแพทย์อย่างเคร่งครัด ยาเกินขนาดหมายถึงการกระทำที่ร้ายแรง!",
      "cancel": "ยกเลิก",
@@ -39,5 +39,8 @@
      "mission_message3": "ดูหนังคลายเครียด!",
      "mission_message4": "ไปเดินเล่น!",
      "mission_message5": "จงทำต่อไป!",
-     "goodjobs": "ดีมาก"
+     "goodjobs": "ดีมาก",
+     "timestamp_log_topic": "บันทึกการทานยาของฉัน",
+     "timestamp_log_message": "เพิ่มตารางทานยาของคุณโดยคลิกรับประทานยา..",
+     "total_logs": "รายการบันทึกทานยาทั้งหมด:"
 }

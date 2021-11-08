@@ -5,6 +5,8 @@ import 'package:vhelp_test/db/TimeStamp_database.dart';
 import 'package:vhelp_test/model/TimeStampLog.dart';
 import 'package:vhelp_test/page/time_stamp.dart';
 import 'package:vhelp_test/widget/timestamp_card_widget.dart';
+import 'package:vhelp_test/widget/language_picker_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TimestampPage extends StatefulWidget {
   @override
@@ -64,15 +66,19 @@ class _TimestampPageState extends State<TimestampPage> {
           iconTheme: IconThemeData(color: Colors.black54),
           backgroundColor: Colors.blue.shade100,
           elevation: 0,
-          title: Text('My Timestamp Log',
+          title: Text(S.of(context)!.timestamp_log_topic,
               style: TextStyle(color: Colors.black54, fontSize: 22)),
+          actions: [
+            LanguagePickerWidget(),
+            //const SizedBox(width: 12),
+          ],
         ),
         body: Center(
           child: isLoading
               ? CircularProgressIndicator()
               : times.isEmpty
                   ? Text(
-                      'Add your Timestamp by clicking take medicine..',
+                      S.of(context)!.timestamp_log_message,
                       style: TextStyle(color: Colors.blueGrey, fontSize: 20),
                     )
                   : buildNotes(),
@@ -81,7 +87,7 @@ class _TimestampPageState extends State<TimestampPage> {
             Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
-            child: Text('Total Logs: $countID1'),
+            child: Text(S.of(context)!.total_logs + ' $countID1'),
           )
         ]),
       );

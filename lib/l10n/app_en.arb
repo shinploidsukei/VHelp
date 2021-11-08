@@ -70,5 +70,49 @@
     "content5": "         There are a range of ways to deal with depression, and often they are best used in conjunction with each other. The primary medical options are Cognitive Behavioural Therapy (CBT), antidepressant medication, and in some severe cases, Electroconvulsive Therapy (ECT). Education and coping strategies are also important when learning to manage your depression.",
     "@content5": {
       "description": "content5"
+    },
+    "sidebar1": "Timestamp",
+    "@sidebar1": {
+      "description": "Sidebar No.1"
+    },
+    "sidebar2": "Doctor Notification",
+    "@sidebar2": {
+      "description": "Sidebar No.2"
+    },
+    "sidebar3": "Medicine Notification",
+    "@sidebar3": {
+      "description": "Sidebar No.3"
+    },
+    "sidebar4": "Diary",
+    "@sidebar4": {
+      "description": "Sidebar No.4"
+    },
+    "sidebar5": "Calendar",
+    "@sidebar5": {
+      "description": "Sidebar No.5"
+    },
+    "sidebar6": "Art Therapy",
+    "@sidebar6": {
+      "description": "Sidebar No.6"
+    },
+    "sidebar7": "Music Therapy",
+    "@sidebar7": {
+      "description": "Sidebar No.7"
+    },
+    "sidebar8": "Podcast",
+    "@sidebar8": {
+      "description": "Sidebar No.8"
+    }
+    "sidebar1_topic": "My Timestamp",
+    "@sidebar1_topic": {
+      "description": "Sidebar1 Topic Name"
+    }
+    "timestamp_button1": "Take Medicine",
+    "@timestamp_button1": {
+      "description": "Timestamp Button 1"
+    }
+    "timestamp_button2": "Take Medicine",
+    "@timestamp_button1": {
+      "description": "Timestamp Button 1"
     }
 }

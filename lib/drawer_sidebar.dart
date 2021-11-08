@@ -10,6 +10,8 @@ import 'Music.dart';
 import 'Podcast.dart';
 import 'MedNoti.dart';
 import 'UserProfile.dart';
+import 'package:vhelp_test/widget/language_picker_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
   final padding = EdgeInsets.symmetric(horizontal: 20);
@@ -43,49 +45,49 @@ class NavigationDrawerWidget extends StatelessWidget {
               child: Column(
                 children: [
                   buildMenuItem(
-                    text: 'Timestamp',
+                    text: S.of(context)!.sidebar1,
                     icon: Icons.airplane_ticket_outlined,
                     onClicked: () => selectedItem(context, 0),
                   ),
                   const SizedBox(height: 10),
                   buildMenuItem(
-                    text: 'Doctor Notification',
+                    text: S.of(context)!.sidebar2,
                     icon: Icons.chat,
                     onClicked: () => selectedItem(context, 1),
                   ),
                   const SizedBox(height: 10),
                   buildMenuItem(
-                    text: 'Medicine Notification',
+                    text: S.of(context)!.sidebar3,
                     icon: Icons.coffee,
                     onClicked: () => selectedItem(context, 2),
                   ),
                   const SizedBox(height: 10),
                   buildMenuItem(
-                    text: 'Diary',
+                    text: S.of(context)!.sidebar4,
                     icon: Icons.auto_stories_rounded,
                     onClicked: () => selectedItem(context, 3),
                   ),
                   const SizedBox(height: 10),
                   buildMenuItem(
-                    text: 'Calendar',
+                    text: S.of(context)!.sidebar5,
                     icon: Icons.event_note_rounded,
                     onClicked: () => selectedItem(context, 4),
                   ),
                   const SizedBox(height: 10),
                   buildMenuItem(
-                    text: 'Art Therapy',
+                    text: S.of(context)!.sidebar6,
                     icon: Icons.design_services,
                     onClicked: () => selectedItem(context, 5),
                   ),
                   const SizedBox(height: 10),
                   buildMenuItem(
-                    text: 'Music Therapy',
+                    text: S.of(context)!.sidebar7,
                     icon: Icons.audiotrack_rounded,
                     onClicked: () => selectedItem(context, 6),
                   ),
                   const SizedBox(height: 10),
                   buildMenuItem(
-                    text: 'Podcast',
+                    text: S.of(context)!.sidebar8,
                     icon: Icons.mic_external_on,
                     onClicked: () => selectedItem(context, 7),
                   ),

@@ -102,17 +102,65 @@
     "sidebar8": "Podcast",
     "@sidebar8": {
       "description": "Sidebar No.8"
-    }
+    },
     "sidebar1_topic": "My Timestamp",
     "@sidebar1_topic": {
       "description": "Sidebar1 Topic Name"
-    }
+    },
     "timestamp_button1": "Take Medicine",
     "@timestamp_button1": {
       "description": "Timestamp Button 1"
-    }
-    "timestamp_button2": "Take Medicine",
+    },
+    "timestamp_button2": "Timestamp Log",
     "@timestamp_button1": {
-      "description": "Timestamp Button 1"
+      "description": "Timestamp Button 2"
+    },
+    "warning": "Warning!",
+    "@warning": {
+      "description": "warning"
+    },
+    "warning_message": "Please take the medicines by following the prescription seriously. Overdose means lethal action!",
+    "@warning_message": {
+     "description": "warning message"
+    },
+    "cancel": "Cancel",
+    "@cancel": {
+      "description": "cancel"
+    },
+    "ok": "OK",
+    "@ok": {
+      "description": "ok"
+    },
+    "mission1": "Challenge Mission",
+    "@mission1": {
+      "description": "mission 1"
+    },
+    "mission_message1": "Listen to the relaxing song!",
+    "@mission_message1": {
+      "description": "mission message 1"
+    },
+    "done": "Done",
+    "@done": {
+      "description": "done"
+    },
+    "mission_message2": "Draw some pictures!",
+    "@mission_message2": {
+      "description": "mission message 2"
+    },
+    "mission_message3": "Watch relaxing movie!",
+    "@mission_message3": {
+      "description": "mission message 3"
+    },
+    "mission_message4": "Go for a Walk!",
+    "@mission_message4": {
+      "description": "mission message 4"
+    },
+    "mission_message5": "Keep Going!",
+    "@mission_message5": {
+      "description": "mission message 4"
+    },
+    "goodjobs": "Good Jobs",
+    "@goodjobs": {
+      "description": "mission 2"
     }
 }

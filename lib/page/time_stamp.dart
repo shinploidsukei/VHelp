@@ -7,6 +7,8 @@ import 'package:vhelp_test/db/TimeStamp_database.dart';
 import 'package:vhelp_test/model/TimeStampLog.dart';
 import 'package:vhelp_test/no_internet.dart';
 import 'package:vhelp_test/page/time_stamp_page.dart';
+import 'package:vhelp_test/widget/language_picker_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // ignore: camel_case_types
 class timeStamp extends StatefulWidget {
@@ -47,7 +49,12 @@ class _timeStampState extends State<timeStamp> {
                     iconTheme: IconThemeData(color: Colors.black54),
                     backgroundColor: Colors.blue.shade100,
                     elevation: 0,
-                    title: Text('My Timestamp',
+                    actions: [
+                      LanguagePickerWidget(),
+                      //const SizedBox(width: 12),
+                    ],
+                    title: Text(
+                        S.of(context)!.sidebar1_topic,
                         style: TextStyle(color: Colors.black54, fontSize: 22)),
                   ),
                   body: Container(
@@ -69,23 +76,25 @@ class _timeStampState extends State<timeStamp> {
                             onPressed: () => showDialog<String>(
                               context: context,
                               builder: (BuildContext context) => AlertDialog(
-                                title: const Text('Warning!'),
-                                content: const Text(
-                                    'Please take the medicines by following the prescription seriously. Overdose means lethal action!'),
+                                title: Text(S.of(context)!.warning,),
+                                content: Text(
+                                  S.of(context)!.warning_message,),
                                 actions: <Widget>[
                                   TextButton(
                                     onPressed: () =>
-                                        Navigator.pop(context, 'Cancel'),
-                                    child: const Text('Cancel'),
+                                        Navigator.pop(context, S.of(context)!.cancel,),
+                                    child: Text(S.of(context)!.cancel,),
                                   ),
                                   TextButton(
-                                    child: const Text('OK'),
+                                    child: Text(S.of(context)!.ok,),
                                     onPressed: TakeMedicine,
                                   ),
                                 ],
                               ),
                             ),
-                            child: Text('Take Medicine'),
+                            child: Text(
+                              S.of(context)!.timestamp_button1,
+                            ),
                           ),
                           SizedBox(
                             height: 20,
@@ -100,7 +109,9 @@ class _timeStampState extends State<timeStamp> {
                               //checkEvent();
                               // CheckCount();
                             },
-                            child: Text('Timestamp Log'),
+                            child: Text(
+                                S.of(context)!.timestamp_button2,
+                            ),
                           ),
                           /*ElevatedButton.icon(
                                 onPressed: () {},
@@ -150,15 +161,15 @@ class _timeStampState extends State<timeStamp> {
       return showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-          title: const Text('Challenge Mission'),
-          content: const Text('Listen to the relaxing song!'),
+          title: Text(S.of(context)!.mission1,),
+          content: Text(S.of(context)!.mission_message1,),
           actions: <Widget>[
             TextButton(
-              onPressed: () => Navigator.pop(context, 'Cancel'),
-              child: const Text('Cancel'),
+              onPressed: () => Navigator.pop(context, S.of(context)!.cancel,),
+              child: Text(S.of(context)!.cancel,),
             ),
             TextButton(
-                child: const Text('Done'),
+                child: Text(S.of(context)!.done,),
                 onPressed: () => Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => TimestampPage(),
                     ))),
@@ -169,15 +180,15 @@ class _timeStampState extends State<timeStamp> {
       return showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-          title: const Text('Challenge Mission'),
-          content: const Text('Draw some pictures!'),
+          title: Text(S.of(context)!.mission1,),
+          content: Text(S.of(context)!.mission_message2,),
           actions: <Widget>[
             TextButton(
-              onPressed: () => Navigator.pop(context, 'Cancel'),
-              child: const Text('Cancel'),
+              onPressed: () => Navigator.pop(context, S.of(context)!.cancel,),
+              child: Text(S.of(context)!.cancel,),
             ),
             TextButton(
-                child: const Text('Done'),
+                child: Text(S.of(context)!.done,),
                 onPressed: () => Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => TimestampPage(),
                     ))),
@@ -188,15 +199,15 @@ class _timeStampState extends State<timeStamp> {
       return showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-          title: const Text('Challenge Mission'),
-          content: const Text('Watch relaxing movie!'),
+          title: Text(S.of(context)!.mission1,),
+          content: Text(S.of(context)!.mission_message3,),
           actions: <Widget>[
             TextButton(
-              onPressed: () => Navigator.pop(context, 'Cancel'),
-              child: const Text('Cancel'),
+              onPressed: () => Navigator.pop(context, S.of(context)!.cancel,),
+              child: Text(S.of(context)!.cancel,),
             ),
             TextButton(
-                child: const Text('Done'),
+                child: Text(S.of(context)!.done,),
                 onPressed: () => Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => TimestampPage(),
                     ))),
@@ -207,15 +218,15 @@ class _timeStampState extends State<timeStamp> {
       return showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-          title: const Text('Challenge Mission'),
-          content: const Text('Go for a Walk!'),
+          title: Text(S.of(context)!.mission1,),
+          content: Text(S.of(context)!.mission_message4,),
           actions: <Widget>[
             TextButton(
-              onPressed: () => Navigator.pop(context, 'Cancel'),
-              child: const Text('Cancel'),
+              onPressed: () => Navigator.pop(context, S.of(context)!.cancel,),
+              child: Text(S.of(context)!.cancel,),
             ),
             TextButton(
-                child: const Text('Done'),
+                child: Text(S.of(context)!.done,),
                 onPressed: () => Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => TimestampPage(),
                     ))),
@@ -226,11 +237,11 @@ class _timeStampState extends State<timeStamp> {
       return showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-          title: const Text('Good Jobs'),
-          content: const Text('Keep Going!'),
+          title: Text(S.of(context)!.goodjobs,),
+          content: Text(S.of(context)!.mission_message5,),
           actions: <Widget>[
             TextButton(
-                child: const Text('OK'),
+                child: Text(S.of(context)!.ok,),
                 onPressed: () => Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => TimestampPage(),
                     ))),

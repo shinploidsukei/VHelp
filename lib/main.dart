@@ -15,11 +15,15 @@ import 'package:vhelp_test/provider/locale_provider.dart';
 void main() async {
   AwesomeNotifications().initialize(
     '@mipmap/ic_launcher',
-    [NotificationChannel(channelKey: 'basic_channel',channelName: 'Basic Notifications',
-    defaultColor: Colors.blue[300],
-    importance: NotificationImportance.High,
-    channelShowBadge: true,
-    )],
+    [
+      NotificationChannel(
+        channelKey: 'basic_channel',
+        channelName: 'Basic Notifications',
+        defaultColor: Colors.blue[300],
+        importance: NotificationImportance.High,
+        channelShowBadge: true,
+      )
+    ],
   );
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -34,26 +38,25 @@ class MyRootApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-            create: (context) => ConnectivityProvider(),
-            //child: SplashScreen(),
+          create: (context) => ConnectivityProvider(),
+          //child: SplashScreen(),
         ),
         ChangeNotifierProvider(
           create: (context) => LocaleProvider(),
-            builder: (context, child) {
-              final provider = Provider.of<LocaleProvider>(context);
-              return MaterialApp(
-                  //title: 'Flutter Demo',
-                  locale: provider.locale,
-                  localizationsDelegates: const[
-                    S.delegate,
-                    GlobalMaterialLocalizations.delegate,
-                    GlobalCupertinoLocalizations.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                  ],
-                  supportedLocales: S.supportedLocales,
-                  home: SplashScreen()
-              );
-            },
+          builder: (context, child) {
+            final provider = Provider.of<LocaleProvider>(context);
+            return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                locale: provider.locale,
+                localizationsDelegates: const [
+                  S.delegate,
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                ],
+                supportedLocales: S.supportedLocales,
+                home: SplashScreen());
+          },
         ),
       ],
       /*child: MaterialApp(title: 'Flutter Demo',

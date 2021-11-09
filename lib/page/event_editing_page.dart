@@ -17,6 +17,7 @@ class EventEditingPage extends StatefulWidget {
 }
 
 class _EventEditingPageState extends State<EventEditingPage> {
+  late Event events;
   final _formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();

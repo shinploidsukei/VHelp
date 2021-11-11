@@ -15,12 +15,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
   final padding = EdgeInsets.symmetric(horizontal: 20);
-  
-  
+
   @override
   Widget build(BuildContext context) {
-    final name = "Levi Ackerman";
-    final email = 'levi_ackerman@aot.com';
+    User? user = FirebaseAuth.instance.currentUser;
+
+    final name = "Ploid";
+    final email = user!.email;
     final urlImage =
         'https://a-static.besthdwallpaper.com/attack-on-titan-levi-ackerman-for-the-kill-wallpaper-2736x1824-36483_41.jpg';
 
@@ -32,7 +33,7 @@ class NavigationDrawerWidget extends StatelessWidget {
             buildHeader(
               urlImage: urlImage,
               name: name,
-              email: email,
+              email: email!,
               onClicked: () => Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => UserPage(
                   name: '',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:vhelp_test/model/colorLog.dart';
 import 'package:vhelp_test/page/diary_page.dart';
 import 'package:vhelp_test/widget/diary_form_widget.dart';
@@ -53,11 +54,32 @@ class _AddEditMoodPageState extends State<AddEditMoodPage> {
       );
 
   Widget checkIf(DateTime? today) {
-    return DiaryFormWidget(
-      color: widget.color,
-      colorIndex: colorIndex,
-      onChangedColorIndex: (colorIndex) =>
-          setState(() => this.colorIndex = colorIndex),
-    );
+    print('check today');
+    print(today);
+
+    final checkIfToday = DateFormat.yMMMd().format(DateTime.now());
+
+    if (today != null) {
+      final isToday = DateFormat.yMMMd().format(today);
+      if (isToday == checkIfToday) {
+        return AddEditMoodPage(
+          color: widget.color,
+        );
+      } else {
+        return DiaryFormWidget(
+          color: widget.color,
+          colorIndex: colorIndex,
+          onChangedColorIndex: (colorIndex) =>
+              setState(() => this.colorIndex = colorIndex),
+        );
+      }
+    } else {
+      return DiaryFormWidget(
+        color: widget.color,
+        colorIndex: colorIndex,
+        onChangedColorIndex: (colorIndex) =>
+            setState(() => this.colorIndex = colorIndex),
+      );
+    }
   }
 }

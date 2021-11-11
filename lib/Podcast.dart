@@ -4,17 +4,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:vhelp_test/Content.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
 import 'package:vhelp_test/no_internet.dart';
-
-class Podcast extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primaryColor: Colors.black,
-        ),
-        home: PodcastPage(),
-      );
-}
+import 'package:vhelp_test/widget/language_picker_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PodcastPage extends StatefulWidget {
   @override
@@ -126,7 +117,12 @@ class PodcastPageState extends State<PodcastPage> {
                     iconTheme: IconThemeData(color: Colors.black54),
                     backgroundColor: Colors.blue.shade100,
                     elevation: 0,
-                    title: Text('Podcast',
+                    actions: [
+                      LanguagePickerWidget(),
+                      //const SizedBox(width: 12),
+                    ],
+                    title: Text(
+                        S.of(context)!.sidebar8,
                         style: TextStyle(color: Colors.black54, fontSize: 22)),
                   ),
                   body: Container(

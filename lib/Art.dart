@@ -9,28 +9,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:vhelp_test/Content.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
 import 'package:vhelp_test/no_internet.dart';
-
-class ArtTherapy extends StatelessWidget {
-  static final String title = 'Art Therapy';
-
-  Future artSync() async {
-    WidgetsFlutterBinding.ensureInitialized();
-    await SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-
-    await Firebase.initializeApp();
-  }
-
-  @override
-  Widget build(BuildContext context) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: title,
-        theme: ThemeData(primarySwatch: Colors.green),
-        home: ArtTherapyPage(),
-      );
-}
+import 'package:vhelp_test/widget/language_picker_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ArtTherapyPage extends StatefulWidget {
   @override
@@ -45,6 +25,17 @@ class _ArtTherapyPageState extends State<ArtTherapyPage> {
     'assets/images/artCulture.png',
     'assets/images/knd.png'
   ];
+
+  Future artSync() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
+    await Firebase.initializeApp();
+  }
+
   @override
   Widget build(BuildContext context) {
     // final fileName = file != null ? basename(file!.path) : 'No File Selected';
@@ -54,7 +45,7 @@ class _ArtTherapyPageState extends State<ArtTherapyPage> {
         if (model.isOnline) {
           return model.isOnline
               ? Scaffold(
-                  backgroundColor: Colors.green.shade100,
+                  backgroundColor: Colors.blue.shade100,
                   appBar: AppBar(
                     leading: IconButton(
                       onPressed: () {
@@ -66,58 +57,20 @@ class _ArtTherapyPageState extends State<ArtTherapyPage> {
                       icon: Icon(Icons.arrow_back_ios),
                     ),
                     iconTheme: IconThemeData(color: Colors.black54),
-                    backgroundColor: Colors.green.shade100,
+                    backgroundColor: Colors.blue.shade100,
                     elevation: 0,
-                    title: Text(ArtTherapy.title,
+                    actions: [
+                      LanguagePickerWidget(),
+                      //const SizedBox(width: 12),
+                    ],
+                    title: Text(S.of(context)!.sidebar6,
                         style: TextStyle(color: Colors.black54, fontSize: 22)),
                   ),
-                  /*body: CarouselSlider(
-        options: CarouselOptions(
-          height: height,
-          autoPlay: true,
-        ),
-        items: imgShow
-            .map(
-              (item) => Center(
-            child: Image.asset(
-              item,
-              fit: BoxFit.cover,
-            ),
-          ),
-        )
-            .toList(),
-      ),
-    );*/
                   body: Container(
                     padding: EdgeInsets.all(30.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        /*Container(
-              width: 250.0,
-              child: fileImage != null
-                  ? Image.file(
-                      fileImage!,
-                      width: 160,
-                      height: 160,
-                      fit: BoxFit.cover,
-                    )
-                  : Text('No image selected'),
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.add_a_photo,
-                size: 36.0,
-              ),
-              onPressed: () => chooseImageCam(),
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.add_photo_alternate,
-                size: 36.0,
-              ),
-              onPressed: () => chooseImageGal(),
-            ),*/
                         SizedBox(height: 20),
                         Stack(
                           alignment: Alignment.bottomCenter,

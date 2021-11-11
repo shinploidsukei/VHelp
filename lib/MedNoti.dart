@@ -10,49 +10,9 @@ import 'package:vhelp_test/MedConfirmSuccess.dart';
 import 'package:vhelp_test/model/userDate.dart';
 import '/notification_api.dart';
 import 'package:vhelp_test/notification_api.dart';
-
+import 'package:vhelp_test/widget/language_picker_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'connectivity_provider.dart';
-
-class MedNoti extends StatefulWidget {
-  @override
-  _MedNoti createState() => _MedNoti();
-}
-
-class _MedNoti extends State<MedNoti> {
-  static final String title = 'Local Notifications';
-  @override
-  void initState() {
-    super.initState();
-    Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return pageUI();
-  }
-
-  Widget pageUI() {
-    return Consumer<ConnectivityProvider>(
-      builder: (context, model, child) {
-        if (model.isOnline) {
-          return model.isOnline
-              ? MaterialApp(
-                  debugShowCheckedModeBanner: false,
-                  title: title,
-                  theme: ThemeData(primarySwatch: Colors.blueGrey),
-                  home: MedNotiPage(),
-                )
-              : NoInternet();
-        }
-        return Container(
-          child: Center(
-            child: NoInternet(),
-          ),
-        );
-      },
-    );
-  }
-}
 
 class MedNotiPage extends StatefulWidget {
   @override
@@ -110,7 +70,7 @@ class _MedNotiPageState extends State<MedNotiPage> {
   String getTextDate() {
     // ignore: unnecessary_null_comparison
     if (medNotiDate == null) {
-      return 'Select Date';
+      return S.of(context)!.select_date;
     } else {
       return DateFormat('dd/MM/yyyy').format(medNotiDate!);
       // return '${date.month}/${date.day}/${date.year}';
@@ -120,7 +80,7 @@ class _MedNotiPageState extends State<MedNotiPage> {
   String getTextTime() {
     // ignore: unnecessary_null_comparison
     if (medNotiTime == null) {
-      return 'Select Time';
+      return S.of(context)!.select_time;
     } else {
       final hours = medNotiTime!.hour.toString().padLeft(2, '0');
       final minutes = medNotiTime!.minute.toString().padLeft(2, '0');
@@ -152,7 +112,12 @@ class _MedNotiPageState extends State<MedNotiPage> {
           iconTheme: IconThemeData(color: Colors.black54),
           backgroundColor: Colors.blue.shade100,
           elevation: 0,
-          title: Text('Medicine Notification',
+          actions: [
+            LanguagePickerWidget(),
+            //const SizedBox(width: 12),
+          ],
+          title: Text(
+              S.of(context)!.sidebar3,
               style: TextStyle(color: Colors.black54, fontSize: 22)),
         ),
         body: Container(
@@ -170,7 +135,8 @@ class _MedNotiPageState extends State<MedNotiPage> {
               const SizedBox(height: 24),
               Align(
                 alignment: Alignment.topLeft,
-                child: Text('Date',
+                child: Text(
+                    S.of(context)!.date,
                     style:
                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
               ),
@@ -194,7 +160,8 @@ class _MedNotiPageState extends State<MedNotiPage> {
               const SizedBox(height: 24),
               Align(
                 alignment: Alignment.topLeft,
-                child: Text('Time',
+                child: Text(
+                    S.of(context)!.time,
                     style:
                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
               ),
@@ -218,7 +185,8 @@ class _MedNotiPageState extends State<MedNotiPage> {
               const SizedBox(height: 24),
               Align(
                 alignment: Alignment.topLeft,
-                child: Text('Notification Word',
+                child: Text(
+                    S.of(context)!.notiword,
                     style:
                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
               ),
@@ -228,7 +196,7 @@ class _MedNotiPageState extends State<MedNotiPage> {
               TextField(
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: 'playing football',
+                    hintText: S.of(context)!.mednoti_hinttext,
                     hintStyle: TextStyle(color: Colors.black26),
                     contentPadding: EdgeInsets.all(8)),
                 controller: controller,
@@ -243,7 +211,7 @@ class _MedNotiPageState extends State<MedNotiPage> {
                 height: 20,
               ),
               buildButton(
-                  title: 'Confirm',
+                  title: S.of(context)!.confirm,
                   icon: Icons.notifications_active,
                   onClicked: () {
                     print(medNotiDate.toString() + medNotiTime.toString());
@@ -253,7 +221,7 @@ class _MedNotiPageState extends State<MedNotiPage> {
                         iDate.notiWord.isEmpty) {
                       final snackBar = SnackBar(
                         content: Text(
-                          'Warning! \nPlease put in every single field.',
+                          S.of(context)!.mednoti_warning,
                           style: TextStyle(fontSize: 24),
                         ),
                         backgroundColor: Colors.red,
@@ -263,7 +231,7 @@ class _MedNotiPageState extends State<MedNotiPage> {
                         ..showSnackBar(snackBar);
                     } else {
                       NotificationApi.showScheduledNotification(
-                        title: 'VHelp',
+                        title: S.of(context)!.title_VHelp,
                         body: '${iDate.notiWord}',
                         payload:
                             'Date: ${iDate.medDate} \nTime: ${iDate.medTime} \nNotification Word: \n ${iDate.notiWord}',
@@ -276,7 +244,7 @@ class _MedNotiPageState extends State<MedNotiPage> {
 
                       final snackBar = SnackBar(
                         content: Text(
-                          'Successfully Set Notification!',
+                          S.of(context)!.mednoti_success,
                           style: TextStyle(fontSize: 24),
                         ),
                         backgroundColor: Colors.green,
@@ -312,7 +280,7 @@ class _MedNotiPageState extends State<MedNotiPage> {
                     color: Colors.white,
                     size: 28.0,
                   ),
-                  label: Text('Confirm', style: TextStyle(fontSize: 20)),
+                  label: Text(S.of(context)!.confirm, style: TextStyle(fontSize: 20)),
                   onPressed: onClicked,
                   style: ElevatedButton.styleFrom(
                     primary: Colors.green,
@@ -359,7 +327,7 @@ class _MedNotiPageState extends State<MedNotiPage> {
         child: TextButton.icon(
           //style: ButtonStyle(backgroundColor: backgroundColor),
           label: Text(
-            'Random Words',
+            S.of(context)!.random_words,
             style: TextStyle(color: Colors.black),
           ),
           icon: Icon(Icons.autorenew, color: Colors.black),

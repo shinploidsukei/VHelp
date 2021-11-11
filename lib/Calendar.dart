@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
 import 'package:vhelp_test/no_internet.dart';
+import 'package:vhelp_test/widget/language_picker_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Calendar extends StatefulWidget {
   @override
@@ -28,7 +30,11 @@ class _CalendarState extends State<Calendar> {
           return model.isOnline
               ?  Scaffold(
         appBar: AppBar(
-          title: Text("Calendar"),
+          title: Text(S.of(context)!.sidebar5,),
+          actions: [
+            LanguagePickerWidget(),
+            //const SizedBox(width: 12),
+          ],
         ),
         body: SfCalendar(
           view: CalendarView.week,

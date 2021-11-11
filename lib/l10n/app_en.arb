@@ -3,8 +3,8 @@
     "@language":{
       "description": "The current Language"
     },
-    "title": "VHelp",
-    "@title": {
+    "title_VHelp": "VHelp",
+    "@title_VHelp": {
       "description": "Title name"
     },
     "topic1": "What is depression?",
@@ -174,5 +174,88 @@
     "total_logs": "Total Logs:",
     "@total_logs": {
       "description": "total timestamp logs"
+    },
+    "mood_diary": "My Mood Diary",
+    "@mood_diary": {
+      "description": "mood diary topic"
+    },
+    "mood_diary_message": "Add some mood..",
+    "@mood_diary_message": {
+      "description": "mood diary message"
+    },
+    "mood_diary_button1": "Add Diary",
+    "@mood_diary_button1": {
+      "description": "mood diary button 1"
+    },
+    "mood_diary_button2": "Add Mood",
+    "@mood_diary_button2": {
+      "description": "mood diary button 2"
+    },
+    "diary": "My Diary",
+    "@diary": {
+      "description": "diary"
+    },
+    "diary_message": "Add some stories..",
+    "@diary_message": {
+      "description": "diary message"
+    },
+    "title": "Title",
+    "@title": {
+      "description": "title"
+    },
+    "title_message": "Type something...",
+    "@title_message": {
+      "description": "title"
+    },
+    "date": "Date",
+    "@date": {
+      "description": "Date"
+    },
+    "time": "Time",
+    "@time": {
+      "description": "Time"
+    },
+    "notiword": "Notification Word",
+    "@notiword": {
+      "description": "Notification Word"
+    },
+    "mednoti_hinttext": "playing football",
+    "@mednoti_hinttext": {
+      "description": "playing football"
+    },
+    "confirm": "Confirm",
+    "@confirm": {
+      "description": "Confirm"
+    },
+    "mednoti_warning": "Warning! \nPlease put in every single field.",
+    "@mednoti_warning": {
+      "description": "Warning"
+    },
+    "mednoti_success": "Successfully Set Notification!",
+    "@mednoti_success": {
+      "description": "Successfully Set Notification!"
+    },
+    "random_words": "Random Words",
+    "@random_words": {
+      "description": "Random Words"
+    },
+    "select_date": "Select Date",
+    "@select_date": {
+      "description": "Select Date"
+    },
+    "select_time": "Select Time",
+    "@select_time": {
+      "description": "Select Time"
+    },
+    "loading": "Loading...",
+    "@loading": {
+      "description": "Loading"
+    },
+    "playlist_name": "Stomp's Playlist",
+    "@playlist_name": {
+      "description": "playlist name"
     }
+
+
+
 }

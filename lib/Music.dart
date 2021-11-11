@@ -7,6 +7,8 @@ import 'package:vhelp_test/model/videos_list.dart';
 import 'package:vhelp_test/no_internet.dart';
 import 'package:vhelp_test/screens/video_player_podcast.dart';
 import 'package:vhelp_test/utils/services.dart';
+import 'package:vhelp_test/widget/language_picker_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // ignore: camel_case_types
 class music extends StatefulWidget {
@@ -75,7 +77,11 @@ class _Music extends State<music> {
                     iconTheme: IconThemeData(color: Colors.black54),
                     backgroundColor: Colors.blue.shade100,
                     elevation: 0,
-                    title: Text(_loading ? 'Loading...' : 'Music Therapy',
+                    actions: [
+                      LanguagePickerWidget(),
+                      //const SizedBox(width: 12),
+                    ],
+                    title: Text(_loading ? S.of(context)!.loading : S.of(context)!.sidebar7,
                         style: TextStyle(color: Colors.black54, fontSize: 22)),
                   ),
                   body: Container(
@@ -92,23 +98,6 @@ class _Music extends State<music> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       //mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        /*Padding(
-                          padding: EdgeInsets.fromLTRB(20, 10, 10, 10),
-                          child: Text(_loading ? 'Loading...' : 'Music Therapy',
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 30)),
-                        ),*/
-
-                        /*Expanded(
-                    child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(70),
-                    ),
-
-                  ),
-                  ),
-                   */
                         _buildInfoView(),
                         Expanded(
                           child: NotificationListener<ScrollEndNotification>(
@@ -190,7 +179,7 @@ class _Music extends State<music> {
                     SizedBox(width: 20),
                     Expanded(
                       child: Text(
-                        _item.snippet.title,
+                        S.of(context)!.playlist_name,
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w400,

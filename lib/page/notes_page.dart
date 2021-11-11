@@ -6,6 +6,8 @@ import '../page/edit_note_page.dart';
 import '../page/note_detail_page.dart';
 import '../widget/note_card_widget.dart';
 import 'diary_page.dart';
+import 'package:vhelp_test/widget/language_picker_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NotesPage extends StatefulWidget {
   @override
@@ -55,7 +57,12 @@ class _NotesPageState extends State<NotesPage> {
       iconTheme: IconThemeData(color: Colors.black54),
       backgroundColor: Colors.blue.shade100,
       elevation: 0,
-      title: Text('My Diary',
+      actions: [
+        LanguagePickerWidget(),
+        //const SizedBox(width: 12),
+      ],
+      title: Text(
+          S.of(context)!.diary,
           style: TextStyle(color: Colors.black54, fontSize: 22)),
     ),
         body: Center(
@@ -63,7 +70,7 @@ class _NotesPageState extends State<NotesPage> {
               ? CircularProgressIndicator()
               : notes.isEmpty
                   ? Text(
-                      'Add some stories..',
+                      S.of(context)!.diary_message,
                       style: TextStyle(color: Colors.blueGrey, fontSize: 20),
                     )
                   : buildNotes(),

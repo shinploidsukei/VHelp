@@ -8,6 +8,8 @@ import 'package:vhelp_test/widget/diary_card_widget.dart';
 import 'diary_detail_page.dart';
 import 'edit_diary_page.dart';
 import 'notes_page.dart';
+import 'package:vhelp_test/widget/language_picker_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DiaryPage extends StatefulWidget {
   @override
@@ -56,7 +58,12 @@ class _DiaryPageState extends State<DiaryPage> {
         iconTheme: IconThemeData(color: Colors.black54),
         backgroundColor: Colors.blue.shade100,
         elevation: 0,
-        title: Text('My Mood Diary',
+        actions: [
+          LanguagePickerWidget(),
+          //const SizedBox(width: 12),
+        ],
+        title: Text(
+            S.of(context)!.mood_diary,
             style: TextStyle(color: Colors.black54, fontSize: 22)),
       ),
       body: Center(
@@ -64,7 +71,7 @@ class _DiaryPageState extends State<DiaryPage> {
             ? CircularProgressIndicator()
             : colors.isEmpty
                 ? Text(
-                    'Add some mood..',
+                    S.of(context)!.mood_diary_message,
                     style: TextStyle(color: Colors.blueGrey, fontSize: 20),
                   )
                 : buildNotes(),
@@ -85,7 +92,7 @@ class _DiaryPageState extends State<DiaryPage> {
                   MaterialPageRoute(builder: (context) => NotesPage()),
                 );
               },
-              label: 'Add Diary',
+              label: S.of(context)!.mood_diary_button1,
               labelStyle: TextStyle(),
               labelBackgroundColor: Colors.blueGrey[50]),
           SpeedDialChild(
@@ -97,7 +104,7 @@ class _DiaryPageState extends State<DiaryPage> {
                 );
                 refreshNotes();
               },
-              label: 'Add Mood',
+              label: S.of(context)!.mood_diary_button2,
               labelStyle: TextStyle(),
               labelBackgroundColor: Colors.blueGrey[50])
         ],

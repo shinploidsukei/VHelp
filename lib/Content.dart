@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
                     backgroundColor: Colors.white,
                     //elevation: 0,
                     title: Text(
-                        S.of(context)!.title,
+                        S.of(context)!.title_VHelp,
                         style: TextStyle(color: Colors.black54, fontSize: 22)),
                     actions: [
                       LanguagePickerWidget(),

@@ -165,7 +165,7 @@ class NavigationDrawerWidget extends StatelessWidget {
         break;
       case 2:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => MedNoti(),
+          builder: (context) => MedNotiPage(),
         ));
         break;
       case 3:
@@ -181,7 +181,7 @@ class NavigationDrawerWidget extends StatelessWidget {
         break;
       case 5:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ArtTherapy(),
+          builder: (context) => ArtTherapyPage(),
         ));
         break;
       case 6:
@@ -191,7 +191,7 @@ class NavigationDrawerWidget extends StatelessWidget {
         break;
       case 7:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Podcast(),
+          builder: (context) => PodcastPage(),
         ));
         break;
     }

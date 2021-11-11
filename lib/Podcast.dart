@@ -381,7 +381,7 @@ class PodcastPageState extends State<PodcastPage> {
                                       height: 20,
                                     ),
                                     Text(
-                                      "ไปป์เล่าเรื่องผี",
+                                      S.of(context)!.pipe,
                                       style: TextStyle(
                                           color: Colors.pinkAccent,
                                           fontSize: 22,
@@ -418,7 +418,7 @@ class PodcastPageState extends State<PodcastPage> {
                                       height: 20,
                                     ),
                                     Text(
-                                      "อาจารย์ยอด",
+                                      S.of(context)!.ajarn_yord,
                                       style: TextStyle(
                                           color: Colors.pinkAccent,
                                           fontSize: 22,

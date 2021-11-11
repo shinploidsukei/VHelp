@@ -63,5 +63,8 @@
      "select_date": "เลือกวัน",
      "select_time": "เลือกเวลา",
      "loading": "กำลังโหลด...",
-     "playlist_name": "เพลย์ลิสต์ของ Stomp"
+     "playlist_name": "เพลย์ลิสต์ของ Stomp",
+     "ajarn_yord": "อาจารย์ยอด",
+     "pipe": "ไปป์เล่าเรื่องผี"
+
 }

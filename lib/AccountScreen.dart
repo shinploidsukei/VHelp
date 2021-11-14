@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vhelp_test/no_internet.dart';
 import 'package:vhelp_test/screens/register.dart';
@@ -5,6 +6,8 @@ import 'Login.dart';
 import 'Start.dart';
 import 'package:provider/provider.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class MyApp extends StatefulWidget {
   @override
@@ -111,6 +114,7 @@ class _MyStatelessWidget extends State<MyApp> {
                                 borderRadius: new BorderRadius.circular(10.0)),
                           ),
                           onPressed: () {
+                            signInAno();
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) => Start()),
@@ -134,5 +138,17 @@ class _MyStatelessWidget extends State<MyApp> {
         );
       },
     );
+  }
+
+  Future signInAno() async {
+    try {
+      UserCredential result = await _auth.signInAnonymously();
+      User? userAno = result.user;
+      print("PloidTest: ${userAno!.uid}");
+      return userAno.uid;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
   }
 }

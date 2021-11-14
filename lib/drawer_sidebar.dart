@@ -14,35 +14,35 @@ import 'MedNoti.dart';
 import 'UserProfile.dart';
 import 'package:vhelp_test/widget/language_picker_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '/model/userInfo.dart';
+import 'AccountScreen.dart';
 
-class NavigationDrawerWidget extends StatelessWidget {
-  final padding = EdgeInsets.symmetric(horizontal: 20);
+CollectionReference users = FirebaseFirestore.instance.collection('Accounts');
+final name = "raythada";
+final email = user!.email;
+//final email = user!.email;
+final urlImage =
+    'https://a-static.besthdwallpaper.com/attack-on-titan-levi-ackerman-for-the-kill-wallpaper-2736x1824-36483_41.jpg';
+final padding = EdgeInsets.symmetric(horizontal: 20);
 
+class NavigationDrawerWidget extends StatefulWidget {
+  const NavigationDrawerWidget({Key? key}) : super(key: key);
+
+  @override
+  State<NavigationDrawerWidget> createState() => _NavigationDrawerWidgetState();
+}
+
+class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
   @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
-
-    final name = "Ploid";
-    final email = user!.email;
-    final urlImage =
-        'https://a-static.besthdwallpaper.com/attack-on-titan-levi-ackerman-for-the-kill-wallpaper-2736x1824-36483_41.jpg';
 
     return Drawer(
       child: Material(
         color: Colors.blue.shade100,
         child: ListView(
           children: <Widget>[
-            buildHeader(
-              urlImage: urlImage,
-              name: name,
-              email: email!,
-              onClicked: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => UserPage(
-                  name: '',
-                  urlImage: '',
-                ),
-              )),
-            ),
+            checkUser(),
             Container(
               padding: padding,
               child: Column(
@@ -101,6 +101,100 @@ class NavigationDrawerWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget checkUser() {
+    return StreamBuilder(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (ctx, userSnapshot) {
+          if (user!.isAnonymous == true) {
+            return Container(
+              padding: padding,
+              child: Column(
+                children: [
+                  buildMenuItem(
+                    text: S.of(context)!.sidebar1,
+                    icon: Icons.airplane_ticket_outlined,
+                    onClicked: () => selectedItem(context, 0),
+                  ),
+                  const SizedBox(height: 10),
+                  buildMenuItem(
+                    text: S.of(context)!.sidebar2,
+                    icon: Icons.chat,
+                    onClicked: () => selectedItem(context, 1),
+                  ),
+                  const SizedBox(height: 10),
+                  buildMenuItem(
+                    text: S.of(context)!.sidebar3,
+                    icon: Icons.coffee,
+                    onClicked: () => selectedItem(context, 2),
+                  ),
+                  const SizedBox(height: 10),
+                  buildMenuItem(
+                    text: S.of(context)!.sidebar4,
+                    icon: Icons.auto_stories_rounded,
+                    onClicked: () => selectedItem(context, 3),
+                  ),
+                  const SizedBox(height: 10),
+                  buildMenuItem(
+                    text: S.of(context)!.sidebar5,
+                    icon: Icons.event_note_rounded,
+                    onClicked: () => selectedItem(context, 4),
+                  ),
+                  const SizedBox(height: 10),
+                  buildMenuItem(
+                    text: S.of(context)!.sidebar6,
+                    icon: Icons.design_services,
+                    onClicked: () => selectedItem(context, 5),
+                  ),
+                  const SizedBox(height: 10),
+                  buildMenuItem(
+                    text: S.of(context)!.sidebar7,
+                    icon: Icons.audiotrack_rounded,
+                    onClicked: () => selectedItem(context, 6),
+                  ),
+                  const SizedBox(height: 10),
+                  buildMenuItem(
+                    text: S.of(context)!.sidebar8,
+                    icon: Icons.mic_external_on,
+                    onClicked: () => selectedItem(context, 7),
+                  ),
+                ],
+              ),
+            );
+          } else {
+            return FutureBuilder<DocumentSnapshot>(
+                future: users.doc(user!.uid).get(),
+                builder: (BuildContext context,
+                    AsyncSnapshot<DocumentSnapshot> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasData) {
+                      print("has data");
+                    }
+                    Map<String, dynamic> data =
+                        snapshot.data!.data() as Map<String, dynamic>;
+                    var name1 = data['username'].toString();
+                    return buildHeader(
+                      urlImage: urlImage,
+                      name: name1,
+                      email: email!,
+                      onClicked: () =>
+                          Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => UserPage(
+                          name: "",
+                          urlImage: "",
+                        ),
+                      )),
+                    );
+                  } else {
+                    print("data not exist");
+                  }
+                  return Scaffold(
+                    appBar: AppBar(title: Text("Loading...")),
+                  );
+                });
+          }
+        });
   }
 
   Widget buildHeader({

@@ -9,6 +9,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vhelp_test/AccountScreen.dart';
 import 'package:vhelp_test/model/userInfo.dart';
 
+User? user = FirebaseAuth.instance.currentUser;
+
 class UserPage extends StatefulWidget {
   final String name;
   final String urlImage;
@@ -25,8 +27,6 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
-  User? user = FirebaseAuth.instance.currentUser;
-
   /*Future Result(User? user) {
     return FirebaseFirestore.instance
         .collection("Accounts")
@@ -62,43 +62,41 @@ class _UserPageState extends State<UserPage> {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
           return Scaffold(
-            appBar: AppBar(
-              title: Text('Profile'),
-            ),
-            body: Column(children: [
-              Container(
-                  child: Column(
-                children: [
-                  Text("Username: ${data['username']}"),
-                  Text("Email: ${user!.email}"),
-                  Text("Firstname: ${data['fname']}"),
-                  Text("Lastname: ${data['lname']}"),
-                  Text("Nickname: ${data['nickname']}"),
-                  Text("Date of Birth: ${data['dob']}"),
-                  Text("Phone: ${data['phone']}"),
-                       ElevatedButton(
-                      onPressed: () async {
-                        SharedPreferences sharedPreferences =
-                            await SharedPreferences.getInstance();
-                        sharedPreferences.clear();
-                        // ignore: deprecated_member_use
-                        sharedPreferences.commit();
-                        Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                                builder: (BuildContext context) => MyApp()),
-                            (Route<dynamic> route) => false);
-                      },
-                      child: Text('Logout'))
-                ]),
+              appBar: AppBar(
+                title: Text('Profile'),
               ),
-              ]
-            )
-          );
+              body: Column(children: [
+                Container(
+                  child: Column(children: [
+                    Text("Username: ${data['username']}"),
+                    Text("Email: ${user!.email}"),
+                    Text("Firstname: ${data['fname']}"),
+                    Text("Lastname: ${data['lname']}"),
+                    Text("Nickname: ${data['nickname']}"),
+                    Text("Date of Birth: ${data['dob']}"),
+                    Text("Phone: ${data['phone']}"),
+                    ElevatedButton(
+                        onPressed: () {
+                          _signOut();
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) => MyApp()),
+                              (Route<dynamic> route) => false);
+                        },
+                        child: Text('Logout')),
+                    ElevatedButton(
+                        onPressed: () => _EditProfile(),
+                        child: Text('Edit Profile')),
+                    ElevatedButton(
+                        onPressed: () => _DeleteUser(),
+                        child: Text('Delete Account'))
+                  ]),
+                ),
+              ]));
         }
 
         return Scaffold(
           appBar: AppBar(title: Text("Loading...")),
-         
         );
       },
     );
@@ -131,4 +129,27 @@ class _UserPageState extends State<UserPage> {
           ],
         ));
   }*/
+
+  Future<void> _signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
+
+  void _EditProfile() {
+    var firebaseUser = FirebaseAuth.instance.currentUser;
+    FirebaseFirestore.instance
+        .collection("Accounts")
+        .doc(user!.uid)
+        .update({"username": "Test 1"}).then((_) {
+      print("success");
+    });
+  }
+
+  void _DeleteUser() {
+    var firebaseUser = FirebaseAuth.instance.currentUser;
+    FirebaseFirestore.instance
+        .collection("Accounts")
+        .doc(user!.uid)
+        .delete()
+        .then((_) {});
+  }
 }

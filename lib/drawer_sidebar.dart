@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vhelp_test/page/diary_page.dart';
+import 'package:vhelp_test/page/doctor_calendar_page.dart';
+import 'package:vhelp_test/page/under_construction.dart';
 import '/page/time_stamp.dart';
 import 'Art.dart';
 import 'Calendar.dart';
@@ -161,7 +163,7 @@ class NavigationDrawerWidget extends StatelessWidget {
         break;
       case 1:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => DocNoti(),
+          builder: (context) => UnderConstruction(),
         ));
         break;
       case 2:
@@ -172,12 +174,12 @@ class NavigationDrawerWidget extends StatelessWidget {
       case 3:
         Navigator.of(context).push(MaterialPageRoute(
           //builder: (context) => DiaryLogPage(),
-          builder: (context) => DiaryPage(),
+          builder: (context) => UnderConstruction(),
         ));
         break;
       case 4:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Calendar(),
+          builder: (context) => UnderConstruction(),
         ));
         break;
       case 5:

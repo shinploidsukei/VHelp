@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:vhelp_test/AccountScreen.dart';
 import 'package:vhelp_test/home/cause.dart';
 import 'package:vhelp_test/home/hotline.dart';
 import 'package:vhelp_test/home/symptoms.dart';
@@ -65,7 +67,16 @@ class _HomePageState extends State<HomePage> {
                         crossAxisCount: 2,
                         crossAxisSpacing: 15,
                         mainAxisSpacing: 15,
-                        children: [
+                        children: <Widget>[
+                             ElevatedButton(
+                        onPressed: () {
+                          _signOut();
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) => MyApp()),
+                              (Route<dynamic> route) => false);
+                        },
+                        child: Text('Logout')),
                           new GestureDetector(
                             onTap: () {
                               Navigator.push(
@@ -304,6 +315,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
+                  
                 )
               : NoInternet();
         }
@@ -329,4 +341,9 @@ class _HomePageState extends State<HomePage> {
     controller.jumpTo(end);
     //controller.animateTo(end, duration: Duration(seconds: 1), curve: Curves.easeIn);
   }
+
+  Future<void> _signOut() async {
+    await FirebaseAuth.instance.signOut();
+  }
 }
+

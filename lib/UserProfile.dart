@@ -85,10 +85,30 @@ class _UserPageState extends State<UserPage> {
                         },
                         child: Text('Logout')),
                     ElevatedButton(
-                        onPressed: () => _EditProfile(),
+                        onPressed: () {
+                          _EditProfile();
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                      title: const Text('Account Warning!'),
+                                      content: const Text(
+                                          'Successfully! You have edited your profile.'),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context, 'OK'),
+                                          child: const Text('OK'),
+                                        ),
+                                      ]));
+                        },
                         child: Text('Edit Profile')),
                     ElevatedButton(
-                        onPressed: () => _DeleteUser(),
+                        onPressed: () {
+                          _DeleteUser();
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => MyApp(),
+                          ));
+                        },
                         child: Text('Delete Account'))
                   ]),
                 ),

@@ -107,92 +107,108 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
     return StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (ctx, userSnapshot) {
-          if (user!.isAnonymous == true) {
-            return Container(
-              padding: padding,
-              child: Column(
-                children: [
-                  buildMenuItem(
-                    text: S.of(context)!.sidebar1,
-                    icon: Icons.airplane_ticket_outlined,
-                    onClicked: () => selectedItem(context, 0),
-                  ),
-                  const SizedBox(height: 10),
-                  buildMenuItem(
-                    text: S.of(context)!.sidebar2,
-                    icon: Icons.chat,
-                    onClicked: () => selectedItem(context, 1),
-                  ),
-                  const SizedBox(height: 10),
-                  buildMenuItem(
-                    text: S.of(context)!.sidebar3,
-                    icon: Icons.coffee,
-                    onClicked: () => selectedItem(context, 2),
-                  ),
-                  const SizedBox(height: 10),
-                  buildMenuItem(
-                    text: S.of(context)!.sidebar4,
-                    icon: Icons.auto_stories_rounded,
-                    onClicked: () => selectedItem(context, 3),
-                  ),
-                  const SizedBox(height: 10),
-                  buildMenuItem(
-                    text: S.of(context)!.sidebar5,
-                    icon: Icons.event_note_rounded,
-                    onClicked: () => selectedItem(context, 4),
-                  ),
-                  const SizedBox(height: 10),
-                  buildMenuItem(
-                    text: S.of(context)!.sidebar6,
-                    icon: Icons.design_services,
-                    onClicked: () => selectedItem(context, 5),
-                  ),
-                  const SizedBox(height: 10),
-                  buildMenuItem(
-                    text: S.of(context)!.sidebar7,
-                    icon: Icons.audiotrack_rounded,
-                    onClicked: () => selectedItem(context, 6),
-                  ),
-                  const SizedBox(height: 10),
-                  buildMenuItem(
-                    text: S.of(context)!.sidebar8,
-                    icon: Icons.mic_external_on,
-                    onClicked: () => selectedItem(context, 7),
-                  ),
-                ],
-              ),
-            );
-          } else {
-            return FutureBuilder<DocumentSnapshot>(
-                future: users.doc(user!.uid).get(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<DocumentSnapshot> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    if (snapshot.hasData) {
-                      print("has data");
+          if (user != null) {
+            if (user!.isAnonymous == true) {
+              return Container(
+                padding: padding,
+                child: Column(
+                  children: [
+                    Text("You are log in as guest"),
+                    ElevatedButton(
+                        onPressed: () {
+                          _signOut();
+                          Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) => MyApp()),
+                              (Route<dynamic> route) => false);
+                        },
+                        child: Text('Logout')),
+                    buildMenuItem(
+                      text: S.of(context)!.sidebar1,
+                      icon: Icons.airplane_ticket_outlined,
+                      onClicked: () => selectedItem(context, 0),
+                    ),
+                    const SizedBox(height: 10),
+                    buildMenuItem(
+                      text: S.of(context)!.sidebar2,
+                      icon: Icons.chat,
+                      onClicked: () => selectedItem(context, 1),
+                    ),
+                    const SizedBox(height: 10),
+                    buildMenuItem(
+                      text: S.of(context)!.sidebar3,
+                      icon: Icons.coffee,
+                      onClicked: () => selectedItem(context, 2),
+                    ),
+                    const SizedBox(height: 10),
+                    buildMenuItem(
+                      text: S.of(context)!.sidebar4,
+                      icon: Icons.auto_stories_rounded,
+                      onClicked: () => selectedItem(context, 3),
+                    ),
+                    const SizedBox(height: 10),
+                    buildMenuItem(
+                      text: S.of(context)!.sidebar5,
+                      icon: Icons.event_note_rounded,
+                      onClicked: () => selectedItem(context, 4),
+                    ),
+                    const SizedBox(height: 10),
+                    buildMenuItem(
+                      text: S.of(context)!.sidebar6,
+                      icon: Icons.design_services,
+                      onClicked: () => selectedItem(context, 5),
+                    ),
+                    const SizedBox(height: 10),
+                    buildMenuItem(
+                      text: S.of(context)!.sidebar7,
+                      icon: Icons.audiotrack_rounded,
+                      onClicked: () => selectedItem(context, 6),
+                    ),
+                    const SizedBox(height: 10),
+                    buildMenuItem(
+                      text: S.of(context)!.sidebar8,
+                      icon: Icons.mic_external_on,
+                      onClicked: () => selectedItem(context, 7),
+                    ),
+                  ],
+                ),
+              );
+            } else {
+              return FutureBuilder<DocumentSnapshot>(
+                  future: users.doc(user!.uid).get(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<DocumentSnapshot> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.hasData) {
+                        print("has data");
+                      }
+                      Map<String, dynamic> data =
+                          snapshot.data!.data() as Map<String, dynamic>;
+                      var name1 = data['username'].toString();
+                      return buildHeader(
+                        urlImage: urlImage,
+                        name: name1,
+                        email: email!,
+                        onClicked: () =>
+                            Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => UserPage(
+                            name: "",
+                            urlImage: "",
+                          ),
+                        )),
+                      );
+                    } else {
+                      print("data not exist");
                     }
-                    Map<String, dynamic> data =
-                        snapshot.data!.data() as Map<String, dynamic>;
-                    var name1 = data['username'].toString();
-                    return buildHeader(
-                      urlImage: urlImage,
-                      name: name1,
-                      email: email!,
-                      onClicked: () =>
-                          Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => UserPage(
-                          name: "",
-                          urlImage: "",
-                        ),
-                      )),
+                    return Scaffold(
+                      appBar: AppBar(title: Text("Loading...")),
                     );
-                  } else {
-                    print("data not exist");
-                  }
-                  return Scaffold(
-                    appBar: AppBar(title: Text("Loading...")),
-                  );
-                });
+                  });
+            }
+          } else {
+            return Scaffold(
+              body: Text('null data'),
+            );
           }
         });
   }
@@ -292,5 +308,9 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
         ));
         break;
     }
+  }
+
+  Future<void> _signOut() async {
+    await FirebaseAuth.instance.signOut();
   }
 }

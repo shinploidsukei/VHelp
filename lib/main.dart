@@ -7,7 +7,6 @@ import 'package:vhelp_test/DiaryPreferences.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
 import 'package:vhelp_test/db/db_helper.dart';
 import 'package:vhelp_test/splash_page.dart';
-import 'package:vhelp_test/l10n/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:vhelp_test/provider/locale_provider.dart';

@@ -1,13 +1,13 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
 
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vhelp_test/AccountScreen.dart';
-import 'package:vhelp_test/model/userInfo.dart';
+import 'package:restart_app/restart_app.dart';
 
 User? user = FirebaseAuth.instance.currentUser;
 
@@ -76,15 +76,19 @@ class _UserPageState extends State<UserPage> {
                     Text("Date of Birth: ${data['dob']}"),
                     Text("Phone: ${data['phone']}"),
                     ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
+                          SharedPreferences pref =
+                              await SharedPreferences.getInstance();
+                          await pref.clear();
                           _signOut();
-                          Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                  builder: (BuildContext context) => MyApp()),
-                              (Route<dynamic> route) => false);
+                          Restart.restartApp();
+                          /*Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (BuildContext context) => MyApp()),
+                          );*/
                         },
                         child: Text('Logout')),
-                    ElevatedButton(
+                    /*ElevatedButton(
                         onPressed: () {
                           _EditProfile();
                           showDialog(
@@ -101,7 +105,7 @@ class _UserPageState extends State<UserPage> {
                                         ),
                                       ]));
                         },
-                        child: Text('Edit Profile')),
+                        child: Text('Edit Profile')),*/
                     ElevatedButton(
                         onPressed: () {
                           _DeleteUser();
@@ -154,7 +158,7 @@ class _UserPageState extends State<UserPage> {
     await FirebaseAuth.instance.signOut();
   }
 
-  void _EditProfile() {
+  /*void _EditProfile() {
     var firebaseUser = FirebaseAuth.instance.currentUser;
     FirebaseFirestore.instance
         .collection("Accounts")
@@ -162,9 +166,10 @@ class _UserPageState extends State<UserPage> {
         .update({"username": "Test 1"}).then((_) {
       print("success");
     });
-  }
+  }*/
 
   void _DeleteUser() {
+    // ignore: unused_local_variable
     var firebaseUser = FirebaseAuth.instance.currentUser;
     FirebaseFirestore.instance
         .collection("Accounts")

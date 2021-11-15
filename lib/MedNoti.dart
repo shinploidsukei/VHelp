@@ -1,8 +1,6 @@
 // ignore_for_file: unrelated_type_equality_checks
 
 import 'dart:math';
-import 'package:provider/provider.dart';
-import 'package:vhelp_test/no_internet.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:vhelp_test/Content.dart';
@@ -12,7 +10,6 @@ import '/notification_api.dart';
 import 'package:vhelp_test/notification_api.dart';
 import 'package:vhelp_test/widget/language_picker_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'connectivity_provider.dart';
 
 class MedNotiPage extends StatefulWidget {
   @override
@@ -116,8 +113,7 @@ class _MedNotiPageState extends State<MedNotiPage> {
             LanguagePickerWidget(),
             //const SizedBox(width: 12),
           ],
-          title: Text(
-              S.of(context)!.sidebar3,
+          title: Text(S.of(context)!.sidebar3,
               style: TextStyle(color: Colors.black54, fontSize: 22)),
         ),
         body: Container(
@@ -135,8 +131,7 @@ class _MedNotiPageState extends State<MedNotiPage> {
               const SizedBox(height: 24),
               Align(
                 alignment: Alignment.topLeft,
-                child: Text(
-                    S.of(context)!.date,
+                child: Text(S.of(context)!.date,
                     style:
                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
               ),
@@ -160,8 +155,7 @@ class _MedNotiPageState extends State<MedNotiPage> {
               const SizedBox(height: 24),
               Align(
                 alignment: Alignment.topLeft,
-                child: Text(
-                    S.of(context)!.time,
+                child: Text(S.of(context)!.time,
                     style:
                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
               ),
@@ -185,8 +179,7 @@ class _MedNotiPageState extends State<MedNotiPage> {
               const SizedBox(height: 24),
               Align(
                 alignment: Alignment.topLeft,
-                child: Text(
-                    S.of(context)!.notiword,
+                child: Text(S.of(context)!.notiword,
                     style:
                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
               ),
@@ -280,7 +273,8 @@ class _MedNotiPageState extends State<MedNotiPage> {
                     color: Colors.white,
                     size: 28.0,
                   ),
-                  label: Text(S.of(context)!.confirm, style: TextStyle(fontSize: 20)),
+                  label: Text(S.of(context)!.confirm,
+                      style: TextStyle(fontSize: 20)),
                   onPressed: onClicked,
                   style: ElevatedButton.styleFrom(
                     primary: Colors.green,

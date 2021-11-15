@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:vhelp_test/no_internet.dart';
-import 'package:vhelp_test/screens/register.dart';
+import 'package:vhelp_test/start_regist.dart';
 import 'Login.dart';
 import 'Start.dart';
 import 'package:provider/provider.dart';
@@ -65,7 +65,7 @@ class _MyStatelessWidget extends State<MyApp> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Register()),
+                                  builder: (context) => StartRegist()),
                             );
                           },
                           child: Text(
@@ -145,7 +145,7 @@ class _MyStatelessWidget extends State<MyApp> {
       UserCredential result = await _auth.signInAnonymously();
       User? userAno = result.user;
       print("PloidTest: ${userAno!.uid}");
-      return userAno.uid;
+      return userAno;
     } catch (e) {
       print(e.toString());
       return null;

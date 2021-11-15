@@ -1,6 +1,4 @@
 // ignore: camel_case_types
-import 'package:vhelp_test/model/user_model.dart';
-
 class userInfo {
   String username;
   String fname;
@@ -18,11 +16,11 @@ class userInfo {
       required this.phone});
 
   Map<String, dynamic> toJson() => {
-      'username': username,
-      'fname': fname,
-      'lname': lname,
-      'nickname': nickname,
-      'dob': dob,
-      'phone': phone
+        'username': username,
+        'fname': fname,
+        'lname': lname,
+        'nickname': nickname,
+        'dob': dob,
+        'phone': phone
       };
 }

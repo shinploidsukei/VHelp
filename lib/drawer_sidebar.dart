@@ -1,20 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:vhelp_test/page/diary_page.dart';
-import 'package:vhelp_test/page/doctor_calendar_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vhelp_test/page/under_construction.dart';
 import '/page/time_stamp.dart';
 import 'Art.dart';
-import 'Calendar.dart';
-import 'DocNoti.dart';
 import 'Music.dart';
 import 'Podcast.dart';
 import 'MedNoti.dart';
 import 'UserProfile.dart';
-import 'package:vhelp_test/widget/language_picker_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '/model/userInfo.dart';
 import 'AccountScreen.dart';
 
 CollectionReference users = FirebaseFirestore.instance.collection('Accounts');
@@ -42,7 +37,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
         color: Colors.blue.shade100,
         child: ListView(
           children: <Widget>[
-            checkUser(),
+            checkUser(user),
             Container(
               padding: padding,
               child: Column(
@@ -103,19 +98,23 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
     );
   }
 
-  Widget checkUser() {
+  Widget checkUser(User? userTest) {
     return StreamBuilder(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (ctx, userSnapshot) {
-          if (user != null) {
-            if (user!.isAnonymous == true) {
+          if (userTest != null) {
+            print(userTest.isAnonymous);
+            if (userTest.isAnonymous == true) {
               return Container(
                 padding: padding,
                 child: Column(
                   children: [
                     Text("You are log in as guest"),
                     ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
+                          SharedPreferences pref =
+                              await SharedPreferences.getInstance();
+                          await pref.clear();
                           _signOut();
                           Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(

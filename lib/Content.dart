@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:vhelp_test/AccountScreen.dart';
 import 'package:vhelp_test/home/cause.dart';
 import 'package:vhelp_test/home/hotline.dart';
 import 'package:vhelp_test/home/symptoms.dart';
@@ -36,296 +35,281 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget pageUI() {
-    return Consumer<ConnectivityProvider>(
-      builder: (context, model, child) {
-        if (model.isOnline) {
-          return model.isOnline
-              ? Scaffold(
+    return Consumer<ConnectivityProvider>(builder: (context, model, child) {
+      if (model.isOnline) {
+        return model.isOnline
+            ? Scaffold(
+                backgroundColor: Colors.white,
+                drawer: NavigationDrawerWidget(),
+                appBar: AppBar(
+                  iconTheme: IconThemeData(color: Colors.black54),
                   backgroundColor: Colors.white,
-                  drawer: NavigationDrawerWidget(),
-                  appBar: AppBar(
-                    iconTheme: IconThemeData(color: Colors.black54),
-                    backgroundColor: Colors.white,
-                    //elevation: 0,
-                    title: Text(
-                        S.of(context)!.title_VHelp,
-                        style: TextStyle(color: Colors.black54, fontSize: 22)),
-                    actions: [
-                      LanguagePickerWidget(),
-                      //const SizedBox(width: 12),
-                    ],
-                  ),
-                  /*floatingActionButton: FloatingActionButton(
+                  //elevation: 0,
+                  title: Text(S.of(context)!.title_VHelp,
+                      style: TextStyle(color: Colors.black54, fontSize: 22)),
+                  actions: [
+                    LanguagePickerWidget(),
+                    //const SizedBox(width: 12),
+                  ],
+                ),
+                /*floatingActionButton: FloatingActionButton(
                     child: Icon(Icons.arrow_downward),
                     onPressed: scrollDown,
                   ),
                    */
-                  body: Container(
-                    child: Container(
-                      padding: EdgeInsets.all(20.0),
-                      child: GridView.count(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 15,
-                        mainAxisSpacing: 15,
-                        children: <Widget>[
-                             ElevatedButton(
-                        onPressed: () {
-                          _signOut();
-                          Navigator.of(context).pushAndRemoveUntil(
+                body: Container(
+                  child: Container(
+                    padding: EdgeInsets.all(20.0),
+                    child: GridView.count(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 15,
+                      mainAxisSpacing: 15,
+                      children: <Widget>[
+                        new GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
                               MaterialPageRoute(
-                                  builder: (BuildContext context) => MyApp()),
-                              (Route<dynamic> route) => false);
-                        },
-                        child: Text('Logout')),
-                          new GestureDetector(
-                            onTap: () {
-                              Navigator.push(
+                                  builder: (context) => DepressionPage()),
+                            );
+                          },
+                          child: new Container(
+                            //1
+                            width: double.infinity,
+                            height: 250,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                image: DecorationImage(
+                                    image: AssetImage('assets/images/what.jpg'),
+                                    fit: BoxFit.cover)),
+                          ),
+                        ),
+                        new GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DepressionPage()),
+                            );
+                          },
+                          child: new Container(
+                            padding: const EdgeInsets.all(30.0),
+                            color: Colors.amber[100],
+                            alignment: Alignment.center,
+                            child: Text(
+                              S.of(context)!.topic1,
+                              style: TextStyle(
+                                fontSize: 20,
+                                foreground: Paint()..color = Colors.black54,
+                              ),
+                            ),
+                            transform: Matrix4.rotationZ(0.1),
+                          ),
+                        ),
+                        new GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HotlinePage()),
+                            );
+                          },
+                          child: new Container(
+                            padding: const EdgeInsets.all(8.0),
+                            color: Colors.pink[50],
+                            alignment: Alignment.center,
+                            child: Text(
+                              S.of(context)!.topic2,
+                              style: TextStyle(
+                                fontSize: 20,
+                                foreground: Paint()..color = Colors.black54,
+                              ),
+                            ),
+                            transform: Matrix4.rotationZ(-0.1),
+                          ),
+                        ),
+                        new GestureDetector(
+                          onTap: () {
+                            Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => DepressionPage()),
-                              );
-                            },
-                            child: new Container(
-                              //1
-                              width: double.infinity,
-                              height: 250,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  image: DecorationImage(
-                                      image:
-                                          AssetImage('assets/images/what.jpg'),
-                                      fit: BoxFit.cover)),
-                            ),
+                                  builder: (context) => HotlinePage(),
+                                ));
+                          },
+                          child: new Container(
+                            //2
+                            width: double.infinity,
+                            height: 250,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                image: DecorationImage(
+                                    image:
+                                        AssetImage('assets/images/hotline.jpg'),
+                                    fit: BoxFit.cover)),
                           ),
-                          new GestureDetector(
-                            onTap: () {
-                              Navigator.push(
+                        ),
+                        new GestureDetector(
+                          onTap: () {
+                            Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => DepressionPage()),
-                              );
-                            },
-                            child: new Container(
-                              padding: const EdgeInsets.all(30.0),
-                              color: Colors.amber[100],
-                              alignment: Alignment.center,
-                              child: Text(
-                                S.of(context)!.topic1,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  foreground: Paint()..color = Colors.black54,
-                                ),
-                              ),
-                              transform: Matrix4.rotationZ(0.1),
-                            ),
+                                  builder: (context) => CausePage(),
+                                ));
+                          },
+                          child: new Container(
+                            //3
+                            width: double.infinity,
+                            height: 250,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                image: DecorationImage(
+                                    image:
+                                        AssetImage('assets/images/cause.jpg'),
+                                    fit: BoxFit.cover)),
                           ),
-                          new GestureDetector(
-                            onTap: () {
-                              Navigator.push(
+                        ),
+                        new GestureDetector(
+                          onTap: () {
+                            Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => HotlinePage()),
-                              );
-                            },
-                            child: new Container(
-                              padding: const EdgeInsets.all(8.0),
-                              color: Colors.pink[50],
-                              alignment: Alignment.center,
-                              child: Text(
-                                S.of(context)!.topic2,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  foreground: Paint()..color = Colors.black54,
-                                ),
+                                  builder: (context) => CausePage(),
+                                ));
+                          },
+                          child: new Container(
+                            constraints: BoxConstraints.expand(
+                              height: Theme.of(context)
+                                          .textTheme
+                                          .headline4!
+                                          .fontSize! *
+                                      1.1 +
+                                  200.0,
+                            ),
+                            padding: const EdgeInsets.all(30.0),
+                            color: Colors.lightGreen[100],
+                            alignment: Alignment.center,
+                            child: Text(
+                              S.of(context)!.topic3,
+                              style: TextStyle(
+                                fontSize: 20,
+                                foreground: Paint()..color = Colors.black54,
                               ),
-                              transform: Matrix4.rotationZ(-0.1),
                             ),
+                            transform: Matrix4.rotationZ(0.1),
                           ),
-                          new GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => HotlinePage(),
-                                  ));
-                            },
-                            child: new Container(
-                              //2
-                              width: double.infinity,
-                              height: 250,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/hotline.jpg'),
-                                      fit: BoxFit.cover)),
+                        ),
+                        new GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SymptomsPage(),
+                                ));
+                          },
+                          child: new Container(
+                            constraints: BoxConstraints.expand(
+                              height: Theme.of(context)
+                                          .textTheme
+                                          .headline4!
+                                          .fontSize! *
+                                      1.1 +
+                                  200.0,
                             ),
-                          ),
-                          new GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => CausePage(),
-                                  ));
-                            },
-                            child: new Container(
-                              //3
-                              width: double.infinity,
-                              height: 250,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  image: DecorationImage(
-                                      image:
-                                          AssetImage('assets/images/cause.jpg'),
-                                      fit: BoxFit.cover)),
-                            ),
-                          ),
-                          new GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => CausePage(),
-                                  ));
-                            },
-                            child: new Container(
-                              constraints: BoxConstraints.expand(
-                                height: Theme.of(context)
-                                            .textTheme
-                                            .headline4!
-                                            .fontSize! *
-                                        1.1 +
-                                    200.0,
+                            padding: const EdgeInsets.all(30.0),
+                            color: Colors.lightBlue[100],
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              S.of(context)!.topic4,
+                              style: TextStyle(
+                                fontSize: 20,
+                                foreground: Paint()..color = Colors.black54,
                               ),
-                              padding: const EdgeInsets.all(30.0),
-                              color: Colors.lightGreen[100],
-                              alignment: Alignment.center,
-                              child: Text(
-                                S.of(context)!.topic3,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  foreground: Paint()..color = Colors.black54,
-                                ),
-                              ),
-                              transform: Matrix4.rotationZ(0.1),
                             ),
+                            transform: Matrix4.rotationZ(-0.1),
                           ),
-                          new GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => SymptomsPage(),
-                                  ));
-                            },
-                            child: new Container(
-                              constraints: BoxConstraints.expand(
-                                height: Theme.of(context)
-                                            .textTheme
-                                            .headline4!
-                                            .fontSize! *
-                                        1.1 +
-                                    200.0,
-                              ),
-                              padding: const EdgeInsets.all(30.0),
-                              color: Colors.lightBlue[100],
-                              alignment: Alignment.centerRight,
-                              child: Text(
-                                S.of(context)!.topic4,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  foreground: Paint()..color = Colors.black54,
-                                ),
-                              ),
-                              transform: Matrix4.rotationZ(-0.1),
+                        ),
+                        new GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => SymptomsPage(),
+                                ));
+                          },
+                          child: new Container(
+                            //4
+                            width: double.infinity,
+                            height: 250,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                image: DecorationImage(
+                                    image:
+                                        AssetImage('assets/images/symptom.jpg'),
+                                    fit: BoxFit.cover)),
+                          ),
+                        ),
+                        new GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DealPage(),
+                                ));
+                          },
+                          child: new Container(
+                            //5
+                            width: double.infinity,
+                            height: 250,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                image: DecorationImage(
+                                    image: AssetImage('assets/images/what.jpg'),
+                                    fit: BoxFit.cover)),
+                          ),
+                        ),
+                        new GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DealPage(),
+                                ));
+                          },
+                          child: new Container(
+                            constraints: BoxConstraints.expand(
+                              height: Theme.of(context)
+                                          .textTheme
+                                          .headline4!
+                                          .fontSize! *
+                                      1.1 +
+                                  200.0,
                             ),
-                          ),
-                          new GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => SymptomsPage(),
-                                  ));
-                            },
-                            child: new Container(
-                              //4
-                              width: double.infinity,
-                              height: 250,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  image: DecorationImage(
-                                      image: AssetImage(
-                                          'assets/images/symptom.jpg'),
-                                      fit: BoxFit.cover)),
-                            ),
-                          ),
-                          new GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => DealPage(),
-                                  ));
-                            },
-                            child: new Container(
-                              //5
-                              width: double.infinity,
-                              height: 250,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  image: DecorationImage(
-                                      image:
-                                          AssetImage('assets/images/what.jpg'),
-                                      fit: BoxFit.cover)),
-                            ),
-                          ),
-                          new GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => DealPage(),
-                                  ));
-                            },
-                            child: new Container(
-                              constraints: BoxConstraints.expand(
-                                height: Theme.of(context)
-                                            .textTheme
-                                            .headline4!
-                                            .fontSize! *
-                                        1.1 +
-                                    200.0,
+                            padding: const EdgeInsets.all(8.0),
+                            color: Colors.purple[100],
+                            alignment: Alignment.center,
+                            child: Text(
+                              S.of(context)!.topic5,
+                              style: TextStyle(
+                                fontSize: 20,
+                                foreground: Paint()..color = Colors.black54,
                               ),
-                              padding: const EdgeInsets.all(8.0),
-                              color: Colors.purple[100],
-                              alignment: Alignment.center,
-                              child: Text(
-                                S.of(context)!.topic5,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  foreground: Paint()..color = Colors.black54,
-                                ),
-                              ),
-                              transform: Matrix4.rotationZ(0.1),
                             ),
+                            transform: Matrix4.rotationZ(0.1),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                  
-                )
-              : NoInternet();
-        }
-       return Container(
-          child: Center(
-            child: NoInternet(),
-          ),
-        );
+                ),
+              )
+            : NoInternet();
       }
-    );
+      return Container(
+        child: Center(
+          child: NoInternet(),
+        ),
+      );
+    });
   }
 
   void scrollUp() {
@@ -342,8 +326,8 @@ class _HomePageState extends State<HomePage> {
     //controller.animateTo(end, duration: Duration(seconds: 1), curve: Curves.easeIn);
   }
 
+  // ignore: unused_element
   Future<void> _signOut() async {
     await FirebaseAuth.instance.signOut();
   }
 }
-

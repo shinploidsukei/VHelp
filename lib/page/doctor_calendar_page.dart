@@ -32,6 +32,7 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
   bool animate = false;
   double left = 630;
   double top = 900;
+  // ignore: unused_field
   Timer? _timer;
   @override
   void initState() {

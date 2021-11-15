@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:vhelp_test/widget/language_picker_widget.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NoteFormWidget extends StatelessWidget {
   final bool isImportant;
@@ -11,7 +9,6 @@ class NoteFormWidget extends StatelessWidget {
   final ValueChanged<int> onChangedNumber;
   final ValueChanged<String> onChangedTitle;
   final ValueChanged<String> onChangedDescription;
-
 
   const NoteFormWidget({
     Key? key,

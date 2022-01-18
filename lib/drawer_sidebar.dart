@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vhelp_test/Content.dart';
+import 'package:vhelp_test/page/diary_page.dart';
 import 'package:vhelp_test/page/doctor_calendar_page.dart';
 import 'package:vhelp_test/page/under_construction.dart';
 import '/page/time_stamp.dart';
@@ -237,7 +239,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
       case 3:
         Navigator.of(context).push(MaterialPageRoute(
           //builder: (context) => DiaryLogPage(),
-          builder: (context) => UnderConstruction(),
+          builder: (context) => DiaryPage(),
         ));
         break;
       case 4:

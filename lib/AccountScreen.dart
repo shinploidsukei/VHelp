@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vhelp_test/no_internet.dart';
 import 'package:vhelp_test/start_regist.dart';
 import 'Login.dart';
@@ -113,7 +114,10 @@ class _MyStatelessWidget extends State<MyApp> {
                             shape: new RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(10.0)),
                           ),
-                          onPressed: () {
+                          onPressed: () async {
+                            SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                            prefs.setBool("isAno", true);
                             signInAno();
                             Navigator.push(
                               context,

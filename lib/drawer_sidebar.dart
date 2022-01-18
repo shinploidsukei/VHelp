@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vhelp_test/page/doctor_calendar_page.dart';
 import 'package:vhelp_test/page/under_construction.dart';
 import '/page/time_stamp.dart';
 import 'Art.dart';
@@ -11,7 +12,6 @@ import 'MedNoti.dart';
 import 'UserProfile.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'AccountScreen.dart';
-import 'page/doctor_calendar_page.dart';
 
 CollectionReference users = FirebaseFirestore.instance.collection('Accounts');
 final name = "raythada";
@@ -123,53 +123,6 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                               (Route<dynamic> route) => false);
                         },
                         child: Text('Logout')),
-                    buildMenuItem(
-                      text: S.of(context)!.sidebar1,
-                      icon: Icons.airplane_ticket_outlined,
-                      onClicked: () => selectedItem(context, 0),
-                    ),
-                    const SizedBox(height: 10),
-                    buildMenuItem(
-                      text: S.of(context)!.sidebar2,
-                      icon: Icons.chat,
-                      onClicked: () => selectedItem(context, 1),
-                    ),
-                    const SizedBox(height: 10),
-                    buildMenuItem(
-                      text: S.of(context)!.sidebar3,
-                      icon: Icons.coffee,
-                      onClicked: () => selectedItem(context, 2),
-                    ),
-                    const SizedBox(height: 10),
-                    buildMenuItem(
-                      text: S.of(context)!.sidebar4,
-                      icon: Icons.auto_stories_rounded,
-                      onClicked: () => selectedItem(context, 3),
-                    ),
-                    const SizedBox(height: 10),
-                    buildMenuItem(
-                      text: S.of(context)!.sidebar5,
-                      icon: Icons.event_note_rounded,
-                      onClicked: () => selectedItem(context, 4),
-                    ),
-                    const SizedBox(height: 10),
-                    buildMenuItem(
-                      text: S.of(context)!.sidebar6,
-                      icon: Icons.design_services,
-                      onClicked: () => selectedItem(context, 5),
-                    ),
-                    const SizedBox(height: 10),
-                    buildMenuItem(
-                      text: S.of(context)!.sidebar7,
-                      icon: Icons.audiotrack_rounded,
-                      onClicked: () => selectedItem(context, 6),
-                    ),
-                    const SizedBox(height: 10),
-                    buildMenuItem(
-                      text: S.of(context)!.sidebar8,
-                      icon: Icons.mic_external_on,
-                      onClicked: () => selectedItem(context, 7),
-                    ),
                   ],
                 ),
               );
@@ -273,7 +226,6 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
         break;
       case 1:
         Navigator.of(context).push(MaterialPageRoute(
-          //builder: (context) => UnderConstruction(),
           builder: (context) => DoctorCalendar(),
         ));
         break;

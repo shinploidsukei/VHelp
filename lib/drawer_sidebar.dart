@@ -11,6 +11,7 @@ import 'MedNoti.dart';
 import 'UserProfile.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'AccountScreen.dart';
+import 'page/doctor_calendar_page.dart';
 
 CollectionReference users = FirebaseFirestore.instance.collection('Accounts');
 final name = "raythada";
@@ -272,7 +273,8 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
         break;
       case 1:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => UnderConstruction(),
+          //builder: (context) => UnderConstruction(),
+          builder: (context) => DoctorCalendar(),
         ));
         break;
       case 2:

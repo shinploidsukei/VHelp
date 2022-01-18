@@ -1,6 +1,7 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:vhelp_test/DiaryPreferences.dart';
@@ -49,16 +50,18 @@ class MyRootApp extends StatelessWidget {
           builder: (context, child) {
             final provider = Provider.of<LocaleProvider>(context);
             return MaterialApp(
-                debugShowCheckedModeBanner: false,
-                locale: provider.locale,
-                localizationsDelegates: const [
-                  S.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                ],
-                supportedLocales: S.supportedLocales,
-                home: SplashScreen());
+              debugShowCheckedModeBanner: false,
+              locale: provider.locale,
+              localizationsDelegates: const [
+                S.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+              ],
+              supportedLocales: S.supportedLocales,
+              home: SplashScreen(),
+              navigatorKey: Get.key,
+            );
           },
         ),
       ],

@@ -139,9 +139,7 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
           MyButton(
             label: "+ Add Task",
             onTap: () async {
-              await Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => AddTaskPage()));
-              _taskController.getTasks();
+              await Get.to(() => AddTaskPage());
             },
           ),
         ],

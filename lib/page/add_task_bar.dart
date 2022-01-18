@@ -230,7 +230,9 @@ class _AddTaskPageState extends State<AddTaskPage> {
   _validateInputs() {
     if (_titleController.text.isNotEmpty && _noteController.text.isNotEmpty) {
       _addTaskToDB();
-      Get.back();
+      setState(() {
+        Get.back();
+      });
     } else if (_titleController.text.isEmpty || _noteController.text.isEmpty) {
       Get.snackbar(
         "Required",

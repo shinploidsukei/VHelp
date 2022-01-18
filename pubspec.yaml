@@ -53,8 +53,6 @@ dependencies:
   get_storage: ^2.0.3
   google_fonts: ^2.1.0
   date_picker_timeline: ^1.2.3
-  flutter_icons: ^1.1.0
-  flutter_staggered_animations: ^0.1.2
   flutter_svg: ^0.23.0+1
   restart_app: ^1.1.0
 

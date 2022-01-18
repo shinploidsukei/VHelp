@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
 // ignore: import_of_legacy_library_into_null_safe
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -190,7 +189,7 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
                       int.parse(myTime.toString().split(":")[1]),
                       task);
 
-                  return AnimationConfiguration.staggeredList(
+                  /*return AnimationConfiguration.staggeredList(
                     position: index,
                     duration: const Duration(milliseconds: 1375),
                     child: SlideAnimation(
@@ -208,11 +207,24 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
                         ),
                       ),
                     ),
+                  );*/
+
+                  return Container(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        GestureDetector(
+                            onTap: () {
+                              showBottomSheet(context, task);
+                            },
+                            child: TaskTile(task)),
+                      ],
+                    ),
                   );
                 }
                 if (task.date == DateFormat.yMd().format(_selectedDate)) {
                   //notifyHelper.scheduledNotification();
-                  return AnimationConfiguration.staggeredList(
+                  /*return AnimationConfiguration.staggeredList(
                     position: index,
                     duration: const Duration(milliseconds: 1375),
                     child: SlideAnimation(
@@ -229,6 +241,18 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
                           ],
                         ),
                       ),
+                    ),
+                  );*/
+                  return Container(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        GestureDetector(
+                            onTap: () {
+                              showBottomSheet(context, task);
+                            },
+                            child: TaskTile(task)),
+                      ],
                     ),
                   );
                 } else {

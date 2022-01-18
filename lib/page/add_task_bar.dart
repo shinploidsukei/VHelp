@@ -1,7 +1,6 @@
 // ignore_for_file: import_of_legacy_library_into_null_safe
 
 import 'package:flutter/material.dart';
-import 'package:flutter_icons/flutter_icons.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:vhelp_test/controller/task_controller.dart';
@@ -84,7 +83,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 hint: DateFormat.yMd().format(_selectedDate),
                 widget: IconButton(
                   icon: (Icon(
-                    FlutterIcons.calendar_ant,
+                    Icons.calendar_today,
                     color: Colors.grey,
                   )),
                   onPressed: () {
@@ -101,7 +100,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                       hint: _startTime,
                       widget: IconButton(
                         icon: (Icon(
-                          FlutterIcons.clock_faw5,
+                          Icons.alarm_rounded,
                           color: Colors.grey,
                         )),
                         onPressed: () {
@@ -120,7 +119,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                       hint: _endTime,
                       widget: IconButton(
                         icon: (Icon(
-                          FlutterIcons.clock_faw5,
+                          Icons.alarm_rounded,
                           color: Colors.grey,
                         )),
                         onPressed: () {

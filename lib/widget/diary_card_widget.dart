@@ -19,7 +19,8 @@ class DiaryCardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final time = DateFormat.yMMMd().format(colorCard.createTime);
+    final timeDate = DateFormat.yMMMd().format(colorCard.createTime);
+    final timeHour = DateFormat.Hm().format(colorCard.createTime);
 
     return Card(
       color: Colors.black12,
@@ -27,13 +28,23 @@ class DiaryCardWidget extends StatelessWidget {
         padding: EdgeInsets.all(8),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              time,
-              style: TextStyle(color: Colors.white),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  timeDate,
+                  style: TextStyle(color: Colors.white, fontSize: 12),
+                ),
+                Text(
+                  timeHour,
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
             ),
-            SizedBox(height: 4),
+            SizedBox(height: 6),
             IconTheme(
                 data: IconThemeData(color: emojiColors[colorCard.colorSaved]),
                 child: Icon(Icons.emoji_emotions)),

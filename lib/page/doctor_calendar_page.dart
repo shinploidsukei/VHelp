@@ -2,8 +2,6 @@ import 'dart:async';
 import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// ignore: import_of_legacy_library_into_null_safe
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';

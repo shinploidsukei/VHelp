@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// ignore: import_of_legacy_library_into_null_safe
 import 'package:google_fonts/google_fonts.dart';
 import 'package:vhelp_test/model/task.dart';
 import 'package:vhelp_test/utils/size_config.dart';

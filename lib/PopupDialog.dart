@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vhelp_test/page/diary_page.dart';
 
 // This class is _selectPopup(context)
 class PopupDialog extends StatefulWidget {
@@ -43,7 +44,10 @@ class _PopupDialogState extends State<PopupDialog> {
             onPrimary: Colors.black, // foreground
           ),
           onPressed: () {
-            Navigator.of(context).pop();
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => DiaryPage()),
+            );
           },
           child: const Text('Close'),
         ),

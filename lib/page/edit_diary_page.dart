@@ -62,15 +62,15 @@ class _AddEditMoodPageState extends State<AddEditMoodPage> {
     if (today != null) {
       final isToday = DateFormat.yMMMd().format(today);
       if (isToday == checkIfToday) {
-        return AddEditMoodPage(
-          color: widget.color,
-        );
-      } else {
         return DiaryFormWidget(
           color: widget.color,
           colorIndex: colorIndex,
           onChangedColorIndex: (colorIndex) =>
               setState(() => this.colorIndex = colorIndex),
+        );
+      } else {
+        return AddEditMoodPage(
+          color: widget.color,
         );
       }
     } else {

@@ -262,8 +262,22 @@
     "pipe": "Pipe Lao Rueng Phee",
     "@pipe": {
       "description": "Pipe Lao Rueng Phee"
+    },
+    "depressionLink": "https://www.psychiatry.org/patients-families/depression/what-is-depression",
+    "@depressionLink": {
+      "description": "url of website"
+    },
+    "causeLink": "https://www.psychguides.com/depression/",
+    "@causeLink": {
+      "description": "url of website"
+    },
+    "dealLink": "https://thiswayup.org.au/learning-hub/depression-explained/",
+    "@dealLink": {
+      "description": "url of website"
+    },
+    "symptomsLink": "https://www.helpguide.org/articles/depression/depression-symptoms-and-warning-signs.htm",
+    "@symptomsLink": {
+      "description": "url of website"
     }
-
-
 
 }

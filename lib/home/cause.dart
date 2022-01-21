@@ -17,11 +17,11 @@ class CausePageState extends State<CausePage> {
   int index = 0;
 
   _launchURL() async {
-    const url = 'https://www.psychguides.com/depression/';
-    if (await canLaunch(url)) {
-      await launch(url);
+    /*const url = 'https://www.psychguides.com/depression/';*/
+    if (await canLaunch(S.of(context)!.causeLink)) {
+      await launch(S.of(context)!.causeLink);
     } else {
-      throw 'Could not launch $url';
+      throw 'Could not launch $S.of(context)!.causeLink';
     }
   }
 

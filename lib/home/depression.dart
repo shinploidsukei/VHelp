@@ -17,12 +17,12 @@ class DepressionPageState extends State<DepressionPage> {
   int index = 0;
 
   _launchURL() async {
-    const url =
-        'https://www.psychiatry.org/patients-families/depression/what-is-depression';
-    if (await canLaunch(url)) {
-      await launch(url);
+    /*const url =
+        'https://www.psychiatry.org/patients-families/depression/what-is-depression';*/
+    if (await canLaunch(S.of(context)!.depressionLink)) {
+      await launch(S.of(context)!.depressionLink);
     } else {
-      throw 'Could not launch $url';
+      throw 'Could not launch $S.of(context)!.depressionLink';
     }
   }
 

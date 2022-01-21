@@ -16,12 +16,12 @@ class SymptomsPageState extends State<SymptomsPage> {
   int index = 0;
 
   _launchURL() async {
-    const url =
-        'https://www.helpguide.org/articles/depression/depression-symptoms-and-warning-signs.htm';
-    if (await canLaunch(url)) {
-      await launch(url);
+    /*const url =
+        'https://www.helpguide.org/articles/depression/depression-symptoms-and-warning-signs.htm';*/
+    if (await canLaunch(S.of(context)!.symptomsLink)) {
+      await launch(S.of(context)!.symptomsLink);
     } else {
-      throw 'Could not launch $url';
+      throw 'Could not launch $S.of(context)!.symptomsLink';
     }
   }
 

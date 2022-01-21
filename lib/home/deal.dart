@@ -17,12 +17,12 @@ class DealPageState extends State<DealPage> {
   int index = 0;
 
   _launchURL() async {
-    const url =
-        'https://thiswayup.org.au/learning-hub/depression-explained/';
-    if (await canLaunch(url)) {
-      await launch(url);
+    /*const url =
+        'https://thiswayup.org.au/learning-hub/depression-explained/';*/
+    if (await canLaunch(S.of(context)!.dealLink)) {
+      await launch(S.of(context)!.dealLink);
     } else {
-      throw 'Could not launch $url';
+      throw 'Could not launch $S.of(context)!.dealLink';
     }
   }
 

@@ -2,12 +2,23 @@
 
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vhelp_test/AccountScreen.dart';
 import 'package:restart_app/restart_app.dart';
+import 'package:vhelp_test/drawer_sidebar.dart';
+import 'package:path/path.dart' as Path;
+import 'package:path_provider/path_provider.dart';
 
 User? user = FirebaseAuth.instance.currentUser;
 
@@ -27,6 +38,11 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
+  var image;
+  late String imageUrl;
+  final _storage = FirebaseStorage.instance;
+
+  //FirebaseStorage storage = FirebaseStorage.instance;
   /*Future Result(User? user) {
     return FirebaseFirestore.instance
         .collection("Accounts")
@@ -68,6 +84,72 @@ class _UserPageState extends State<UserPage> {
               body: Column(children: [
                 Container(
                   child: Column(children: [
+                    GestureDetector(
+                        onTap: changePic,
+                        child: Column(
+                          children: [
+                            image != null
+                                ? CircleAvatar(
+                                    radius: 30,
+                                    backgroundImage: NetworkImage(imageUrl))
+                                /*ClipOval(
+                              child: 
+                                  SizedBox.fromSize(
+                                  size: Size.fromRadius(30),
+                                  child: Image.file(image!)))*/
+                                : CircleAvatar(
+                                    radius: 30,
+                                    backgroundImage: AssetImage(
+                                        'assets/images/iceberg.png')),
+                            /*    ? FutureBuilder(
+                                    future: _loadImages(),
+                                    builder: (context,
+                                        AsyncSnapshot<
+                                                List<Map<String, dynamic>>>
+                                            snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.done) {
+                                        //print(snapshot.data);
+                                        return ListView.builder(
+                                          itemCount: snapshot.data?.length ?? 0,
+                                          itemBuilder: (context, index) {
+                                            final Map<String, dynamic> image =
+                                                snapshot.data![index];
+
+                                            return Card(
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 10),
+                                              child: ListTile(
+                                                dense: false,
+                                                leading:
+                                                    Image.network(image['url']),
+                                                title:
+                                                    Text(image['uploaded_by']),
+                                                subtitle:
+                                                    Text(image['description']),
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      }
+
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    },
+                                  )*/
+
+                            /*? ClipOval(
+                                    child: SizedBox.fromSize(
+                                        size: Size.fromRadius(30),
+                                        child: Image.file(image!)))
+                                : CircleAvatar(
+                                    radius: 30,
+                                    backgroundImage: AssetImage(
+                                        'assets/images/iceberg.png')),*/
+                          ],
+                        )),
                     Text("Username: ${data['username']}"),
                     Text("Email: ${user!.email}"),
                     Text("Firstname: ${data['fname']}"),
@@ -107,6 +189,7 @@ class _UserPageState extends State<UserPage> {
                         },
                         child: Text('Edit Profile')),*/
                     ElevatedButton(
+                        style: ElevatedButton.styleFrom(primary: Colors.red),
                         onPressed: () {
                           _DeleteUser();
                           Navigator.of(context).push(MaterialPageRoute(
@@ -124,6 +207,125 @@ class _UserPageState extends State<UserPage> {
         );
       },
     );
+  }
+
+  /*Future<void> _upload(String inputSource) async {
+    final picker = ImagePicker();
+    XFile? pickedImage;
+    try {
+      pickedImage = await picker.pickImage(
+          source: inputSource == 'camera'
+              ? ImageSource.camera
+              : ImageSource.gallery,
+          maxWidth: 1920);
+
+      final String fileName = Path.basename(pickedImage!.path);
+      File imageFile = File(pickedImage.path);
+
+      try {
+        // Uploading the selected image with some custom meta data
+        await storage.ref(fileName).putFile(
+            imageFile,
+            SettableMetadata(customMetadata: {
+              'uploaded_by': 'A bad guy',
+              'description': 'Some description...'
+            }));
+
+        // Refresh the UI
+        setState(() {});
+      } on FirebaseException catch (error) {
+        if (kDebugMode) {
+          print(error);
+        }
+      }
+    } catch (err) {
+      if (kDebugMode) {
+        print(err);
+      }
+    }
+  }*/
+
+  // Retriew the uploaded images
+  // This function is called when the app launches for the first time or when an image is uploaded or deleted
+  /*Future<List<Map<String, dynamic>>> _loadImages() async {
+    List<Map<String, dynamic>> files = [];
+
+    final ListResult result = await storage.ref().list();
+    final List<Reference> allFiles = result.items;
+
+    return await Future.forEach<Reference>(allFiles, (file) async {
+      final String fileUrl = await file.getDownloadURL();
+      final FullMetadata fileMeta = await file.getMetadata();
+      files.add({
+        "url": fileUrl,
+        "path": file.fullPath,
+        "uploaded_by": fileMeta.customMetadata?['uploaded_by'] ?? 'Nobody',
+        "description":
+            fileMeta.customMetadata?['description'] ?? 'No description'
+      });
+      return files;
+    });
+  }*/
+  Future<String> pickImageCam() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+      // if (image == null) return;
+      final imageTemporary = File(image!.path);
+      if (image != null) {
+        var snapshot = await _storage
+            .ref()
+            .child('VHelpProfile/DisplayProfilePic')
+            .putFile(imageTemporary);
+        var downloadUrl = await snapshot.ref.getDownloadURL();
+
+        setState(() {
+          imageUrl = downloadUrl;
+          users
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .update({'profile url': imageUrl});
+          print(imageUrl);
+        });
+      } else {
+        print('No Path Received');
+      }
+      // setState(() => this.image = imageTemporary);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+    return imageUrl;
+  }
+
+  Future pickImageGal() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+      final imageTemporary = File(image.path);
+      setState(() => this.image = imageTemporary);
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
+  Future<void> changePic() async {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Choose your profile image'),
+            actions: <Widget>[
+              TextButton(
+                  child: const Text('From Camera'),
+                  onPressed: () {
+                    image = pickImageCam();
+                    //print(image);
+                  }),
+              TextButton(
+                  child: const Text('From Gallery'),
+                  onPressed: () => pickImageGal())
+            ],
+          );
+        });
   }
 
   /*Scaffold(
@@ -178,3 +380,12 @@ class _UserPageState extends State<UserPage> {
         .then((_) {});
   }
 }
+
+/*class FireStorageService extends ChangeNotifier {
+  FireStorageService();
+  static Future<dynamic> loadImage(BuildContext context, String Image) async {
+    return await FirebaseStorage.instance.ref().child(Image).getDownloadURL();
+  }
+}*/
+
+

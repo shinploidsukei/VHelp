@@ -6,6 +6,7 @@ class userInfo {
   String nickname;
   String dob;
   String phone;
+  String picUrl;
 
   userInfo(
       {required this.username,
@@ -13,7 +14,8 @@ class userInfo {
       required this.lname,
       required this.nickname,
       required this.dob,
-      required this.phone});
+      required this.phone,
+      required this.picUrl});
 
   Map<String, dynamic> toJson() => {
         'username': username,
@@ -21,6 +23,7 @@ class userInfo {
         'lname': lname,
         'nickname': nickname,
         'dob': dob,
-        'phone': phone
+        'phone': phone,
+        'profile url' : picUrl
       };
 }

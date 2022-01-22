@@ -13,7 +13,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   splashscreen: any
   form_field_validator: ^1.1.0
-  firebase_core: ^1.4.0
+  firebase_core: ^1.11.0
   firebase_auth: ^3.0.1
   fluttertoast: ^8.0.8
   # device_calendar: ^3.1.0
@@ -55,6 +55,8 @@ dependencies:
   date_picker_timeline: ^1.2.3
   flutter_svg: ^0.23.0+1
   restart_app: ^1.1.0
+  path: ^1.8.0
+  flutter_cache_manager: ^3.3.0
 
 dev_dependencies:
   flutter_test:

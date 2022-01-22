@@ -23,7 +23,13 @@ class profileForm extends StatefulWidget {
 class _profileFormState extends State<profileForm> {
   final formkey = GlobalKey<FormState>();
   userInfo myInfo = userInfo(
-      username: '', fname: '', lname: '', nickname: '', dob: '', phone: '');
+      username: '',
+      fname: '',
+      lname: '',
+      nickname: '',
+      dob: '',
+      phone: '',
+      picUrl: '');
 
   DateTime? myDate;
   String getText() {
@@ -354,7 +360,8 @@ class _profileFormState extends State<profileForm> {
                                             'lname': myInfo.lname,
                                             'nickname': myInfo.nickname,
                                             'dob': myInfo.dob,
-                                            'phone': myInfo.phone
+                                            'phone': myInfo.phone,
+                                            'profile url': "testpic"
                                           });
                                           formkey.currentState!.reset();
                                           Fluttertoast.showToast(

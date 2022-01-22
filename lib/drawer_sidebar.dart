@@ -1,6 +1,11 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vhelp_test/Content.dart';
 import 'package:vhelp_test/page/diary_page.dart';
@@ -19,22 +24,23 @@ CollectionReference users = FirebaseFirestore.instance.collection('Accounts');
 final name = "raythada";
 final email = user!.email;
 //final email = user!.email;
-final urlImage =
-    'https://a-static.besthdwallpaper.com/attack-on-titan-levi-ackerman-for-the-kill-wallpaper-2736x1824-36483_41.jpg';
+//final urlImage = 'http://';
 final padding = EdgeInsets.symmetric(horizontal: 20);
 
 class NavigationDrawerWidget extends StatefulWidget {
   const NavigationDrawerWidget({Key? key}) : super(key: key);
-
+  static var image;
   @override
   State<NavigationDrawerWidget> createState() => _NavigationDrawerWidgetState();
 }
 
 class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
+  var image;
+
   @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
-
+    image = NavigationDrawerWidget.image;
     return Drawer(
       child: Material(
         color: Colors.blue.shade100,
@@ -141,7 +147,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                           snapshot.data!.data() as Map<String, dynamic>;
                       var name1 = data['username'].toString();
                       return buildHeader(
-                        urlImage: urlImage,
+                        //urlImage: urlImage,
                         name: name1,
                         email: email!,
                         onClicked: () =>
@@ -169,7 +175,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
   }
 
   Widget buildHeader({
-    required String urlImage,
+    //required String urlImage,
     required String name,
     required String email,
     required VoidCallback onClicked,
@@ -180,7 +186,24 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
           padding: padding.add(EdgeInsets.symmetric(vertical: 40)),
           child: Row(
             children: [
-              CircleAvatar(radius: 30, backgroundImage: NetworkImage(urlImage)),
+              GestureDetector(
+                  child: Column(
+                children: [
+                  image != null
+                      ? CircleAvatar(
+                          radius: 30, backgroundImage: new FileImage(image!))
+                      /*ClipOval(
+                              child: 
+                                  SizedBox.fromSize(
+                                  size: Size.fromRadius(30),
+                                  child: Image.file(image!)))*/
+                      : CircleAvatar(
+                          radius: 30,
+                          backgroundImage:
+                              AssetImage('assets/images/iceberg.png')),
+                ],
+              )),
+              //CircleAvatar(radius: 30, backgroundImage: NetworkImage(urlImage)),
               SizedBox(width: 20),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

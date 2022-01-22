@@ -361,7 +361,7 @@ class _profileFormState extends State<profileForm> {
                                             'nickname': myInfo.nickname,
                                             'dob': myInfo.dob,
                                             'phone': myInfo.phone,
-                                            'profile url': "testpic"
+                                            'profile url': myInfo.picUrl
                                           });
                                           formkey.currentState!.reset();
                                           Fluttertoast.showToast(

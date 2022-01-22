@@ -84,6 +84,8 @@ class _UserPageState extends State<UserPage> {
               body: Column(children: [
                 Container(
                   child: Column(children: [
+                    // Image.network('$data[profile url]'),
+
                     GestureDetector(
                         onTap: changePic,
                         child: Column(
@@ -370,7 +372,7 @@ class _UserPageState extends State<UserPage> {
     });
   }*/
 
-  void _DeleteUser() {
+  void _DeleteUser() async {
     // ignore: unused_local_variable
     var firebaseUser = FirebaseAuth.instance.currentUser;
     FirebaseFirestore.instance
@@ -378,6 +380,14 @@ class _UserPageState extends State<UserPage> {
         .doc(user!.uid)
         .delete()
         .then((_) {});
+    try {
+      await FirebaseAuth.instance.currentUser!.delete();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        print(
+            'The user must reauthenticate before this operation can be executed.');
+      }
+    }
   }
 }
 
@@ -387,5 +397,6 @@ class _UserPageState extends State<UserPage> {
     return await FirebaseStorage.instance.ref().child(Image).getDownloadURL();
   }
 }*/
+
 
 

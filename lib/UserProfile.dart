@@ -94,7 +94,7 @@ class _UserPageState extends State<UserPage> {
                         onTap: changePic,
                         child: Column(
                           children: [
-                            image2 != null
+                            image2 != null && imageUrl.isNotEmpty
                                 ? CircleAvatar(
                                     radius: 30,
                                     backgroundImage: NetworkImage(imageUrl))
@@ -330,7 +330,14 @@ class _UserPageState extends State<UserPage> {
                     //print(image);
                   }),
               TextButton(
-                  child: const Text('Delete it!'), onPressed: () => _DeleteMe())
+                  child: const Text('Delete it!'),
+                  onPressed: () async {
+                    SharedPreferences pref =
+                        await SharedPreferences.getInstance();
+                    await pref.clear();
+                    _DeleteMe();
+                    Restart.restartApp();
+                  })
             ],
           );
         });

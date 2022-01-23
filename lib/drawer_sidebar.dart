@@ -191,7 +191,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
               GestureDetector(
                   child: Column(
                 children: [
-                   image2 != null
+                  image2 != null && urlImage.isNotEmpty
                       ? CircleAvatar(
                           radius: 30,
                           backgroundImage: new NetworkImage(urlImage))

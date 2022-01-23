@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
 import 'package:vhelp_test/no_internet.dart';
+import 'package:vhelp_test/screens/register.dart';
 import '../Login.dart';
 import '../model/userInfo.dart';
 
@@ -30,6 +31,7 @@ class _profileFormState extends State<profileForm> {
       dob: '',
       phone: '',
       picUrl: '');
+ 
 
   DateTime? myDate;
   String getText() {
@@ -348,7 +350,7 @@ class _profileFormState extends State<profileForm> {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 50, vertical: 10),
                                       ),
-                                      onPressed: () {
+                                      onPressed: () async {
                                         if (formkey.currentState!.validate()) {
                                           formkey.currentState!.save();
                                           _myCollection
@@ -363,7 +365,7 @@ class _profileFormState extends State<profileForm> {
                                             'phone': myInfo.phone,
                                             'profile url': myInfo.picUrl
                                           });
-                                          formkey.currentState!.reset();
+                                                            formkey.currentState!.reset();
                                           Fluttertoast.showToast(
                                               msg:
                                                   'User account has been created',

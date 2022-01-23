@@ -21,6 +21,7 @@ import 'package:path/path.dart' as Path;
 import 'package:path_provider/path_provider.dart';
 
 User? user = FirebaseAuth.instance.currentUser;
+final urlImage = "";
 
 class UserPage extends StatefulWidget {
   final String name;
@@ -38,9 +39,11 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
+  static var image1 = urlImage;
   var image;
   late String imageUrl;
   final _storage = FirebaseStorage.instance;
+  var image2;
 
   //FirebaseStorage storage = FirebaseStorage.instance;
   /*Future Result(User? user) {
@@ -58,7 +61,7 @@ class _UserPageState extends State<UserPage> {
   Widget build(BuildContext context) {
     //final FirebaseAuth auth = FirebaseAuth.instance;
     //print(Result(user).);
-
+    image2 = NavigationDrawerWidget.image1;
     CollectionReference users =
         FirebaseFirestore.instance.collection('Accounts');
 
@@ -77,6 +80,7 @@ class _UserPageState extends State<UserPage> {
         if (snapshot.connectionState == ConnectionState.done) {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
+          imageUrl = data['profile url'];
           return Scaffold(
               appBar: AppBar(
                 title: Text('Profile'),
@@ -90,7 +94,7 @@ class _UserPageState extends State<UserPage> {
                         onTap: changePic,
                         child: Column(
                           children: [
-                            image != null
+                            image2 != null
                                 ? CircleAvatar(
                                     radius: 30,
                                     backgroundImage: NetworkImage(imageUrl))
@@ -211,63 +215,6 @@ class _UserPageState extends State<UserPage> {
     );
   }
 
-  /*Future<void> _upload(String inputSource) async {
-    final picker = ImagePicker();
-    XFile? pickedImage;
-    try {
-      pickedImage = await picker.pickImage(
-          source: inputSource == 'camera'
-              ? ImageSource.camera
-              : ImageSource.gallery,
-          maxWidth: 1920);
-
-      final String fileName = Path.basename(pickedImage!.path);
-      File imageFile = File(pickedImage.path);
-
-      try {
-        // Uploading the selected image with some custom meta data
-        await storage.ref(fileName).putFile(
-            imageFile,
-            SettableMetadata(customMetadata: {
-              'uploaded_by': 'A bad guy',
-              'description': 'Some description...'
-            }));
-
-        // Refresh the UI
-        setState(() {});
-      } on FirebaseException catch (error) {
-        if (kDebugMode) {
-          print(error);
-        }
-      }
-    } catch (err) {
-      if (kDebugMode) {
-        print(err);
-      }
-    }
-  }*/
-
-  // Retriew the uploaded images
-  // This function is called when the app launches for the first time or when an image is uploaded or deleted
-  /*Future<List<Map<String, dynamic>>> _loadImages() async {
-    List<Map<String, dynamic>> files = [];
-
-    final ListResult result = await storage.ref().list();
-    final List<Reference> allFiles = result.items;
-
-    return await Future.forEach<Reference>(allFiles, (file) async {
-      final String fileUrl = await file.getDownloadURL();
-      final FullMetadata fileMeta = await file.getMetadata();
-      files.add({
-        "url": fileUrl,
-        "path": file.fullPath,
-        "uploaded_by": fileMeta.customMetadata?['uploaded_by'] ?? 'Nobody',
-        "description":
-            fileMeta.customMetadata?['description'] ?? 'No description'
-      });
-      return files;
-    });
-  }*/
   Future<String> pickImageCam() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.camera);
@@ -300,12 +247,30 @@ class _UserPageState extends State<UserPage> {
   Future pickImageGal() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (image == null) return;
-      final imageTemporary = File(image.path);
-      setState(() => this.image = imageTemporary);
+      // if (image == null) return;
+      final imageTemporary = File(image!.path);
+      if (image != null) {
+        var snapshot = await _storage
+            .ref()
+            .child('VHelpProfile/DisplayProfilePic')
+            .putFile(imageTemporary);
+        var downloadUrl = await snapshot.ref.getDownloadURL();
+
+        setState(() {
+          imageUrl = downloadUrl;
+          users
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .update({'profile url': imageUrl});
+          print(imageUrl);
+        });
+      } else {
+        print('No Path Received');
+      }
+      // setState(() => this.image = imageTemporary);
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
+    return imageUrl;
   }
 
   Future<void> changePic() async {
@@ -390,13 +355,6 @@ class _UserPageState extends State<UserPage> {
     }
   }
 }
-
-/*class FireStorageService extends ChangeNotifier {
-  FireStorageService();
-  static Future<dynamic> loadImage(BuildContext context, String Image) async {
-    return await FirebaseStorage.instance.ref().child(Image).getDownloadURL();
-  }
-}*/
 
 
 

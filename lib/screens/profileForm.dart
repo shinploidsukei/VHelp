@@ -6,8 +6,11 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:vhelp_test/UserProfile.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
 import 'package:vhelp_test/no_internet.dart';
+import 'package:vhelp_test/screens/register.dart';
+import 'package:vhelp_test/start_regist.dart';
 import '../Login.dart';
 import '../model/userInfo.dart';
 
@@ -73,6 +76,16 @@ class _profileFormState extends State<profileForm> {
                       return Scaffold(
                         backgroundColor: Colors.blue.shade100,
                         appBar: AppBar(
+                          leading: IconButton(
+                            icon: Icon(Icons.arrow_back, color: Colors.grey),
+                            onPressed: () {
+                              _DeleteUser();
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => StartRegist()));
+                            },
+                          ),
                           title: Text("Account Form",
                               style: TextStyle(
                                   color: Colors.black54,
@@ -348,7 +361,7 @@ class _profileFormState extends State<profileForm> {
                                         padding: EdgeInsets.symmetric(
                                             horizontal: 50, vertical: 10),
                                       ),
-                                      onPressed: () {
+                                      onPressed: () async {
                                         if (formkey.currentState!.validate()) {
                                           formkey.currentState!.save();
                                           _myCollection
@@ -361,7 +374,7 @@ class _profileFormState extends State<profileForm> {
                                             'nickname': myInfo.nickname,
                                             'dob': myInfo.dob,
                                             'phone': myInfo.phone,
-                                            'profile url': "testpic"
+                                            'profile url': myInfo.picUrl
                                           });
                                           formkey.currentState!.reset();
                                           Fluttertoast.showToast(
@@ -412,5 +425,23 @@ class _profileFormState extends State<profileForm> {
     setState(() {
       myDate = newDate;
     });
+  }
+}
+
+void _DeleteUser() async {
+  // ignore: unused_local_variable
+  var firebaseUser = FirebaseAuth.instance.currentUser;
+  FirebaseFirestore.instance
+      .collection("Accounts")
+      .doc(user!.uid)
+      .delete()
+      .then((_) {});
+  try {
+    await FirebaseAuth.instance.currentUser!.delete();
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'requires-recent-login') {
+      print(
+          'The user must reauthenticate before this operation can be executed.');
+    }
   }
 }

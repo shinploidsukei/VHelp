@@ -21,6 +21,7 @@ import 'package:path/path.dart' as Path;
 import 'package:path_provider/path_provider.dart';
 
 User? user = FirebaseAuth.instance.currentUser;
+final urlImage = "";
 
 class UserPage extends StatefulWidget {
   final String name;
@@ -38,9 +39,11 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
+  static var image1 = urlImage;
   var image;
   late String imageUrl;
   final _storage = FirebaseStorage.instance;
+  var image2;
 
   //FirebaseStorage storage = FirebaseStorage.instance;
   /*Future Result(User? user) {
@@ -58,7 +61,7 @@ class _UserPageState extends State<UserPage> {
   Widget build(BuildContext context) {
     //final FirebaseAuth auth = FirebaseAuth.instance;
     //print(Result(user).);
-
+    image2 = NavigationDrawerWidget.image1;
     CollectionReference users =
         FirebaseFirestore.instance.collection('Accounts');
 
@@ -77,6 +80,7 @@ class _UserPageState extends State<UserPage> {
         if (snapshot.connectionState == ConnectionState.done) {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
+          imageUrl = data['profile url'];
           return Scaffold(
               appBar: AppBar(
                 title: Text('Profile'),
@@ -84,11 +88,13 @@ class _UserPageState extends State<UserPage> {
               body: Column(children: [
                 Container(
                   child: Column(children: [
+                    // Image.network('$data[profile url]'),
+
                     GestureDetector(
                         onTap: changePic,
                         child: Column(
                           children: [
-                            image != null
+                            image2 != null && imageUrl.isNotEmpty
                                 ? CircleAvatar(
                                     radius: 30,
                                     backgroundImage: NetworkImage(imageUrl))
@@ -192,9 +198,6 @@ class _UserPageState extends State<UserPage> {
                         style: ElevatedButton.styleFrom(primary: Colors.red),
                         onPressed: () {
                           _DeleteUser();
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => MyApp(),
-                          ));
                         },
                         child: Text('Delete Account'))
                   ]),
@@ -209,63 +212,6 @@ class _UserPageState extends State<UserPage> {
     );
   }
 
-  /*Future<void> _upload(String inputSource) async {
-    final picker = ImagePicker();
-    XFile? pickedImage;
-    try {
-      pickedImage = await picker.pickImage(
-          source: inputSource == 'camera'
-              ? ImageSource.camera
-              : ImageSource.gallery,
-          maxWidth: 1920);
-
-      final String fileName = Path.basename(pickedImage!.path);
-      File imageFile = File(pickedImage.path);
-
-      try {
-        // Uploading the selected image with some custom meta data
-        await storage.ref(fileName).putFile(
-            imageFile,
-            SettableMetadata(customMetadata: {
-              'uploaded_by': 'A bad guy',
-              'description': 'Some description...'
-            }));
-
-        // Refresh the UI
-        setState(() {});
-      } on FirebaseException catch (error) {
-        if (kDebugMode) {
-          print(error);
-        }
-      }
-    } catch (err) {
-      if (kDebugMode) {
-        print(err);
-      }
-    }
-  }*/
-
-  // Retriew the uploaded images
-  // This function is called when the app launches for the first time or when an image is uploaded or deleted
-  /*Future<List<Map<String, dynamic>>> _loadImages() async {
-    List<Map<String, dynamic>> files = [];
-
-    final ListResult result = await storage.ref().list();
-    final List<Reference> allFiles = result.items;
-
-    return await Future.forEach<Reference>(allFiles, (file) async {
-      final String fileUrl = await file.getDownloadURL();
-      final FullMetadata fileMeta = await file.getMetadata();
-      files.add({
-        "url": fileUrl,
-        "path": file.fullPath,
-        "uploaded_by": fileMeta.customMetadata?['uploaded_by'] ?? 'Nobody',
-        "description":
-            fileMeta.customMetadata?['description'] ?? 'No description'
-      });
-      return files;
-    });
-  }*/
   Future<String> pickImageCam() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.camera);
@@ -298,12 +244,30 @@ class _UserPageState extends State<UserPage> {
   Future pickImageGal() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (image == null) return;
-      final imageTemporary = File(image.path);
-      setState(() => this.image = imageTemporary);
+      // if (image == null) return;
+      final imageTemporary = File(image!.path);
+      if (image != null) {
+        var snapshot = await _storage
+            .ref()
+            .child('VHelpProfile/DisplayProfilePic')
+            .putFile(imageTemporary);
+        var downloadUrl = await snapshot.ref.getDownloadURL();
+
+        setState(() {
+          imageUrl = downloadUrl;
+          users
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .update({'profile url': imageUrl});
+          print(imageUrl);
+        });
+      } else {
+        print('No Path Received');
+      }
+      // setState(() => this.image = imageTemporary);
     } on PlatformException catch (e) {
       print('Failed to pick image: $e');
     }
+    return imageUrl;
   }
 
   Future<void> changePic() async {
@@ -328,34 +292,6 @@ class _UserPageState extends State<UserPage> {
         });
   }
 
-  /*Scaffold(
-        appBar: AppBar(
-          title: Text("UserProfile"),
-        ),
-        body: Column(
-          children: [
-           // Container(child: Result()),
-            Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  ElevatedButton(
-                      onPressed: () async {
-                        SharedPreferences sharedPreferences =
-                            await SharedPreferences.getInstance();
-                        sharedPreferences.clear();
-                        // ignore: deprecated_member_use
-                        sharedPreferences.commit();
-                        Navigator.of(context).pushAndRemoveUntil(
-                            MaterialPageRoute(
-                                builder: (BuildContext context) => MyApp()),
-                            (Route<dynamic> route) => false);
-                      },
-                      child: Text('Logout'))
-                ])
-          ],
-        ));
-  }*/
-
   Future<void> _signOut() async {
     await FirebaseAuth.instance.signOut();
   }
@@ -370,7 +306,44 @@ class _UserPageState extends State<UserPage> {
     });
   }*/
 
-  void _DeleteUser() {
+  Future<void> _DeleteUser() async {
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Warning!'),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: const <Widget>[
+                  Text('Do you want to delete your account?'),
+                  Text(
+                      'If you delete your account, your information will be gone forever.'),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                  child: const Text('Back'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    //print(image);
+                  }),
+              TextButton(
+                  child: const Text('Delete it!'),
+                  onPressed: () async {
+                    SharedPreferences pref =
+                        await SharedPreferences.getInstance();
+                    await pref.clear();
+                    _DeleteMe();
+                    Restart.restartApp();
+                  })
+            ],
+          );
+        });
+  }
+
+  void _DeleteMe() async {
     // ignore: unused_local_variable
     var firebaseUser = FirebaseAuth.instance.currentUser;
     FirebaseFirestore.instance
@@ -378,14 +351,16 @@ class _UserPageState extends State<UserPage> {
         .doc(user!.uid)
         .delete()
         .then((_) {});
+    try {
+      await FirebaseAuth.instance.currentUser!.delete();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        print(
+            'The user must reauthenticate before this operation can be executed.');
+      }
+    }
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => MyApp(),
+    ));
   }
 }
-
-/*class FireStorageService extends ChangeNotifier {
-  FireStorageService();
-  static Future<dynamic> loadImage(BuildContext context, String Image) async {
-    return await FirebaseStorage.instance.ref().child(Image).getDownloadURL();
-  }
-}*/
-
-

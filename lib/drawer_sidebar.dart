@@ -24,23 +24,23 @@ CollectionReference users = FirebaseFirestore.instance.collection('Accounts');
 final name = "raythada";
 final email = user!.email;
 //final email = user!.email;
-//final urlImage = 'http://';
+final urlImage = "";
 final padding = EdgeInsets.symmetric(horizontal: 20);
 
 class NavigationDrawerWidget extends StatefulWidget {
   const NavigationDrawerWidget({Key? key}) : super(key: key);
-  static var image;
+  static var image1 = urlImage;
   @override
   State<NavigationDrawerWidget> createState() => _NavigationDrawerWidgetState();
 }
 
 class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
-  var image;
+  var image2;
 
   @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;
-    image = NavigationDrawerWidget.image;
+    image2 = NavigationDrawerWidget.image1;
     return Drawer(
       child: Material(
         color: Colors.blue.shade100,
@@ -146,8 +146,9 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                       Map<String, dynamic> data =
                           snapshot.data!.data() as Map<String, dynamic>;
                       var name1 = data['username'].toString();
+                      var url1 = data['profile url'];
                       return buildHeader(
-                        //urlImage: urlImage,
+                        urlImage: url1,
                         name: name1,
                         email: email!,
                         onClicked: () =>
@@ -178,6 +179,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
     //required String urlImage,
     required String name,
     required String email,
+    required String urlImage,
     required VoidCallback onClicked,
   }) =>
       InkWell(
@@ -189,9 +191,11 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
               GestureDetector(
                   child: Column(
                 children: [
-                  image != null
+                  image2 != null && urlImage.isNotEmpty
                       ? CircleAvatar(
-                          radius: 30, backgroundImage: new FileImage(image!))
+                          radius: 30,
+                          backgroundImage: new NetworkImage(urlImage))
+
                       /*ClipOval(
                               child: 
                                   SizedBox.fromSize(

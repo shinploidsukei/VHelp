@@ -198,6 +198,9 @@ class _UserPageState extends State<UserPage> {
                         style: ElevatedButton.styleFrom(primary: Colors.red),
                         onPressed: () {
                           _DeleteUser();
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => MyApp(),
+                          ));
                         },
                         child: Text('Delete Account'))
                   ]),
@@ -292,6 +295,34 @@ class _UserPageState extends State<UserPage> {
         });
   }
 
+  /*Scaffold(
+        appBar: AppBar(
+          title: Text("UserProfile"),
+        ),
+        body: Column(
+          children: [
+           // Container(child: Result()),
+            Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  ElevatedButton(
+                      onPressed: () async {
+                        SharedPreferences sharedPreferences =
+                            await SharedPreferences.getInstance();
+                        sharedPreferences.clear();
+                        // ignore: deprecated_member_use
+                        sharedPreferences.commit();
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (BuildContext context) => MyApp()),
+                            (Route<dynamic> route) => false);
+                      },
+                      child: Text('Logout'))
+                ])
+          ],
+        ));
+  }*/
+
   Future<void> _signOut() async {
     await FirebaseAuth.instance.signOut();
   }
@@ -306,37 +337,7 @@ class _UserPageState extends State<UserPage> {
     });
   }*/
 
-  Future<void> _DeleteUser() async {
-    return showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('Warning!'),
-            content: SingleChildScrollView(
-              child: ListBody(
-                children: const <Widget>[
-                  Text('Do you want to delete your account?'),
-                  Text(
-                      'If you delete your account, your information will be gone forever.'),
-                ],
-              ),
-            ),
-            actions: <Widget>[
-              TextButton(
-                  child: const Text('Back'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    //print(image);
-                  }),
-              TextButton(
-                  child: const Text('Delete it!'), onPressed: () => _DeleteMe())
-            ],
-          );
-        });
-  }
-
-  void _DeleteMe() async {
+  void _DeleteUser() async {
     // ignore: unused_local_variable
     var firebaseUser = FirebaseAuth.instance.currentUser;
     FirebaseFirestore.instance
@@ -352,8 +353,8 @@ class _UserPageState extends State<UserPage> {
             'The user must reauthenticate before this operation can be executed.');
       }
     }
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => MyApp(),
-    ));
   }
 }
+
+
+

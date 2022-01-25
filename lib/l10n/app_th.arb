@@ -69,6 +69,23 @@
      "depressionLink": "https://www.dmh.go.th/news-dmh/view.asp?id=29928",
      "causeLink": "https://www.petcharavejhospital.com/en/Article/article_detail/Depression",
      "dealLink": "https://www.rama.mahidol.ac.th/ramamental/generalknowledge/05282014-1001",
-     "symptomsLink": "https://www.kwilife.com/blog/detail/10-signs-and-symptoms-of-depression"
-
+     "symptomsLink": "https://www.kwilife.com/blog/detail/10-signs-and-symptoms-of-depression",
+     "profile": "โปรไฟล์",
+    "username": "ชื่อผู้ใช้:",
+    "email": "อีเมล:",
+    "firstname": "ชื่อ:",
+    "lastname": "นามสกุล:",
+    "nickname": "ชื่อเล่น:",
+    "dob": "วันเกิด:",
+    "phone": "เบอร์โทร:",
+    "deleteAccount": "ลบบัญชี",
+    "logout": "ออกจากระบบ",
+    "warning": "คำเตือน!",
+    "warning1": "คุณต้องการลบบัญชีผู้ใช้ของคุณใช่หรือไม่",
+    "warning2": "หากคุณลบบัญชี ข้อมูลทั้งหมดของคุณจะหายไป",
+    "back": "กลับ",
+    "deleteit": "ยืนยันการลบบัญชี",
+    "chooseProfile": "เลือกรูปภาพของคุณ",
+    "camera": "ถ่ายรูป",
+    "gallery": "แกลเลอรี่"
 }

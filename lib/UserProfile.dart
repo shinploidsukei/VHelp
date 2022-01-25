@@ -1,24 +1,18 @@
-//import 'package:cloud_firestore/cloud_firestore.dart';
-
-// ignore_for_file: non_constant_identifier_names
-
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vhelp_test/AccountScreen.dart';
 import 'package:restart_app/restart_app.dart';
 import 'package:vhelp_test/drawer_sidebar.dart';
-import 'package:path/path.dart' as Path;
-import 'package:path_provider/path_provider.dart';
+import 'package:vhelp_test/widget/language_picker_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 
 User? user = FirebaseAuth.instance.currentUser;
 final urlImage = "";
@@ -83,31 +77,44 @@ class _UserPageState extends State<UserPage> {
           imageUrl = data['profile url'];
           return Scaffold(
               appBar: AppBar(
-                title: Text('Profile'),
+                title: Text(S.of(context)!.profile,
+                    style: TextStyle(color: Colors.black54, fontSize: 22)),
+                iconTheme: IconThemeData(color: Colors.black54),
+                backgroundColor: Colors.cyan.shade100,
+                actions: [
+                  LanguagePickerWidget(),
+                  //const SizedBox(width: 12),
+                ],
+                elevation: 0,
               ),
-              body: Column(children: [
-                Container(
-                  child: Column(children: [
-                    // Image.network('$data[profile url]'),
-
-                    GestureDetector(
-                        onTap: changePic,
-                        child: Column(
-                          children: [
-                            image2 != null && imageUrl.isNotEmpty
-                                ? CircleAvatar(
-                                    radius: 30,
-                                    backgroundImage: NetworkImage(imageUrl))
-                                /*ClipOval(
-                              child: 
-                                  SizedBox.fromSize(
-                                  size: Size.fromRadius(30),
-                                  child: Image.file(image!)))*/
-                                : CircleAvatar(
-                                    radius: 30,
-                                    backgroundImage: AssetImage(
-                                        'assets/images/iceberg.png')),
-                            /*    ? FutureBuilder(
+              body: Container(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(colors: [
+                  Colors.cyan.shade100,
+                  Colors.blueGrey.shade100
+                ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        // Image.network('$data[profile url]'),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        GestureDetector(
+                            onTap: changePic,
+                            child: Column(
+                              children: [
+                                image2 != null && imageUrl.isNotEmpty
+                                    ? CircleAvatar(
+                                        radius: 50,
+                                        backgroundImage: NetworkImage(imageUrl))
+                                    : CircleAvatar(
+                                        radius: 50,
+                                        backgroundImage: AssetImage(
+                                            'assets/images/iceberg.png')),
+                                /*    ? FutureBuilder(
                                     future: _loadImages(),
                                     builder: (context,
                                         AsyncSnapshot<
@@ -146,7 +153,7 @@ class _UserPageState extends State<UserPage> {
                                     },
                                   )*/
 
-                            /*? ClipOval(
+                                /*? ClipOval(
                                     child: SizedBox.fromSize(
                                         size: Size.fromRadius(30),
                                         child: Image.file(image!)))
@@ -154,29 +161,213 @@ class _UserPageState extends State<UserPage> {
                                     radius: 30,
                                     backgroundImage: AssetImage(
                                         'assets/images/iceberg.png')),*/
-                          ],
-                        )),
-                    Text("Username: ${data['username']}"),
-                    Text("Email: ${user!.email}"),
-                    Text("Firstname: ${data['fname']}"),
-                    Text("Lastname: ${data['lname']}"),
-                    Text("Nickname: ${data['nickname']}"),
-                    Text("Date of Birth: ${data['dob']}"),
-                    Text("Phone: ${data['phone']}"),
-                    ElevatedButton(
-                        onPressed: () async {
-                          SharedPreferences pref =
-                              await SharedPreferences.getInstance();
-                          await pref.clear();
-                          _signOut();
-                          Restart.restartApp();
-                          /*Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (BuildContext context) => MyApp()),
-                          );*/
-                        },
-                        child: Text('Logout')),
-                    /*ElevatedButton(
+                              ],
+                            )),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          height: 50,
+                          //width: 0,
+                          padding: const EdgeInsets.only(left: 10),
+                          decoration: const BoxDecoration(
+                            color: Color(0xffffffff),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              //const Icon(Icons.person_outline),
+                              new Text(
+                                S.of(context)!.username,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blueGrey),
+                              ),
+                              new Text("${data['username']}  ",
+                                  style: TextStyle(
+                                      fontStyle: FontStyle.italic,
+                                      color: Colors.grey.shade600)),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          height: 50,
+                          //width: 0,
+                          padding: const EdgeInsets.only(left: 10),
+                          decoration: const BoxDecoration(
+                            color: Color(0xffffffff),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              //const Icon(Icons.person_outline),
+                              new Text(
+                                S.of(context)!.email,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blueGrey),
+                              ),
+                              new Text(
+                                "${user!.email}  ",
+                                style: TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                    color: Colors.grey.shade600),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          height: 50,
+                          //width: 0,
+                          padding: const EdgeInsets.only(left: 10),
+                          decoration: const BoxDecoration(
+                            color: Color(0xffffffff),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              //const Icon(Icons.person_outline),
+                              new Text(
+                                S.of(context)!.firstname,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blueGrey),
+                              ),
+                              new Text(
+                                "${data['fname']}  ",
+                                style: TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                    color: Colors.grey.shade600),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          height: 50,
+                          //width: 0,
+                          padding: const EdgeInsets.only(left: 10),
+                          decoration: const BoxDecoration(
+                            color: Color(0xffffffff),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              //const Icon(Icons.person_outline),
+                              new Text(
+                                S.of(context)!.lastname,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blueGrey),
+                              ),
+                              new Text(
+                                "${data['lname']}  ",
+                                style: TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                    color: Colors.grey.shade600),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          height: 50,
+                          //width: 0,
+                          padding: const EdgeInsets.only(left: 10),
+                          decoration: const BoxDecoration(
+                            color: Color(0xffffffff),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              //const Icon(Icons.person_outline),
+                              new Text(
+                                S.of(context)!.nickname,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blueGrey),
+                              ),
+                              new Text(
+                                "${data['nickname']}  ",
+                                style: TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                    color: Colors.grey.shade600),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          height: 50,
+                          //width: 0,
+                          padding: const EdgeInsets.only(left: 10),
+                          decoration: const BoxDecoration(
+                            color: Color(0xffffffff),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              //const Icon(Icons.person_outline),
+                              new Text(
+                                S.of(context)!.dob,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blueGrey),
+                              ),
+                              new Text(
+                                "${data['dob']}  ",
+                                style: TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                    color: Colors.grey.shade600),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
+                          height: 50,
+                          //width: 0,
+                          padding: const EdgeInsets.only(left: 10),
+                          decoration: const BoxDecoration(
+                            color: Color(0xffffffff),
+                            borderRadius: BorderRadius.all(Radius.circular(12)),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              //const Icon(Icons.person_outline),
+                              new Text(
+                                S.of(context)!.phone,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blueGrey),
+                              ),
+                              new Text(
+                                "${data['phone']}  ",
+                                style: TextStyle(
+                                    fontStyle: FontStyle.italic,
+                                    color: Colors.grey.shade600),
+                              ),
+                            ],
+                          ),
+                        ),
+                        /*ElevatedButton(
                         onPressed: () {
                           _EditProfile();
                           showDialog(
@@ -194,15 +385,45 @@ class _UserPageState extends State<UserPage> {
                                       ]));
                         },
                         child: Text('Edit Profile')),*/
-                    ElevatedButton(
-                        style: ElevatedButton.styleFrom(primary: Colors.red),
-                        onPressed: () {
-                          _DeleteUser();
-                        },
-                        child: Text('Delete Account'))
-                  ]),
+                        //delete
+                      ]),
                 ),
-              ]));
+              ),
+              floatingActionButton: SpeedDial(
+                animatedIcon: AnimatedIcons.menu_close,
+                animatedIconTheme: IconThemeData(size: 22),
+                backgroundColor: Colors.cyan.shade600,
+                visible: true,
+                curve: Curves.bounceIn,
+                children: [
+                  SpeedDialChild(
+                      child: Icon(Icons.lock_open),
+                      backgroundColor: Colors.cyan.shade100,
+                      onTap: () async {
+                        SharedPreferences pref =
+                            await SharedPreferences.getInstance();
+                        await pref.clear();
+                        _signOut();
+                        //Restart.restartApp();
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => MyApp()),
+                        );
+                      },
+                      label: S.of(context)!.logout,
+                      labelStyle: TextStyle(),
+                      labelBackgroundColor: Colors.white),
+                  SpeedDialChild(
+                      child: Icon(Icons.delete),
+                      backgroundColor: Colors.cyan.shade100,
+                      onTap: () async {
+                        _DeleteUser();
+                      },
+                      label: S.of(context)!.deleteAccount,
+                      labelStyle: TextStyle(),
+                      labelBackgroundColor: Colors.white)
+                ],
+              ));
         }
 
         return Scaffold(
@@ -276,17 +497,46 @@ class _UserPageState extends State<UserPage> {
         barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Choose your profile image'),
+            //title: Text(S.of(context)!.chooseProfile),
             actions: <Widget>[
-              TextButton(
-                  child: const Text('From Camera'),
-                  onPressed: () {
-                    image = pickImageCam();
-                    //print(image);
-                  }),
-              TextButton(
-                  child: const Text('From Gallery'),
-                  onPressed: () => pickImageGal())
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "  " + S.of(context)!.chooseProfile,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.black),
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: (Icon(Icons.close))),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextButton(
+                      child: Text(S.of(context)!.camera,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.blueGrey)),
+                      onPressed: () {
+                        image = pickImageCam();
+                        //print(image);
+                      }),
+                  TextButton(
+                      child: Text(S.of(context)!.gallery,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.blueGrey)),
+                      onPressed: () => pickImageGal()),
+                ],
+              ),
             ],
           );
         });
@@ -312,25 +562,24 @@ class _UserPageState extends State<UserPage> {
         barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: const Text('Warning!'),
+            title: Text(S.of(context)!.warning),
             content: SingleChildScrollView(
               child: ListBody(
-                children: const <Widget>[
-                  Text('Do you want to delete your account?'),
-                  Text(
-                      'If you delete your account, your information will be gone forever.'),
+                children: <Widget>[
+                  Text(S.of(context)!.warning1),
+                  Text(S.of(context)!.warning2),
                 ],
               ),
             ),
             actions: <Widget>[
               TextButton(
-                  child: const Text('Back'),
+                  child: Text(S.of(context)!.back),
                   onPressed: () {
                     Navigator.of(context).pop();
                     //print(image);
                   }),
               TextButton(
-                  child: const Text('Delete it!'),
+                  child: Text(S.of(context)!.deleteit),
                   onPressed: () async {
                     SharedPreferences pref =
                         await SharedPreferences.getInstance();

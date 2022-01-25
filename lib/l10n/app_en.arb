@@ -278,6 +278,77 @@
     "symptomsLink": "https://www.helpguide.org/articles/depression/depression-symptoms-and-warning-signs.htm",
     "@symptomsLink": {
       "description": "url of website"
+    },
+    "profile": "Profile",
+    "@profile": {
+      "description": "profile"
+    },
+    "username": "Username:",
+    "@username": {
+      "description": "username"
+    },
+    "email": "Email:",
+    "@email": {
+      "description": "email"
+    },
+    "firstname": "Firstname:",
+    "@firstname": {
+      "description": "firstname"
+    },
+    "lastname": "Lastname:",
+    "@lastname": {
+      "description": "lastname"
+    },
+    "nickname": "Nickname:",
+    "@nickname": {
+      "description": "nickname"
+    },
+    "dob": "Date of Birth:",
+    "@dob": {
+      "description": "dob"
+    },
+    "phone": "Phonenumber:",
+    "@phone": {
+      "description": "phone"
+    },
+    "logout": "Logout",
+    "@logout": {
+     "description": "logout"
+     },
+    "deleteAccount": "Delete Account",
+    "@deleteAccount": {
+      "description": "delete account"
+    },
+    "warning": "Warning!",
+    "@warning": {
+       "description": "warning"
+    },
+    "warning1": "Do you want to delete your account?",
+    "@warning1": {
+      "description": "warning1"
+    },
+    "warning2": "If you delete your account, your information will be gone forever.",
+    "@warning2": {
+      "description": "warning2"
+    },
+    "back": "Back",
+    "@back": {
+      "description": "back"
+    },
+    "deleteit": "Delete it!",
+    "@deleteit": {
+      "description": "delete it"
+    },
+    "chooseProfile": "Choose your profile image",
+    "@chooseProfile": {
+      "description": "choose profile image"
+    },
+    "camera": "From Camera",
+    "@camera": {
+      "description": "from camera"
+    },
+    "gallery": "From Gallery",
+    "@gallery": {
+      "description": "from gallery"
     }
-
 }

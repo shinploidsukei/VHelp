@@ -386,6 +386,9 @@ captures/
 # Google Services (e.g. APIs or Firebase)
 google-services.json
 
+#YouTube API
+lib/utils/constant.dart
+
 # Freeline
 freeline.py
 freeline/

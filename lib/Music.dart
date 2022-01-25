@@ -51,6 +51,7 @@ class _Music extends State<music> {
   }
 
   _loadVideos() async {
+    print(_loading.toString());
     VideoList tempVideosList = await Services.getVideosList(
       playListId: _playListId,
       pageToken: _nextPageToken,
@@ -81,7 +82,10 @@ class _Music extends State<music> {
                       LanguagePickerWidget(),
                       //const SizedBox(width: 12),
                     ],
-                    title: Text(_loading ? S.of(context)!.loading : S.of(context)!.sidebar7,
+                    title: Text(
+                        _loading
+                            ? S.of(context)!.loading
+                            : S.of(context)!.sidebar7,
                         style: TextStyle(color: Colors.black54, fontSize: 22)),
                   ),
                   body: Container(

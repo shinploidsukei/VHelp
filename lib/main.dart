@@ -11,6 +11,7 @@ import 'package:vhelp_test/splash_page.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:vhelp_test/provider/locale_provider.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 
 //void main() => runApp(MyRootApp());
 
@@ -35,8 +36,24 @@ void main() async {
   runApp(MyRootApp());
 }
 
-class MyRootApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyRootApp extends StatefulWidget {
+  MainRootState createState() => MainRootState();
+}
+
+// This widget is the root of your application.
+class MainRootState extends State<MyRootApp> {
+  late AssetsAudioPlayer _assetsAudioPlayer;
+
+  @override
+  void initState() {
+    super.initState();
+    _assetsAudioPlayer = AssetsAudioPlayer();
+    AssetsAudioPlayer.newPlayer().open(
+      Audio("assets/sounds/BGM_SBA-346465804.mp3"),
+      autoStart: true,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -65,16 +82,6 @@ class MyRootApp extends StatelessWidget {
           },
         ),
       ],
-      /*child: MaterialApp(title: 'Flutter Demo',
-          locale: provider.locale,
-          supportedLocales: L10n.all,
-          localizationsDelegates: [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          home: SplashScreen()),*/
     );
   }
 }

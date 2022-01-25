@@ -12,6 +12,7 @@ class NotifyHelper {
       FlutterLocalNotificationsPlugin();
 
   initializeNotification() async {
+    tz.initializeTimeZones();
     _configureLocalTimezone();
     final IOSInitializationSettings initializationSettingsIOS =
         IOSInitializationSettings(
@@ -75,7 +76,7 @@ class NotifyHelper {
             UILocalNotificationDateInterpretation.absoluteTime,
         androidAllowWhileIdle: true,
         matchDateTimeComponents: DateTimeComponents.time,
-        payload: "{$task.title|" + "$task.note}|");
+        payload: "${task.title}|" + "${task.note}|");
   }
 
   tz.TZDateTime _convertTime(int hour, int minutes) {

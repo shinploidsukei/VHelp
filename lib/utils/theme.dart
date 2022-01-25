@@ -23,9 +23,9 @@ class Themes {
   );
 }
 
-TextStyle get headingTextStyle {
-  return GoogleFonts.lato(
-    textStyle: TextStyle(
+/*TextStyle get headingTextStyle {
+  return Text(
+    Text: TextStyle(
         fontSize: 24,
         fontWeight: FontWeight.bold,
         color: Get.isDarkMode ? Colors.white : Colors.black),
@@ -75,3 +75,4 @@ TextStyle get body2TextStyle {
         color: Get.isDarkMode ? Colors.grey[200] : Colors.grey[600]),
   );
 }
+*/

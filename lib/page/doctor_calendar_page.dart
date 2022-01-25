@@ -6,9 +6,12 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:vhelp_test/Content.dart';
 import 'package:vhelp_test/controller/task_controller.dart';
 import 'package:vhelp_test/model/task.dart';
+import 'package:vhelp_test/notification_api.dart';
 import 'package:vhelp_test/page/add_task_bar.dart';
+import 'package:vhelp_test/page/notified_page.dart';
 import 'package:vhelp_test/utils/notification_services.dart';
 import 'package:vhelp_test/utils/size_config.dart';
 import 'package:vhelp_test/utils/theme.dart';
@@ -30,9 +33,12 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
   double top = 900;
   // ignore: unused_field
   Timer? _timer;
+  bool isloading = false;
+
   @override
   void initState() {
     super.initState();
+
     notifyHelper = NotifyHelper();
     notifyHelper.initializeNotification();
     notifyHelper.requestIOSPermissions();
@@ -45,6 +51,17 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
     });
   }
 
+/*
+  void listenNotifications() =>
+      NotificationApi.onNotifications.stream.listen(onClickedNotification);
+
+  void onClickedNotification(String? payload) =>
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => NotifiedPage(
+          label: payload,
+        ),
+      ));
+*/
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -121,14 +138,20 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
             children: [
               Text(
                 DateFormat.yMMMMd().format(DateTime.now()),
-                style: subHeadingTextStyle,
+                style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400,
+                    color: Colors.grey),
               ),
               SizedBox(
                 height: 10,
               ),
               Text(
                 "Today",
-                style: headingTextStyle,
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
               ),
             ],
           ),
@@ -136,6 +159,7 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
             label: "+ Add Task",
             onTap: () async {
               await Get.to(() => AddTaskPage());
+              _taskController.getTasks();
             },
           ),
         ],
@@ -149,16 +173,10 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
       backgroundColor: context.theme.backgroundColor,
       leading: GestureDetector(
         onTap: () {
-          ThemeService().switchTheme();
-          notifyHelper.displayNotification(
-            title: "Theme Changed",
-            body: Get.isDarkMode
-                ? "Light theme activated."
-                : "Dark theme activated",
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HomePage()),
           );
-
-          //notifyHelper.scheduledNotification();
-          //notifyHelper.periodicalyNotification();
         },
       ),
     );
@@ -175,72 +193,18 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
               itemCount: _taskController.taskList.length,
               itemBuilder: (context, index) {
                 Task? task = _taskController.taskList[index];
-                if (task.repeat == 'Daily') {
+                if (task.date == DateFormat.yMd().format(_selectedDate)) {
                   var hour = task.startTime.toString().split(":")[0];
                   var minutes = task.startTime.toString().split(":")[1];
                   debugPrint("My time is " + hour);
                   debugPrint("My minute is " + minutes);
-                  DateTime date = DateFormat.jm().parse(task.startTime!);
+                  DateTime date =
+                      DateFormat.jm().parse(task.startTime!.toString());
                   var myTime = DateFormat("HH:mm").format(date);
                   notifyHelper.scheduledNotification(
                       int.parse(myTime.toString().split(":")[0]),
                       int.parse(myTime.toString().split(":")[1]),
                       task);
-
-                  /*return AnimationConfiguration.staggeredList(
-                    position: index,
-                    duration: const Duration(milliseconds: 1375),
-                    child: SlideAnimation(
-                      horizontalOffset: 300.0,
-                      child: FadeInAnimation(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            GestureDetector(
-                                onTap: () {
-                                  showBottomSheet(context, task);
-                                },
-                                child: TaskTile(task)),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );*/
-
-                  return Container(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                            onTap: () {
-                              showBottomSheet(context, task);
-                            },
-                            child: TaskTile(task)),
-                      ],
-                    ),
-                  );
-                }
-                if (task.date == DateFormat.yMd().format(_selectedDate)) {
-                  //notifyHelper.scheduledNotification();
-                  /*return AnimationConfiguration.staggeredList(
-                    position: index,
-                    duration: const Duration(milliseconds: 1375),
-                    child: SlideAnimation(
-                      horizontalOffset: 300.0,
-                      child: FadeInAnimation(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            GestureDetector(
-                                onTap: () {
-                                  showBottomSheet(context, task);
-                                },
-                                child: TaskTile(task)),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );*/
                   return Container(
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -269,7 +233,7 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
             ? SizeConfig.screenHeight! * 0.24
             : SizeConfig.screenHeight! * 0.32,
         width: SizeConfig.screenWidth,
-        color: Get.isDarkMode ? darkHeaderClr : Colors.white,
+        color: Colors.white,
         child: Column(children: [
           Container(
             height: 6,
@@ -343,9 +307,8 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
         child: Center(
             child: Text(
           label,
-          style: isClose
-              ? titleTextStle
-              : titleTextStle.copyWith(color: Colors.white),
+          style: TextStyle(
+              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
         )),
       ),
     );
@@ -375,7 +338,7 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
                 child: Text(
                   "You do not have any tasks yet!\nAdd new tasks to make your days productive.",
                   textAlign: TextAlign.center,
-                  style: subTitleTextStle,
+                  style: TextStyle(fontSize: 16, color: Colors.grey[700]),
                 ),
               ),
               SizedBox(

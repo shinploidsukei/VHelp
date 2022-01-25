@@ -20,7 +20,10 @@ class InputField extends StatelessWidget {
           children: [
             Text(
               title,
-              style: titleTextStle,
+              style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
             ),
             SizedBox(
               height: 8.0,
@@ -40,14 +43,14 @@ class InputField extends StatelessWidget {
                   Expanded(
                     child: TextFormField(
                       autofocus: false,
-                      cursorColor:
-                          Get.isDarkMode ? Colors.grey[100] : Colors.grey[600],
+                      cursorColor: Colors.grey[600],
                       readOnly: widget == null ? false : true,
                       controller: controller,
-                      style: subTitleTextStle,
+                      style: TextStyle(fontSize: 16, color: Colors.grey[700]),
                       decoration: InputDecoration(
                         hintText: hint,
-                        hintStyle: subTitleTextStle,
+                        hintStyle:
+                            TextStyle(fontSize: 16, color: Colors.grey[700]),
                         focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                             color: context.theme.backgroundColor,

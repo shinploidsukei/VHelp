@@ -62,7 +62,10 @@ class _AddTaskPageState extends State<AddTaskPage> {
             children: [
               Text(
                 "Add Task",
-                style: headingTextStyle,
+                style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
               ),
               SizedBox(
                 height: 8,
@@ -128,7 +131,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                   )
                 ],
               ),
-              InputField(
+              /*InputField(
                 title: "Remind",
                 hint: "$_selectedRemind minutes early",
                 widget: Row(
@@ -158,8 +161,8 @@ class _AddTaskPageState extends State<AddTaskPage> {
                     SizedBox(width: 6),
                   ],
                 ),
-              ),
-              InputField(
+              ),*/
+              /*InputField(
                 title: "Repeat",
                 hint: _selectedRepeat,
                 widget: Row(
@@ -197,7 +200,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                     SizedBox(width: 6),
                   ],
                 ),
-              ),
+              ),*/
               SizedBox(
                 height: 18.0,
               ),
@@ -261,7 +264,8 @@ class _AddTaskPageState extends State<AddTaskPage> {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(
         "Color",
-        style: titleTextStle,
+        style: TextStyle(
+            fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
       ),
       SizedBox(
         height: 8,

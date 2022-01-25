@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -73,12 +72,6 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                     text: S.of(context)!.sidebar4,
                     icon: Icons.auto_stories_rounded,
                     onClicked: () => selectedItem(context, 3),
-                  ),
-                  const SizedBox(height: 10),
-                  buildMenuItem(
-                    text: S.of(context)!.sidebar5,
-                    icon: Icons.event_note_rounded,
-                    onClicked: () => selectedItem(context, 4),
                   ),
                   const SizedBox(height: 10),
                   buildMenuItem(
@@ -267,11 +260,6 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
         Navigator.of(context).push(MaterialPageRoute(
           //builder: (context) => DiaryLogPage(),
           builder: (context) => DiaryPage(),
-        ));
-        break;
-      case 4:
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => UnderConstruction(),
         ));
         break;
       case 5:

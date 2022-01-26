@@ -11,12 +11,9 @@ class NotificationApi {
   static Future _notificationDetails() async {
     return NotificationDetails(
       android: AndroidNotificationDetails(
-        'channel id',
-        'channel name',
-        'channel description',
-        importance: Importance.max,
-      ),
-      iOS: IOSNotificationDetails(),
+          'channel id', 'channel name', 'channel description',
+          importance: Importance.max, playSound: true),
+      iOS: IOSNotificationDetails(presentSound: true),
     );
   }
 
@@ -107,7 +104,7 @@ class NotificationApi {
   //   }
   // }
 
- /* static tz.TZDateTime _scheduleDaily(Time time) {
+  /* static tz.TZDateTime _scheduleDaily(Time time) {
     final now = tz.TZDateTime.now(tz.local);
     final scheduledDate = tz.TZDateTime(tz.local, now.year, now.month, now.day,
         time.hour, time.minute, time.second);

@@ -15,7 +15,7 @@ class timeStampWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = _lightColors[0];
-    final time = DateFormat('yyyy-MM-dd – kk:mm').format(timestamp.datetime);
+    final time = DateFormat('yyyy-MM-dd – HH:mm').format(timestamp.datetime);
 
     return Card(
         color: color,
@@ -30,8 +30,6 @@ class timeStampWidget extends StatelessWidget {
                   style: TextStyle(color: Colors.black),
                 ),
               ],
-            ))
-            
-            );
+            )));
   }
 }

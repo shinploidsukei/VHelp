@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:vhelp_test/model/channel_info.dart';
@@ -7,8 +6,8 @@ import 'package:vhelp_test/model/videos_list.dart';
 import 'package:vhelp_test/utils/constant.dart';
 
 class Services {
-  static const CHANNEL_ID = 'UCTRRWfIZlKFKC3v3GPrz4cw';
-  static const _baseUrl = 'youtube.googleapis.com';
+  static const CHANNEL_ID = 'UCLaUaVhZptelTv3hHKKPkiA';
+  static const _baseUrl = "www.googleapis.com";
 
   static Future<ChannelInfo> getChannelInfo() async {
     Map<String, String> parameters = {
@@ -19,10 +18,11 @@ class Services {
     Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
     };
-    Uri uri = Uri.https(_baseUrl, 'youtube/v3/channels', parameters);
+    Uri uri = Uri.https(_baseUrl, '/youtube/v3/channels', parameters);
     Response response = await http.get(uri, headers: headers);
     // print(response.body);
     ChannelInfo channelInfo = channelInfoFromJson(response.body);
+    print("PloyChannel: $channelInfo ");
     return channelInfo;
   }
 
@@ -38,7 +38,7 @@ class Services {
     Map<String, String> headers = {
       HttpHeaders.contentTypeHeader: 'application/json',
     };
-    Uri uri = Uri.https(_baseUrl, 'youtube/v3/playlistItems', parameters);
+    Uri uri = Uri.https(_baseUrl, '/youtube/v3/playlistItems', parameters);
     Response response = await http.get(uri, headers: headers);
     // print(response.body);
     VideoList videosList = videoListFromJson(response.body);

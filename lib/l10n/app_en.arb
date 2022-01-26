@@ -87,10 +87,6 @@
     "@sidebar4": {
       "description": "Sidebar No.4"
     },
-    "sidebar5": "Calendar",
-    "@sidebar5": {
-      "description": "Sidebar No.5"
-    },
     "sidebar6": "Art Therapy",
     "@sidebar6": {
       "description": "Sidebar No.6"

@@ -51,6 +51,7 @@ class MainRootState extends State<MyRootApp> {
     AssetsAudioPlayer.newPlayer().open(
       Audio("assets/sounds/BGM_SBA-346465804.mp3"),
       autoStart: true,
+      loopMode: LoopMode.single,
     );
   }
 

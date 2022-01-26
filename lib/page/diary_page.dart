@@ -62,8 +62,7 @@ class _DiaryPageState extends State<DiaryPage> {
           LanguagePickerWidget(),
           //const SizedBox(width: 12),
         ],
-        title: Text(
-            S.of(context)!.mood_diary,
+        title: Text(S.of(context)!.mood_diary,
             style: TextStyle(color: Colors.black54, fontSize: 22)),
       ),
       body: Center(
@@ -118,7 +117,8 @@ class _DiaryPageState extends State<DiaryPage> {
         mainAxisSpacing: 4,
         crossAxisSpacing: 4,
         itemBuilder: (context, index) {
-          final color = colors[index];
+          final sortedItems = colors.reversed.toList();
+          final color = sortedItems[index];
 
           return GestureDetector(
             onTap: () async {

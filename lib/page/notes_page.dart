@@ -42,29 +42,27 @@ class _NotesPageState extends State<NotesPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    backgroundColor: Colors.blue.shade100,
-    appBar: AppBar(
-      leading: IconButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => DiaryPage()),
-          );
-        },
-        icon: Icon(Icons.arrow_back_ios),
-      ),
-      iconTheme: IconThemeData(color: Colors.black54),
-      backgroundColor: Colors.blue.shade100,
-      elevation: 0,
-      actions: [
-        LanguagePickerWidget(),
-        //const SizedBox(width: 12),
-      ],
-      title: Text(
-          S.of(context)!.diary,
-          style: TextStyle(color: Colors.black54, fontSize: 22)),
-    ),
+        backgroundColor: Colors.blue.shade100,
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => DiaryPage()),
+              );
+            },
+            icon: Icon(Icons.arrow_back_ios),
+          ),
+          iconTheme: IconThemeData(color: Colors.black54),
+          backgroundColor: Colors.blue.shade100,
+          elevation: 0,
+          actions: [
+            LanguagePickerWidget(),
+            //const SizedBox(width: 12),
+          ],
+          title: Text(S.of(context)!.diary,
+              style: TextStyle(color: Colors.black54, fontSize: 22)),
+        ),
         body: Center(
           child: isLoading
               ? CircularProgressIndicator()
@@ -96,7 +94,8 @@ class _NotesPageState extends State<NotesPage> {
         mainAxisSpacing: 4,
         crossAxisSpacing: 4,
         itemBuilder: (context, index) {
-          final note = notes[index];
+          final sortedItems = notes.reversed.toList();
+          final note = sortedItems[index];
 
           return GestureDetector(
             onTap: () async {

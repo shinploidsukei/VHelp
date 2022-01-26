@@ -387,7 +387,7 @@ captures/
 google-services.json
 
 #YouTube API
-lib/utils/constant.dart
+
 
 # Freeline
 freeline.py
@@ -891,3 +891,4 @@ DerivedData/
 !**/ios/**/default.pbxuser
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+lib/utils/constant.dart

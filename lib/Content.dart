@@ -11,6 +11,7 @@ import 'drawer_sidebar.dart';
 import 'package:vhelp_test/home/depression.dart';
 import 'package:vhelp_test/home/deal.dart';
 import 'package:vhelp_test/widget/language_picker_widget.dart';
+import 'package:vhelp_test/widget/sound_picker_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 //import 'package:scroll_to_example/utils.dart';
 
@@ -48,15 +49,12 @@ class _HomePageState extends State<HomePage> {
                   title: Text(S.of(context)!.title_VHelp,
                       style: TextStyle(color: Colors.black54, fontSize: 22)),
                   actions: [
-                    LanguagePickerWidget(),
+                    SoundPickerWidget(),
+                    LanguagePickerWidget()
                     //const SizedBox(width: 12),
                   ],
+                  elevation: 0,
                 ),
-                /*floatingActionButton: FloatingActionButton(
-                    child: Icon(Icons.arrow_downward),
-                    onPressed: scrollDown,
-                  ),
-                   */
                 body: Container(
                   child: Container(
                     padding: EdgeInsets.all(20.0),

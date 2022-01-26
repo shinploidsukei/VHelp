@@ -69,7 +69,7 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
     SizeConfig().init(context);
     return Scaffold(
       appBar: _appBar(),
-      backgroundColor: Colors.cyan.shade200,
+      backgroundColor: Colors.blue[100],
       body: Column(
         children: [
           _addTaskBar(),
@@ -188,9 +188,9 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
   _appBar() {
     return AppBar(
       elevation: 0,
-      backgroundColor: Colors.cyan.shade200,
+      backgroundColor: Colors.blue[100],
       leading: IconButton(
-        icon: Icon(Icons.arrow_back_ios, color: Colors.black),
+        icon: Icon(Icons.arrow_back_ios, color: Colors.black54),
         onPressed: () {
           Navigator.push(
             context,
@@ -202,6 +202,8 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
         LanguagePickerWidget(),
         //const SizedBox(width: 12),
       ],
+      title: Text(S.of(context)!.sidebar2,
+          style: TextStyle(color: Colors.black54, fontSize: 22)),
     );
   }
 

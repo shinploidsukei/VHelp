@@ -55,7 +55,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
     print("add Task date: " + DateFormat.yMd().format(_selectedDate));
     //_startTime = DateFormat('hh:mm a').format(DateTime.now()).toString();
     return Scaffold(
-      backgroundColor: Colors.cyan.shade200,
+      backgroundColor: Colors.blue.shade100,
       appBar: _appBar(),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -63,13 +63,6 @@ class _AddTaskPageState extends State<AddTaskPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                S.of(context)!.addTask,
-                style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
-              ),
               SizedBox(
                 height: 8,
               ),
@@ -313,9 +306,9 @@ class _AddTaskPageState extends State<AddTaskPage> {
   _appBar() {
     return AppBar(
       elevation: 0,
-      backgroundColor: Colors.cyan.shade200,
+      backgroundColor: Colors.blue.shade100,
       leading: IconButton(
-        icon: Icon(Icons.arrow_back_ios, color: Colors.black),
+        icon: Icon(Icons.arrow_back_ios, color: Colors.black54),
         onPressed: () {
           Navigator.push(
             context,
@@ -328,6 +321,8 @@ class _AddTaskPageState extends State<AddTaskPage> {
         LanguagePickerWidget(),
         //const SizedBox(width: 12),
       ],
+      title: Text(S.of(context)!.addTask,
+          style: TextStyle(color: Colors.black54, fontSize: 22)),
     );
   }
 

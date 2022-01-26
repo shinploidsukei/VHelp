@@ -1,7 +1,9 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 
 class SoundPickerWidget extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
 
@@ -17,6 +19,9 @@ class SoundPickerWidget extends StatelessWidget {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),
+          onTap: (){
+          
+          },
         );
       }).toList(),
     );

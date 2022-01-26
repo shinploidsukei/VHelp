@@ -1,3 +1,5 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'AccountScreen.dart';
 
 CollectionReference users = FirebaseFirestore.instance.collection('Accounts');
+late AssetsAudioPlayer _assetsAudioPlayer;
 final name = "raythada";
 final email = user!.email;
 //final email = user!.email;
@@ -45,46 +48,81 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
               child: Column(
                 children: [
                   buildMenuItem(
-                    text: S.of(context)!.sidebar1,
-                    icon: Icons.airplane_ticket_outlined,
-                    onClicked: () => selectedItem(context, 0),
-                  ),
+                      text: S.of(context)!.sidebar1,
+                      icon: Icons.airplane_ticket_outlined,
+                      onClicked: () {
+                        _assetsAudioPlayer = AssetsAudioPlayer();
+                        AssetsAudioPlayer.newPlayer().open(
+                          Audio("assets/sounds/click_SBA-300148107.mp3"),
+                        );
+                        selectedItem(context, 0);
+                      }),
                   const SizedBox(height: 10),
                   buildMenuItem(
-                    text: S.of(context)!.sidebar2,
-                    icon: Icons.chat,
-                    onClicked: () => selectedItem(context, 1),
-                  ),
+                      text: S.of(context)!.sidebar2,
+                      icon: Icons.chat,
+                      onClicked: () {
+                        _assetsAudioPlayer = AssetsAudioPlayer();
+                        AssetsAudioPlayer.newPlayer().open(
+                          Audio("assets/sounds/click_SBA-300148107.mp3"),
+                        );
+                        selectedItem(context, 1);
+                      }),
                   const SizedBox(height: 10),
                   buildMenuItem(
-                    text: S.of(context)!.sidebar3,
-                    icon: Icons.coffee,
-                    onClicked: () => selectedItem(context, 2),
-                  ),
+                      text: S.of(context)!.sidebar3,
+                      icon: Icons.coffee,
+                      onClicked: () {
+                        _assetsAudioPlayer = AssetsAudioPlayer();
+                        AssetsAudioPlayer.newPlayer().open(
+                          Audio("assets/sounds/click_SBA-300148107.mp3"),
+                        );
+                        selectedItem(context, 2);
+                      }),
                   const SizedBox(height: 10),
                   buildMenuItem(
-                    text: S.of(context)!.sidebar4,
-                    icon: Icons.auto_stories_rounded,
-                    onClicked: () => selectedItem(context, 3),
-                  ),
+                      text: S.of(context)!.sidebar4,
+                      icon: Icons.auto_stories_rounded,
+                      onClicked: () {
+                        _assetsAudioPlayer = AssetsAudioPlayer();
+                        AssetsAudioPlayer.newPlayer().open(
+                          Audio("assets/sounds/click_SBA-300148107.mp3"),
+                        );
+                        selectedItem(context, 3);
+                      }),
                   const SizedBox(height: 10),
                   buildMenuItem(
-                    text: S.of(context)!.sidebar6,
-                    icon: Icons.design_services,
-                    onClicked: () => selectedItem(context, 5),
-                  ),
+                      text: S.of(context)!.sidebar6,
+                      icon: Icons.design_services,
+                      onClicked: () {
+                        _assetsAudioPlayer = AssetsAudioPlayer();
+                        AssetsAudioPlayer.newPlayer().open(
+                          Audio("assets/sounds/click_SBA-300148107.mp3"),
+                        );
+                        selectedItem(context, 5);
+                      }),
                   const SizedBox(height: 10),
                   buildMenuItem(
-                    text: S.of(context)!.sidebar7,
-                    icon: Icons.audiotrack_rounded,
-                    onClicked: () => selectedItem(context, 6),
-                  ),
+                      text: S.of(context)!.sidebar7,
+                      icon: Icons.audiotrack_rounded,
+                      onClicked: () {
+                        _assetsAudioPlayer = AssetsAudioPlayer();
+                        AssetsAudioPlayer.newPlayer().open(
+                          Audio("assets/sounds/click_SBA-300148107.mp3"),
+                        );
+                        selectedItem(context, 6);
+                      }),
                   const SizedBox(height: 10),
                   buildMenuItem(
-                    text: S.of(context)!.sidebar8,
-                    icon: Icons.mic_external_on,
-                    onClicked: () => selectedItem(context, 7),
-                  ),
+                      text: S.of(context)!.sidebar8,
+                      icon: Icons.mic_external_on,
+                      onClicked: () {
+                        _assetsAudioPlayer = AssetsAudioPlayer();
+                        AssetsAudioPlayer.newPlayer().open(
+                          Audio("assets/sounds/click_SBA-300148107.mp3"),
+                        );
+                        selectedItem(context, 7);
+                      }),
                 ],
               ),
             ),

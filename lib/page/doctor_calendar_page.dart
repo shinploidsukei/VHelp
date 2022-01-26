@@ -225,7 +225,7 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
                   debugPrint("My minute is " + minutes);
                   DateTime date =
                       DateFormat.Hm().parse(task.startTime!.toString());
-                  var myTime = DateFormat("HH:mm:ss").format(date);
+                  var myTime = DateFormat("HH:mm").format(date);
                   notifyHelper.scheduledNotification(
                       int.parse(myTime.toString().split(":")[0]),
                       int.parse(myTime.toString().split(":")[1]),

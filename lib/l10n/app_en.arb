@@ -370,5 +370,17 @@
   "createTask": "Create Task",
   "@createTask": {
     "description": "create task"
+  },
+  "today": "Today",
+  "@today": {
+    "description": "today"
+  },
+  "notask1": "You do not have any tasks yet!",
+  "@notask1": {
+    "description": "no task1"
+  },
+  "notask2": "Add new tasks to make your days productive.",
+  "@notask2": {
+    "description": "no task2"
   }
 }

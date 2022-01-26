@@ -95,7 +95,7 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
           initialSelectedDate: DateTime.now(),
           selectionColor: primaryClr,
           //selectedTextColor: primaryClr,
-          selectedTextColor: Colors.black,
+          selectedTextColor: Colors.white,
           dateTextStyle: GoogleFonts.lato(
             textStyle: TextStyle(
               fontSize: 20.0,
@@ -143,30 +143,30 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
                 height: 100,
                 width: 150,
                 decoration: BoxDecoration(
-                  color: Colors.pinkAccent,
+                  color: Colors.purple.shade400,
                   borderRadius: BorderRadius.all(Radius.circular(12)),
                 ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        DateFormat.yMd().format(DateTime.now()),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      DateFormat.yMd().format(DateTime.now()),
+                      style: TextStyle(
+                          //fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 14),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(S.of(context)!.today,
                         style: TextStyle(
-                            //fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontSize: 14),
-                      ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Text("Today",
-                          style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white)),
-                    ],
-                  ),
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white)),
+                  ],
+                ),
               ),
               SizedBox(
                 height: 10,
@@ -174,7 +174,7 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
             ],
           ),
           MyButton(
-            label: "+ "+S.of(context)!.addTask,
+            label: "+ " + S.of(context)!.addTask,
             onTap: () async {
               await Get.to(() => AddTaskPage());
               _taskController.getTasks();
@@ -257,14 +257,12 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
             : SizeConfig.screenHeight! * 0.32,
         width: SizeConfig.screenWidth,
         color: Colors.cyan.shade200,
-        child: Column(
-            children: [
+        child: Column(children: [
           Container(
             height: 6,
             width: 120,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.black),
+                borderRadius: BorderRadius.circular(10), color: Colors.black),
           ),
           Spacer(),
           task.isCompleted == 1
@@ -332,7 +330,7 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
             child: Text(
           label,
           style: TextStyle(
-              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+              fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
         )),
       ),
     );
@@ -356,13 +354,24 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
                 height: 90,
                 semanticsLabel: 'Task',
               ),
-              Align(
-                alignment: Alignment.center,
-                child: Text(
-                  "You do not have any tasks yet!\nAdd new tasks to make your days productive.",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, color: Colors.black),
-                ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    S.of(context)!.notask1,
+                    //textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16, color: Colors.black),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    S.of(context)!.notask2,
+                    //textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16, color: Colors.black),
+                  ),
+                ],
               ),
               SizedBox(
                 height: 80,

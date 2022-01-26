@@ -72,9 +72,10 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 controller: _titleController,
               ),
               InputField(
-                  title: S.of(context)!.note,
-                  hint: "Enter note here.",
-                  controller: _noteController,),
+                title: S.of(context)!.note,
+                hint: "Enter note here.",
+                controller: _noteController,
+              ),
               InputField(
                 title: S.of(context)!.date,
                 hint: DateFormat.yMd().format(_selectedDate),
@@ -127,76 +128,6 @@ class _AddTaskPageState extends State<AddTaskPage> {
                   )
                 ],
               ),
-              /*InputField(
-                title: "Remind",
-                hint: "$_selectedRemind minutes early",
-                widget: Row(
-                  children: [
-                    DropdownButton<String>(
-                        //value: _selectedRemind.toString(),
-                        icon: Icon(
-                          Icons.keyboard_arrow_down,
-                          color: Colors.grey,
-                        ),
-                        iconSize: 32,
-                        elevation: 4,
-                        style: subTitleTextStle,
-                        underline: Container(height: 0),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            _selectedRemind = int.parse(newValue!);
-                          });
-                        },
-                        items: remindList
-                            .map<DropdownMenuItem<String>>((int value) {
-                          return DropdownMenuItem<String>(
-                            value: value.toString(),
-                            child: Text(value.toString()),
-                          );
-                        }).toList()),
-                    SizedBox(width: 6),
-                  ],
-                ),
-              ),*/
-              /*InputField(
-                title: "Repeat",
-                hint: _selectedRepeat,
-                widget: Row(
-                  children: [
-                    Container(
-                      child: DropdownButton<String>(
-                          dropdownColor: Colors.blueGrey,
-                          //value: _selectedRemind.toString(),
-                          icon: Icon(
-                            Icons.keyboard_arrow_down,
-                            color: Colors.grey,
-                          ),
-                          iconSize: 32,
-                          elevation: 4,
-                          style: subTitleTextStle,
-                          underline: Container(
-                            height: 6,
-                          ),
-                          onChanged: (String? newValue) {
-                            setState(() {
-                              _selectedRepeat = newValue!;
-                            });
-                          },
-                          items: repeatList
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(
-                                value,
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            );
-                          }).toList()),
-                    ),
-                    SizedBox(width: 6),
-                  ],
-                ),
-              ),*/
               SizedBox(
                 height: 18.0,
               ),
@@ -248,8 +179,6 @@ class _AddTaskPageState extends State<AddTaskPage> {
         date: DateFormat.yMd().format(_selectedDate),
         startTime: _startTime,
         endTime: _endTime,
-        remind: _selectedRemind,
-        repeat: _selectedRepeat,
         color: _selectedColor,
         isCompleted: 0,
       ),
@@ -312,8 +241,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-                builder: (context) => DoctorCalendar()),
+            MaterialPageRoute(builder: (context) => DoctorCalendar()),
           );
         },
       ),
@@ -325,27 +253,6 @@ class _AddTaskPageState extends State<AddTaskPage> {
           style: TextStyle(color: Colors.black54, fontSize: 22)),
     );
   }
-
-  // _compareTime() {
-  //   print("compare time");
-  //   print(_startTime);
-  //   print(_endTime);
-
-  //   var _start = double.parsestartTime);
-  //   var _end = toDouble(_endTime);
-
-  //   print(_start);
-  //   print(_end);
-
-  //   if (_start > _end) {
-  //     Get.snackbar(
-  //       "Invalid!",
-  //       "Time duration must be positive.",
-  //       snackPosition: SnackPosition.BOTTOM,
-  //       overlayColor: context.theme.backgroundColor,
-  //     );
-  //   }
-  // }
 
   double toDouble(TimeOfDay myTime) => myTime.hour + myTime.minute / 60.0;
 
@@ -370,9 +277,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
 
   _showTimePicker() async {
     return showTimePicker(
-      initialTime: TimeOfDay(
-          hour: int.parse(_startTime.split(":")[0]),
-          minute: int.parse(_startTime.split(":")[1].split(" ")[0])),
+      initialTime: TimeOfDay.now(),
       initialEntryMode: TimePickerEntryMode.input,
       context: context,
     );

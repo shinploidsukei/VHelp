@@ -350,5 +350,29 @@
     "gallery": "From Gallery",
     "@gallery": {
       "description": "from gallery"
-    }
+    },
+  "addTask": "Add Task",
+  "@addTask": {
+    "description": "add task"
+  },
+  "note": "Note",
+  "@note": {
+    "description": "note"
+  },
+  "startTime": "Start Time",
+  "@startTime": {
+    "description": "starttime"
+  },
+  "endTime": "End Time",
+  "@endTime": {
+    "description": "end time"
+  },
+  "color": "Color",
+  "@color": {
+    "description": "color"
+  },
+  "createTask": "Create Task",
+  "@createTask": {
+    "description": "create task"
+  }
 }

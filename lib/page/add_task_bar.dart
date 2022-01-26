@@ -3,9 +3,12 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:vhelp_test/controller/task_controller.dart';
 import 'package:vhelp_test/model/task.dart';
+import 'package:vhelp_test/page/doctor_calendar_page.dart';
 import 'package:vhelp_test/utils/theme.dart';
 import 'package:vhelp_test/widget/button.dart';
 import 'package:vhelp_test/widget/input_field.dart';
+import 'package:vhelp_test/widget/language_picker_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddTaskPage extends StatefulWidget {
   @override
@@ -52,7 +55,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
     print("add Task date: " + DateFormat.yMd().format(_selectedDate));
     //_startTime = DateFormat('hh:mm a').format(DateTime.now()).toString();
     return Scaffold(
-      backgroundColor: context.theme.backgroundColor,
+      backgroundColor: Colors.cyan.shade200,
       appBar: _appBar(),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 20.0),
@@ -61,7 +64,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Add Task",
+                S.of(context)!.addTask,
                 style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -71,21 +74,21 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 height: 8,
               ),
               InputField(
-                title: "Title",
+                title: S.of(context)!.title,
                 hint: "Enter title here.",
                 controller: _titleController,
               ),
               InputField(
-                  title: "Note",
+                  title: S.of(context)!.note,
                   hint: "Enter note here.",
-                  controller: _noteController),
+                  controller: _noteController,),
               InputField(
-                title: "Date",
+                title: S.of(context)!.date,
                 hint: DateFormat.yMd().format(_selectedDate),
                 widget: IconButton(
                   icon: (Icon(
                     Icons.calendar_today,
-                    color: Colors.grey,
+                    color: Colors.black,
                   )),
                   onPressed: () {
                     //_showDatePicker(context);
@@ -97,12 +100,12 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 children: [
                   Expanded(
                     child: InputField(
-                      title: "Start Time",
+                      title: S.of(context)!.startTime,
                       hint: _startTime,
                       widget: IconButton(
                         icon: (Icon(
                           Icons.alarm_rounded,
-                          color: Colors.grey,
+                          color: Colors.black,
                         )),
                         onPressed: () {
                           _getTimeFromUser(isStartTime: true);
@@ -116,12 +119,12 @@ class _AddTaskPageState extends State<AddTaskPage> {
                   ),
                   Expanded(
                     child: InputField(
-                      title: "End Time",
+                      title: S.of(context)!.endTime,
                       hint: _endTime,
                       widget: IconButton(
                         icon: (Icon(
                           Icons.alarm_rounded,
-                          color: Colors.grey,
+                          color: Colors.black,
                         )),
                         onPressed: () {
                           _getTimeFromUser(isStartTime: false);
@@ -210,7 +213,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                 children: [
                   _colorChips(),
                   MyButton(
-                    label: "Create Task",
+                    label: S.of(context)!.createTask,
                     onTap: () {
                       _validateInputs();
                     },
@@ -263,7 +266,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
   _colorChips() {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(
-        "Color",
+        S.of(context)!.color,
         style: TextStyle(
             fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
       ),
@@ -293,7 +296,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                       ? Center(
                           child: Icon(
                             Icons.done,
-                            color: Colors.white,
+                            color: Colors.black,
                             size: 18,
                           ),
                         )
@@ -310,13 +313,21 @@ class _AddTaskPageState extends State<AddTaskPage> {
   _appBar() {
     return AppBar(
       elevation: 0,
-      backgroundColor: context.theme.backgroundColor,
-      leading: GestureDetector(
-        onTap: () {
-          Get.back();
+      backgroundColor: Colors.cyan.shade200,
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back_ios, color: Colors.black),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DoctorCalendar()),
+          );
         },
-        child: Icon(Icons.arrow_back_ios, size: 24, color: primaryClr),
       ),
+      actions: [
+        LanguagePickerWidget(),
+        //const SizedBox(width: 12),
+      ],
     );
   }
 

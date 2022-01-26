@@ -18,6 +18,8 @@ import 'package:vhelp_test/utils/theme.dart';
 import 'package:vhelp_test/utils/theme_service.dart';
 import 'package:vhelp_test/widget/button.dart';
 import 'package:vhelp_test/widget/task_tile.dart';
+import 'package:vhelp_test/widget/language_picker_widget.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DoctorCalendar extends StatefulWidget {
   @override
@@ -67,7 +69,7 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
     SizeConfig().init(context);
     return Scaffold(
       appBar: _appBar(),
-      backgroundColor: context.theme.backgroundColor,
+      backgroundColor: Colors.cyan.shade200,
       body: Column(
         children: [
           _addTaskBar(),
@@ -93,24 +95,24 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
           initialSelectedDate: DateTime.now(),
           selectionColor: primaryClr,
           //selectedTextColor: primaryClr,
-          selectedTextColor: Colors.white,
+          selectedTextColor: Colors.black,
           dateTextStyle: GoogleFonts.lato(
             textStyle: TextStyle(
               fontSize: 20.0,
               fontWeight: FontWeight.w600,
-              color: Colors.grey,
+              color: Colors.black,
             ),
           ),
           dayTextStyle: GoogleFonts.lato(
             textStyle: TextStyle(
               fontSize: 16.0,
-              color: Colors.grey,
+              color: Colors.black,
             ),
           ),
           monthTextStyle: GoogleFonts.lato(
             textStyle: TextStyle(
               fontSize: 10.0,
-              color: Colors.grey,
+              color: Colors.black,
             ),
           ),
           onDateChange: (date) {
@@ -136,27 +138,43 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                DateFormat.yMMMMd().format(DateTime.now()),
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.grey),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+                height: 100,
+                width: 150,
+                decoration: BoxDecoration(
+                  color: Colors.pinkAccent,
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        DateFormat.yMd().format(DateTime.now()),
+                        style: TextStyle(
+                            //fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 14),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text("Today",
+                          style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white)),
+                    ],
+                  ),
               ),
               SizedBox(
                 height: 10,
               ),
-              Text(
-                "Today",
-                style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
-              ),
             ],
           ),
           MyButton(
-            label: "+ Add Task",
+            label: "+ "+S.of(context)!.addTask,
             onTap: () async {
               await Get.to(() => AddTaskPage());
               _taskController.getTasks();
@@ -170,15 +188,20 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
   _appBar() {
     return AppBar(
       elevation: 0,
-      backgroundColor: context.theme.backgroundColor,
-      leading: GestureDetector(
-        onTap: () {
+      backgroundColor: Colors.cyan.shade200,
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back_ios, color: Colors.black),
+        onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => HomePage()),
           );
         },
       ),
+      actions: [
+        LanguagePickerWidget(),
+        //const SizedBox(width: 12),
+      ],
     );
   }
 
@@ -233,14 +256,15 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
             ? SizeConfig.screenHeight! * 0.24
             : SizeConfig.screenHeight! * 0.32,
         width: SizeConfig.screenWidth,
-        color: Colors.white,
-        child: Column(children: [
+        color: Colors.cyan.shade200,
+        child: Column(
+            children: [
           Container(
             height: 6,
             width: 120,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
-                color: Get.isDarkMode ? Colors.grey[600] : Colors.grey[300]),
+                color: Colors.black),
           ),
           Spacer(),
           task.isCompleted == 1
@@ -332,13 +356,12 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
                 height: 90,
                 semanticsLabel: 'Task',
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+              Align(
+                alignment: Alignment.center,
                 child: Text(
                   "You do not have any tasks yet!\nAdd new tasks to make your days productive.",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                  style: TextStyle(fontSize: 16, color: Colors.black),
                 ),
               ),
               SizedBox(

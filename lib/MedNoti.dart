@@ -58,7 +58,7 @@ class _MedNotiPageState extends State<MedNotiPage> {
 
   int index = 0;
   late Object arguments;
-  TextEditingController controller = TextEditingController(text: 'จ่ายค่าไฟ');
+  TextEditingController controller = TextEditingController(text: '');
 
   DateTime? medNotiDate;
   TimeOfDay? medNotiTime;

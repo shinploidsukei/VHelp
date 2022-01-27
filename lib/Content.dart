@@ -24,7 +24,6 @@ class _HomePageState extends State<HomePage> {
   final controller = ScrollController();
 
   @override
-  @override
   void initState() {
     super.initState();
     Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();

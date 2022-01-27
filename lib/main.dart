@@ -1,6 +1,7 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:vhelp_test/provider/locale_provider.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
+import 'package:vhelp_test/widget/sound_picker_widget.dart';
 
 //void main() => runApp(MyRootApp());
 
@@ -42,17 +44,13 @@ class MyRootApp extends StatefulWidget {
 
 // This widget is the root of your application.
 class MainRootState extends State<MyRootApp> {
-  late AssetsAudioPlayer _assetsAudioPlayer;
+  late SoundPickerWidget _assetsAudioPlayer = new SoundPickerWidget();
 
   @override
   void initState() {
     super.initState();
-    _assetsAudioPlayer = AssetsAudioPlayer();
-    AssetsAudioPlayer.newPlayer().open(
-      Audio("assets/sounds/BGM_SBA-346465804.mp3"),
-      autoStart: true,
-      loopMode: LoopMode.single,
-    );
+    // _assetsAudioPlayer = AssetsAudioPlayer();
+    _assetsAudioPlayer.LoopAudio();
   }
 
   @override
@@ -67,6 +65,9 @@ class MainRootState extends State<MyRootApp> {
           create: (context) => LocaleProvider(),
           builder: (context, child) {
             final provider = Provider.of<LocaleProvider>(context);
+            // SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive,
+            //     overlays: [SystemUiOverlay.top]);
+            //SystemChrome.setEnabledSystemUIOverlays([]);
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               locale: provider.locale,
@@ -85,4 +86,7 @@ class MainRootState extends State<MyRootApp> {
       ],
     );
   }
+}
+
+class LoopAudio {
 }

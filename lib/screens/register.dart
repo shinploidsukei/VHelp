@@ -188,7 +188,7 @@ class _RegisterState extends State<Register> {
                                                           .reset();
                                                       Fluttertoast.showToast(
                                                           msg:
-                                                              'User account has been created',
+                                                              'Enter your information to complete the registration.',
                                                           gravity: ToastGravity
                                                               .CENTER);
                                                       Navigator.pushReplacement(

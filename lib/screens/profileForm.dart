@@ -379,7 +379,7 @@ class _profileFormState extends State<profileForm> {
                                           formkey.currentState!.reset();
                                           Fluttertoast.showToast(
                                               msg:
-                                                  'User account has been created',
+                                                  'User account has been successfully created.',
                                               gravity: ToastGravity.CENTER);
                                           Navigator.pushReplacement(context,
                                               MaterialPageRoute(

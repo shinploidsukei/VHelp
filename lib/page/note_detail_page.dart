@@ -38,23 +38,22 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    backgroundColor: Colors.blue.shade100,
-    appBar: AppBar(
-      leading: IconButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => NotesPage()),
-          );
-        },
-        icon: Icon(Icons.arrow_back_ios),
-      ),
-      iconTheme: IconThemeData(color: Colors.black54),
-      backgroundColor: Colors.blue.shade100,
-      actions: [editButton(), deleteButton()],
-      elevation: 0,
-    ),
+        backgroundColor: Colors.blue.shade100,
+        appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NotesPage()),
+              );
+            },
+            icon: Icon(Icons.arrow_back_ios),
+          ),
+          iconTheme: IconThemeData(color: Colors.black54),
+          backgroundColor: Colors.blue.shade100,
+          actions: [editButton(), deleteButton()],
+          elevation: 0,
+        ),
         body: isLoading
             ? Center(child: CircularProgressIndicator())
             : Padding(
@@ -98,11 +97,30 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
       });
 
   Widget deleteButton() => IconButton(
-        icon: Icon(Icons.delete),
-        onPressed: () async {
-          await NotesDatabase.instance.delete(widget.noteId);
+      icon: Icon(Icons.delete),
+      onPressed: () async {
+        return showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text("Do you want to delete your page?"),
+                actions: <Widget>[
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text('Back')),
+                  TextButton(
+                      onPressed: () async {
+                        await NotesDatabase.instance.delete(widget.noteId);
 
-          Navigator.of(context).pop();
-        },
-      );
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => NotesPage()));
+                      },
+                      child: Text('Delete!'))
+                ],
+              );
+            });
+      });
 }

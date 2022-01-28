@@ -215,7 +215,7 @@
     "@notiword": {
       "description": "Notification Word"
     },
-    "mednoti_hinttext": "playing football",
+    "mednoti_hinttext": "hint: playing football",
     "@mednoti_hinttext": {
       "description": "playing football"
     },

@@ -93,6 +93,7 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
           height: 100.0,
           width: 80,
           initialSelectedDate: DateTime.now(),
+
           selectionColor: primaryClr,
           //selectedTextColor: primaryClr,
           selectedTextColor: Colors.white,

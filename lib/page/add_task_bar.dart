@@ -288,7 +288,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
         context: context,
         initialDate: _selectedDate,
         initialDatePickerMode: DatePickerMode.day,
-        firstDate: DateTime(2015),
+        firstDate: DateTime.now(),
         lastDate: DateTime(2101));
     if (_pickedDate != null) {
       setState(() {

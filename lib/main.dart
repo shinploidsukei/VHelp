@@ -87,6 +87,3 @@ class MainRootState extends State<MyRootApp> {
     );
   }
 }
-
-class LoopAudio {
-}

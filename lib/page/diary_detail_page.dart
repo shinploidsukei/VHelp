@@ -78,9 +78,28 @@ class _DiaryDetailPageState extends State<DiaryDetailPage> {
   Widget deleteButton() => IconButton(
         icon: Icon(Icons.delete),
         onPressed: () async {
-          await LogsDatabase.instance.delete(widget.colorID);
-
-          Navigator.of(context).pop();
+          return showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text("Do you want to delete your mood?"),
+                  actions: <Widget>[
+                    TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Text('Back')),
+                    TextButton(
+                        onPressed: () async {
+                          await LogsDatabase.instance.delete(widget.colorID);
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => DiaryPage()));
+                        },
+                        child: Text('Delete!'))
+                  ],
+                );
+              });
         },
       );
 

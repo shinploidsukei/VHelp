@@ -328,6 +328,8 @@ class _profileFormState extends State<profileForm> {
                                             margin:
                                                 const EdgeInsets.only(left: 10),
                                             child: TextFormField(
+                                              keyboardType:
+                                                  TextInputType.number,
                                               validator: RequiredValidator(
                                                   errorText:
                                                       'Please enter your phone number'),

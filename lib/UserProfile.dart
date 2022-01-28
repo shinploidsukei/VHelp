@@ -525,7 +525,8 @@ class _UserPageState extends State<UserPage> {
                   TextButton(
                       child: Text(S.of(context)!.camera,
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.blueGrey)),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blueGrey)),
                       onPressed: () {
                         image = pickImageCam();
                         //print(image);
@@ -533,7 +534,8 @@ class _UserPageState extends State<UserPage> {
                   TextButton(
                       child: Text(S.of(context)!.gallery,
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, color: Colors.blueGrey)),
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blueGrey)),
                       onPressed: () => pickImageGal()),
                 ],
               ),
@@ -585,7 +587,7 @@ class _UserPageState extends State<UserPage> {
                         await SharedPreferences.getInstance();
                     await pref.clear();
                     _DeleteMe();
-                    Restart.restartApp();
+                    // Restart.restartApp();
                   })
             ],
           );
@@ -593,13 +595,19 @@ class _UserPageState extends State<UserPage> {
   }
 
   void _DeleteMe() async {
-    // ignore: unused_local_variable
     var firebaseUser = FirebaseAuth.instance.currentUser;
+    print(firebaseUser!.uid);
     FirebaseFirestore.instance
         .collection("Accounts")
         .doc(user!.uid)
         .delete()
-        .then((_) {});
+        .then((_) {
+      print("success");
+    });
+    DeleteFromAuth();
+  }
+
+  void DeleteFromAuth() async {
     try {
       await FirebaseAuth.instance.currentUser!.delete();
     } on FirebaseAuthException catch (e) {

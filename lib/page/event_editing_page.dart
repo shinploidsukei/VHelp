@@ -3,6 +3,7 @@ import '/provider/event_provider.dart';
 import '/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EventEditingPage extends StatefulWidget {
   final Event? event;
@@ -84,7 +85,7 @@ class _EventEditingPageState extends State<EventEditingPage> {
           ),
           onPressed: saveForm,
           icon: Icon(Icons.done),
-          label: Text('SAVE'),
+          label: Text(S.of(context)!.save,),
         ),
       ];
 
@@ -92,7 +93,7 @@ class _EventEditingPageState extends State<EventEditingPage> {
         style: TextStyle(fontSize: 24),
         decoration: InputDecoration(
           border: UnderlineInputBorder(),
-          hintText: 'Add Appointment',
+          hintText: S.of(context)!.addApp,
         ),
         onFieldSubmitted: (_) => saveForm(),
         validator: (title) =>
@@ -103,7 +104,7 @@ class _EventEditingPageState extends State<EventEditingPage> {
   Widget buildDescription() => TextFormField(
         decoration: InputDecoration(
           border: OutlineInputBorder(),
-          hintText: 'Description',
+          hintText: S.of(context)!.description,
         ),
         textInputAction: TextInputAction.newline,
         maxLines: 5,
@@ -117,7 +118,7 @@ class _EventEditingPageState extends State<EventEditingPage> {
           if (!isAllDay) buildTo(),
           CheckboxListTile(
             controlAffinity: ListTileControlAffinity.leading,
-            title: Text('All Day Event'),
+            title: Text(S.of(context)!.allDay,),
             value: isAllDay,
             activeColor: Theme.of(context).primaryColor,
             onChanged: (value) => setState(() => isAllDay = value!),

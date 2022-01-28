@@ -382,5 +382,49 @@
   "notask2": "Add new tasks to make your days productive.",
   "@notask2": {
     "description": "no task2"
+  },
+  "moodTopic": "My Mood Right Now",
+  "@moodTopic": {
+    "description": "Mood Topic"
+  },
+  "save": "บันทึก",
+  "@save": {
+    "description": "save"
+  },
+  "description": "Description",
+  "@description": {
+    "description": "description"
+  },
+  "allDay": "All Day Event",
+  "@allDay": {
+    "description": "All Day Event"
+  },
+  "addApp": "Add Appointment",
+  "@addApp": {
+    "description": "add appointment"
+  },
+  "enterTitle": "Enter title here.",
+  "@enterTitle": {
+    "description": "Enter title here."
+  },
+  "enterNote": "Enter note here.",
+  "@enterNote": {
+    "description": "Enter note here."
+  },
+  "warningDiary1": "The title cannot be empty",
+  "@warningDiary1": {
+    "description": "The title cannot be empty"
+  },
+  "warningDiary2": "The description cannot be empty",
+  "@warningDiary2": {
+    "description": "The description cannot be empty"
+  },
+  "typeSth": "Type something...",
+  "@typeSth": {
+    "description": "Type something..."
+  },
+  "today2": "Today:",
+  "@today2": {
+    "description": "today:"
   }
 }

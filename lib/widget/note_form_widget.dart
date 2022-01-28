@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class NoteFormWidget extends StatelessWidget {
+class NoteFormWidget extends StatefulWidget {
   final bool isImportant;
   final int number;
   final String title;
@@ -23,6 +24,11 @@ class NoteFormWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<NoteFormWidget> createState() => _NoteFormWidgetState();
+}
+
+class _NoteFormWidgetState extends State<NoteFormWidget> {
+  @override
   Widget build(BuildContext context) => SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(16),
@@ -40,7 +46,7 @@ class NoteFormWidget extends StatelessWidget {
 
   Widget buildTitle() => TextFormField(
         maxLines: 1,
-        initialValue: title,
+        initialValue: widget.title,
         style: TextStyle(
           color: Colors.blueGrey,
           fontWeight: FontWeight.bold,
@@ -48,26 +54,26 @@ class NoteFormWidget extends StatelessWidget {
         ),
         decoration: InputDecoration(
           border: InputBorder.none,
-          hintText: 'Title',
+          hintText: S.of(context)!.title,
           hintStyle: TextStyle(color: Colors.blueGrey.shade400),
         ),
         validator: (title) =>
-            title != null && title.isEmpty ? 'The title cannot be empty' : null,
-        onChanged: onChangedTitle,
+            title != null && title.isEmpty ? S.of(context)!.warningDiary1 : null,
+        onChanged: widget.onChangedTitle,
       );
 
   Widget buildDescription() => TextFormField(
         maxLines: 5,
-        initialValue: description,
+        initialValue: widget.description,
         style: TextStyle(color: Colors.blueGrey, fontSize: 18),
         decoration: InputDecoration(
           border: InputBorder.none,
-          hintText: 'Type something...',
+          hintText: S.of(context)!.typeSth,
           hintStyle: TextStyle(color: Colors.blueGrey.shade400),
         ),
         validator: (title) => title != null && title.isEmpty
-            ? 'The description cannot be empty'
+            ? S.of(context)!.warningDiary2
             : null,
-        onChanged: onChangedDescription,
+        onChanged: widget.onChangedDescription,
       );
 }

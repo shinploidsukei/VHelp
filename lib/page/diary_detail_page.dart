@@ -3,6 +3,7 @@ import 'package:vhelp_test/db/logs_database.dart';
 import 'package:vhelp_test/model/colorLog.dart';
 import 'package:vhelp_test/page/diary_page.dart';
 import 'package:vhelp_test/page/edit_diary_page.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DiaryDetailPage extends StatefulWidget {
   final int colorID;
@@ -58,7 +59,7 @@ class _DiaryDetailPageState extends State<DiaryDetailPage> {
         backgroundColor: Colors.blue.shade100,
         actions: [editButton(), deleteButton()],
         elevation: 0,
-        title: Text('My Mood Right Now',
+        title: Text(S.of(context)!.moodTopic,
             style: TextStyle(color: Colors.black54, fontSize: 22)),
       ),
       body: Center(

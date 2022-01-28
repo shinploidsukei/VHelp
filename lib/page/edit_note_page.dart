@@ -3,7 +3,7 @@ import '../db/notes_database.dart';
 import '../model/note.dart';
 import '../widget/note_form_widget.dart';
 import 'notes_page.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class AddEditNotePage extends StatefulWidget {
   final Note? note;
 
@@ -85,7 +85,7 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
           primary: isFormValid ? Colors.blueGrey : Colors.blueGrey[200],
         ),
         onPressed: addOrUpdateNote,
-        child: Text('Save'),
+        child: Text(S.of(context)!.save,),
       ),
     );
   }

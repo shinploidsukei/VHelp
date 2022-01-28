@@ -6,7 +6,7 @@ import 'package:vhelp_test/model/colorLog.dart';
 import '../PopupDialog.dart';
 import '../connectivity_provider.dart';
 import '../no_internet.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class DiaryFormWidget extends StatefulWidget {
   final colorLog? color;
 
@@ -58,7 +58,7 @@ class _DiaryFormWidgetState extends State<DiaryFormWidget> {
                     Container(
                       child: Container(
                           child: Text(
-                        "Today: $now",
+        S.of(context)!.today2+ " $now",
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 18.0,

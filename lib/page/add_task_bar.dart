@@ -68,12 +68,12 @@ class _AddTaskPageState extends State<AddTaskPage> {
               ),
               InputField(
                 title: S.of(context)!.title,
-                hint: "Enter title here.",
+                hint: S.of(context)!.enterTitle,
                 controller: _titleController,
               ),
               InputField(
                 title: S.of(context)!.note,
-                hint: "Enter note here.",
+                hint: S.of(context)!.enterNote,
                 controller: _noteController,
               ),
               InputField(

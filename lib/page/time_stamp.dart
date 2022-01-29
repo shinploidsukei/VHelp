@@ -58,21 +58,34 @@ class _timeStampState extends State<timeStamp> {
                         style: TextStyle(color: Colors.black54, fontSize: 22)),
                   ),
                   body: Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/map.png"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                       child: Center(
                     child: Column(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          Image.asset(
+                          /*Image.asset(
                             'assets/images/map.png',
                             height: 400,
                             width: 400,
-                          ),
+                          ),*/
                           SizedBox(
                             height: 50,
                           ),
                           ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary: Colors.black.withOpacity(0.05),
+                                //padding: EdgeInsets.symmetric(horizontal: 43, vertical: 10),
+                                textStyle: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                                fixedSize: Size(200, 50)),
                             onPressed: () => showDialog<String>(
                               context: context,
                               builder: (BuildContext context) => AlertDialog(
@@ -100,6 +113,13 @@ class _timeStampState extends State<timeStamp> {
                             height: 20,
                           ),
                           ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                primary: Colors.black.withOpacity(0.05),
+                                //padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                                textStyle: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                                fixedSize: Size(200, 50)),
                             onPressed: () {
                               /* Navigator.push(
                                   context,
@@ -113,14 +133,6 @@ class _timeStampState extends State<timeStamp> {
                                 S.of(context)!.timestamp_button2,
                             ),
                           ),
-                          /*ElevatedButton.icon(
-                                onPressed: () {},
-                                icon: Icon(Icons.email),
-                                label: Text("Timestamp Log"),
-                                style: ElevatedButton.styleFrom(
-                                  textStyle: TextStyle(fontSize: 15),
-                                ),
-                              ),*/
                         ]),
                   )))
               : NoInternet();

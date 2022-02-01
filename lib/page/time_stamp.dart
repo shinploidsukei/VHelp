@@ -91,11 +91,6 @@ class _timeStampState extends State<timeStamp> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: <Widget>[
-                                      /*Image.asset(
-                            'assets/images/map.png',
-                            height: 400,
-                            width: 400,
-                          ),*/
                                       SizedBox(
                                         height: 50,
                                       ),
@@ -103,7 +98,6 @@ class _timeStampState extends State<timeStamp> {
                                         style: ElevatedButton.styleFrom(
                                             primary:
                                                 Colors.black.withOpacity(0.05),
-                                            //padding: EdgeInsets.symmetric(horizontal: 43, vertical: 10),
                                             textStyle: TextStyle(
                                                 fontSize: 20,
                                                 fontWeight: FontWeight.bold),
@@ -154,13 +148,7 @@ class _timeStampState extends State<timeStamp> {
                                                 fontWeight: FontWeight.bold),
                                             fixedSize: Size(200, 50)),
                                         onPressed: () {
-                                          /* Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => TimestampPage()));*/
                                           countID();
-                                          //checkEvent();
-                                          // CheckCount();
                                         },
                                         child: Text(
                                           S.of(context)!.timestamp_button2,

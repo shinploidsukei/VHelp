@@ -104,16 +104,15 @@ class _TimestampPageState extends State<TimestampPage> {
                         ],
                       ),
                       body: Center(
-                        child: isLoading
-                            ? CircularProgressIndicator()
-                            : times.isEmpty
-                                ? Text(
-                                    S.of(context)!.timestamp_log_message,
-                                    style: TextStyle(
-                                        color: Colors.blueGrey, fontSize: 20),
-                                  )
-                                : checkAno(),
-                      ),
+                          child: isLoading
+                              ? CircularProgressIndicator()
+                              : times.isEmpty
+                                  ? Text(
+                                      S.of(context)!.timestamp_log_message,
+                                      style: TextStyle(
+                                          color: Colors.blueGrey, fontSize: 20),
+                                    )
+                                  : checkAno()),
                       bottomNavigationBar: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -142,31 +141,50 @@ class _TimestampPageState extends State<TimestampPage> {
   }
 
   Widget checkAno() {
-    DocumentReference ref = _timeDB.doc(FirebaseAuth.instance.currentUser!.uid);
-    CollectionReference ref2 = ref.collection('TimeStamp');
     if (user?.isAnonymous == false) {
       print('hihi');
-      return buildNotesLog();
+      return StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('Accounts')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .collection('TimeStamp')
+            .snapshots(),
+        builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (!snapshot.hasData) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          print('you log in idiot!');
+          return ListView(
+            children: snapshot.data!.docs.map((document) {
+              return Container(
+                child: Center(
+                    child: Card(
+                        color: Colors.black12,
+                        child: Container(
+                            padding: EdgeInsets.all(8),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  document['datetime'],
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ],
+                            )))),
+              );
+            }).toList(),
+          );
+        },
+      );
     } else {
-      print('hellohello');
       return buildNotesAno();
     }
   }
 
   Widget buildNotesAno() => StaggeredGridView.countBuilder(
-        padding: EdgeInsets.all(8),
-        itemCount: times.length,
-        staggeredTileBuilder: (index) => StaggeredTile.fit(4),
-        crossAxisCount: 4,
-        mainAxisSpacing: 4,
-        crossAxisSpacing: 4,
-        itemBuilder: (context, index) {
-          final time = times[index];
-          return timeStampWidget(timestamp: time);
-        },
-      );
-
-       Widget buildNotesLog() => StaggeredGridView.countBuilder(
         padding: EdgeInsets.all(8),
         itemCount: times.length,
         staggeredTileBuilder: (index) => StaggeredTile.fit(4),

@@ -31,7 +31,7 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
   final _taskController = Get.put(TaskController());
   var notifyHelper;
   bool animate = false;
-  double left = 630;
+  double left = 700;
   double top = 900;
   // ignore: unused_field
   Timer? _timer;
@@ -142,9 +142,9 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
                 height: 100,
-                width: 150,
+                width: 200,
                 decoration: BoxDecoration(
-                  color: Colors.purple.shade400,
+                  color: Colors.green.shade300,
                   borderRadius: BorderRadius.all(Radius.circular(12)),
                 ),
                 child: Column(

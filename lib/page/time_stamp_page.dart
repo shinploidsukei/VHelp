@@ -21,19 +21,23 @@ class TimestampPage extends StatefulWidget {
 //var dbHelper = TimeStampLog;
 
 class _TimestampPageState extends State<TimestampPage> {
+  final int capacityLog = 0;
+  static int number = 10;
+  int getcountnum = 0;
   bool isLoading = false;
   late List<TimeStampDetails> times;
   int countID1 = 7;
+  int countID2 = 0;
+
   //late TimeStampDetails getCount;
 
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
   User? user = FirebaseAuth.instance.currentUser;
-  CollectionReference _timeDB =
-      FirebaseFirestore.instance.collection('Accounts');
 
   void countID() async {
     int? count = await TimeStampLog.instance.countID();
     setState(() => countID1 = count!);
+    print("CountID:" + '$countID1');
   }
 
   @override
@@ -41,9 +45,28 @@ class _TimestampPageState extends State<TimestampPage> {
     print('Before: $countID1');
     super.initState();
     countID();
+    getcount();
     print(countID1);
+    print(countID2);
     //checkEvent();
     refreshNotes();
+  }
+
+  getcount() async {
+    print("TestCollecRef");
+    //var itemscount = List<dynamic>();
+    QuerySnapshot<Map<String, dynamic>> _timeDB = await FirebaseFirestore
+        .instance
+        .collection('Accounts')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection('TimeStamp')
+        .get();
+
+    print('setstatecheck');
+    print(_timeDB.size);
+    var countnum = _timeDB.size;
+    setState(() => countID2 = countnum);
+    print("CountNum:" + '$countID2');
   }
 
   @override
@@ -80,50 +103,60 @@ class _TimestampPageState extends State<TimestampPage> {
                   }
                   if (snapshot.connectionState == ConnectionState.done) {
                     return Scaffold(
-                      backgroundColor: Colors.blue[100],
-                      appBar: AppBar(
-                        leading: IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => timeStamp()),
-                            );
-                          },
-                          icon: Icon(Icons.arrow_back_ios),
+                        backgroundColor: Colors.blue[100],
+                        appBar: AppBar(
+                          leading: IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => timeStamp()),
+                              );
+                            },
+                            icon: Icon(Icons.arrow_back_ios),
+                          ),
+                          iconTheme: IconThemeData(color: Colors.black54),
+                          backgroundColor: Colors.blue.shade100,
+                          elevation: 0,
+                          title: Text(S.of(context)!.timestamp_log_topic,
+                              style: TextStyle(
+                                  color: Colors.black54, fontSize: 22)),
+                          actions: [
+                            LanguagePickerWidget(),
+                            //const SizedBox(width: 12),
+                          ],
                         ),
-                        iconTheme: IconThemeData(color: Colors.black54),
-                        backgroundColor: Colors.blue.shade100,
-                        elevation: 0,
-                        title: Text(S.of(context)!.timestamp_log_topic,
-                            style:
-                                TextStyle(color: Colors.black54, fontSize: 22)),
-                        actions: [
-                          LanguagePickerWidget(),
-                          //const SizedBox(width: 12),
-                        ],
-                      ),
-                      body: Center(
-                          child: isLoading
-                              ? CircularProgressIndicator()
-                              : times.isEmpty
-                                  ? Text(
-                                      S.of(context)!.timestamp_log_message,
-                                      style: TextStyle(
-                                          color: Colors.blueGrey, fontSize: 20),
-                                    )
-                                  : checkAno()),
-                      bottomNavigationBar: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              child: Text(
-                                  S.of(context)!.total_logs + ' $countID1'),
-                            )
-                          ]),
-                    );
+                        body: Center(
+                            child: isLoading
+                                ? CircularProgressIndicator()
+                                : times.isEmpty
+                                    ? Text(
+                                        S.of(context)!.timestamp_log_message,
+                                        style: TextStyle(
+                                            color: Colors.blueGrey,
+                                            fontSize: 20),
+                                      )
+                                    : checkAno(capacityLog)),
+                        bottomNavigationBar: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              if (user?.isAnonymous == true)
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  child: Text(
+                                      S.of(context)!.total_logs + ' $countID1'),
+                                )
+                              else
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 10),
+                                  child: Text(
+                                      S.of(context)!.total_logs + '$countID2'),
+                                )
+                            ]));
                   }
+
                   return Container(
                     child: Center(
                       child: NoInternet(),
@@ -140,7 +173,7 @@ class _TimestampPageState extends State<TimestampPage> {
     });
   }
 
-  Widget checkAno() {
+  Widget checkAno(int lognum) {
     if (user?.isAnonymous == false) {
       print('hihi');
       return StreamBuilder(
@@ -148,14 +181,18 @@ class _TimestampPageState extends State<TimestampPage> {
             .collection('Accounts')
             .doc(FirebaseAuth.instance.currentUser!.uid)
             .collection('TimeStamp')
+            .orderBy('datetime', descending: true)
             .snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          // number = snapshot.data!.docs.length;
+          print(number);
           if (!snapshot.hasData) {
             return Center(
               child: CircularProgressIndicator(),
             );
           }
           print('you log in idiot!');
+
           return ListView(
             children: snapshot.data!.docs.map((document) {
               return Container(
@@ -163,7 +200,8 @@ class _TimestampPageState extends State<TimestampPage> {
                     child: Card(
                         color: Colors.black12,
                         child: Container(
-                            padding: EdgeInsets.all(8),
+                            padding: EdgeInsets.only(
+                                left: 120, right: 120, top: 5, bottom: 5),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -180,6 +218,7 @@ class _TimestampPageState extends State<TimestampPage> {
         },
       );
     } else {
+      print("Hello");
       return buildNotesAno();
     }
   }

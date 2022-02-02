@@ -22,19 +22,25 @@ class NotifiedPage extends StatelessWidget {
       ),
       body: Scaffold(
         backgroundColor: Colors.blue.shade100,
-        body: Center(
-          child: Container(
-            height: 400,
-            width: 300,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20), color: Colors.black),
-            child: Center(
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                scale: 5,
+                image: AssetImage('assets/images/cut.png'),
+                alignment: Alignment.bottomCenter),
+          ),
+          alignment: Alignment.center,
+          padding: EdgeInsets.all(32),
+          child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+            const SizedBox(height: 24),
+            Align(
+              alignment: Alignment.center,
               child: Text(
                 this.label.toString().split("|")[1],
                 style: TextStyle(color: Colors.white, fontSize: 30),
               ),
             ),
-          ),
+          ]),
         ),
       ),
     );

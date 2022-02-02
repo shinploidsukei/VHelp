@@ -184,15 +184,12 @@ class _TimestampPageState extends State<TimestampPage> {
             .orderBy('datetime', descending: true)
             .snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          // number = snapshot.data!.docs.length;
-          print(number);
           if (!snapshot.hasData) {
             return Center(
               child: CircularProgressIndicator(),
             );
           }
           print('you log in idiot!');
-
           return ListView(
             children: snapshot.data!.docs.map((document) {
               return Container(

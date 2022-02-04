@@ -22,7 +22,6 @@ class TimestampPage extends StatefulWidget {
 
 class _TimestampPageState extends State<TimestampPage> {
   final int capacityLog = 0;
-  static int number = 10;
   int getcountnum = 0;
   bool isLoading = false;
   late List<TimeStampDetails> times;

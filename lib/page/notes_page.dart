@@ -1,5 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:vhelp_test/connectivity_provider.dart';
+import 'package:vhelp_test/no_internet.dart';
+import 'package:vhelp_test/page/noteLogIn_detail_page.dart';
 import '../db/notes_database.dart';
 import '../model/note.dart';
 import '../page/edit_note_page.dart';
@@ -17,6 +25,9 @@ class NotesPage extends StatefulWidget {
 class _NotesPageState extends State<NotesPage> {
   late List<Note> notes;
   bool isLoading = false;
+
+  final Future<FirebaseApp> firebase = Firebase.initializeApp();
+  User? user = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
@@ -41,50 +52,147 @@ class _NotesPageState extends State<NotesPage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        backgroundColor: Colors.blue.shade100,
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => DiaryPage()),
-              );
-            },
-            icon: Icon(Icons.arrow_back_ios),
-          ),
-          iconTheme: IconThemeData(color: Colors.black54),
-          backgroundColor: Colors.blue.shade100,
-          elevation: 0,
-          actions: [
-            LanguagePickerWidget(),
-            //const SizedBox(width: 12),
-          ],
-          title: Text(S.of(context)!.diary,
-              style: TextStyle(color: Colors.black54, fontSize: 22)),
-        ),
-        body: Center(
-          child: isLoading
-              ? CircularProgressIndicator()
-              : notes.isEmpty
-                  ? Text(
-                      S.of(context)!.diary_message,
-                      style: TextStyle(color: Colors.blueGrey, fontSize: 20),
-                    )
-                  : buildNotes(),
-        ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.blueGrey,
-          child: Icon(Icons.add),
-          onPressed: () async {
-            await Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => AddEditNotePage()),
-            );
+  Widget build(BuildContext context) {
+    return Consumer<ConnectivityProvider>(builder: (context, model, child) {
+      if (model.isOnline) {
+        return model.isOnline
+            ? FutureBuilder(
+                future: firebase,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return Scaffold(
+                      appBar: AppBar(
+                        title: Text('Error'),
+                      ),
+                      body: Center(
+                        child: Text('${snapshot.error}'),
+                      ),
+                    );
+                  }
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return Scaffold(
+                      backgroundColor: Colors.blue.shade100,
+                      appBar: AppBar(
+                        leading: IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DiaryPage()),
+                            );
+                          },
+                          icon: Icon(Icons.arrow_back_ios),
+                        ),
+                        iconTheme: IconThemeData(color: Colors.black54),
+                        backgroundColor: Colors.blue.shade100,
+                        elevation: 0,
+                        actions: [
+                          LanguagePickerWidget(),
+                          //const SizedBox(width: 12),
+                        ],
+                        title: Text(S.of(context)!.diary,
+                            style:
+                                TextStyle(color: Colors.black54, fontSize: 22)),
+                      ),
+                      body: Center(
+                        child: isLoading
+                            ? CircularProgressIndicator()
+                            : notes.isEmpty
+                                ? Text(
+                                    S.of(context)!.diary_message,
+                                    style: TextStyle(
+                                        color: Colors.blueGrey, fontSize: 20),
+                                  )
+                                : checkAno(),
+                      ),
+                      floatingActionButton: FloatingActionButton(
+                        backgroundColor: Colors.blueGrey,
+                        child: Icon(Icons.add),
+                        onPressed: () async {
+                          await Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => AddEditNotePage()),
+                          );
 
-            refreshNotes();
-          },
+                          refreshNotes();
+                        },
+                      ),
+                    );
+                  }
+
+                  return Container(
+                    child: Center(child: NoInternet()),
+                  );
+                })
+            : NoInternet();
+      }
+      return Container(
+        child: Center(
+          child: NoInternet(),
         ),
       );
+    });
+  }
+
+  Widget checkAno() {
+    if (user?.isAnonymous == false) {
+      return StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection('Accounts')
+              .doc(FirebaseAuth.instance.currentUser!.uid)
+              .collection('Notes')
+              .orderBy('datetime', descending: true)
+              .snapshots(),
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return ListView(
+              children: snapshot.data!.docs.map((document) {
+                return Container(
+                    child: GestureDetector(
+                  onTap: () async {
+                    await Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => NoteLogInDetailPage(
+                        noteId: document['dateID'],
+                      ),
+                    ));
+                  },
+                  child: Card(
+                    color: Colors.black12,
+                    child: Container(
+                      padding: EdgeInsets.all(8),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            document['datetime'],
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            document['title'],
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ));
+              }).toList(),
+            );
+          });
+    } else {
+      return buildNotes();
+    }
+  }
 
   Widget buildNotes() => StaggeredGridView.countBuilder(
         padding: EdgeInsets.all(8),

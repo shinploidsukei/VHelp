@@ -605,9 +605,20 @@ class _UserPageState extends State<UserPage> {
       print("success");
     });
     DeleteFromAuth();
+    //Restart.restartApp();
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (BuildContext context) => MyApp()),
+    );
   }
 
   void DeleteFromAuth() async {
+    // ignore: unused_local_variable
+    var firebaseUser = FirebaseAuth.instance.currentUser;
+    FirebaseFirestore.instance
+        .collection("Accounts")
+        .doc(user!.uid)
+        .delete()
+        .then((_) {});
     try {
       await FirebaseAuth.instance.currentUser!.delete();
     } on FirebaseAuthException catch (e) {
@@ -616,8 +627,5 @@ class _UserPageState extends State<UserPage> {
             'The user must reauthenticate before this operation can be executed.');
       }
     }
-    Navigator.of(context).push(MaterialPageRoute(
-      builder: (context) => MyApp(),
-    ));
   }
 }

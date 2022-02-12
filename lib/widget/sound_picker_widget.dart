@@ -36,8 +36,11 @@ class _SoundPickerWidgetState extends State<SoundPickerWidget> {
             click = !click;
             if (click == true) {
               //  _assetsAudioPlayer = AssetsAudioPlayer();
-              _assetsAudioPlayer
-                  .open(Audio("assets/sounds/BGM_SBA-346465804.mp3"));
+              _assetsAudioPlayer.open(
+                Audio("assets/sounds/BGM_SBA-346465804.mp3"),
+                autoStart: true,
+                loopMode: LoopMode.single,
+              );
             } else {
               _assetsAudioPlayer.stop();
             }

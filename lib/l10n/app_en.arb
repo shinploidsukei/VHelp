@@ -259,6 +259,30 @@
     "@pipe": {
       "description": "Pipe Lao Rueng Phee"
     },
+    "stand": "The Standard Podcast",
+    "@stand": {
+      "description": "The Standard Podcast"
+    },
+  "knd": "KND Studio",
+  "@knd": {
+    "description": "KND Studio"
+  },
+  "mission": "Mission to the moon",
+  "@mission": {
+    "description": "mission"
+  },
+  "ghost": "The Ghost Radio",
+  "@ghost": {
+    "description": "The Ghost Radio"
+  },
+  "salmon": "Salmon Podcast",
+  "@salmon": {
+    "description": "Salmon Podcast"
+  },
+  "gettalk": "GetTalks Podcast",
+  "@gettalk": {
+    "description": "GetTalks Podcast"
+  },
     "depressionLink": "https://www.psychiatry.org/patients-families/depression/what-is-depression",
     "@depressionLink": {
       "description": "url of website"

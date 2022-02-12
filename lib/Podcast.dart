@@ -282,7 +282,7 @@ class PodcastPageState extends State<PodcastPage> {
                                     height: 10,
                                   ),
                                   Text(
-                                    "The Standard Podcast",
+                                    S.of(context)!.stand,
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 10,
@@ -315,7 +315,7 @@ class PodcastPageState extends State<PodcastPage> {
                                     height: 10,
                                   ),
                                   Text(
-                                    "KND Studio",
+                                    S.of(context)!.knd,
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 10,
@@ -348,7 +348,7 @@ class PodcastPageState extends State<PodcastPage> {
                                     height: 10,
                                   ),
                                   Text(
-                                    "Mission to the moon",
+                                    S.of(context)!.mission,
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 10,
@@ -381,7 +381,7 @@ class PodcastPageState extends State<PodcastPage> {
                                     height: 10,
                                   ),
                                   Text(
-                                    "Salmon Podcast",
+                                    S.of(context)!.salmon,
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 10,
@@ -414,7 +414,7 @@ class PodcastPageState extends State<PodcastPage> {
                                     height: 10,
                                   ),
                                   Text(
-                                    "GetTalks Podcast",
+                                    S.of(context)!.gettalk,
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 10,
@@ -447,7 +447,7 @@ class PodcastPageState extends State<PodcastPage> {
                                     height: 10,
                                   ),
                                   Text(
-                                    "The Ghost Radio",
+                                    S.of(context)!.ghost,
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 10,

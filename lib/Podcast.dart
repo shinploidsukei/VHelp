@@ -7,6 +7,7 @@ import 'package:vhelp_test/connectivity_provider.dart';
 import 'package:vhelp_test/no_internet.dart';
 import 'package:vhelp_test/widget/language_picker_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flexible/flexible.dart';
 
 class PodcastPage extends StatefulWidget {
   @override
@@ -229,303 +230,293 @@ class PodcastPageState extends State<PodcastPage> {
       builder: (context, model, child) {
         if (model.isOnline) {
           return model.isOnline
-              ? Scaffold(
-                  backgroundColor: Colors.blue[100],
-                  appBar: AppBar(
-                    leading: IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => HomePage()),
-                        );
-                      },
-                      icon: Icon(Icons.arrow_back_ios),
-                    ),
-                    iconTheme: IconThemeData(color: Colors.black54),
-                    backgroundColor: Colors.blue.shade100,
-                    elevation: 0,
-                    actions: [
-                      LanguagePickerWidget(),
-                      //const SizedBox(width: 12),
-                    ],
-                    title: Text(S.of(context)!.sidebar8,
-                        style: TextStyle(color: Colors.black54, fontSize: 22)),
-                  ),
-                  body: Container(
-                    child: Container(
-                      padding: EdgeInsets.all(20.0),
-                      child: GridView.count(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 15,
-                        mainAxisSpacing: 15,
-                        children: [
-                          new GestureDetector(
-                            onTap: () {
-                              standPod();
+              ? ScreenFlexibleWidget(
+                  child: Builder(
+                    builder: (BuildContext context) {
+                      return Scaffold(
+                        backgroundColor: Colors.blue[100],
+                        appBar: AppBar(
+                          leading: IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomePage()),
+                              );
                             },
-                            child: Container(
-                              padding: const EdgeInsets.all(20.0),
-                              decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.3),
-                                borderRadius: BorderRadius.circular(40)
-                              ),
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    child: Image.asset(
-                                      'assets/images/standpod.jpeg',
-                                      height: 100,
-                                      fit: BoxFit.cover,
-                                    ),
+                            icon: Icon(Icons.arrow_back_ios),
+                          ),
+                          iconTheme: IconThemeData(color: Colors.black54),
+                          backgroundColor: Colors.blue.shade100,
+                          elevation: 0,
+                          actions: [
+                            LanguagePickerWidget(),
+                            //const SizedBox(width: 12),
+                          ],
+                          title: Text(S.of(context)!.sidebar8,
+                              style: TextStyle(
+                                  color: Colors.black54, fontSize: flexible(context, 22.0))),
+                        ),
+                        body: Container(
+                          child: Container(
+                            margin: EdgeInsets.all(flexible(context, 20.0)),
+                            child: ListView(
+                              //scrollDirection: Axis.horizontal,
+                              children: [
+                                new GestureDetector(
+                                  onTap: () {
+                                    standPod();
+                                  },
+                                  child: Column(
+                                    children: <Widget>[
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(flexible(context, 50.0)),
+                                        child: Image.asset(
+                                          'assets/images/standpod.jpeg',
+                                          height: flexible(context, 280.0),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: flexible(context, 10.0),
+                                      ),
+                                      Text(
+                                        S.of(context)!.stand,
+                                        style: TextStyle(
+                                            color: Colors.blueGrey,
+                                            fontSize: flexible(context, 20.0),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: flexible(context, 30.0),
+                                      ),
+                                    ],
                                   ),
-                                  SizedBox(
-                                    height: 10,
+                                ),
+                                new GestureDetector(
+                                  onTap: () {
+                                    knd();
+                                  },
+                                  child: Column(
+                                    children: <Widget>[
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(flexible(context, 50.0)),
+                                        child: Image.asset(
+                                          'assets/images/knd.png',
+                                          height: flexible(context, 280.0),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: flexible(context, 10.0),
+                                      ),
+                                      Text(
+                                        S.of(context)!.knd,
+                                        style: TextStyle(
+                                            color: Colors.blueGrey,
+                                            fontSize: flexible(context, 20.0),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: flexible(context, 30.0),
+                                      ),
+                                    ],
                                   ),
-                                  Text(
-                                    S.of(context)!.stand,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold),
+                                ),
+                                new GestureDetector(
+                                  onTap: () {
+                                    toTheMoon();
+                                  },
+                                  child: Column(
+                                    children: <Widget>[
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(flexible(context, 50.0)),
+                                        child: Image.asset(
+                                          'assets/images/mission.jpeg',
+                                          height: flexible(context, 280.0),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: flexible(context, 10.0),
+                                      ),
+                                      Text(
+                                        S.of(context)!.mission,
+                                        style: TextStyle(
+                                            color: Colors.blueGrey,
+                                            fontSize: flexible(context, 20.0),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: flexible(context, 30.0),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                ),
+                                new GestureDetector(
+                                  onTap: () {
+                                    salmon();
+                                  },
+                                  child: Column(
+                                    children: <Widget>[
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(flexible(context, 50.0)),
+                                        child: Image.asset(
+                                          'assets/images/salmon.jpeg',
+                                          height: flexible(context, 280.0),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: flexible(context, 10.0),
+                                      ),
+                                      Text(
+                                        S.of(context)!.salmon,
+                                        style: TextStyle(
+                                            color: Colors.blueGrey,
+                                            fontSize: flexible(context, 20.0),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: flexible(context, 30.0),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                new GestureDetector(
+                                  onTap: () {
+                                    getTalks();
+                                  },
+                                  child: Column(
+                                    children: <Widget>[
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(flexible(context, 50.0)),
+                                        child: Image.asset(
+                                          'assets/images/gettalk.jpeg',
+                                          height: flexible(context, 280.0),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: flexible(context, 10.0),
+                                      ),
+                                      Text(
+                                        S.of(context)!.gettalk,
+                                        style: TextStyle(
+                                            color: Colors.blueGrey,
+                                            fontSize: flexible(context, 20.0),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: flexible(context, 30.0),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                new GestureDetector(
+                                  onTap: () {
+                                    ghost();
+                                  },
+                                  child: Column(
+                                    children: <Widget>[
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(flexible(context, 50.0)),
+                                        child: Image.asset(
+                                          'assets/images/ghostradio.jpeg',
+                                          height: flexible(context, 280.0),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: flexible(context, 10.0),
+                                      ),
+                                      Text(
+                                        S.of(context)!.ghost,
+                                        style: TextStyle(
+                                            color: Colors.blueGrey,
+                                            fontSize: flexible(context, 20.0),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: flexible(context, 30.0),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                new GestureDetector(
+                                  onTap: () {
+                                    pipe();
+                                  },
+                                  child: Column(
+                                    children: <Widget>[
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(flexible(context, 50.0)),
+                                        child: Image.asset(
+                                          'assets/images/pipe.jpeg',
+                                          height: flexible(context, 280.0),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: flexible(context, 10.0),
+                                      ),
+                                      Text(
+                                        S.of(context)!.pipe,
+                                        style: TextStyle(
+                                            color: Colors.blueGrey,
+                                            fontSize: flexible(context, 20.0),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: flexible(context, 30.0),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                new GestureDetector(
+                                  onTap: () {
+                                    ajarn();
+                                  },
+                                  child: Column(
+                                    children: <Widget>[
+                                      ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(flexible(context, 50.0)),
+                                        child: Image.asset(
+                                          'assets/images/ajarn.jpeg',
+                                          height: flexible(context, 280.0),
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: flexible(context, 10.0),
+                                      ),
+                                      Text(
+                                        S.of(context)!.ajarn_yord,
+                                        style: TextStyle(
+                                            color: Colors.blueGrey,
+                                            fontSize: flexible(context, 20.0),
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: flexible(context, 20.0),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          new GestureDetector(
-                            onTap: () {
-                              knd();
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(20.0),
-                              decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.3),
-                                  borderRadius: BorderRadius.circular(40)
-                              ),
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    child: Image.asset(
-                                      'assets/images/knd.png',
-                                      height: 100,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    S.of(context)!.knd,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          new GestureDetector(
-                            onTap: () {
-                              toTheMoon();
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(20.0),
-                              decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.3),
-                                  borderRadius: BorderRadius.circular(40)
-                              ),
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    child: Image.asset(
-                                      'assets/images/mission.jpeg',
-                                      height: 100,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    S.of(context)!.mission,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          new GestureDetector(
-                            onTap: () {
-                              salmon();
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(20.0),
-                              decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.3),
-                                  borderRadius: BorderRadius.circular(40)
-                              ),
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    child: Image.asset(
-                                      'assets/images/salmon.jpeg',
-                                      height: 100,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    S.of(context)!.salmon,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          new GestureDetector(
-                            onTap: () {
-                              getTalks();
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(20.0),
-                              decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.3),
-                                  borderRadius: BorderRadius.circular(40)
-                              ),
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    child: Image.asset(
-                                      'assets/images/gettalk.jpeg',
-                                      height: 100,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    S.of(context)!.gettalk,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          new GestureDetector(
-                            onTap: () {
-                              ghost();
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(20.0),
-                              decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.3),
-                                  borderRadius: BorderRadius.circular(40)
-                              ),
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    child: Image.asset(
-                                      'assets/images/ghostradio.jpeg',
-                                      height: 100,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    S.of(context)!.ghost,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          new GestureDetector(
-                            onTap: () {
-                              pipe();
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(20.0),
-                              decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.3),
-                                  borderRadius: BorderRadius.circular(40)
-                              ),
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    child: Image.asset(
-                                      'assets/images/pipe.jpeg',
-                                      height: 100,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    S.of(context)!.pipe,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          new GestureDetector(
-                            onTap: () {
-                              ajarn();
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(20.0),
-                              decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.3),
-                                  borderRadius: BorderRadius.circular(40)
-                              ),
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    child: Image.asset(
-                                      'assets/images/ajarn.jpeg',
-                                      height: 100,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  Text(
-                                    S.of(context)!.ajarn_yord,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                        ),
+                      );
+                    },
                   ),
                 )
               : NoInternet();

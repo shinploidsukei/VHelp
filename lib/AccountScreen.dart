@@ -64,8 +64,8 @@ class _MyStatelessWidget extends State<MyApp> {
                         padding: EdgeInsets.symmetric(vertical: flexible(context, 15.0), horizontal: flexible(context, 40.0),),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.blue.withOpacity(0.1),
-                            onPrimary: Colors.blue.withOpacity(0.1),
+                            primary: Colors.white.withOpacity(0.75),
+                            onPrimary: Colors.white.withOpacity(0.75),
                             shape: new RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(30.0)),
                           ),
@@ -78,7 +78,7 @@ class _MyStatelessWidget extends State<MyApp> {
                           },
                           child: Text(
                             'SIGNUP',
-                            style: TextStyle(color: Colors.white, fontSize: flexible(context, 15.0),),
+                            style: TextStyle(color: Colors.blueGrey, fontSize: flexible(context, 15.0),),
                           ),
                         ),
                       ),
@@ -90,8 +90,8 @@ class _MyStatelessWidget extends State<MyApp> {
                         padding: EdgeInsets.symmetric(vertical: flexible(context, 15.0), horizontal: flexible(context, 40.0),),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.black.withOpacity(0.2),
-                            onPrimary: Colors.black.withOpacity(0.2),
+                            primary: Colors.blue.withOpacity(0.3),
+                            onPrimary: Colors.blue.withOpacity(0.3),
                             shape: new RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(30.0)),
                           ),
@@ -116,8 +116,8 @@ class _MyStatelessWidget extends State<MyApp> {
                         padding: EdgeInsets.symmetric(vertical: flexible(context, 15.0), horizontal: flexible(context, 40.0),),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.black.withOpacity(0.2),
-                            onPrimary: Colors.black.withOpacity(0.2),
+                            primary: Colors.blue.withOpacity(0.3),
+                            onPrimary: Colors.blue.withOpacity(0.3),
                             shape: new RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(30.0)),
                           ),

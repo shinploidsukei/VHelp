@@ -2,12 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
 import 'package:vhelp_test/no_internet.dart';
-import 'package:vhelp_test/page/edit_note_page.dart';
-import 'package:vhelp_test/page/notes_page.dart';
+import 'package:vhelp_test/page/edit_note_login_page.dart';
+import 'package:vhelp_test/page/notes_page_login.dart';
 
 class NoteLogInDetailPage extends StatefulWidget {
   final String noteId;
@@ -68,7 +67,7 @@ class _NoteLogInDetailPageState extends State<NoteLogInDetailPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => NotesPage()),
+                                    builder: (context) => NotesLogInPage()),
                               );
                             },
                             icon: Icon(Icons.arrow_back_ios),
@@ -149,7 +148,7 @@ class _NoteLogInDetailPageState extends State<NoteLogInDetailPage> {
         if (isLoading) return;
 
         await Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => AddEditNotePage(
+          builder: (context) => AddEditNoteLogInPage(
             noteID: widget.noteId,
           ),
         ));
@@ -179,7 +178,7 @@ class _NoteLogInDetailPageState extends State<NoteLogInDetailPage> {
                         await ref.delete();
 
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => NotesPage()));
+                            builder: (context) => NotesLogInPage()));
                       },
                       child: Text('Delete!'))
                 ],

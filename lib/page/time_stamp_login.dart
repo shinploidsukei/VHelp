@@ -16,13 +16,13 @@ import 'package:vhelp_test/widget/language_picker_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // ignore: camel_case_types
-class timeStamp extends StatefulWidget {
+class timeStampLogIn extends StatefulWidget {
   @override
-  _timeStampState createState() => _timeStampState();
+  _timeStampLogInState createState() => _timeStampLogInState();
 }
 
 // ignore: camel_case_types
-class _timeStampState extends State<timeStamp> {
+class _timeStampLogInState extends State<timeStampLogIn> {
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
   CollectionReference _timeDB =
       FirebaseFirestore.instance.collection('Accounts');
@@ -186,21 +186,11 @@ class _timeStampState extends State<timeStamp> {
 
     print('Test Time Stamp');
 
-    if (user?.isAnonymous == false) {
-      final String time =
-          DateFormat('yyyy-MM-dd – HH:mm').format(DateTime.now());
-      DocumentReference ref =
-          _timeDB.doc(FirebaseAuth.instance.currentUser!.uid);
-      CollectionReference ref2 = ref.collection('TimeStamp');
-      await ref2.add({'datetime': time});
-      print('hi');
-    } else {
-      final timetakemed = TimeStampDetails(
-        datetime: DateTime.now(),
-      );
-      await TimeStampLog.instance.create(timetakemed);
-      print('hello');
-    }
+    final String time = DateFormat('yyyy-MM-dd – HH:mm').format(DateTime.now());
+    DocumentReference ref = _timeDB.doc(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference ref2 = ref.collection('TimeStamp');
+    await ref2.add({'datetime': time});
+    print('hi takemed');
   }
 
   // ignore: non_constant_identifier_names
@@ -237,9 +227,9 @@ class _timeStampState extends State<timeStamp> {
                   S.of(context)!.done,
                 ),
                 onPressed: () {
-                  print('wrong navigator');
+                  print(' //// going to login ///\nfrom timestamp');
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => TimestampPage(),
+                    builder: (context) => TimestampLogInPage(),
                   ));
                 }),
           ],
@@ -270,7 +260,7 @@ class _timeStampState extends State<timeStamp> {
                   S.of(context)!.done,
                 ),
                 onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => TimestampPage(),
+                      builder: (context) => TimestampLogInPage(),
                     ))),
           ],
         ),
@@ -300,7 +290,7 @@ class _timeStampState extends State<timeStamp> {
                   S.of(context)!.done,
                 ),
                 onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => TimestampPage(),
+                      builder: (context) => TimestampLogInPage(),
                     ))),
           ],
         ),
@@ -330,7 +320,7 @@ class _timeStampState extends State<timeStamp> {
                   S.of(context)!.done,
                 ),
                 onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => TimestampPage(),
+                      builder: (context) => TimestampLogInPage(),
                     ))),
           ],
         ),
@@ -351,7 +341,7 @@ class _timeStampState extends State<timeStamp> {
                   S.of(context)!.ok,
                 ),
                 onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => TimestampPage(),
+                      builder: (context) => TimestampLogInPage(),
                     ))),
           ],
         ),

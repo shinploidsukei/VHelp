@@ -1,13 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
 import 'package:vhelp_test/no_internet.dart';
-import 'package:vhelp_test/page/noteLogIn_detail_page.dart';
 import '../db/notes_database.dart';
 import '../model/note.dart';
 import '../page/edit_note_page.dart';
@@ -103,7 +100,7 @@ class _NotesPageState extends State<NotesPage> {
                                     style: TextStyle(
                                         color: Colors.blueGrey, fontSize: 20),
                                   )
-                                : checkAno(),
+                                : buildNotes(),
                       ),
                       floatingActionButton: FloatingActionButton(
                         backgroundColor: Colors.blueGrey,
@@ -132,66 +129,6 @@ class _NotesPageState extends State<NotesPage> {
         ),
       );
     });
-  }
-
-  Widget checkAno() {
-    if (user?.isAnonymous == false) {
-      return StreamBuilder(
-          stream: FirebaseFirestore.instance
-              .collection('Accounts')
-              .doc(FirebaseAuth.instance.currentUser!.uid)
-              .collection('Notes')
-              .orderBy('datetime', descending: true)
-              .snapshots(),
-          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (!snapshot.hasData) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            return ListView(
-              children: snapshot.data!.docs.map((document) {
-                return Container(
-                    child: GestureDetector(
-                  onTap: () async {
-                    await Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => NoteLogInDetailPage(
-                        noteId: document['dateID'],
-                      ),
-                    ));
-                  },
-                  child: Card(
-                    color: Colors.black12,
-                    child: Container(
-                      padding: EdgeInsets.all(8),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            document['datetime'],
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            document['title'],
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ));
-              }).toList(),
-            );
-          });
-    } else {
-      return buildNotes();
-    }
   }
 
   Widget buildNotes() => StaggeredGridView.countBuilder(

@@ -1,11 +1,12 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:vhelp_test/page/diary_login_page.dart';
 import 'package:vhelp_test/page/diary_page.dart';
 import 'package:vhelp_test/page/doctor_calendar_page.dart';
+import 'package:vhelp_test/page/time_stamp_login.dart';
 import '/page/time_stamp.dart';
 import 'Art.dart';
 import 'Music.dart';
@@ -55,7 +56,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                         AssetsAudioPlayer.newPlayer().open(
                           Audio("assets/sounds/click_SBA-300148107.mp3"),
                         );
-                        selectedItem(context, 0);
+                        selectedItem(context, 0, user);
                       }),
                   const SizedBox(height: 10),
                   buildMenuItem(
@@ -66,7 +67,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                         AssetsAudioPlayer.newPlayer().open(
                           Audio("assets/sounds/click_SBA-300148107.mp3"),
                         );
-                        selectedItem(context, 1);
+                        selectedItem(context, 1, user);
                       }),
                   const SizedBox(height: 10),
                   buildMenuItem(
@@ -77,7 +78,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                         AssetsAudioPlayer.newPlayer().open(
                           Audio("assets/sounds/click_SBA-300148107.mp3"),
                         );
-                        selectedItem(context, 2);
+                        selectedItem(context, 2, user);
                       }),
                   const SizedBox(height: 10),
                   buildMenuItem(
@@ -88,7 +89,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                         AssetsAudioPlayer.newPlayer().open(
                           Audio("assets/sounds/click_SBA-300148107.mp3"),
                         );
-                        selectedItem(context, 3);
+                        selectedItem(context, 3, user);
                       }),
                   const SizedBox(height: 10),
                   buildMenuItem(
@@ -99,7 +100,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                         AssetsAudioPlayer.newPlayer().open(
                           Audio("assets/sounds/click_SBA-300148107.mp3"),
                         );
-                        selectedItem(context, 5);
+                        selectedItem(context, 5, user);
                       }),
                   const SizedBox(height: 10),
                   buildMenuItem(
@@ -110,7 +111,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                         AssetsAudioPlayer.newPlayer().open(
                           Audio("assets/sounds/click_SBA-300148107.mp3"),
                         );
-                        selectedItem(context, 6);
+                        selectedItem(context, 6, user);
                       }),
                   const SizedBox(height: 10),
                   buildMenuItem(
@@ -121,7 +122,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                         AssetsAudioPlayer.newPlayer().open(
                           Audio("assets/sounds/click_SBA-300148107.mp3"),
                         );
-                        selectedItem(context, 7);
+                        selectedItem(context, 7, user);
                       }),
                 ],
               ),
@@ -269,14 +270,20 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
     );
   }
 
-  void selectedItem(BuildContext context, int index) {
+  void selectedItem(BuildContext context, int index, User? userTest) {
     Navigator.of(context).pop();
 
     switch (index) {
       case 0:
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => timeStamp(),
-        ));
+        if (user!.isAnonymous == false) {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => timeStampLogIn(),
+          ));
+        } else {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => timeStamp(),
+          ));
+        }
         break;
       case 1:
         Navigator.of(context).push(MaterialPageRoute(
@@ -289,10 +296,16 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
         ));
         break;
       case 3:
-        Navigator.of(context).push(MaterialPageRoute(
-          //builder: (context) => DiaryLogPage(),
-          builder: (context) => DiaryPage(),
-        ));
+        if (userTest!.isAnonymous == false) {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => DiaryLogInPage(),
+          ));
+          print('test navigator ///// login success ////');
+        } else {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => DiaryPage(),
+          ));
+        }
         break;
       case 5:
         Navigator.of(context).push(MaterialPageRoute(

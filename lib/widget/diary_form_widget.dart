@@ -34,8 +34,6 @@ class _DiaryFormWidgetState extends State<DiaryFormWidget> {
   String now = DateFormat("dd-MM-yyyy").format(DateTime.now());
 
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
-  CollectionReference _moodDB =
-      FirebaseFirestore.instance.collection('Accounts');
   User? user = FirebaseAuth.instance.currentUser;
 
   var emojiColors = [
@@ -152,15 +150,8 @@ class _DiaryFormWidgetState extends State<DiaryFormWidget> {
     final itHas = widget.color?.createTime != null;
 
     if (itHas) {
-      if (user?.isAnonymous == false) {
-        updateColorLI();
-      } else {
-        await updateColor();
-      }
+      await updateColor();
     } else {
-      if (user!.isAnonymous == false) {
-        addColorLI();
-      }
       await addColor();
       print(itHas);
     }
@@ -174,19 +165,6 @@ class _DiaryFormWidgetState extends State<DiaryFormWidget> {
     await LogsDatabase.instance.update(color);
   }
 
-  Future updateColorLI() async {
-    final color = widget.color!.copy(
-      colorSaved: thisColor,
-    );
-
-    DocumentReference ref = _moodDB.doc(FirebaseAuth.instance.currentUser!.uid);
-    CollectionReference ref2 = ref.collection('Notes');
-
-    await ref2.doc(widget.colorID).update({
-      'colorSaved': color.colorSaved,
-    });
-  }
-
   Future addColor() async {
     final color = colorLog(
       colorSaved: thisColor,
@@ -195,28 +173,5 @@ class _DiaryFormWidgetState extends State<DiaryFormWidget> {
 
     await LogsDatabase.instance.create(color);
     print(color.createTime);
-  }
-
-  Future addColorLI() async {
-    final color = colorLog(
-      colorSaved: thisColor,
-      createTime: DateTime.now(),
-    );
-
-    DocumentReference ref = _moodDB.doc(FirebaseAuth.instance.currentUser!.uid);
-    CollectionReference ref2 = ref.collection('Moods');
-
-    final String time = DateFormat.yMMMd().format(DateTime.now());
-    final String timeDay = DateFormat('yyyy-MM-dd').format(DateTime.now());
-    final String timeHour = DateFormat('HH:mm').format(DateTime.now());
-    final String timeForNote =
-        DateFormat('yyyy-MM-dd – HH:mm').format(DateTime.now());
-    await ref2.doc(time).set({
-      'colorSaved': color.colorSaved,
-      'datetime': timeForNote,
-      'dateID': time,
-      'dateHour': timeHour,
-      'dateDay': timeDay,
-    });
   }
 }

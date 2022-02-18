@@ -7,26 +7,25 @@ import 'package:provider/provider.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
 import 'package:vhelp_test/no_internet.dart';
 import 'package:vhelp_test/page/notes_page_login.dart';
-import '../db/notes_database.dart';
 import '../model/note.dart';
 import '../widget/note_form_widget.dart';
 import 'notes_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class AddEditNotePage extends StatefulWidget {
+class AddEditNoteLogInPage extends StatefulWidget {
   final Note? note;
   final String? noteID;
 
-  const AddEditNotePage({
+  const AddEditNoteLogInPage({
     Key? key,
     this.note,
     this.noteID,
   }) : super(key: key);
   @override
-  _AddEditNotePageState createState() => _AddEditNotePageState();
+  _AddEditNoteLogInPageState createState() => _AddEditNoteLogInPageState();
 }
 
-class _AddEditNotePageState extends State<AddEditNotePage> {
+class _AddEditNoteLogInPageState extends State<AddEditNoteLogInPage> {
   final _formKey = GlobalKey<FormState>();
   late bool isImportant;
   late int number;
@@ -72,19 +71,11 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
                       appBar: AppBar(
                         leading: IconButton(
                           onPressed: () {
-                            if (user?.isAnonymous == false) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => NotesLogInPage()),
-                              );
-                            } else {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => NotesPage()),
-                              );
-                            }
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => NotesLogInPage()),
+                            );
                           },
                           icon: Icon(Icons.arrow_back_ios),
                         ),
@@ -158,25 +149,14 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
       final isUpdating = widget.note != null || widget.noteID != null;
 
       if (isUpdating) {
-        await updateNote();
+        updateNoteLI();
       } else {
-        await addNote();
+        await addNoteLI();
       }
 
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => NotesPage()));
+          .push(MaterialPageRoute(builder: (context) => NotesLogInPage()));
     }
-  }
-
-  Future updateNote() async {
-    final note = widget.note!.copy(
-      isImportant: isImportant,
-      number: number,
-      title: title,
-      description: description,
-    );
-
-    await NotesDatabase.instance.update(note);
   }
 
   Future updateNoteLI() async {
@@ -197,18 +177,6 @@ class _AddEditNotePageState extends State<AddEditNotePage> {
     });
 
     print('test update note ///////////');
-  }
-
-  Future addNote() async {
-    final note = Note(
-      title: title,
-      isImportant: true,
-      number: number,
-      description: description,
-      createdTime: DateTime.now(),
-    );
-
-    await NotesDatabase.instance.create(note);
   }
 
   Future addNoteLI() async {

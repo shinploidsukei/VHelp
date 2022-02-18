@@ -14,6 +14,7 @@ import 'package:vhelp_test/page/time_stamp_login_page.dart';
 import 'package:vhelp_test/page/time_stamp_page.dart';
 import 'package:vhelp_test/widget/language_picker_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flexible/flexible.dart';
 
 // ignore: camel_case_types
 class timeStamp extends StatefulWidget {
@@ -40,130 +41,163 @@ class _timeStampState extends State<timeStamp> {
       builder: (context, model, child) {
         if (model.isOnline) {
           return model.isOnline
-              ? FutureBuilder(
-                  future: firebase,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return Scaffold(
-                        appBar: AppBar(
-                          title: Text('Error'),
-                        ),
-                        body: Center(
-                          child: Text('${snapshot.error}'),
-                        ),
-                      );
-                    }
-                    if (snapshot.connectionState == ConnectionState.done) {
-                      return Scaffold(
-                          backgroundColor: Colors.blue[100],
-                          appBar: AppBar(
-                            leading: IconButton(
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => HomePage()),
-                                );
-                              },
-                              icon: Icon(Icons.arrow_back_ios),
-                            ),
-                            iconTheme: IconThemeData(color: Colors.black54),
-                            backgroundColor: Colors.blue.shade100,
-                            elevation: 0,
-                            actions: [
-                              LanguagePickerWidget(),
-                              //const SizedBox(width: 12),
-                            ],
-                            title: Text(S.of(context)!.sidebar1_topic,
-                                style: TextStyle(
-                                    color: Colors.black54, fontSize: 22)),
-                          ),
-                          body: Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage("assets/images/map.png"),
-                                  fit: BoxFit.cover,
-                                ),
+              ? ScreenFlexibleWidget(
+                  child: Builder(
+                    builder: (BuildContext context) {
+                      return FutureBuilder(
+                        future: firebase,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            return Scaffold(
+                              appBar: AppBar(
+                                title: Text('Error'),
                               ),
-                              child: Center(
-                                child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      SizedBox(
-                                        height: 50,
+                              body: Center(
+                                child: Text('${snapshot.error}'),
+                              ),
+                            );
+                          }
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            return Scaffold(
+                                backgroundColor: Colors.blue[100],
+                                appBar: AppBar(
+                                  leading: IconButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => HomePage()),
+                                      );
+                                    },
+                                    icon: Icon(Icons.arrow_back_ios),
+                                  ),
+                                  iconTheme:
+                                      IconThemeData(color: Colors.black54),
+                                  backgroundColor: Colors.blue.shade100,
+                                  elevation: 0,
+                                  actions: [
+                                    LanguagePickerWidget(),
+                                    //const SizedBox(width: 12),
+                                  ],
+                                  title: Text(S.of(context)!.sidebar1_topic,
+                                      style: TextStyle(
+                                          color: Colors.black54,
+                                          fontSize: flexible(context, 22.0))),
+                                ),
+                                body: Container(
+                                    decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                        image:
+                                            AssetImage("assets/images/map.png"),
+                                        fit: BoxFit.cover,
                                       ),
-                                      ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                            primary:
-                                                Colors.black.withOpacity(0.05),
-                                            textStyle: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold),
-                                            fixedSize: Size(200, 50)),
-                                        onPressed: () => showDialog<String>(
-                                          context: context,
-                                          builder: (BuildContext context) =>
-                                              AlertDialog(
-                                            title: Text(
-                                              S.of(context)!.warning,
+                                    ),
+                                    child: Center(
+                                      child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: <Widget>[
+                                            SizedBox(
+                                              height: flexible(context, 50.0),
                                             ),
-                                            content: Text(
-                                              S.of(context)!.warning_message,
-                                            ),
-                                            actions: <Widget>[
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                  context,
-                                                  S.of(context)!.cancel,
-                                                ),
-                                                child: Text(
-                                                  S.of(context)!.cancel,
+                                            ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                  primary: Colors.black
+                                                      .withOpacity(flexible(
+                                                          context, 0.05)),
+                                                  textStyle:
+                                                      TextStyle(
+                                                          fontSize: flexible(
+                                                              context, 20.0),
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                  fixedSize: Size(
+                                                      flexible(context, 200.0),
+                                                      flexible(context, 50.0))),
+                                              onPressed: () =>
+                                                  showDialog<String>(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        AlertDialog(
+                                                  title: Text(
+                                                    S.of(context)!.warning,
+                                                  ),
+                                                  content: Text(
+                                                    S
+                                                        .of(context)!
+                                                        .warning_message,
+                                                  ),
+                                                  actions: <Widget>[
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                        context,
+                                                        S.of(context)!.cancel,
+                                                      ),
+                                                      child: Text(
+                                                        S.of(context)!.cancel,
+                                                      ),
+                                                    ),
+                                                    TextButton(
+                                                      child: Text(
+                                                        S.of(context)!.ok,
+                                                      ),
+                                                      onPressed: TakeMedicine,
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                              TextButton(
-                                                child: Text(
-                                                  S.of(context)!.ok,
-                                                ),
-                                                onPressed: TakeMedicine,
+                                              child: Text(
+                                                S
+                                                    .of(context)!
+                                                    .timestamp_button1,
                                               ),
-                                            ],
-                                          ),
-                                        ),
-                                        child: Text(
-                                          S.of(context)!.timestamp_button1,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 20,
-                                      ),
-                                      ElevatedButton(
-                                        style: ElevatedButton.styleFrom(
-                                            primary:
-                                                Colors.black.withOpacity(0.05),
-                                            //padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                                            textStyle: TextStyle(
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.bold),
-                                            fixedSize: Size(200, 50)),
-                                        onPressed: () {
-                                          countID();
-                                        },
-                                        child: Text(
-                                          S.of(context)!.timestamp_button2,
-                                        ),
-                                      ),
-                                    ]),
-                              )));
-                    }
-                    return Container(
-                      child: Center(
-                        child: NoInternet(),
-                      ),
-                    );
-                  })
+                                            ),
+                                            SizedBox(
+                                              height: flexible(context, 20.0),
+                                            ),
+                                            ElevatedButton(
+                                              style: ElevatedButton.styleFrom(
+                                                  primary: Colors.black
+                                                      .withOpacity(flexible(
+                                                          context, 0.05)),
+                                                  //padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                                                  textStyle:
+                                                      TextStyle(
+                                                          fontSize: flexible(
+                                                              context, 20.0),
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                  fixedSize: Size(
+                                                      flexible(context, 200.0),
+                                                      flexible(context, 50.0))),
+                                              onPressed: () {
+                                                countID();
+                                              },
+                                              child: Text(
+                                                S
+                                                    .of(context)!
+                                                    .timestamp_button2,
+                                              ),
+                                            ),
+                                          ]),
+                                    )));
+                          }
+                          return Container(
+                            child: Center(
+                              child: NoInternet(),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                )
               : NoInternet();
         }
         return Container(

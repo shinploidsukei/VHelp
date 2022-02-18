@@ -163,7 +163,10 @@ class _LoginDemoState extends State<LoginDemo> {
                                         alignment: Alignment.center,
                                         child: TextButton(
                                             style: ElevatedButton.styleFrom(
-                                              primary: Color(0xFF2C72CE),
+                                              primary: Colors.blue.withOpacity(0.8),
+                                              onPrimary: Colors.blueGrey.withOpacity(0.8),
+                                              shape: new RoundedRectangleBorder(
+                                                  borderRadius: new BorderRadius.circular(30.0)),
                                               padding: EdgeInsets.symmetric(horizontal: 50, vertical: 10),
                                             ),
                                             onPressed: () async {
@@ -199,8 +202,8 @@ class _LoginDemoState extends State<LoginDemo> {
                                               }
                                             },
                                             child: Text(
-                                              'Login',
-                                              style: TextStyle(fontSize: 20.0, color: Colors.white),
+                                              'LOGIN',
+                                              style: TextStyle(fontSize: 15.0, color: Colors.white),
                                             )),
                                       )
                                     ],

@@ -7,6 +7,7 @@ import 'Login.dart';
 import 'Start.dart';
 import 'package:provider/provider.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
+import 'package:flexible/flexible.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -29,38 +30,44 @@ class _MyStatelessWidget extends State<MyApp> {
   }
 
   Widget pageUI() {
+    Size size = MediaQuery.of(context).size;
     return Consumer<ConnectivityProvider>(
       builder: (context, model, child) {
         if (model.isOnline) {
           return model.isOnline
-              ? Container(
+              ? ScreenFlexibleWidget(
+            child: Builder(
+              builder: (BuildContext context) {
+                return Container(
                   decoration: BoxDecoration(
                       gradient: LinearGradient(colors: [
                     Colors.blue.shade200,
                     Colors.blueGrey.shade100
                   ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
                   child: Column(
-                    mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Image.asset(
                         'assets/images/iceberg.png',
-                        height: 350,
-                        width: 350,
+                        width: flexible(context, 350.0),
+                        height: flexible(context, 350.0),
                       ),
                       SizedBox(
-                        height: 100,
+                        height: flexible(context, 70.0),
                       ),
                       Container(
-                        height: 45,
-                        width: 180,
+                        //height: flexible(context, 45.0),
+                        //width: flexible(context, 180.0),
+                        width: size.width * 8,
+                        height: size.height * 0.1,
+                        padding: EdgeInsets.symmetric(vertical: flexible(context, 15.0), horizontal: flexible(context, 40.0),),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: Color(0xFF2C72CE),
-                            onPrimary: Color(0xFF2C72CE),
+                            primary: Colors.white.withOpacity(0.75),
+                            onPrimary: Colors.white.withOpacity(0.75),
                             shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(10.0)),
+                                borderRadius: new BorderRadius.circular(30.0)),
                           ),
                           onPressed: () {
                             Navigator.push(
@@ -70,23 +77,23 @@ class _MyStatelessWidget extends State<MyApp> {
                             );
                           },
                           child: Text(
-                            'Sign Up',
-                            style: TextStyle(color: Colors.white, fontSize: 20),
+                            'SIGNUP',
+                            style: TextStyle(color: Colors.blueGrey, fontSize: flexible(context, 15.0),),
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
                       Container(
-                        height: 45,
-                        width: 180,
+                        //height: flexible(context, 45.0),
+                        //width: flexible(context, 180.0),
+                        width: size.width * 8,
+                        height: size.height * 0.1,
+                        padding: EdgeInsets.symmetric(vertical: flexible(context, 15.0), horizontal: flexible(context, 40.0),),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: Color(0xFF2C72CE),
-                            onPrimary: Color(0xFF2C72CE),
+                            primary: Colors.blue.withOpacity(0.3),
+                            onPrimary: Colors.blue.withOpacity(0.3),
                             shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(10.0)),
+                                borderRadius: new BorderRadius.circular(30.0)),
                           ),
                           onPressed: () {
                             Navigator.push(
@@ -96,23 +103,23 @@ class _MyStatelessWidget extends State<MyApp> {
                             );
                           },
                           child: Text(
-                            'Login',
-                            style: TextStyle(color: Colors.white, fontSize: 20),
+                            'LOGIN',
+                            style: TextStyle(color: Colors.white, fontSize: flexible(context, 15.0),),
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
                       Container(
-                        height: 45,
-                        width: 180,
+                        //height: flexible(context, 45.0),
+                        //width: flexible(context, 180.0),
+                        width: size.width * 8,
+                        height: size.height * 0.1,
+                        padding: EdgeInsets.symmetric(vertical: flexible(context, 15.0), horizontal: flexible(context, 40.0),),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: Color(0xFF2C72CE),
-                            onPrimary: Color(0xFF2C72CE),
+                            primary: Colors.blue.withOpacity(0.3),
+                            onPrimary: Colors.blue.withOpacity(0.3),
                             shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(10.0)),
+                                borderRadius: new BorderRadius.circular(30.0)),
                           ),
                           onPressed: () async {
                             SharedPreferences prefs =
@@ -125,14 +132,17 @@ class _MyStatelessWidget extends State<MyApp> {
                             );
                           },
                           child: Text(
-                            'Login as Guest',
-                            style: TextStyle(color: Colors.white, fontSize: 20),
+                            'LOGIN AS GUEST',
+                            style: TextStyle(color: Colors.white, fontSize: flexible(context, 15.0),),
                           ),
                         ),
                       ),
                     ],
                   ),
-                )
+                );
+              },
+          ),
+        )
               : NoInternet();
         }
         return Container(

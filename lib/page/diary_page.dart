@@ -186,6 +186,7 @@ class _DiaryPageState extends State<DiaryPage> {
                           ));
                         },
                         child: Card(
+                          
                           color: Colors.black12,
                           child: Container(
                             padding: EdgeInsets.all(8),

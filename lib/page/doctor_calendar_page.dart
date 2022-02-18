@@ -20,6 +20,7 @@ import 'package:vhelp_test/widget/button.dart';
 import 'package:vhelp_test/widget/task_tile.dart';
 import 'package:vhelp_test/widget/language_picker_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flexible/flexible.dart';
 
 class DoctorCalendar extends StatefulWidget {
   @override
@@ -67,66 +68,70 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return Scaffold(
-      appBar: _appBar(),
-      backgroundColor: Colors.blue[100],
-      body: Column(
-        children: [
-          _addTaskBar(),
-          _dateBar(),
-          SizedBox(
-            height: 12,
-          ),
-          _showTasks(),
-        ],
-      ),
-    );
+    return ScreenFlexibleWidget(child: Builder(builder: (BuildContext context) {
+      return Scaffold(
+        appBar: _appBar(),
+        backgroundColor: Colors.blue[100],
+        body: Column(
+          children: [
+            _addTaskBar(),
+            _dateBar(),
+            SizedBox(
+              height: flexible(context, 12.0),
+            ),
+            _showTasks(),
+          ],
+        ),
+      );
+    }));
   }
 
   _dateBar() {
-    return Container(
-      margin: EdgeInsets.only(bottom: 10, left: 20),
-      child: Container(
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-        child: DatePicker(
-          DateTime.now(),
-          height: 100.0,
-          width: 80,
-          initialSelectedDate: DateTime.now(),
+    return ScreenFlexibleWidget(child: Builder(builder: (BuildContext context) {
+      return Container(
+        margin: EdgeInsets.only(bottom: flexible(context, 10.0), left: flexible(context, 20.0)),
+        child: Container(
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+          child: DatePicker(
+            DateTime.now(),
+            height: flexible(context, 100.0),
+            width: flexible(context, 80.0),
+            initialSelectedDate: DateTime.now(),
 
-          selectionColor: primaryClr,
-          //selectedTextColor: primaryClr,
-          selectedTextColor: Colors.white,
-          dateTextStyle: GoogleFonts.lato(
-            textStyle: TextStyle(
-              fontSize: 20.0,
-              fontWeight: FontWeight.w600,
-              color: Colors.black,
+            selectionColor: primaryClr,
+            //selectedTextColor: primaryClr,
+            selectedTextColor: Colors.white,
+            dateTextStyle: GoogleFonts.lato(
+              textStyle: TextStyle(
+                fontSize: flexible(context, 20.0),
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+              ),
             ),
-          ),
-          dayTextStyle: GoogleFonts.lato(
-            textStyle: TextStyle(
-              fontSize: 16.0,
-              color: Colors.black,
+            dayTextStyle: GoogleFonts.lato(
+              textStyle: TextStyle(
+                fontSize: flexible(context, 16.0),
+                color: Colors.black,
+              ),
             ),
-          ),
-          monthTextStyle: GoogleFonts.lato(
-            textStyle: TextStyle(
-              fontSize: 10.0,
-              color: Colors.black,
+            monthTextStyle: GoogleFonts.lato(
+              textStyle: TextStyle(
+                fontSize: flexible(context, 10.0),
+                color: Colors.black,
+              ),
             ),
+            onDateChange: (date) {
+              // New date selected
+              setState(
+                () {
+                  _selectedDate = date;
+                },
+              );
+            },
           ),
-          onDateChange: (date) {
-            // New date selected
-            setState(
-              () {
-                _selectedDate = date;
-              },
-            );
-          },
         ),
-      ),
-    );
+      );
+    }));
   }
 
   _addTaskBar() {

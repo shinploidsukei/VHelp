@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import 'package:vhelp_test/Content.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
@@ -11,11 +10,9 @@ import 'package:vhelp_test/db/logs_database.dart';
 import 'package:vhelp_test/model/colorLog.dart';
 import 'package:vhelp_test/no_internet.dart';
 import 'package:vhelp_test/page/dailyLogIn_detail_page.dart';
+import 'package:vhelp_test/page/edit_diary_login_page.dart';
 import 'package:vhelp_test/page/notes_page_login.dart';
 import 'package:vhelp_test/widget/diary_card_widget.dart';
-import 'diary_detail_page.dart';
-import 'edit_diary_page.dart';
-import 'notes_page.dart';
 import 'package:vhelp_test/widget/language_picker_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -47,9 +44,6 @@ class _DiaryLogInPageState extends State<DiaryLogInPage> {
 
   Future refreshNotes() async {
     setState(() => isLoading = true);
-
-    this.colors = await LogsDatabase.instance.readAll();
-
     setState(() => isLoading = false);
   }
 
@@ -99,13 +93,87 @@ class _DiaryLogInPageState extends State<DiaryLogInPage> {
                         body: Center(
                           child: isLoading
                               ? CircularProgressIndicator()
-                              : colors.isEmpty
-                                  ? Text(
-                                      S.of(context)!.mood_diary_message,
-                                      style: TextStyle(
-                                          color: Colors.blueGrey, fontSize: 20),
-                                    )
-                                  : checkAno(),
+                              : StreamBuilder(
+                                  stream: FirebaseFirestore.instance
+                                      .collection('Accounts')
+                                      .doc(FirebaseAuth
+                                          .instance.currentUser!.uid)
+                                      .collection('Moods')
+                                      .orderBy('datetime', descending: true)
+                                      .snapshots(),
+                                  builder: (context,
+                                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    }
+                                    return ListView(
+                                      children:
+                                          snapshot.data!.docs.map((document) {
+                                        return Container(
+                                            child: GestureDetector(
+                                                onTap: () async {
+                                                  await Navigator.of(context)
+                                                      .push(MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        DiaryLogInDetailPage(
+                                                      colorID:
+                                                          document['dateID'],
+                                                    ),
+                                                  ));
+                                                },
+                                                child: Card(
+                                                  color: Colors.black12,
+                                                  child: Container(
+                                                    padding: EdgeInsets.all(8),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              document[
+                                                                  'dateDay'],
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 12),
+                                                            ),
+                                                            Text(
+                                                              document[
+                                                                  'dateHour'],
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .white),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        SizedBox(height: 6),
+                                                        IconTheme(
+                                                            data: IconThemeData(
+                                                                color: emojiColors[
+                                                                    document[
+                                                                            'colorSaved']
+                                                                        as int]),
+                                                            child: Icon(Icons
+                                                                .emoji_emotions)),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                )));
+                                      }).toList(),
+                                    );
+                                  }),
                         ),
                         floatingActionButton: SpeedDial(
                           animatedIcon: AnimatedIcons.menu_close,
@@ -134,9 +202,8 @@ class _DiaryLogInPageState extends State<DiaryLogInPage> {
                                   await Navigator.of(context).push(
                                     MaterialPageRoute(
                                         builder: (context) =>
-                                            AddEditMoodPage()),
+                                            AddEditMoodLogInPage()),
                                   );
-                                  refreshNotes();
                                 },
                                 label: S.of(context)!.mood_diary_button2,
                                 labelStyle: TextStyle(),
@@ -159,97 +226,4 @@ class _DiaryLogInPageState extends State<DiaryLogInPage> {
       );
     });
   }
-
-  Widget checkAno() {
-    if (user?.isAnonymous == false) {
-      return StreamBuilder(
-          stream: FirebaseFirestore.instance
-              .collection('Accounts')
-              .doc(FirebaseAuth.instance.currentUser!.uid)
-              .collection('Moods')
-              .orderBy('datetime', descending: true)
-              .snapshots(),
-          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (!snapshot.hasData) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            return ListView(
-              children: snapshot.data!.docs.map((document) {
-                return Container(
-                    child: GestureDetector(
-                        onTap: () async {
-                          await Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => DiaryLogInDetailPage(
-                              colorID: document['dateID'],
-                            ),
-                          ));
-                        },
-                        child: Card(
-                          color: Colors.black12,
-                          child: Container(
-                            padding: EdgeInsets.all(8),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      document['dateDay'],
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 12),
-                                    ),
-                                    Text(
-                                      document['dateHour'],
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 6),
-                                IconTheme(
-                                    data: IconThemeData(
-                                        color: emojiColors[
-                                            document['colorSaved'] as int]),
-                                    child: Icon(Icons.emoji_emotions)),
-                              ],
-                            ),
-                          ),
-                        )));
-              }).toList(),
-            );
-          });
-    } else {
-      return buildNotes();
-    }
-  }
-
-  Widget buildNotes() => StaggeredGridView.countBuilder(
-        padding: EdgeInsets.all(8),
-        itemCount: colors.length,
-        staggeredTileBuilder: (index) => StaggeredTile.fit(1),
-        crossAxisCount: 4,
-        mainAxisSpacing: 4,
-        crossAxisSpacing: 4,
-        itemBuilder: (context, index) {
-          final sortedItems = colors.reversed.toList();
-          final color = sortedItems[index];
-
-          return GestureDetector(
-            onTap: () async {
-              await Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => DiaryDetailPage(
-                  colorID: color.id!,
-                ),
-              ));
-
-              refreshNotes();
-            },
-            child: DiaryCardWidget(colorCard: color, index: index),
-          );
-        },
-      );
 }

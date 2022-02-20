@@ -235,6 +235,9 @@ class _timeStampState extends State<timeStamp> {
       await TimeStampLog.instance.create(timetakemed);
       print('hello');
     }
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => HomePage(),
+    ));
   }
 
   // ignore: non_constant_identifier_names

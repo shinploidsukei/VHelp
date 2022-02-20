@@ -305,6 +305,7 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
           Navigator.of(context).push(MaterialPageRoute(
             builder: (context) => DiaryPage(),
           ));
+          print('test navigator ///// guest success ////');
         }
         break;
       case 5:

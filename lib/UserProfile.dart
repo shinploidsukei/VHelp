@@ -418,7 +418,7 @@ class _UserPageState extends State<UserPage> {
                             await SharedPreferences.getInstance();
                         await pref.clear();
                         _signOut();
-
+                        Restart.restartApp();
                         Navigator.of(context).push(
                           MaterialPageRoute(
                               builder: (BuildContext context) => MyApp()),

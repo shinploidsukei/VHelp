@@ -6,7 +6,6 @@ import 'package:vhelp_test/no_internet.dart';
 import 'connectivity_provider.dart';
 import 'termservice.dart';
 import 'Content.dart';
-import 'package:flexible/flexible.dart';
 
 class Start extends StatefulWidget {
   @override

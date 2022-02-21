@@ -25,12 +25,12 @@ class Themes {
 
 /*TextStyle get headingTextStyle {
   return Text(
-    Text: TextStyle(
+    TextStyle: TextStyle(
         fontSize: 24,
         fontWeight: FontWeight.bold,
         color: Get.isDarkMode ? Colors.white : Colors.black),
   );
-}
+}*/
 
 TextStyle get subHeadingTextStyle {
   return GoogleFonts.lato(
@@ -41,7 +41,7 @@ TextStyle get subHeadingTextStyle {
   );
 }
 
-TextStyle get titleTextStle {
+TextStyle get titleTextStyle {
   return GoogleFonts.lato(
     textStyle: TextStyle(
         fontSize: 18,
@@ -75,4 +75,3 @@ TextStyle get body2TextStyle {
         color: Get.isDarkMode ? Colors.grey[200] : Colors.grey[600]),
   );
 }
-*/

@@ -9,18 +9,15 @@ import 'package:intl/intl.dart';
 import 'package:vhelp_test/Content.dart';
 import 'package:vhelp_test/controller/task_controller.dart';
 import 'package:vhelp_test/model/task.dart';
-import 'package:vhelp_test/notification_api.dart';
 import 'package:vhelp_test/page/add_task_bar.dart';
-import 'package:vhelp_test/page/notified_page.dart';
 import 'package:vhelp_test/utils/notification_services.dart';
 import 'package:vhelp_test/utils/size_config.dart';
 import 'package:vhelp_test/utils/theme.dart';
-import 'package:vhelp_test/utils/theme_service.dart';
 import 'package:vhelp_test/widget/button.dart';
 import 'package:vhelp_test/widget/task_tile.dart';
 import 'package:vhelp_test/widget/language_picker_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flexible/flexible.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 class DoctorCalendar extends StatefulWidget {
   @override
@@ -68,126 +65,128 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return ScreenFlexibleWidget(child: Builder(builder: (BuildContext context) {
-      return Scaffold(
-        appBar: _appBar(),
-        backgroundColor: Colors.blue[100],
-        body: Column(
-          children: [
-            _addTaskBar(),
-            _dateBar(),
-            SizedBox(
-              height: flexible(context, 12.0),
-            ),
-            _showTasks(),
-          ],
-        ),
-      );
-    }));
+    return Scaffold(
+      appBar: _appBar(),
+      backgroundColor: Colors.blue[100],
+      body: Column(
+        children: [
+          _addTaskBar(),
+          _dateBar(),
+          SizedBox(
+            height: 30.0,
+          ),
+          _showTasks(),
+          SizedBox(
+            height: 30.0,
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await Get.to(() => AddTaskPage());
+          _taskController.getTasks();
+        },
+        backgroundColor: Colors.teal[400],
+        child: const Icon(Icons.add),
+      ),
+    );
   }
 
   _dateBar() {
-    return ScreenFlexibleWidget(child: Builder(builder: (BuildContext context) {
-      return Container(
-        margin: EdgeInsets.only(bottom: flexible(context, 10.0), left: flexible(context, 20.0)),
-        child: Container(
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-          child: DatePicker(
-            DateTime.now(),
-            height: flexible(context, 100.0),
-            width: flexible(context, 80.0),
-            initialSelectedDate: DateTime.now(),
+    return Container(
+      margin: EdgeInsets.only(bottom: 10.0, left: 30.0, right: 30, top: 10),
+      child: Container(
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
+        child: DatePicker(
+          DateTime.now(),
+          height: 100.0,
+          width: 80.0,
+          initialSelectedDate: DateTime.now(),
 
-            selectionColor: primaryClr,
-            //selectedTextColor: primaryClr,
-            selectedTextColor: Colors.white,
-            dateTextStyle: GoogleFonts.lato(
-              textStyle: TextStyle(
-                fontSize: flexible(context, 20.0),
-                fontWeight: FontWeight.w600,
-                color: Colors.black,
-              ),
+          selectionColor: primaryClr,
+          //selectedTextColor: primaryClr,
+          selectedTextColor: Colors.white,
+          dateTextStyle: GoogleFonts.lato(
+            textStyle: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
             ),
-            dayTextStyle: GoogleFonts.lato(
-              textStyle: TextStyle(
-                fontSize: flexible(context, 16.0),
-                color: Colors.black,
-              ),
-            ),
-            monthTextStyle: GoogleFonts.lato(
-              textStyle: TextStyle(
-                fontSize: flexible(context, 10.0),
-                color: Colors.black,
-              ),
-            ),
-            onDateChange: (date) {
-              // New date selected
-              setState(
-                () {
-                  _selectedDate = date;
-                },
-              );
-            },
           ),
+          dayTextStyle: GoogleFonts.lato(
+            textStyle: TextStyle(
+              fontSize: 16.0,
+              color: Colors.black,
+            ),
+          ),
+          monthTextStyle: GoogleFonts.lato(
+            textStyle: TextStyle(
+              fontSize: 10.0,
+              color: Colors.black,
+            ),
+          ),
+          onDateChange: (date) {
+            // New date selected
+            setState(
+              () {
+                _selectedDate = date;
+              },
+            );
+          },
         ),
-      );
-    }));
+      ),
+    );
   }
 
   _addTaskBar() {
-    return Container(
-      margin: EdgeInsets.only(bottom: 12),
-      padding: EdgeInsets.symmetric(horizontal: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Align(
+      alignment: Alignment.topLeft,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
-                height: 100,
-                width: 200,
-                decoration: BoxDecoration(
-                  color: Colors.green.shade300,
-                  borderRadius: BorderRadius.all(Radius.circular(12)),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+            height: 100,
+            width: 200,
+            decoration: BoxDecoration(
+              color: Colors.teal[300],
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  DateFormat.yMd().format(DateTime.now()),
+                  style: TextStyle(
+                      //fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontSize: 14),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      DateFormat.yMd().format(DateTime.now()),
-                      style: TextStyle(
-                          //fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 14),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(S.of(context)!.today,
-                        style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white)),
-                  ],
+                SizedBox(
+                  height: 20,
                 ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-            ],
+                Text(S.of(context)!.today,
+                    style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white)),
+              ],
+            ),
           ),
-          MyButton(
+          SizedBox(
+            height: 10,
+          ),
+        ],
+      ),
+      /*MyButton(
             label: "+ " + S.of(context)!.addTask,
             onTap: () async {
               await Get.to(() => AddTaskPage());
               _taskController.getTasks();
             },
-          ),
-        ],
-      ),
+          ),*/
     );
   }
 
@@ -216,42 +215,40 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
   _showTasks() {
     return Expanded(
       child: Obx(() {
-        if (_taskController.taskList.isEmpty) {
-          return _noTaskMsg();
-        } else
-          return ListView.builder(
-              scrollDirection: Axis.vertical,
-              itemCount: _taskController.taskList.length,
-              itemBuilder: (context, index) {
-                Task? task = _taskController.taskList[index];
-                if (task.date == DateFormat.yMd().format(_selectedDate)) {
-                  var hour = task.startTime.toString().split(":")[0];
-                  var minutes = task.startTime.toString().split(":")[1];
-                  debugPrint("My time is " + hour);
-                  debugPrint("My minute is " + minutes);
-                  DateTime date =
-                      DateFormat.Hm().parse(task.startTime!.toString());
-                  var myTime = DateFormat("HH:mm").format(date);
-                  notifyHelper.scheduledNotification(
-                      int.parse(myTime.toString().split(":")[0]),
-                      int.parse(myTime.toString().split(":")[1]),
-                      task);
-                  return Container(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        GestureDetector(
-                            onTap: () {
-                              showBottomSheet(context, task);
-                            },
-                            child: TaskTile(task)),
-                      ],
-                    ),
-                  );
-                } else {
-                  return Container();
-                }
-              });
+        return ListView.builder(
+          itemCount: _taskController.taskList.length,
+          itemBuilder: (_, index) {
+            Task task = _taskController.taskList[index];
+            print(task.toJson());
+            if (task.date == DateFormat.yMd().format(_selectedDate)) {
+              DateTime date = DateFormat.jm().parse(task.startTime.toString());
+              var mytime = DateFormat("HH:mm").format(date);
+              print(mytime);
+              notifyHelper.scheduledNotification(
+                  int.parse(mytime.toString().split(":")[0]),
+                  int.parse(mytime.toString().split(":")[1]),
+                  task);
+              return AnimationConfiguration.staggeredList(
+                position: index,
+                child: SlideAnimation(
+                  child: FadeInAnimation(
+                      child: Row(
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          showBottomSheet(context, task);
+                        },
+                        child: TaskTile(task),
+                      )
+                    ],
+                  )),
+                ),
+              );
+            } else {
+              return Container();
+            }
+          },
+        );
       }),
     );
   }
@@ -264,7 +261,7 @@ class _DoctorCalendarState extends State<DoctorCalendar> {
             ? SizeConfig.screenHeight! * 0.24
             : SizeConfig.screenHeight! * 0.32,
         width: SizeConfig.screenWidth,
-        color: Colors.cyan.shade200,
+        color: Colors.blue.shade100,
         child: Column(children: [
           Container(
             height: 6,

@@ -4,19 +4,17 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:vhelp_test/UserProfile.dart';
-import 'package:vhelp_test/db/logs_database.dart';
+import 'package:vhelp_test/PopupDialogLogIn.dart';
 import 'package:vhelp_test/model/colorLog.dart';
-import '../PopupDialog.dart';
 import '../connectivity_provider.dart';
 import '../no_internet.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class DiaryFormWidget extends StatefulWidget {
+class DiaryFormLogInWidget extends StatefulWidget {
   final colorLog? color;
   final String? colorID;
 
-  const DiaryFormWidget(
+  const DiaryFormLogInWidget(
       {Key? key,
       required int colorIndex,
       this.color,
@@ -25,16 +23,19 @@ class DiaryFormWidget extends StatefulWidget {
       : super(key: key);
 
   @override
-  _DiaryFormWidgetState createState() => _DiaryFormWidgetState();
+  _DiaryFormLogInWidgetState createState() => _DiaryFormLogInWidgetState();
 }
 
-class _DiaryFormWidgetState extends State<DiaryFormWidget> {
+class _DiaryFormLogInWidgetState extends State<DiaryFormLogInWidget> {
   int? selectedIndex;
   late int thisColor;
+
   String now = DateFormat("dd-MM-yyyy").format(DateTime.now());
 
   final Future<FirebaseApp> firebase = Firebase.initializeApp();
   User? user = FirebaseAuth.instance.currentUser;
+  CollectionReference _moodDB =
+      FirebaseFirestore.instance.collection('Accounts');
 
   var emojiColors = [
     Colors.red[200],
@@ -47,7 +48,9 @@ class _DiaryFormWidgetState extends State<DiaryFormWidget> {
   @override
   void initState() {
     super.initState();
+
     Provider.of<ConnectivityProvider>(context, listen: false).startMonitoring();
+    setState(() {});
   }
 
   @override
@@ -131,7 +134,7 @@ class _DiaryFormWidgetState extends State<DiaryFormWidget> {
         onPressed: () async {
           showDialog(
             context: context,
-            builder: (BuildContext context) => PopupDialog(
+            builder: (BuildContext context) => PopupDialogLogIn(
               selectedIndex: index,
               emojiColor: emojiColors[index]!,
             ),
@@ -147,31 +150,56 @@ class _DiaryFormWidgetState extends State<DiaryFormWidget> {
   }
 
   void addOrUpdateColor(int index) async {
-    final itHas = widget.color?.createTime != null;
+    final itHas = widget.colorID != null;
+    print('check add or edit');
+    print(widget.colorID);
+    print(itHas);
 
     if (itHas) {
-      await updateColor();
+      await updateColorLI();
     } else {
-      await addColor();
+      await addColorLI();
       print(itHas);
     }
   }
 
-  Future updateColor() async {
-    final color = widget.color!.copy(
-      colorSaved: thisColor,
-    );
-
-    await LogsDatabase.instance.update(color);
-  }
-
-  Future addColor() async {
+  Future updateColorLI() async {
     final color = colorLog(
       colorSaved: thisColor,
       createTime: DateTime.now(),
     );
 
-    await LogsDatabase.instance.create(color);
-    print(color.createTime);
+    DocumentReference ref = _moodDB.doc(FirebaseAuth.instance.currentUser?.uid);
+    CollectionReference ref2 = ref.collection('Moods');
+
+    print('widget id');
+    print(widget.colorID);
+
+    await ref2.doc(widget.colorID).update({
+      'colorSaved': color.colorSaved,
+    });
+  }
+
+  Future addColorLI() async {
+    final color = colorLog(
+      colorSaved: thisColor,
+      createTime: DateTime.now(),
+    );
+
+    DocumentReference ref = _moodDB.doc(FirebaseAuth.instance.currentUser!.uid);
+    CollectionReference ref2 = ref.collection('Moods');
+
+    final String time = DateFormat.yMMMd().format(DateTime.now());
+    final String timeDay = DateFormat('yyyy-MM-dd').format(DateTime.now());
+    final String timeHour = DateFormat('HH:mm').format(DateTime.now());
+    final String timeForNote =
+        DateFormat('yyyy-MM-dd – HH:mm').format(DateTime.now());
+    await ref2.doc(time).set({
+      'colorSaved': color.colorSaved,
+      'datetime': timeForNote,
+      'dateID': time,
+      'dateHour': timeHour,
+      'dateDay': timeDay,
+    });
   }
 }

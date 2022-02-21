@@ -6,8 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:vhelp_test/connectivity_provider.dart';
 import 'package:vhelp_test/model/colorLog.dart';
 import 'package:vhelp_test/no_internet.dart';
-import 'package:vhelp_test/page/diary_page.dart';
-import 'package:vhelp_test/page/edit_diary_page.dart';
+import 'package:vhelp_test/page/diary_login_page.dart';
+import 'package:vhelp_test/page/edit_diary_login_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DiaryLogInDetailPage extends StatefulWidget {
@@ -77,7 +77,7 @@ class _DiaryLogINDetailPageState extends State<DiaryLogInDetailPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => DiaryPage()),
+                                  builder: (context) => DiaryLogInPage()),
                             );
                           },
                           icon: Icon(Icons.arrow_back_ios),
@@ -161,7 +161,7 @@ class _DiaryLogINDetailPageState extends State<DiaryLogInDetailPage> {
                           await ref.delete();
 
                           Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) => DiaryPage()));
+                              builder: (context) => DiaryLogInPage()));
                         },
                         child: Text('Delete!'))
                   ],
@@ -175,10 +175,9 @@ class _DiaryLogINDetailPageState extends State<DiaryLogInDetailPage> {
       onPressed: () async {
         if (isLoading) return;
         await Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => AddEditMoodPage(
+          builder: (context) => AddEditMoodLogInPage(
             colorID: widget.colorID,
           ),
         ));
-        refreshNote();
       });
 }

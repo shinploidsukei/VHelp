@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as Path;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vhelp_test/AccountScreen.dart';
 import 'package:restart_app/restart_app.dart';
@@ -75,20 +76,20 @@ class _UserPageState extends State<UserPage> {
           Map<String, dynamic> data =
               snapshot.data!.data() as Map<String, dynamic>;
           imageUrl = data['profile url'];
-            return Scaffold(
-                appBar: AppBar(
-                  title: Text(S.of(context)!.profile,
-                      style: TextStyle(color: Colors.black54, fontSize: 22)),
-                  iconTheme: IconThemeData(color: Colors.black54),
-                  backgroundColor: Colors.cyan.shade100,
-                  actions: [
-                    LanguagePickerWidget(),
-                    //const SizedBox(width: 12),
-                  ],
-                  elevation: 0,
-                ),
-                body: SingleChildScrollView(
-                  child: Container(
+          return Scaffold(
+              appBar: AppBar(
+                title: Text(S.of(context)!.profile,
+                    style: TextStyle(color: Colors.black54, fontSize: 22)),
+                iconTheme: IconThemeData(color: Colors.black54),
+                backgroundColor: Colors.cyan.shade100,
+                actions: [
+                  LanguagePickerWidget(),
+                  //const SizedBox(width: 12),
+                ],
+                elevation: 0,
+              ),
+              body: SingleChildScrollView(
+                child: Container(
                   decoration: BoxDecoration(
                       gradient: LinearGradient(colors: [
                     Colors.cyan.shade100,
@@ -401,43 +402,42 @@ class _UserPageState extends State<UserPage> {
                         ]),
                   ),
                 ),
-                ),
-                floatingActionButton: SpeedDial(
-                  animatedIcon: AnimatedIcons.menu_close,
-                  animatedIconTheme: IconThemeData(size: 22),
-                  backgroundColor: Colors.cyan.shade600,
-                  visible: true,
-                  curve: Curves.bounceIn,
-                  children: [
-                    SpeedDialChild(
-                        child: Icon(Icons.lock_open),
-                        backgroundColor: Colors.cyan.shade100,
-                        onTap: () async {
-                          SharedPreferences pref =
-                              await SharedPreferences.getInstance();
-                          await pref.clear();
-                          _signOut();
-                          //Restart.restartApp();
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (BuildContext context) => MyApp()),
-                          );
-                        },
-                        label: S.of(context)!.logout,
-                        labelStyle: TextStyle(),
-                        labelBackgroundColor: Colors.white),
-                    SpeedDialChild(
-                        child: Icon(Icons.delete),
-                        backgroundColor: Colors.cyan.shade100,
-                        onTap: () async {
-                          _DeleteUser();
-                        },
-                        label: S.of(context)!.deleteAccount,
-                        labelStyle: TextStyle(),
-                        labelBackgroundColor: Colors.white)
-                  ],
-                ));
+              ),
+              floatingActionButton: SpeedDial(
+                animatedIcon: AnimatedIcons.menu_close,
+                animatedIconTheme: IconThemeData(size: 22),
+                backgroundColor: Colors.cyan.shade600,
+                visible: true,
+                curve: Curves.bounceIn,
+                children: [
+                  SpeedDialChild(
+                      child: Icon(Icons.lock_open),
+                      backgroundColor: Colors.cyan.shade100,
+                      onTap: () async {
+                        SharedPreferences pref =
+                            await SharedPreferences.getInstance();
+                        await pref.clear();
+                        _signOut();
 
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => MyApp()),
+                        );
+                      },
+                      label: S.of(context)!.logout,
+                      labelStyle: TextStyle(),
+                      labelBackgroundColor: Colors.white),
+                  SpeedDialChild(
+                      child: Icon(Icons.delete),
+                      backgroundColor: Colors.cyan.shade100,
+                      onTap: () async {
+                        _DeleteUser();
+                      },
+                      label: S.of(context)!.deleteAccount,
+                      labelStyle: TextStyle(),
+                      labelBackgroundColor: Colors.white)
+                ],
+              ));
         }
 
         return Scaffold(
@@ -453,9 +453,10 @@ class _UserPageState extends State<UserPage> {
       // if (image == null) return;
       final imageTemporary = File(image!.path);
       if (image != null) {
+        String fileName = Path.basename(image.path);
         var snapshot = await _storage
             .ref()
-            .child('VHelpProfile/DisplayProfilePic')
+            .child('VHelpProfile/$fileName')
             .putFile(imageTemporary);
         var downloadUrl = await snapshot.ref.getDownloadURL();
 
@@ -482,9 +483,10 @@ class _UserPageState extends State<UserPage> {
       // if (image == null) return;
       final imageTemporary = File(image!.path);
       if (image != null) {
+        String fileName = Path.basename(image.path);
         var snapshot = await _storage
             .ref()
-            .child('VHelpProfile/DisplayProfilePic')
+            .child('VHelpProfile/$fileName')
             .putFile(imageTemporary);
         var downloadUrl = await snapshot.ref.getDownloadURL();
 
@@ -541,10 +543,7 @@ class _UserPageState extends State<UserPage> {
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.blueGrey)),
-                      onPressed: () {
-                        image = pickImageCam();
-                        //print(image);
-                      }),
+                      onPressed: () => pickImageCam()),
                   TextButton(
                       child: Text(S.of(context)!.gallery,
                           style: TextStyle(
@@ -560,6 +559,7 @@ class _UserPageState extends State<UserPage> {
 
   Future<void> _signOut() async {
     await FirebaseAuth.instance.signOut();
+    // Restart.restartApp();
   }
 
   /*void _EditProfile() {

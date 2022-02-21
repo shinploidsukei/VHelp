@@ -546,10 +546,7 @@ class _UserPageState extends State<UserPage> {
                           style: TextStyle(
                               //fontWeight: FontWeight.bold,
                               color: Colors.blueGrey)),
-                      onPressed: () {
-                        image = pickImageCam();
-                        //print(image);
-                      }),
+                      onPressed: () => pickImageCam()),
                   TextButton(
                       child: Text(S.of(context)!.gallery,
                           style: TextStyle(

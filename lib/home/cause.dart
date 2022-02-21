@@ -17,7 +17,6 @@ class CausePageState extends State<CausePage> {
   int index = 0;
 
   _launchURL() async {
-    /*const url = 'https://www.psychguides.com/depression/';*/
     if (await canLaunch(S.of(context)!.causeLink)) {
       await launch(S.of(context)!.causeLink);
     } else {

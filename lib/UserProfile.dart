@@ -80,7 +80,7 @@ class _UserPageState extends State<UserPage> {
                   title: Text(S.of(context)!.profile,
                       style: TextStyle(color: Colors.black54, fontSize: 22)),
                   iconTheme: IconThemeData(color: Colors.black54),
-                  backgroundColor: Colors.cyan.shade100,
+                  backgroundColor: Colors.blue.shade100,
                   actions: [
                     LanguagePickerWidget(),
                     //const SizedBox(width: 12),
@@ -91,7 +91,7 @@ class _UserPageState extends State<UserPage> {
                   child: Container(
                   decoration: BoxDecoration(
                       gradient: LinearGradient(colors: [
-                    Colors.cyan.shade100,
+                    Colors.blue.shade100,
                     Colors.blueGrey.shade100
                   ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
                   child: Align(
@@ -107,13 +107,16 @@ class _UserPageState extends State<UserPage> {
                               onTap: changePic,
                               child: Column(
                                 children: [
+                                  SizedBox(
+                                    height: 10,
+                                  ),
                                   image2 != null && imageUrl.isNotEmpty
                                       ? CircleAvatar(
-                                          radius: 50.0,
+                                          radius: 70.0,
                                           backgroundImage:
                                               NetworkImage(imageUrl))
                                       : CircleAvatar(
-                                          radius: 50.0,
+                                          radius: 70.0,
                                           backgroundImage: AssetImage(
                                               'assets/images/iceberg.png')),
                                   /*    ? FutureBuilder(
@@ -166,12 +169,12 @@ class _UserPageState extends State<UserPage> {
                                 ],
                               )),
                           SizedBox(
-                            height: 10,
+                            height: 60,
                           ),
                           Container(
                             margin: EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10.0),
-                            height: 50.0,
+                            height: 60.0,
                             //width: 0,
                             padding: EdgeInsets.only(left: 10.0),
                             decoration: const BoxDecoration(
@@ -199,7 +202,7 @@ class _UserPageState extends State<UserPage> {
                           Container(
                             margin: EdgeInsets.symmetric(
                                 horizontal: 20.0, vertical: 10.0),
-                            height: 50.0,
+                            height: 60.0,
                             //width: 0,
                             padding: EdgeInsets.only(left: 10),
                             decoration: const BoxDecoration(
@@ -229,7 +232,7 @@ class _UserPageState extends State<UserPage> {
                           Container(
                             margin: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
-                            height: 50,
+                            height: 60,
                             //width: 0,
                             padding: const EdgeInsets.only(left: 10),
                             decoration: const BoxDecoration(
@@ -259,7 +262,7 @@ class _UserPageState extends State<UserPage> {
                           Container(
                             margin: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
-                            height: 50,
+                            height: 60,
                             //width: 0,
                             padding: const EdgeInsets.only(left: 10),
                             decoration: const BoxDecoration(
@@ -289,7 +292,7 @@ class _UserPageState extends State<UserPage> {
                           Container(
                             margin: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
-                            height: 50,
+                            height: 60,
                             //width: 0,
                             padding: const EdgeInsets.only(left: 10),
                             decoration: const BoxDecoration(
@@ -319,7 +322,7 @@ class _UserPageState extends State<UserPage> {
                           Container(
                             margin: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
-                            height: 50,
+                            height: 60,
                             //width: 0,
                             padding: const EdgeInsets.only(left: 10),
                             decoration: const BoxDecoration(
@@ -349,7 +352,7 @@ class _UserPageState extends State<UserPage> {
                           Container(
                             margin: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 10),
-                            height: 50,
+                            height: 60,
                             //width: 0,
                             padding: const EdgeInsets.only(left: 10),
                             decoration: const BoxDecoration(
@@ -377,7 +380,7 @@ class _UserPageState extends State<UserPage> {
                             ),
                           ),
                           SizedBox(
-                            height: 50,
+                            height: 100,
                           ),
                           /*ElevatedButton(
                         onPressed: () {
@@ -405,13 +408,13 @@ class _UserPageState extends State<UserPage> {
                 floatingActionButton: SpeedDial(
                   animatedIcon: AnimatedIcons.menu_close,
                   animatedIconTheme: IconThemeData(size: 22),
-                  backgroundColor: Colors.cyan.shade600,
+                  backgroundColor: Colors.blue.shade600,
                   visible: true,
                   curve: Curves.bounceIn,
                   children: [
                     SpeedDialChild(
                         child: Icon(Icons.lock_open),
-                        backgroundColor: Colors.cyan.shade100,
+                        backgroundColor: Colors.blue.shade100,
                         onTap: () async {
                           SharedPreferences pref =
                               await SharedPreferences.getInstance();
@@ -428,7 +431,7 @@ class _UserPageState extends State<UserPage> {
                         labelBackgroundColor: Colors.white),
                     SpeedDialChild(
                         child: Icon(Icons.delete),
-                        backgroundColor: Colors.cyan.shade100,
+                        backgroundColor: Colors.blue.shade100,
                         onTap: () async {
                           _DeleteUser();
                         },
@@ -520,7 +523,7 @@ class _UserPageState extends State<UserPage> {
                     "  " + S.of(context)!.chooseProfile,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        fontSize: 16,
                         color: Colors.black),
                   ),
                   IconButton(
@@ -539,7 +542,7 @@ class _UserPageState extends State<UserPage> {
                   TextButton(
                       child: Text(S.of(context)!.camera,
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                              //fontWeight: FontWeight.bold,
                               color: Colors.blueGrey)),
                       onPressed: () {
                         image = pickImageCam();
@@ -548,7 +551,7 @@ class _UserPageState extends State<UserPage> {
                   TextButton(
                       child: Text(S.of(context)!.gallery,
                           style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                              //fontWeight: FontWeight.bold,
                               color: Colors.blueGrey)),
                       onPressed: () => pickImageGal()),
                 ],

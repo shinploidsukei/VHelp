@@ -12,7 +12,7 @@ class NotifyHelper {
       FlutterLocalNotificationsPlugin();
 
   initializeNotification() async {
-    tz.initializeTimeZones();
+    //tz.initializeTimeZones();
     _configureLocalTimezone();
     final IOSInitializationSettings initializationSettingsIOS =
         IOSInitializationSettings(
@@ -21,13 +21,13 @@ class NotifyHelper {
             requestAlertPermission: false,
             onDidReceiveLocalNotification: onDidReceiveLocalNotification);
 
-    final AndroidInitializationSettings initializationSettingsAndriod =
+    final AndroidInitializationSettings initializationSettingsAndroid =
         AndroidInitializationSettings("appicon");
 
     final InitializationSettings initializationSettings =
         InitializationSettings(
             iOS: initializationSettingsIOS,
-            android: initializationSettingsAndriod);
+            android: initializationSettingsAndroid);
 
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: selectNotification);
@@ -62,32 +62,43 @@ class NotifyHelper {
     );
   }
 
-  scheduledNotification(int hour, int minutes, Task task) async {
-    await flutterLocalNotificationsPlugin.zonedSchedule(
-        task.id!.toInt(),
-        task.title,
-        task.note,
-        _convertTime(hour, minutes),
-        //tz.TZDateTime.now(tz.local).add(const Duration(seconds: 5)),
-        const NotificationDetails(
-            android: AndroidNotificationDetails(
-                'channelId', 'channelName', 'channelDescription')),
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-        androidAllowWhileIdle: true,
-        matchDateTimeComponents: DateTimeComponents.time,
-        payload: "${task.title}|" + "${task.note}|");
-  }
-
-  tz.TZDateTime _convertTime(int hour, int minutes) {
+  tz.TZDateTime convertTime(int hour, int minutes) {
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-    tz.TZDateTime scheduleDate =
-        tz.TZDateTime(tz.local, now.year, now.month, now.day, hour, minutes);
+    tz.TZDateTime scheduleDate = tz.TZDateTime(
+      tz.local,
+      now.year,
+      now.month,
+      now.day,
+      hour,
+      minutes,
+    );
     if (scheduleDate.isBefore(now)) {
       scheduleDate = scheduleDate.add(const Duration(days: 1));
     }
     return scheduleDate;
   }
+
+  scheduledNotification(int hour, int minutes, Task task) async {
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+        task.id!.toInt(),
+        task.title,
+        task.note,
+        convertTime(hour, minutes),
+        //tz.TZDateTime.now(tz.local).add(Duration(seconds: 5)),
+       // tz.TZDateTime.from(convertTime(hour, minutes), tz.local),
+        NotificationDetails(
+            android: AndroidNotificationDetails(
+                'channelId', 'channelName', 'channelDescription'),
+          iOS: IOSNotificationDetails(presentSound: true),
+        ),
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        androidAllowWhileIdle: true,
+        matchDateTimeComponents: DateTimeComponents.time,
+        payload: "${task.title}|" + "${task.note}|",
+    );
+  }
+
 
   Future<void> _configureLocalTimezone() async {
     tz.initializeTimeZones();
@@ -98,7 +109,7 @@ class NotifyHelper {
   void requestIOSPermission() {
     flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
-            IOSFlutterLocalNotificationsPlugin>()
+        IOSFlutterLocalNotificationsPlugin>()
         ?.requestPermissions(
           alert: true,
           badge: true,

@@ -7,7 +7,6 @@ import 'package:vhelp_test/connectivity_provider.dart';
 import 'package:vhelp_test/no_internet.dart';
 import 'package:vhelp_test/widget/language_picker_widget.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flexible/flexible.dart';
 
 class PodcastPage extends StatefulWidget {
   @override
@@ -230,10 +229,7 @@ class PodcastPageState extends State<PodcastPage> {
       builder: (context, model, child) {
         if (model.isOnline) {
           return model.isOnline
-              ? ScreenFlexibleWidget(
-                  child: Builder(
-                    builder: (BuildContext context) {
-                      return Scaffold(
+              ? Scaffold(
                         backgroundColor: Colors.blue[100],
                         appBar: AppBar(
                           leading: IconButton(
@@ -255,11 +251,11 @@ class PodcastPageState extends State<PodcastPage> {
                           ],
                           title: Text(S.of(context)!.sidebar8,
                               style: TextStyle(
-                                  color: Colors.black54, fontSize: flexible(context, 22.0))),
+                                  color: Colors.black54, fontSize: 22.0)),
                         ),
                         body: Container(
                           child: Container(
-                            margin: EdgeInsets.all(flexible(context, 20.0)),
+                            margin: EdgeInsets.all(20.0),
                             child: ListView(
                               //scrollDirection: Axis.horizontal,
                               children: [
@@ -271,25 +267,25 @@ class PodcastPageState extends State<PodcastPage> {
                                     children: <Widget>[
                                       ClipRRect(
                                         borderRadius:
-                                            BorderRadius.circular(flexible(context, 50.0)),
+                                            BorderRadius.circular(50.0),
                                         child: Image.asset(
                                           'assets/images/standpod.jpeg',
-                                          height: flexible(context, 280.0),
+                                          height: 280.0,
                                           fit: BoxFit.cover,
                                         ),
                                       ),
                                       SizedBox(
-                                        height: flexible(context, 10.0),
+                                        height: 10.0,
                                       ),
                                       Text(
                                         S.of(context)!.stand,
                                         style: TextStyle(
                                             color: Colors.blueGrey,
-                                            fontSize: flexible(context, 20.0),
+                                            fontSize: 20.0,
                                             fontWeight: FontWeight.bold),
                                       ),
                                       SizedBox(
-                                        height: flexible(context, 30.0),
+                                        height: 30.0,
                                       ),
                                     ],
                                   ),
@@ -302,25 +298,25 @@ class PodcastPageState extends State<PodcastPage> {
                                     children: <Widget>[
                                       ClipRRect(
                                         borderRadius:
-                                            BorderRadius.circular(flexible(context, 50.0)),
+                                            BorderRadius.circular(50.0),
                                         child: Image.asset(
                                           'assets/images/knd.png',
-                                          height: flexible(context, 280.0),
+                                          height: 280.0,
                                           fit: BoxFit.cover,
                                         ),
                                       ),
                                       SizedBox(
-                                        height: flexible(context, 10.0),
+                                        height: 10.0,
                                       ),
                                       Text(
                                         S.of(context)!.knd,
                                         style: TextStyle(
                                             color: Colors.blueGrey,
-                                            fontSize: flexible(context, 20.0),
+                                            fontSize: 20.0,
                                             fontWeight: FontWeight.bold),
                                       ),
                                       SizedBox(
-                                        height: flexible(context, 30.0),
+                                        height: 30.0,
                                       ),
                                     ],
                                   ),
@@ -333,25 +329,25 @@ class PodcastPageState extends State<PodcastPage> {
                                     children: <Widget>[
                                       ClipRRect(
                                         borderRadius:
-                                            BorderRadius.circular(flexible(context, 50.0)),
+                                            BorderRadius.circular(50.0),
                                         child: Image.asset(
                                           'assets/images/mission.jpeg',
-                                          height: flexible(context, 280.0),
+                                          height: 280.0,
                                           fit: BoxFit.cover,
                                         ),
                                       ),
                                       SizedBox(
-                                        height: flexible(context, 10.0),
+                                        height: 10.0,
                                       ),
                                       Text(
                                         S.of(context)!.mission,
                                         style: TextStyle(
                                             color: Colors.blueGrey,
-                                            fontSize: flexible(context, 20.0),
+                                            fontSize: 20.0,
                                             fontWeight: FontWeight.bold),
                                       ),
                                       SizedBox(
-                                        height: flexible(context, 30.0),
+                                        height: 30.0,
                                       ),
                                     ],
                                   ),
@@ -364,25 +360,25 @@ class PodcastPageState extends State<PodcastPage> {
                                     children: <Widget>[
                                       ClipRRect(
                                         borderRadius:
-                                            BorderRadius.circular(flexible(context, 50.0)),
+                                            BorderRadius.circular(50.0),
                                         child: Image.asset(
                                           'assets/images/salmon.jpeg',
-                                          height: flexible(context, 280.0),
+                                          height: 280.0,
                                           fit: BoxFit.cover,
                                         ),
                                       ),
                                       SizedBox(
-                                        height: flexible(context, 10.0),
+                                        height: 10.0,
                                       ),
                                       Text(
                                         S.of(context)!.salmon,
                                         style: TextStyle(
                                             color: Colors.blueGrey,
-                                            fontSize: flexible(context, 20.0),
+                                            fontSize: 20.0,
                                             fontWeight: FontWeight.bold),
                                       ),
                                       SizedBox(
-                                        height: flexible(context, 30.0),
+                                        height: 30.0,
                                       ),
                                     ],
                                   ),
@@ -395,25 +391,25 @@ class PodcastPageState extends State<PodcastPage> {
                                     children: <Widget>[
                                       ClipRRect(
                                         borderRadius:
-                                            BorderRadius.circular(flexible(context, 50.0)),
+                                            BorderRadius.circular(50.0),
                                         child: Image.asset(
                                           'assets/images/gettalk.jpeg',
-                                          height: flexible(context, 280.0),
+                                          height: 280.0,
                                           fit: BoxFit.cover,
                                         ),
                                       ),
                                       SizedBox(
-                                        height: flexible(context, 10.0),
+                                        height: 10.0,
                                       ),
                                       Text(
                                         S.of(context)!.gettalk,
                                         style: TextStyle(
                                             color: Colors.blueGrey,
-                                            fontSize: flexible(context, 20.0),
+                                            fontSize: 20.0,
                                             fontWeight: FontWeight.bold),
                                       ),
                                       SizedBox(
-                                        height: flexible(context, 30.0),
+                                        height: 30.0,
                                       ),
                                     ],
                                   ),
@@ -426,25 +422,25 @@ class PodcastPageState extends State<PodcastPage> {
                                     children: <Widget>[
                                       ClipRRect(
                                         borderRadius:
-                                            BorderRadius.circular(flexible(context, 50.0)),
+                                            BorderRadius.circular(50.0),
                                         child: Image.asset(
                                           'assets/images/ghostradio.jpeg',
-                                          height: flexible(context, 280.0),
+                                          height: 280.0,
                                           fit: BoxFit.cover,
                                         ),
                                       ),
                                       SizedBox(
-                                        height: flexible(context, 10.0),
+                                        height: 10.0,
                                       ),
                                       Text(
                                         S.of(context)!.ghost,
                                         style: TextStyle(
                                             color: Colors.blueGrey,
-                                            fontSize: flexible(context, 20.0),
+                                            fontSize: 20.0,
                                             fontWeight: FontWeight.bold),
                                       ),
                                       SizedBox(
-                                        height: flexible(context, 30.0),
+                                        height: 30.0,
                                       ),
                                     ],
                                   ),
@@ -457,25 +453,25 @@ class PodcastPageState extends State<PodcastPage> {
                                     children: <Widget>[
                                       ClipRRect(
                                         borderRadius:
-                                            BorderRadius.circular(flexible(context, 50.0)),
+                                            BorderRadius.circular(50.0),
                                         child: Image.asset(
                                           'assets/images/pipe.jpeg',
-                                          height: flexible(context, 280.0),
+                                          height: 280.0,
                                           fit: BoxFit.cover,
                                         ),
                                       ),
                                       SizedBox(
-                                        height: flexible(context, 10.0),
+                                        height: 10.0,
                                       ),
                                       Text(
                                         S.of(context)!.pipe,
                                         style: TextStyle(
                                             color: Colors.blueGrey,
-                                            fontSize: flexible(context, 20.0),
+                                            fontSize: 20.0,
                                             fontWeight: FontWeight.bold),
                                       ),
                                       SizedBox(
-                                        height: flexible(context, 30.0),
+                                        height: 30.0,
                                       ),
                                     ],
                                   ),
@@ -488,25 +484,25 @@ class PodcastPageState extends State<PodcastPage> {
                                     children: <Widget>[
                                       ClipRRect(
                                         borderRadius:
-                                            BorderRadius.circular(flexible(context, 50.0)),
+                                            BorderRadius.circular(50.0),
                                         child: Image.asset(
                                           'assets/images/ajarn.jpeg',
-                                          height: flexible(context, 280.0),
+                                          height: 280.0,
                                           fit: BoxFit.cover,
                                         ),
                                       ),
                                       SizedBox(
-                                        height: flexible(context, 10.0),
+                                        height: 10.0,
                                       ),
                                       Text(
                                         S.of(context)!.ajarn_yord,
                                         style: TextStyle(
                                             color: Colors.blueGrey,
-                                            fontSize: flexible(context, 20.0),
+                                            fontSize: 20.0,
                                             fontWeight: FontWeight.bold),
                                       ),
                                       SizedBox(
-                                        height: flexible(context, 20.0),
+                                        height: 20.0,
                                       ),
                                     ],
                                   ),
@@ -515,9 +511,6 @@ class PodcastPageState extends State<PodcastPage> {
                             ),
                           ),
                         ),
-                      );
-                    },
-                  ),
                 )
               : NoInternet();
         }

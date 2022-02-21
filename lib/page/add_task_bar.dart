@@ -21,13 +21,13 @@ class _AddTaskPageState extends State<AddTaskPage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _noteController = TextEditingController();
 
-  DateTime _selectedDate = DateTime.now();
-  String _startTime = DateFormat('hh:mm a').format(DateTime.now()).toString();
+  DateTime? _selectedDate = DateTime.now();
+  String? _startTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
 
-  String _endTime = "9:30 AM";
+  String? _endTime = "9:30 AM";
   int _selectedColor = 0;
 
-  int _selectedRemind = 5;
+  //int _selectedRemind = 5;
   List<int> remindList = [
     5,
     10,
@@ -47,12 +47,12 @@ class _AddTaskPageState extends State<AddTaskPage> {
   Widget build(BuildContext context) {
     //Below shows the time like Sep 15, 2021
     //print(new DateFormat.yMMMd().format(new DateTime.now()));
-    print(" starttime " + _startTime);
+    print(" starttime " + _startTime!);
     final now = new DateTime.now();
     final dt = DateTime(now.year, now.month, now.day, now.minute, now.second);
     final format = DateFormat.jm();
     print(format.format(dt));
-    print("add Task date: " + DateFormat.yMd().format(_selectedDate));
+    print("add Task date: " + DateFormat.yMd().format(_selectedDate!));
     //_startTime = DateFormat('hh:mm a').format(DateTime.now()).toString();
     return Scaffold(
       backgroundColor: Colors.blue.shade100,
@@ -78,7 +78,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
               ),
               InputField(
                 title: S.of(context)!.date,
-                hint: DateFormat.yMd().format(_selectedDate),
+                hint: DateFormat.yMd().format(_selectedDate!),
                 widget: IconButton(
                   icon: (Icon(
                     Icons.calendar_today,
@@ -95,7 +95,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                   Expanded(
                     child: InputField(
                       title: S.of(context)!.startTime,
-                      hint: _startTime,
+                      hint: _startTime!,
                       widget: IconButton(
                         icon: (Icon(
                           Icons.alarm_rounded,
@@ -114,7 +114,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
                   Expanded(
                     child: InputField(
                       title: S.of(context)!.endTime,
-                      hint: _endTime,
+                      hint: _endTime!,
                       widget: IconButton(
                         icon: (Icon(
                           Icons.alarm_rounded,
@@ -165,6 +165,9 @@ class _AddTaskPageState extends State<AddTaskPage> {
         "Required",
         "All fields are required.",
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.white,
+        colorText: Colors.red,
+        icon:Icon(Icons.warning_amber_rounded,color: Colors.red,)
       );
     } else {
       print("############ SOMETHING BAD HAPPENED #################");
@@ -176,7 +179,7 @@ class _AddTaskPageState extends State<AddTaskPage> {
       task: Task(
         note: _noteController.text,
         title: _titleController.text,
-        date: DateFormat.yMd().format(_selectedDate),
+        date: DateFormat.yMd().format(_selectedDate!),
         startTime: _startTime,
         endTime: _endTime,
         color: _selectedColor,
@@ -255,19 +258,33 @@ class _AddTaskPageState extends State<AddTaskPage> {
   }
 
   double toDouble(TimeOfDay myTime) => myTime.hour + myTime.minute / 60.0;
+  
+  _getDateFromUser() async {
+    DateTime? _pickedDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        //initialDatePickerMode: DatePickerMode.day,
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2101));
+    if (_pickedDate != null) {
+      setState(() {
+        _selectedDate = _pickedDate;
+      });
+    }
+  }
 
   _getTimeFromUser({required bool isStartTime}) async {
     var _pickedTime = await _showTimePicker();
-    print(_pickedTime.format(context));
+   // print(_pickedTime.format(context));
     String _formatedTime = _pickedTime.format(context);
-    print(_formatedTime);
+   // print(_formatedTime);
     if (_pickedTime == null)
       print("time canceld");
-    else if (isStartTime)
+    else if (isStartTime == true)
       setState(() {
         _startTime = _formatedTime;
       });
-    else if (!isStartTime) {
+    else if (isStartTime == false) {
       setState(() {
         _endTime = _formatedTime;
       });
@@ -277,23 +294,13 @@ class _AddTaskPageState extends State<AddTaskPage> {
 
   _showTimePicker() async {
     return showTimePicker(
-      initialTime: TimeOfDay.now(),
-      initialEntryMode: TimePickerEntryMode.input,
+      initialEntryMode: TimePickerEntryMode.input,//initialTime: TimeOfDay.now(),
       context: context,
+      initialTime: TimeOfDay(
+          hour: int.parse(_startTime!.split(":")[0]),
+          minute: int.parse(_startTime!.split(":")[0])),
     );
   }
 
-  _getDateFromUser() async {
-    final DateTime? _pickedDate = await showDatePicker(
-        context: context,
-        initialDate: _selectedDate,
-        initialDatePickerMode: DatePickerMode.day,
-        firstDate: DateTime.now(),
-        lastDate: DateTime(2101));
-    if (_pickedDate != null) {
-      setState(() {
-        _selectedDate = _pickedDate;
-      });
-    }
-  }
+
 }

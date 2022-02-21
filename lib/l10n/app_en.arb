@@ -327,7 +327,7 @@
     "@dob": {
       "description": "dob"
     },
-    "phone": "Phonenumber:",
+    "phone": "Phone Number:",
     "@phone": {
       "description": "phone"
     },

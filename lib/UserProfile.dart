@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:path/path.dart' as Path;
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:vhelp_test/AccountScreen.dart';
@@ -57,7 +58,7 @@ class _UserPageState extends State<UserPage> {
     //print(Result(user).);
     image2 = NavigationDrawerWidget.image1;
     CollectionReference users =
-    FirebaseFirestore.instance.collection('Accounts');
+        FirebaseFirestore.instance.collection('Accounts');
 
     return FutureBuilder<DocumentSnapshot>(
       future: users.doc(user!.uid).get(),
@@ -73,7 +74,7 @@ class _UserPageState extends State<UserPage> {
 
         if (snapshot.connectionState == ConnectionState.done) {
           Map<String, dynamic> data =
-          snapshot.data!.data() as Map<String, dynamic>;
+              snapshot.data!.data() as Map<String, dynamic>;
           imageUrl = data['profile url'];
           return Scaffold(
               appBar: AppBar(
@@ -91,9 +92,9 @@ class _UserPageState extends State<UserPage> {
                 child: Container(
                   decoration: BoxDecoration(
                       gradient: LinearGradient(colors: [
-                        Colors.blue.shade100,
-                        Colors.blueGrey.shade100
-                      ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
+                    Colors.blue.shade100,
+                    Colors.blueGrey.shade100
+                  ], begin: Alignment.topCenter, end: Alignment.bottomCenter)),
                   child: Align(
                     alignment: Alignment.center,
                     child: Column(
@@ -112,13 +113,13 @@ class _UserPageState extends State<UserPage> {
                                   ),
                                   image2 != null && imageUrl.isNotEmpty
                                       ? CircleAvatar(
-                                      radius: 70.0,
-                                      backgroundImage:
-                                      NetworkImage(imageUrl))
+                                          radius: 70.0,
+                                          backgroundImage:
+                                              NetworkImage(imageUrl))
                                       : CircleAvatar(
-                                      radius: 70.0,
-                                      backgroundImage: AssetImage(
-                                          'assets/images/iceberg.png')),
+                                          radius: 70.0,
+                                          backgroundImage: AssetImage(
+                                              'assets/images/iceberg.png')),
                                   /*    ? FutureBuilder(
                                     future: _loadImages(),
                                     builder: (context,
@@ -180,7 +181,7 @@ class _UserPageState extends State<UserPage> {
                             decoration: const BoxDecoration(
                               color: Color(0xffffffff),
                               borderRadius:
-                              BorderRadius.all(Radius.circular(12)),
+                                  BorderRadius.all(Radius.circular(12)),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -208,7 +209,7 @@ class _UserPageState extends State<UserPage> {
                             decoration: const BoxDecoration(
                               color: Color(0xffffffff),
                               borderRadius:
-                              BorderRadius.all(Radius.circular(12)),
+                                  BorderRadius.all(Radius.circular(12)),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -238,7 +239,7 @@ class _UserPageState extends State<UserPage> {
                             decoration: const BoxDecoration(
                               color: Color(0xffffffff),
                               borderRadius:
-                              BorderRadius.all(Radius.circular(12)),
+                                  BorderRadius.all(Radius.circular(12)),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -268,7 +269,7 @@ class _UserPageState extends State<UserPage> {
                             decoration: const BoxDecoration(
                               color: Color(0xffffffff),
                               borderRadius:
-                              BorderRadius.all(Radius.circular(12)),
+                                  BorderRadius.all(Radius.circular(12)),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -298,7 +299,7 @@ class _UserPageState extends State<UserPage> {
                             decoration: const BoxDecoration(
                               color: Color(0xffffffff),
                               borderRadius:
-                              BorderRadius.all(Radius.circular(12)),
+                                  BorderRadius.all(Radius.circular(12)),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -328,7 +329,7 @@ class _UserPageState extends State<UserPage> {
                             decoration: const BoxDecoration(
                               color: Color(0xffffffff),
                               borderRadius:
-                              BorderRadius.all(Radius.circular(12)),
+                                  BorderRadius.all(Radius.circular(12)),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -358,7 +359,7 @@ class _UserPageState extends State<UserPage> {
                             decoration: const BoxDecoration(
                               color: Color(0xffffffff),
                               borderRadius:
-                              BorderRadius.all(Radius.circular(12)),
+                                  BorderRadius.all(Radius.circular(12)),
                             ),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -417,7 +418,7 @@ class _UserPageState extends State<UserPage> {
                       backgroundColor: Colors.blue.shade100,
                       onTap: () async {
                         SharedPreferences pref =
-                        await SharedPreferences.getInstance();
+                            await SharedPreferences.getInstance();
                         await pref.clear();
                         _signOut();
                         Restart.restartApp();
@@ -440,7 +441,6 @@ class _UserPageState extends State<UserPage> {
                       labelBackgroundColor: Colors.white)
                 ],
               ));
-
         }
 
         return Scaffold(
@@ -456,9 +456,10 @@ class _UserPageState extends State<UserPage> {
       // if (image == null) return;
       final imageTemporary = File(image!.path);
       if (image != null) {
+        String fileName = Path.basename(image.path);
         var snapshot = await _storage
             .ref()
-            .child('VHelpProfile/DisplayProfilePic')
+            .child('VHelpProfile/$fileName')
             .putFile(imageTemporary);
         var downloadUrl = await snapshot.ref.getDownloadURL();
 
@@ -485,9 +486,10 @@ class _UserPageState extends State<UserPage> {
       // if (image == null) return;
       final imageTemporary = File(image!.path);
       if (image != null) {
+        String fileName = Path.basename(image.path);
         var snapshot = await _storage
             .ref()
-            .child('VHelpProfile/DisplayProfilePic')
+            .child('VHelpProfile/$fileName')
             .putFile(imageTemporary);
         var downloadUrl = await snapshot.ref.getDownloadURL();
 
@@ -542,7 +544,7 @@ class _UserPageState extends State<UserPage> {
                   TextButton(
                       child: Text(S.of(context)!.camera,
                           style: TextStyle(
-                            //fontWeight: FontWeight.bold,
+                              //fontWeight: FontWeight.bold,
                               color: Colors.blueGrey)),
                       onPressed: () {
                         image = pickImageCam();
@@ -551,7 +553,7 @@ class _UserPageState extends State<UserPage> {
                   TextButton(
                       child: Text(S.of(context)!.gallery,
                           style: TextStyle(
-                            //fontWeight: FontWeight.bold,
+                              //fontWeight: FontWeight.bold,
                               color: Colors.blueGrey)),
                       onPressed: () => pickImageGal()),
                 ],
@@ -601,7 +603,7 @@ class _UserPageState extends State<UserPage> {
                   child: Text(S.of(context)!.deleteit),
                   onPressed: () async {
                     SharedPreferences pref =
-                    await SharedPreferences.getInstance();
+                        await SharedPreferences.getInstance();
                     await pref.clear();
                     _DeleteMe();
                     // Restart.restartApp();
@@ -646,4 +648,3 @@ class _UserPageState extends State<UserPage> {
     }
   }
 }
-
